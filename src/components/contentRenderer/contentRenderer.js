@@ -18,7 +18,7 @@ function getSingleListElementType(type, content){
 }
 
 function getSingleNonListElementType(type, content){
-    if (type === 'Paragraph') return <p>{content}</p>;
+    if (type === 'Paragraph') return <p dangerouslySetInnerHTML={getDangerousHTML(content)}></p>;
     if (type === 'Headline')  return <h1 className="display-2">{content}</h1>
     if (type === 'Title')     return <h1 className="display-6">{content}</h1>
     if (type === 'ListItem')  return <li key={content}>{content}</li>
@@ -42,6 +42,12 @@ function ContentRenderer(props){
         return <ContentRenderer key={index} content={element}/>
     })
     return getSingleElement(componentType, componentContent)
+}
+
+function getDangerousHTML(content){
+    return {
+        __html: content
+    };
 }
 
 export default ContentRenderer;
