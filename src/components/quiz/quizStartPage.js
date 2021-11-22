@@ -2,6 +2,7 @@ function QuizStartPage(props){
     let [categories, setCategories] = props.categoriesHandel;
     let [hardnessLevel, setHardnessLevel] = props.hardnessLevelHandel;
     let [nrOfQuestions, setNrOfQuestions] = props.nrOfQuestionsHandel;
+    let [currentQuestionNr, setCurrentQuestionNr] = props.currentQuestionNrHandel;
     const startQuiz = (event)=>{
         event.preventDefault();
         function getCategories(event){
@@ -18,7 +19,7 @@ function QuizStartPage(props){
         setHardnessLevel(hardness);
         setNrOfQuestions(nrOfQuestions);
         console.dir(categories);console.log(hardness);console.log(nrOfQuestions);
-        setNrOfQuestions(0);
+        setCurrentQuestionNr(0);
     }
     
     return (

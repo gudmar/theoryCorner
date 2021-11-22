@@ -2,7 +2,7 @@ import { getJsQuestions } from "../../data/quizJS";
 import { getTsQuestions } from "../../data/quizTS";
 import { getCssQuestions } from "../../data/quizCSS";
 import { getHtmlQuestions } from "../../data/quizHTML";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import QuizStartPage from './quizStartPage'
 import Question from './question'
 
@@ -17,20 +17,49 @@ function QuizMain(props){
     function JumpToQuestion(nr){setCurrentQuestionNr(nr);}
     function nextQuestion(){setCurrentQuestionNr(currentQuestionNr + 1);}
     function prevQuestion(){setCurrentQuestionNr(currentQuestionNr - 1);}
-    
-    return (
-        (currentQuestionNr == -1)?
-        <QuizStartPage categoriesHandel={[categories, setCategories]}
+
+    useEffect(()=>{console.log(currentQuestionNr)})
+
+    function StartPageIfApplicable(){
+        if (currentQuestionNr == -1) return (
+            <QuizStartPage categoriesHandel={[categories, setCategories]}
             hardnessLevelHandel={[hardnessLevel, setHardnessLevel]}
             nrOfQuestionsHandel={[nrOfQuestions, setNrOfQuestions]}
+            currentQuestionNrHandel={[currentQuestionNr, setCurrentQuestionNr]}
         />
-
-        :''
-        ((currentQuestionNr > -1) && (!isQuizFinished))?
-        <Question currentQuestionNrHandel={[currentQuestionNr, setCurrentQuestionNr]}
-            answersHandel={[answers, setCurrentAnswers]}
-            isQuizFinished={[isQuizFinished, setIsQuisFinished]}
-        />:''
+        )
+        return <></>
+    }
+    function QuestionIfApplicable(){
+        if ((currentQuestionNr > -1) && (!isQuizFinished)){
+            return (
+                <Question currentQuestionNrHandel={[currentQuestionNr, setCurrentQuestionNr]}
+                answersHandel={[answers, setCurrentAnswers]}
+                isQuizFinished={[isQuizFinished, setIsQuisFinished]}
+                />                    
+            )
+        }
+        return <></>
+    }
+    
+    return (
+        // (currentQuestionNr == -1)?
+        // <QuizStartPage categoriesHandel={[categories, setCategories]}
+        //     hardnessLevelHandel={[hardnessLevel, setHardnessLevel]}
+        //     nrOfQuestionsHandel={[nrOfQuestions, setNrOfQuestions]}
+        //     currentQuestionNrHandel={[currentQuestionNr, setCurrentQuestionNr]}
+        // />
+        // :''
+        <>
+            <StartPageIfApplicable />
+            <QuestionIfApplicable />
+        </>
+        
+        // ((currentQuestionNr > -1) && (!isQuizFinished))?
+        // <Question currentQuestionNrHandel={[currentQuestionNr, setCurrentQuestionNr]}
+        //     answersHandel={[answers, setCurrentAnswers]}
+        //     isQuizFinished={[isQuizFinished, setIsQuisFinished]}
+        // />:''
     );
 }
 
