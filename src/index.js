@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import QuizMain from './components/quiz/quizMain';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getTheoryData } from './data/theoryData';
@@ -32,7 +33,7 @@ ReactDOM.render(
       <Route path="/" element={<App />} />
       <Route path="about" element={<App />} />
       <Route path="/theory/:topic" element={<App/>} />
-      <Route path="quiz" element={<div></div>} />
+      <Route path="quiz" element={<QuizMain />} />
     </Routes>
 
   </BrowserRouter>
