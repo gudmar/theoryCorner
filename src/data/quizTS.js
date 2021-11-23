@@ -18,9 +18,9 @@ let questions = [
         subcategory:'',
         question: '',
         answers: [
-            {id: 'a', content:''},
+            '',
         ],
-        correctAnswers: ['a'],
+        correctAnswers: [0],
         type: 'checkbox',
         explanation:`
             ${getUl([

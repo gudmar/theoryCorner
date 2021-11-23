@@ -4,7 +4,7 @@
 // question: string
 // answers: [{id:'a, b,...', content:string},...],
 // type: 'radio' | 'checkbox',
-// correctAnswers: ['a','b',....],
+// correctAnswersIds: ['a','b',....],
 // explanation:string
 // links:[string]
 function getUl(itemArray){
@@ -18,14 +18,14 @@ let questions = [
         subcategory:'variables',
         question: 'Select all <b>correct</b> variable names for JS',
         answers: [
-            {id: 'a', content:'$someVariable, _someOtherVariable'},
-            {id: 'b', content:'$32someVariable, _someOtherVariable'},
-            {id: 'c', content:'3circleInARow, some_variable'},
-            {id: 'd', content:'circle#, some_variable'},
-            {id: 'e', content:'some-variable, _someOtherVariable'},
-            {id: 'f', content:'some_variable, _some_Other_Variable'},
+            '$someVariable, _someOtherVariable',
+            '$32someVariable, _someOtherVariable',
+            '3circleInARow, some_variable',
+            'circle#, some_variable',
+            'some-variable, _someOtherVariable',
+            'some_variable, _some_Other_Variable',
         ],
-        correctAnswers: ['a','b','f'],
+        correctAnswersIds: [0,1,5],
         type: 'checkbox',
         explanation:`
             Correct means in this question that there will be no error if a certain name is used, it does not mean that
@@ -65,14 +65,14 @@ let questions = [
             </pre>
         `,
         answers: [
-            {id: 'a', content:'9'},
-            {id: 'b', content:'10'},
-            {id: 'c', content:'undefined'},
-            {id: 'd', content:'null'},
-            {id: 'e', content:'Uncaught ReferenceError: a is not defined'},
+            '9',
+            '10',
+            'undefined',
+            'null',
+            'Uncaught ReferenceError: a is not defined',
             
         ],
-        correctAnswers: ['c'],
+        correctAnswersIds: [2], //starting from 0
         type: 'radio',
         explanation:`
             As <q>a</q> is declaired with a <q>var</q> keyword, its definition will be hoisted: brought to the top of 
@@ -109,13 +109,13 @@ let questions = [
             </pre>
         `,
         answers: [
-            {id: 'a', content:'2'},
-            {id: 'b', content:'undefined'},
-            {id: 'c', content:'null'},
-            {id: 'd', content:'Uncaught ReferenceError: b is not defined'},
+            '2',
+            'undefined',
+            'null',
+            'Uncaught ReferenceError: b is not defined',
             
         ],
-        correctAnswers: ['d'],
+        correctAnswersIds: ['3'], // indexing form 0
         type: 'radio',
         explanation:`
             Let creates only a local, block scope. It is invisible in parent scope, will be visible in child, but 
@@ -149,13 +149,13 @@ let questions = [
             </pre>
         `,
         answers: [
-            {id: 'a', content:'2'},
-            {id: 'b', content:'undefined'},
-            {id: 'c', content:'null'},
-            {id: 'd', content:'Uncaught ReferenceError: b is not defined'},
+            '2',
+            'undefined',
+            'null',
+            'Uncaught ReferenceError: b is not defined',
             
         ],
-        correctAnswers: ['d'],
+        correctAnswersIds: ['3'], // indexing from 0
         type: 'radio',
         explanation:`
             Const creates only a local, block scope. It is invisible in parent scope, will be visible in child, but 
