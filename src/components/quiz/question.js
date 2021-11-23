@@ -27,16 +27,18 @@ function Question(props){
         }
     }
 
-    function applicatoinShouldSwitchToRaportView(){
+    function applicatoinShouldSwitchToRaportView(event){
         setIsQuisFinished(true);
     }
 
     function RatioAnswersIfApplicable(){
         if(qType=='radio') return (
-            <form onSubmit="applicatoinShouldSwitchToRaportView()">
+            <form onSubmit={applicatoinShouldSwitchToRaportView}>
                 {qAnswers.map((answer, index)=>{
                     return (
-                        <div className="form-check">
+                        <div className="form-check"
+                            key={answer.originalIndex}
+                        >
                             <input type="radio" 
                                 className="form-check-input" 
                                 id={`radio${index}`} 
@@ -58,12 +60,15 @@ function Question(props){
 
     function CheckboxAnswersIfApplicable(){
         if(qType=='checkbox') return (
-            <form onSubmit="applicatoinShouldSwitchToRaportView()">
+            <form onSubmit={applicatoinShouldSwitchToRaportView}>
                 {qAnswers.map((answer, index)=>{
                     return (
-                        <div className="form-check">
+                        <div className="form-check"
+                            key={answer.originalIndex}
+                        >
                             <input type="checkbox" 
                                 className="form-check-input" 
+                                
                                 id={`checkbox${index}`} 
                                 name="answers" 
                                 value={answer.originalIndex}
@@ -84,9 +89,9 @@ function Question(props){
     return (
     <div className="container">
     <h3>Question {questionNr + 1} of {nrOfQuestions}</h3>
-        <span className="bage rounded-pill bg-primary">{qCategory}</span>
-        <span className="bage rounded-pill bg-primary">{qSubcategory}</span>
-        <span className="bage rounded-pill bg-primary">{qLevel}</span>
+        <span className="badge rounded-pill bg-primary">{qCategory}</span>
+        <span className="badge rounded-pill bg-primary">{qSubcategory}</span>
+        <span className="badge rounded-pill bg-primary">{qLevel}</span>
         <div className="alert alert-light" dangerouslySetInnerHTML={getDangerousHTML(qContent)}>
         </div>
         <RatioAnswersIfApplicable />

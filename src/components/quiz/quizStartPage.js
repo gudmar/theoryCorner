@@ -6,7 +6,7 @@ function QuizStartPage(props){
     let [nrOfQuestions, setNrOfQuestions] = props.nrOfQuestionsHandel;
     let [currentQuestionNr, setCurrentQuestionNr] = props.currentQuestionNrHandel;
     let [setOfQuestions, setSetOfQuestions] = props.setOfQuestionsHandel;
-    const startQuiz = (event)=>{
+    function startQuiz(event){
         event.preventDefault();
         function getCategories(event){
             let arrayOfSwitches = event.target.cat;

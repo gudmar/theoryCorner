@@ -55,13 +55,13 @@ let questions = [
         subcategory:'variables',
         question: `
             What will below code produce?
-            <pre>
-                console.log(a)
-                for(let i = 0; i < 10; i++){
-                    if (a = 0) var a = 0;
-                    a = i;
-                }
-                console.log(a)
+            <pre class="alert alert-dark">
+    console.log(a)
+    for(let i = 0; i < 10; i++){
+        if (a = 0) var a = 0;
+        a = i;
+    }
+    console.log(a)
             </pre>
         `,
         answers: [
@@ -98,14 +98,14 @@ let questions = [
         subcategory:'variables',
         question: `
             What will below code produce?
-            <pre>
+            <pre class="alert alert-dark">
+    console.log(b)
+    {
+        let b = 2;
+        {
             console.log(b)
-            {
-                let b = 2;
-                {
-                    console.log(b)
-                }
-            }
+        }
+    }
             </pre>
         `,
         answers: [
@@ -138,14 +138,14 @@ let questions = [
         subcategory:'variables',
         question: `
             What will below code produce?
-            <pre>
+            <pre class="alert alert-dark">
             console.log(b)
-            {
-                const b = 2;
-                {
-                    console.log(b)
-                }
-            }
+    {
+        const b = 2;
+        {
+            console.log(b)
+        }
+    }
             </pre>
         `,
         answers: [
