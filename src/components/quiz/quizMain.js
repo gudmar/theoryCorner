@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import QuizStartPage from './quizStartPage'
 
 import Question from './question'
+import Pagination from '../pagination.js'
 
 function QuizMain(props){
     const [categories, setCategories] = useState([]);
@@ -48,6 +49,16 @@ function QuizMain(props){
         }
         return <></>
     }
+    function PaggiationIfApplicable(){
+        if ((currentQuestionNr > -1) && (!isQuizFinished)){
+            return (
+                <Pagination maxNrOfItems = {nrOfQuestions}
+                currentItemNrHandel = {[currentQuestionNr, setCurrentQuestionNr]}
+                />
+            )
+        }
+        return <></>;
+    }
     
     return (
         // (currentQuestionNr == -1)?
@@ -60,6 +71,7 @@ function QuizMain(props){
         <>
             <StartPageIfApplicable />
             <QuestionIfApplicable />
+            <PaggiationIfApplicable />
         </>
         
         // ((currentQuestionNr > -1) && (!isQuizFinished))?

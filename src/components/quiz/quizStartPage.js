@@ -22,10 +22,8 @@ function QuizStartPage(props){
         setHardnessLevel(hardness);
         setNrOfQuestions(nrOfQuestions);
         let localSetOfQuestions = getSetOfQuestions(nrOfQuestions, hardness, categories);
-        console.dir(localSetOfQuestions)
         shuffleAnswersForWholeSetOfQuestions(localSetOfQuestions);
         setSetOfQuestions(localSetOfQuestions);
-        console.dir(categories);console.log(hardness);console.log(nrOfQuestions);
         
         setCurrentQuestionNr(0);
     }
@@ -33,14 +31,11 @@ function QuizStartPage(props){
     function shuffleAnswersForWholeSetOfQuestions(setOfQuestions){
         // PRE: answers as string[]
         // POST: answers as {originalIndex:number, content: string}[]
-        console.log(setOfQuestions)
         for (let question of setOfQuestions){
-            console.log(question)
             let answers = question.answers;
             let randomizedAnswers = getAnswersInRandomOrder(answers);
             question.answers = randomizedAnswers;
         }
-        console.log(setOfQuestions)
         return setOfQuestions; //not needed, as work is done on references anyway
     }
     
