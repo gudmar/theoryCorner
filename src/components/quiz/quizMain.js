@@ -21,7 +21,7 @@ function QuizMain(props){
     function nextQuestion(){setCurrentQuestionNr(currentQuestionNr + 1);}
     function prevQuestion(){setCurrentQuestionNr(currentQuestionNr - 1);}
 
-    useEffect(()=>{console.log(currentQuestionNr)})
+    useEffect(()=>{console.log(answers)})
 
     function StartPageIfApplicable(){
         if (currentQuestionNr == -1) return (
@@ -31,6 +31,8 @@ function QuizMain(props){
             currentQuestionNrHandel={[currentQuestionNr, setCurrentQuestionNr]}
             setOfQuestionsHandel  = {[setOfQuestions, setSetOfQuestions]}
             currentQuestionDescriptor = {setOfQuestions[currentQuestionNr]}
+            setCurrentAnswers = {setCurrentAnswers}
+            answers = {answers}
         />
         )
         return <></>
