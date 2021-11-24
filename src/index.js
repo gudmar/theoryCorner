@@ -5,6 +5,7 @@ import App from './App';
 import QuizMain from './components/quiz/quizMain';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.min.js';
 import { getTheoryData } from './data/theoryData';
 import {
   BrowserRouter,
