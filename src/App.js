@@ -19,8 +19,16 @@ function isPathNotNestedAndContains(locationDescriptor, pathToMatch){
   return allPaths[0] === pathToMatch;
 }
 
+function concatAllTheoryData(dataAsArrayOfTheoryDataObjects){
+  let output = [];
+  dataAsArrayOfTheoryDataObjects.forEach(element => {
+    output.concat(element.content)
+  });
+  return output;
+}
+
 function getTopicFromTheory(topic){
-  let theoryData = getTheoryData();
+  let theoryData = concatAllTheoryData(getTheoryData());//getTheoryData();
   for (let item of theoryData){
     if (item.summary === topic) console.log(item)
     if (item.summary === topic) return item.content;
