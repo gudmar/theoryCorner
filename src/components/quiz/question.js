@@ -1,7 +1,7 @@
-{/* <Question currentQuestionNrHandel={[currentQuestionNr, setCurrentQuestionNr]}
+{/* <Question questionNrHandel={[questionNr, setquestionNr]}
 answersHandel={[answers, setCurrentAnswers]}
 isQuizFinished={[isQuizFinished, setIsQuisFinished]}
-currentQuestionContent={setOfQuestions[currentQuestionNr]} */}
+currentQuestionContent={setOfQuestions[questionNr]} */}
 
 
 
@@ -18,13 +18,42 @@ function Question(props){
     let qAnswers = currentQuestionContent.answers;
     let qCorrectAnswerId = currentQuestionContent.correctAnswersIds;
     let qType = currentQuestionContent.type;
-    console.log(qContent)
 
     function setAnswer(questionId, userAnswerOriginalIndex){
         // answers[questionId].userAnswerOriginalId = userAnswerOriginalIndex;
         return function(event){
-            console.dir(event)
+            let value = event.target.value;
+            let elementType=event.target.type; //'radio'/'checkbox'
+            let isChecked = event.target.checked; //true/false
+            if (elementType == 'radio') setRadio(value);
+            else if (elementType == 'checkbox') setCheckBox(value);
+            else console.warn(`question.js: What? Target should be either radio or change and is ${elementType}`)
         }
+    }
+
+    function setRadio(value){
+        answers[questionNr] = [value]
+        setCurrentAnswers(answers)
+    }
+
+    function setCheckBox(value){
+        let isElementInAnswers = answers[questionNr].includes(value);
+        if (isElementInAnswers == false) answers[questionNr].push(value);
+        else {
+            let indexOfValueInCurrentAnswers = answers[questionNr].findIndex(
+                (element)=>{
+                    return value == element;
+                }
+            )
+            answers[questionNr].splice(indexOfValueInCurrentAnswers, 1);
+            
+        }
+        setCurrentAnswers(answers);
+    }
+
+    function shouldBeChecked(originalValue){
+        return answers[questionNr].includes(originalValue.toString()); // original value is index of answer in data/quizXX.js service,
+        //later this order is shufled randomly, but original value is kept for evaluation purposes;
     }
 
     function applicatoinShouldSwitchToRaportView(event){
@@ -45,7 +74,7 @@ function Question(props){
                                 name="answers" 
                                 value={answer.originalIndex}
                                 onChange={setAnswer(questionNr, index)}
-                                // defaultChecked={answers[questionNr].u}
+                                defaultChecked={shouldBeChecked(answer.originalIndex)}
                             />
                             <label className="fomr-check-label" htmlFor={`radio${index}`}>
                                 {answer.content}
@@ -73,7 +102,7 @@ function Question(props){
                                 name="answers" 
                                 value={answer.originalIndex}
                                 onChange={setAnswer(questionNr, index)}
-                                // defaultChecked={answers[questionNr].u}
+                                defaultChecked={shouldBeChecked(answer.originalIndex)}
                             />
                             <label className="fomr-check-label" htmlFor={`checkobox${index}`}>
                                 {answer.content}
@@ -85,7 +114,6 @@ function Question(props){
         )
         return <></>
     }
-
     return (
     <div className="container">
     <h3>Question {questionNr + 1} of {nrOfQuestions}</h3>
@@ -96,8 +124,6 @@ function Question(props){
         </div>
         <RatioAnswersIfApplicable />
         <CheckboxAnswersIfApplicable />
-        
-
     </div>
 )
 }

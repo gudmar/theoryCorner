@@ -6,6 +6,9 @@ function QuizStartPage(props){
     let [nrOfQuestions, setNrOfQuestions] = props.nrOfQuestionsHandel;
     let [currentQuestionNr, setCurrentQuestionNr] = props.currentQuestionNrHandel;
     let [setOfQuestions, setSetOfQuestions] = props.setOfQuestionsHandel;
+    let setCurrentAnswers = props.setCurrentAnswers;
+    let answers = props.answers;
+
     function startQuiz(event){
         event.preventDefault();
         function getCategories(event){
@@ -17,14 +20,14 @@ function QuizStartPage(props){
         }
         const categories = getCategories(event);
         const hardness = event.target.hardness.value;
-        const nrOfQuestions = event.target.nrQuestions.value;
+        const nrOfQuestions = parseInt(event.target.nrQuestions.value);
         setCategories(categories);
         setHardnessLevel(hardness);
         setNrOfQuestions(nrOfQuestions);
         let localSetOfQuestions = getSetOfQuestions(nrOfQuestions, hardness, categories);
         shuffleAnswersForWholeSetOfQuestions(localSetOfQuestions);
         setSetOfQuestions(localSetOfQuestions);
-        
+        setCurrentAnswers([...Array(nrOfQuestions)].map((i)=>{return[]}));
         setCurrentQuestionNr(0);
     }
 
