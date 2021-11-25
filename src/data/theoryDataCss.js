@@ -185,19 +185,19 @@ let theoryDataCss = [
                                 on the left of nth-child pseudo selector, then rule will be applied as if it was <code>*:nth-child</code>
                                 For example:
                                     <ul>
-                                    <li>
+                                    <li key='1'>
                                         <code>div:nth-child(2)</code> will select all second child elements of each div,
                                     </li>
-                                    <li>
+                                    <li key='2'>
                                         <code>div:nth-child(2)</code> will select all second child elements of each div,
                                     </li>
-                                    <li>
+                                    <li key='3'>
                                         <code>:nth-child(odd)</code> represents each odd element being a child of something, 
                                     </li>
-                                    <li>
+                                    <li key='4'>
                                         <code>:nth-child(even)</code> each even element being a child of something
                                     </li>
-                                    <li>
+                                    <li key='5'>
                                         <code>:nth-child(5n)</code> each element that is (indexOfElement modulo 5), so each
                                         5, 10, 15, 20, 25... 50 ... element being a child of any element
                                     </li>
@@ -209,7 +209,7 @@ let theoryDataCss = [
                                 If no element given, each element will be matched`
                             },
                             {
-                                headline:':first-child',
+                                headline:':last-child',
                                 content: `Each element that is a last child of element on the left of pseudo selector.
                                 If no element given, each element will be matched`
                             },
@@ -244,7 +244,7 @@ let theoryDataCss = [
                         elementType:'Article',
                         content:[
                             {
-                                elementType:'Headline',
+                                elementType:'Headline-2',
                                 content:'References'
                             },
                             {

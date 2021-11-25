@@ -6,7 +6,7 @@ function ExplanationList(props){
     return (
         listItem.map((item)=>{
             return (
-                <div className="row">
+                <div className="row" key={getHeadline(item)}>
                     <div className="col-3">{getHeadline(item)}</div>
                     <div className="col-9" dangerouslySetInnerHTML={getDangerousHTML(getContent(item))}></div>
                 </div>
