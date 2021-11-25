@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import ExplanationList from './explanationList.js'
+
 
 function getSingleElement(type, content){
     if (isListElementType(type)) return getSingleListElementType(type, content);
@@ -12,6 +14,10 @@ function getSingleElement(type, content){
 function getSingleListElementType(type, content){
     if (type === 'Section') return ``
     if (type === 'UList') return ``
+    if (type === 'ExplanationList') return (
+        // <ExplanationList headline={content.headline} content={content.content} />
+        <ExplanationList listItem={content} />
+    )
     if (type === 'Article') {
         return <article>{content.map((element, index)=>{return <ContentRenderer key={index} content={element}/>})}</article>
     }
@@ -25,7 +31,7 @@ function getSingleNonListElementType(type, content){
 }
 
 function isListElementType(elementType){
-    let listElementTypes = ['Section','Article','UList'];
+    let listElementTypes = ['Section','Article','UList', 'ExplanationList'];
     return listElementTypes.includes(elementType)
 }
 
