@@ -115,6 +115,107 @@ let theoryDataCss = [
                 content:[
                     {
                         elementType:'Headline-2',
+                        content:'box-sizing'
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`How size determined by style height and width is calculated depends on 
+                        <code>box-sizing</code> property:`,
+                    },
+                    {
+                        elementType: 'UnsignedList',
+                        content: [
+                            `<b>content-box: </b>width and height properties set only inner elements content, where 
+                            margin, border and padding are not taken into account when setting height and width. So
+                            element as a whole is larger.`,
+                            `<b>border-box: </b>width and height properties contain padding and border of element. Margin 
+                            is not taken into account.`,
+                            `<b>padding-box: </b>width and height properties contain padding. However border and margin
+                            are left outside.`
+                        ]
+                    },
+                    {
+                        elementType: 'NoteWarning',
+                        content: `
+                            Outline is always not taken into account when setting width and height of an element.
+                        `
+                    },
+                ]
+            },
+            {
+                elementType:'Article',
+                content:[
+                    {
+                        elementType:'Headline-2',
+                        content:'Collapsing margins'
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`Lets concidere this piece of code`,
+                    },
+                    {
+                        elementType:'Code',
+                        content:`
+    <pre>
+    <style>
+        p{margin:25px;}
+    </style>
+    <p>Paragraph 1</p>
+    <p>Paragraph 2</p>
+    </pre>                        
+                        `,
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`Margin is set to 25px, so one could expect that as <code>p</code> are block elements 
+                        distance between them in vertical cordinance would be 50px. And there is a surprice. Margins will
+                        collapse, and space will be reduced to 25px. There is a link to a marvelous article about this in
+                        a reference section of this article. But in short words:`,
+                    },
+                    {
+                        elementType: 'UnsignedList',
+                        content: [
+                            `Only vertical margins collapse. Exception is when <code>writing-mode</code> is chenged to 
+                            <code>vertical-lr</code>. In this case only horizontal margin collapses. So only <b>block direction</b>
+                            margins collapse`,
+                            `Only <b>adjacend</b> margins collapse. If there is a <code><br></code> between, they are no longer 
+                            adjacend and they do not collapse`,
+                            `If margins of adjacent elements are unequal, bigger wins`,
+                            `If one of adjacent elements is nested, this doest not prevent collapsing. Exception is when 
+                            parent of nested element has some padding.`,
+                            `Negative margins also collapse. Larger one wins`
+                        ]
+                    },
+                ]
+            },
+            {
+                elementType:'Article',
+                content:[
+                    {
+                        elementType:'Headline-2',
+                        content:'Inline elements'
+                    },
+                    {
+                        elementType: 'Paragraph',
+                        content: `
+                            How about inline elements? Yes, they also are in box model. There is a possibility, that 
+                            an element will be divided. Some part of it will be in line <i>n</i>, and other part of
+                            it will be moved to line <i>n + 1</i>. In this situation this box model will be broken in 
+                            place line ends and moved to next line. To learn more please refer to reference section.
+                        `
+                    },
+                    {
+                        elementType: 'Image',
+                        name: 'boxModel_inline.png',
+                        alt: 'Box model inline element'
+                    } 
+                ]
+            },
+            {
+                elementType:'Article',
+                content:[
+                    {
+                        elementType:'Headline-2',
                         content:'References'
                     },
                     {
