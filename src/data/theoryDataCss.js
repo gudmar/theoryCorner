@@ -59,7 +59,10 @@ let theoryDataCss = [
         summary: 'box model',
         title: 'box model',
         searchKeywords: 'margin padding border outline css',
-        cathegory: 'js',
+        cathegory: 'css',
+        searchKeywords: `margin padding collapsed margin top-margin bottom-margin left-margin right-margin padding
+            padding-top padding-bottom padding-left padding-right border outline border-top border-right border-bottom
+            border-left box-sizing border-box content-box padding-box`,
         content: [
             {
                 elementType:'Article',
@@ -71,17 +74,70 @@ let theoryDataCss = [
                     {
                         elementType: 'Paragraph',
                         content: `
-                            <b>Lorem ipsum</b> dolor sit amet, consectetur adipiscing elit. 
-                            Vestibulum et lacinia arcu, ut tempor lacus. Integer euismod, est et pharetra eleifend, 
-                            magna nibh congue nulla, eu ornare lacus sem eu leo. Sed aliquet tincidunt neque non tempor. 
-                            Sed feugiat, massa at tempus tincidunt, tortor turpis rhoncus orci, nec cursus purus dui vel ipsum. 
-                            Sed pellentesque sem nec dictum auctor. Morbi tempus lectus vitae ultrices volutpat. 
-                            Vivamus convallis mauris urna. Phasellus rhoncus felis eget mi tincidunt malesuada. 
-                            Pellentesque in velit viverra nunc ultrices maximus. Duis in leo dolor.             
+                            Each web page element is placed in rectangular boxes. This boxes describe elements 
                         `
-                    }
+                    },
+                    {
+                        elementType: 'UnsignedList',
+                        content: [
+                            `<b>margin:</b> This is a rectangular box describing elements outer distance from other elements 
+                            on page`,
+                            `<b>border:</b> This is a frame surrounding element, it has its size that may be calculated into
+                            elements size, or not, depending on chosen <code>box-sizing</code>`,
+                            `<b>padding:</b> This is inner element spacing. Distance between border and elements content`,
+                            '<b>content:</b> This is space elements content takes'
+                        ]
+                    },
+                    {
+                        elementType: 'Paragraph',
+                        content: `
+                            There is also an <b>outline</b>, a frame that may surround element with its margin, but this 
+                            is not taken into elements size calculation.
+                        `
+                    },   
+                    {
+                        elementType: 'NoteWarning',
+                        content: `
+                            If element is taken out of layout with <code>position</code> equal to <code>absolute</code>,
+                            <code>fixed</code> or <code>sticky</code> margin, padding, border will exist, but 
+                            will not determine elements distances to other elements on page.
+                        `
+                    },   
+                    {
+                        elementType: 'Image',
+                        name: 'boxModel_browser.png',
+                        alt: 'Box model'
+                    }         
                 ]
             },
+            {
+                elementType:'Article',
+                content:[
+                    {
+                        elementType:'Headline-2',
+                        content:'References'
+                    },
+                    {
+                        elementType:'Link',
+                        content:'w3 org',
+                        href: 'https://www.w3.org/TR/CSS2/box.html',
+                        description: 'Word wide web article about box model'
+                    },
+                    {
+                        elementType:'Link',
+                        content:'Josh Comeau',
+                        href: 'https://www.joshwcomeau.com/css/rules-of-margin-collapse/',
+                        description: 'Great visualisation of margin collapse'
+                    },
+                    {
+                        elementType:'Link',
+                        content:'Hack mozilla',
+                        href: 'https://hacks.mozilla.org/2015/03/understanding-inline-box-model/',
+                        description: 'Inline elements and box model'
+                    }
+
+                ]
+            }
         ]
     },
     {
