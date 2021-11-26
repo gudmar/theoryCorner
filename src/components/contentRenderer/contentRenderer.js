@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import ExplanationList from './explanationList.js'
 import Link from './link.js'
-import { connect } from 'tls';
+import UnsignedList from './unsignedList.js'
+import Image from './image.js'
+import Note from './note.js'
 
 
-function getSingleElement(type, content, href){
+function getSingleElement(type, content, otherProps){
     if (isListElementType(type)) return getSingleListElementType(type, content);
-    else if (isNonListElementType(type)) return getSingleNonListElementType(type, content, href);
+    else if (isNonListElementType(type)) return getSingleNonListElementType(type, content, otherProps);
     else {
         console.error(`${type} is not supported: contentRenderer.js`);
         return ''
@@ -15,7 +17,7 @@ function getSingleElement(type, content, href){
 
 function getSingleListElementType(type, content){
     if (type === 'Section') return ``
-    if (type === 'UList') return ``
+    if (type === 'UnsignedList') return <UnsignedList items={content} />
     if (type === 'ExplanationList') return (
         // <ExplanationList headline={content.headline} content={content.content} />
         <ExplanationList key={content.headline} listItem={content} />
@@ -25,36 +27,46 @@ function getSingleListElementType(type, content){
     }
 }
 
-function getSingleNonListElementType(type, content, href){
+function getSingleNonListElementType(type, content, otherProps){
     if (type === 'Paragraph') return <p dangerouslySetInnerHTML={getDangerousHTML(content)}></p>;
     if (type === 'Headline')  return <h1 className="display-2">{content}</h1>
     if (type === 'Headline-2')  return <h3 className="display-4">{content}</h3>
+    if (type === 'NoteWarning') return <Note severity="warning" content={content} />
     if (type === 'Title')     return <h1 className="display-6">{content}</h1>
     if (type === 'ListItem')  return <li key={content}>{content}</li>
-    if (type === 'Link') return <Link key={content} href={href} content={content} />
+    if (type === 'UnsignedList') return <UnsignedList items={content}/>
+    if (type === 'Link') return <Link key={content} href={otherProps.href} content={content} />
+    if (type === 'Image') return <Image name={otherProps.name} alt={otherProps.alt} />
 }
 
 function isListElementType(elementType){
-    let listElementTypes = ['Section','Article','UList', 'ExplanationList'];
+    let listElementTypes = ['Section','Article', 'ExplanationList'];
     return listElementTypes.includes(elementType)
 }
 
 function isNonListElementType(elementType){
-    let nonListElementTypes = ['Paragraph', 'Headline', 'Headline-2', 'Title', 'ListItem', 'Link'];
+    let nonListElementTypes = [
+        'Paragraph', 'Headline','UnsignedList', 'Headline-2', 'Title', 'ListItem', 'Link', 'NoteWarning', 'Image'
+    ];
     return nonListElementTypes.includes(elementType)
 }
 
 function ContentRenderer(props){
     let componentType = props.content.elementType;
     let componentContent = props.content.content;
-    let href = props.content.href;
+    // let href = props.content.href;
     let isInputArrayOfElements = componentType===undefined?true:false;
+    let otherProps = {
+        href: props.content.href,
+        name: props.content.name,
+        alt:  props.content.alt,
+    }
     
     
     if (isInputArrayOfElements) return componentContent.map((element, index)=>{
         return <ContentRenderer key={index} content={element}/>
     })
-    return getSingleElement(componentType, componentContent, href)
+    return getSingleElement(componentType, componentContent, otherProps)
 }
 
 function getDangerousHTML(content){
