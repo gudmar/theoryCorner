@@ -63,9 +63,13 @@ function ContentRenderer(props){
     }
     
     
-    if (isInputArrayOfElements) return componentContent.map((element, index)=>{
-        return <ContentRenderer key={index} content={element}/>
-    })
+    if (isInputArrayOfElements) {
+        console.log(isInputArrayOfElements)
+        console.log(props)
+        return componentContent.map((element, index)=>{
+            return <ContentRenderer key={index} content={element}/>
+        })
+    }
     return getSingleElement(componentType, componentContent, otherProps)
 }
 
