@@ -41,6 +41,14 @@ function filterSubmenu(filter, submenuContent){
     })
 }
 
+function sortSubmenu(submenuContent){
+    function compare(a, b){
+        return a.summary.localeCompare(b.summary);
+    }
+    console.log(submenuContent.sort(compare))
+    return submenuContent.sort(compare);
+}
+
 function Submenu(props){
     // let menuData = props.menuData;
     let menuContent = props.content;
@@ -53,7 +61,7 @@ function Submenu(props){
             </button>
             <div className="collapse show" id={menuTopic}>
                 <ul className = "nav flex-column">
-                    {filterSubmenu(filter,menuContent).map((element)=>{return <MenuItem key={element.summary} summary={element.summary}/>})}
+                    {sortSubmenu(filterSubmenu(filter,menuContent)).map((element)=>{return <MenuItem key={element.summary} summary={element.summary}/>})}
                 </ul>
             </div>
         </div>

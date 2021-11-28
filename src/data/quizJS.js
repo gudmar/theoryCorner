@@ -171,7 +171,36 @@ let questions = [
         `,
         links: [
         ]
-    }
+    },
+    {
+        category: 'js',
+        level: 'easy',
+        subcategory:'form-validation',
+        question: 'Please complete below statements',
+        answers: [
+            `<b>Prevent default form validation to implement custom one:</b> <br>
+            <code>&lt;form {{{}}}></code>
+            ` ,
+            `<b>Check if form is valid:</b> <br>
+            <code>if (document.querySelector('form').{{{}}})...</code>`,
+            `<b>Check if field has not too great value:</b> <br>
+            <code>if (document.querySelector('#someInput').{{{}}})...</code>`
+        ],
+        correctAnswers: [['nonvalidate'], ['validity.valid'], ['validity.rangeOverflow']],
+        type: 'fill-in',
+        explanation:`
+            ${getUl([
+                `<code>&lt;form nonvalidate></code> prevents whole form from default validation, leaving css pseudoclasses
+                and Constraint Validation API to work with`,
+                `<code>validity</code> is a property delivered with Constraint Validation API, that allows to check
+                &lt;rangeOverflow> for too great values, &lt;vlid> for checking if whole form is valid, and many more.`
+            ]
+            )}
+        `,
+        links: [
+            '',''
+        ]
+    },
 ]
 
 export function getJsQuestions(){

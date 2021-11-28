@@ -36,10 +36,10 @@ let questions = [
         category: 'html',
         level: 'easy',
         subcategory:'form-validation',
-        question: 'Please fill complete below statements',
+        question: 'Please complete below statements',
         answers: [
-            'This input is mandatory: <br><code>&lt;input type="number" </code>{{{}}}<code>="</code>{{{}}}<code>" </code>' ,
-            `This input should have value greater or equal to 6, but not greater then 10: <br>
+            '<b>This input is mandatory:</b> <br><code>&lt;input type="number" </code>{{{}}}<code>="</code>{{{}}}<code>" </code>' ,
+            `<b>This input should have value greater or equal to 6, but not greater then 10:</b> <br>
             <code>&lt;input type="number" </code>{{{}}}<code>="6" </code>{{{}}}<code>="10"</code>`
         ],
         correctAnswers: [['required', 'required'], ['min','max']],
