@@ -17,6 +17,7 @@ function Question(props){
     let qContent = currentQuestionContent.question;
     let qAnswers = currentQuestionContent.answers;
     let qCorrectAnswerId = currentQuestionContent.correctAnswersIds;
+    let qCorrectAnswersFillIn = currentQuestionContent.correctAnswers
     let qType = currentQuestionContent.type;
 
     function setAnswer(questionId, userAnswerOriginalIndex){
@@ -92,6 +93,8 @@ function Question(props){
         setIsQuisFinished(true);
     }
 
+
+
     function RatioAnswersIfApplicable(){
         if(qType=='radio') return (
             <form onSubmit={applicatoinShouldSwitchToRaportView}>
@@ -140,6 +143,15 @@ function Question(props){
             if (answerToSearchIn[answerNr][fieldNr] == undefined) return '';
             return answerToSearchIn[answerNr][fieldNr];
         }
+
+        function calculateTextInputLengthBasedOnAnswer(answerRow, answerCol){
+            let currentFillInAnswers = qCorrectAnswersFillIn;
+            let nrOfCharsInOneInputSizeUnit = 2;
+            let queriedAnswer = currentFillInAnswers[answerRow][answerCol];
+            let inputSize = Math.ceil(queriedAnswer.length/nrOfCharsInOneInputSizeUnit) + 2;
+            return inputSize;
+        }
+
         function getSingleAnswer(answerString, answerNr){
             let dividedAnswer = divideQuestionToSubstrings(answerString)
             return (
@@ -149,7 +161,7 @@ function Question(props){
                             <span key={fieldNr}>
                                 <span dangerouslySetInnerHTML={getDangerousHTML(subString)}></span>
                                 {(fieldNr < dividedAnswer.length - 1)?
-                                    <input type="text" 
+                                    <input size={calculateTextInputLengthBasedOnAnswer(answerNr,fieldNr).toString()} type="text" 
                                         onBlur={setAnswerLocal(answerNr,fieldNr)}
                                         defaultValue = {getFillInAnswerValue(answerNr, fieldNr)}
                                     />

@@ -182,11 +182,40 @@ let questions = [
             <code>&lt;form {{{}}}></code>
             ` ,
             `<b>Check if form is valid:</b> <br>
-            <code>if (document.querySelector('form').{{{}}})...</code>`,
+            <code>if (document.querySelector('form').</code>{{{}}}<code>)...</code>`,
             `<b>Check if field has not too great value:</b> <br>
-            <code>if (document.querySelector('#someInput').{{{}}})...</code>`
+            <code>if (document.querySelector('#someInput').</code>{{{}}}<code>)...</code>`
         ],
         correctAnswers: [['nonvalidate'], ['validity.valid'], ['validity.rangeOverflow']],
+        type: 'fill-in',
+        explanation:`
+            ${getUl([
+                `<code>&lt;form nonvalidate></code> prevents whole form from default validation, leaving css pseudoclasses
+                and Constraint Validation API to work with`,
+                `<code>validity</code> is a property delivered with Constraint Validation API, that allows to check
+                &lt;rangeOverflow> for too great values, &lt;vlid> for checking if whole form is valid, and many more.`
+            ]
+            )}
+        `,
+        links: [
+            '',''
+        ]
+    },
+    {
+        category: 'js',
+        level: 'easy',
+        subcategory:'form-validation',
+        question: 'Please complete below statements',
+        answers: [
+            `<b>Make validity error message: 'wrong input' appear on form</b> <br>
+            <code>document.querySelector('form').{{{}}}('wrong input')></code>
+            ` ,
+            `<b>Check if pattern in input box is not too long</b> <br>
+            <code>if (document.querySelector('#input').</code>{{{}}}<code>)...</code>`,
+            `<b>Check if mandatory field is filled:</b> <br>
+            <code>if (document.querySelector('#someInput').</code>{{{}}}<code>)...</code>`
+        ],
+        correctAnswers: [['setCustomValidity'], ['validity.tooLong'], ['validity.valueMissing']],
         type: 'fill-in',
         explanation:`
             ${getUl([

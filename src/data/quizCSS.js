@@ -199,6 +199,32 @@ let questions = [
             '',''
         ]
     },
+    {
+        category: 'css',
+        level: 'easy',
+        subcategory:'form-validation',
+        question: `Mandatory fields should have red outline, fields with correct value should have green background,
+            fields with not proper value should have red background. Use proper pseudo classes`,
+        answers: [
+            `<code>input:</code>{{{}}}<code>{background-color:red;}</code>`,
+            `<code>input:</code>{{{}}}<code>{background-color:green;}</code>`,
+            `<code>input:</code>{{{}}}<code>{outline: red solid thin;}</code>`,
+        ],
+        correctAnswers: [[':invalid'], [':valid'], [':required']],
+        type: 'fill-in',
+        explanation:`
+            ${getUl([
+                `<code>&lt;form nonvalidate></code> prevents whole form from default validation, leaving css pseudoclasses
+                and Constraint Validation API to work with`,
+                `<code>validity</code> is a property delivered with Constraint Validation API, that allows to check
+                &lt;rangeOverflow> for too great values, &lt;vlid> for checking if whole form is valid, and many more.`
+            ]
+            )}
+        `,
+        links: [
+            '',''
+        ]
+    },
 ]
 
 export function getCssQuestions(){
