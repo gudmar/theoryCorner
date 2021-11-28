@@ -12,26 +12,26 @@ function getUl(itemArray){
 }
 
 let questions = [
-    {
-        category: 'css',
-        level: 'easy',
-        subcategory:'',
-        question: '',
-        answers: [
-            '',
-        ],
-        correctAnswers: [0],
-        type: 'checkbox',
-        explanation:`
-            ${getUl([
-                '',''
-            ]
-            )}
-        `,
-        links: [
-            '',''
-        ]
-    },
+    // {
+    //     category: 'css',
+    //     level: 'easy',
+    //     subcategory:'',
+    //     question: '',
+    //     answers: [
+    //         '',
+    //     ],
+    //     correctAnswers: [0],
+    //     type: 'checkbox',
+    //     explanation:`
+    //         ${getUl([
+    //             '',''
+    //         ]
+    //         )}
+    //     `,
+    //     links: [
+    //         '',''
+    //     ]
+    // },
     {
         category: 'css',
         level: 'medium',
@@ -39,8 +39,8 @@ let questions = [
         question: `What size (not including margins, so width and height returned by 
             document.querySelector('.test-div').getBoundingClientRect()
         ) will element described with below code have
-        <pre>
-<style>
+        <pre class="alert alert-dark">
+&lt;style>
     *{box-sizing: padding-box;}
     .test-div{
         position: relative;
@@ -58,8 +58,8 @@ let questions = [
         border-right: solid transparent 25px;
         padding: 10px;
     }
-</style>
-<div class="test-div"></div>
+&lt;/style>
+&lt;div class="test-div">&lt;/div>
         </pre>
         `,
         answers: [
@@ -95,8 +95,8 @@ let questions = [
         level: 'medium',
         subcategory:'',
         question: `What will be vertical distance between divs from below code:
-        <pre>
-<style>
+        <pre class="alert alert-dark">
+&lt;style>
     .test-div{
         position:relative;
         height: 50px;
@@ -110,9 +110,9 @@ let questions = [
         border: 5px solid black;
         outline: 10px solid transparent;
     }        
-</style>
-<div class = "test-div"></div>
-<div class = "test-div"></div>
+&lt;/style>
+&lt;div class = "test-div">&lt;/div>
+&lt;div class = "test-div">&lt;/div>
         </pre>
         `,
         answers: [
@@ -140,8 +140,8 @@ let questions = [
         level: 'medium',
         subcategory:'',
         question: `What will be .test-div actual height, returned by <code>document.querySelector('.test-div').getBoundingClientRect().height?
-        <pre>
-<style>
+        <pre class="alert alert-dark">
+&lt;style>
     .test-div{
         position:relative;
         height: 50px;
@@ -155,9 +155,9 @@ let questions = [
         border: 5px solid black;
         outline: 10px solid transparent;
     }        
-</style>
-<div class = "test-div"></div>
-<div class = "test-div"></div>
+&lt;/style>
+&lt;div class = "test-div">&lt;/div>
+&lt;div class = "test-div">&lt;/div>
         </pre>
         `,
         answers: [

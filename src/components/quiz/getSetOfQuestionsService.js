@@ -36,13 +36,23 @@ function randomNumber(maxVal){
     return Math.floor(Math.random() * max);
 }
 
-function getQuestionDataBase(hardnessLevel, categories){
-    let concatenatedDB = [];
-    
+function getAllQuestionsFromListedCategoriesFromDB(categories){
+    let concatenatedDB = [];    
     if (categories.includes('js')) concatenatedDB = concatenatedDB.concat(...getJsQuestions());
     if (categories.includes('ts')) concatenatedDB = concatenatedDB.concat(...getTsQuestions());
     if (categories.includes('css')) concatenatedDB = concatenatedDB.concat(...getCssQuestions());
     if (categories.includes('html')) concatenatedDB = concatenatedDB.concat(...getHtmlQuestions());
+    return concatenatedDB
+}
+
+function getQuestionDataBase(hardnessLevel, categories){
+    let concatenatedDB = getAllQuestionsFromListedCategoriesFromDB(categories);
+    // let concatenatedDB = [];
+    
+    // if (categories.includes('js')) concatenatedDB = concatenatedDB.concat(...getJsQuestions());
+    // if (categories.includes('ts')) concatenatedDB = concatenatedDB.concat(...getTsQuestions());
+    // if (categories.includes('css')) concatenatedDB = concatenatedDB.concat(...getCssQuestions());
+    // if (categories.includes('html')) concatenatedDB = concatenatedDB.concat(...getHtmlQuestions());
     function isQuestionDifficultEnough(element){
         return element.level == hardnessLevel
     }
@@ -50,4 +60,4 @@ function getQuestionDataBase(hardnessLevel, categories){
     return concatenatedDB.filter(isQuestionDifficultEnough);
 }
 
-export {getSetOfQuestions, getAnswersInRandomOrder};
+export {getSetOfQuestions, getAnswersInRandomOrder, getAllQuestionsFromListedCategoriesFromDB};

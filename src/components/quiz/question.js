@@ -51,6 +51,38 @@ function Question(props){
         setCurrentAnswers(answers);
     }
 
+    function setFillInAnswer(rowId, colId, value){
+        function getFillInAnswersFromDBSizes(arrOfArrays){
+            return arrOfArrays.map((item)=>{return item.split('{{{}}}').length - 1})
+        }
+        function fillWithEmptyArrays(arr, howManyEmptyArrays){
+            let len = arr.length;
+            if (len < howManyEmptyArrays) {
+                // arr = [...Array(howManyEmptyArrays).fill([])]
+                for(let i=0; i<howManyEmptyArrays - len; i++){
+                    arr.push([])
+                }
+            }
+            
+        }
+        function fillEachRowWithEmptyArrays(arrOfArrays, arrOfLengths){
+            for (let i = 0; i<arrOfArrays.length; i++){
+                let arrLen = arrOfArrays[i].length;
+                let howManyArraysShouldBe = arrOfLengths[i];
+                fillWithEmptyArrays(arrOfArrays[i], howManyArraysShouldBe);
+            }
+        }
+        let lastAnswer = answers[questionNr];
+        let answersFromDB = qAnswers;//[questionNr];
+        let answersFromDBSizes = getFillInAnswersFromDBSizes(answersFromDB);
+        fillWithEmptyArrays(lastAnswer, answersFromDBSizes.length)
+        fillEachRowWithEmptyArrays(lastAnswer, answersFromDBSizes)
+        lastAnswer[rowId][colId] = value;
+        answers[questionNr] = lastAnswer;
+        setCurrentAnswers(answers);
+        console.log(lastAnswer)
+    }
+
     function shouldBeChecked(originalValue){
         return answers[questionNr].includes(originalValue.toString()); // original value is index of answer in data/quizXX.js service,
         //later this order is shufled randomly, but original value is kept for evaluation purposes;
@@ -87,6 +119,62 @@ function Question(props){
         return <></>
     }
 
+    function FillInAnswersIfApplicable(){
+        function divideQuestionToSubstrings(question){
+            return question.trim().split('{{{}}}');
+        }
+        function setAnswerLocal(answerIndex, fillInFieldInAnswerIndex){
+            //answerIndex is row, fillInFieldInAnswerIndex is column
+            // let questionNr = questionIndex;
+            let answerId = answerIndex; 
+            let fieldId = fillInFieldInAnswerIndex;
+            return function(event){
+                let content = event.target.value.trim();
+                setFillInAnswer(answerId, fieldId, content)
+            }
+        }
+        function getFillInAnswerValue(answerNr, fieldNr){
+            let answerToSearchIn = answers[questionNr];
+            if (!Array.isArray(answerToSearchIn)) return '';
+            if (answerToSearchIn[answerNr] == undefined) return '';
+            if (answerToSearchIn[answerNr][fieldNr] == undefined) return '';
+            return answerToSearchIn[answerNr][fieldNr];
+        }
+        function getSingleAnswer(answerString, answerNr){
+            let dividedAnswer = divideQuestionToSubstrings(answerString)
+            return (
+                <div key={answerString}>
+                    {dividedAnswer.map((subString, fieldNr)=>{
+                        return (
+                            <span key={fieldNr}>
+                                <span dangerouslySetInnerHTML={getDangerousHTML(subString)}></span>
+                                {(fieldNr < dividedAnswer.length - 1)?
+                                    <input type="text" 
+                                        onBlur={setAnswerLocal(answerNr,fieldNr)}
+                                        defaultValue = {getFillInAnswerValue(answerNr, fieldNr)}
+                                    />
+                                :
+                                    <></>
+                                }
+                            </span>
+                        )
+                    })}
+                </div>
+            )
+        }
+        if (qType == 'fill-in') return (
+            qAnswers.map((answer, index)=>{
+                return (
+                    <div key={index}>
+                        {getSingleAnswer(answer, index)}
+                    </div>
+                )
+
+            })
+        )
+        return <></>
+    }
+
     function CheckboxAnswersIfApplicable(){
         if(qType=='checkbox') return (
             <form onSubmit={applicatoinShouldSwitchToRaportView}>
@@ -104,7 +192,7 @@ function Question(props){
                                 onChange={setAnswer(questionNr, index)}
                                 defaultChecked={shouldBeChecked(answer.originalIndex)}
                             />
-                            <label className="fomr-check-label" htmlFor={`checkobox${index}`}>
+                            <label className="form-check-label" htmlFor={`checkobox${index}`}>
                                 {answer.content}
                             </label>
                         </div>
@@ -124,6 +212,7 @@ function Question(props){
         </div>
         <RatioAnswersIfApplicable />
         <CheckboxAnswersIfApplicable />
+        <FillInAnswersIfApplicable />
     </div>
 )
 }
