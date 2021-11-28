@@ -12,19 +12,45 @@ function getUl(itemArray){
 }
 
 let questions = [
+    // {
+    //     category: 'html',
+    //     level: 'easy',
+    //     subcategory:'',
+    //     question: '',
+    //     answers: [
+    //         '',
+    //     ],
+    //     correctAnswers: [0],
+    //     type: 'checkbox',
+    //     explanation:`
+    //         ${getUl([
+    //             '',''
+    //         ]
+    //         )}
+    //     `,
+    //     links: [
+    //         '',''
+    //     ]
+    // },
     {
-        category: 'css',
+        category: 'html',
         level: 'easy',
-        subcategory:'',
-        question: '',
+        subcategory:'form-validation',
+        question: 'Please fill complete below statements',
         answers: [
-            '',
+            'This input is mandatory: <br><code>&lt;input type="number" </code>{{{}}}<code>="</code>{{{}}}<code>" </code>' ,
+            `This input should have value greater or equal to 6, but not greater then 10: <br>
+            <code>&lt;input type="number" </code>{{{}}}<code>="6" </code>{{{}}}<code>="10"</code>`
         ],
-        correctAnswers: [0],
-        type: 'checkbox',
+        correctAnswers: [['required', 'required'], ['min','max']],
+        type: 'fill-in',
         explanation:`
             ${getUl([
-                '',''
+                '<code>min</code>, <code>max</code> are properties for minimal and maximum value',
+                '<code>required</code> is a property for a mandatory field',
+                '<code>min-length</code>, <code>max-length</code> is a property for minimal and maximum length in characters',
+                '<code>pattern</code> is for validation against regular expression',
+                '<code>type</code> is for checking if data is of specified type, like email, address or telephone.'
             ]
             )}
         `,
@@ -32,6 +58,7 @@ let questions = [
             '',''
         ]
     },
+
 ]
 
 export function getHtmlQuestions(){

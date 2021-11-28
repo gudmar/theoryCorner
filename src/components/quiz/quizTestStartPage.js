@@ -1,9 +1,9 @@
-import {getSetOfQuestions, getAnswersInRandomOrder} from './getSetOfQuestionsService'
+import {getSetOfQuestions, getAnswersInRandomOrder, getAllQuestionsFromListedCategoriesFromDB} from './getSetOfQuestionsService'
 
-function QuizStartPage(props){
+function QuizTestStartPage(props){
     let [categories, setCategories] = props.categoriesHandel;
-    let [hardnessLevel, setHardnessLevel] = props.hardnessLevelHandel;
-    let [nrOfQuestions, setNrOfQuestions] = props.nrOfQuestionsHandel;
+    // let [hardnessLevel, setHardnessLevel] = props.hardnessLevelHandel;
+    // let [nrOfQuestions, setNrOfQuestions] = props.nrOfQuestionsHandel;
     let [currentQuestionNr, setCurrentQuestionNr] = props.currentQuestionNrHandel;
     let [setOfQuestions, setSetOfQuestions] = props.setOfQuestionsHandel;
     let setCurrentAnswers = props.setCurrentAnswers;
@@ -19,28 +19,19 @@ function QuizStartPage(props){
             return output;
         }
         const categories = getCategories(event);
-        const hardness = event.target.hardness.value;
-        const nrOfQuestions = parseInt(event.target.nrQuestions.value);
-        setCategories(categories);
-        setHardnessLevel(hardness);
-        setNrOfQuestions(nrOfQuestions);
-        let localSetOfQuestions = getSetOfQuestions(nrOfQuestions, hardness, categories);
+        // const hardness = event.target.hardness.value;
+        // const nrOfQuestions = parseInt(event.target.nrQuestions.value);
+        // setCategories(categories);
+        // setHardnessLevel(hardness);
+        // setNrOfQuestions(nrOfQuestions);
+        // let localSetOfQuestions = getSetOfQuestions(nrOfQuestions, hardness, categories);
+        let localSetOfQuestions = getAllQuestionsFromListedCategoriesFromDB(categories)
+        let nrOfQuestions = localSetOfQuestions.length;
         shuffleAnswersForWholeSetOfQuestions(localSetOfQuestions);
         setSetOfQuestions(localSetOfQuestions);
         setCurrentAnswers([...Array(nrOfQuestions)].map((i)=>{return[]}));
         setCurrentQuestionNr(0);
     }
-
-    // function shuffleAnswersForWholeSetOfQuestions(setOfQuestions){
-    //     // PRE: answers as string[]
-    //     // POST: answers as {originalIndex:number, content: string}[]
-    //     for (let question of setOfQuestions){
-    //         let answers = question.answers;
-    //         let randomizedAnswers = getAnswersInRandomOrder(answers);
-    //         question.answers = randomizedAnswers;
-    //     }
-    //     return setOfQuestions; //not needed, as work is done on references anyway
-    // }
 
     function shuffleAnswersForWholeSetOfQuestions(setOfQuestions){
         // PRE: answers as string[]
@@ -82,7 +73,11 @@ function QuizStartPage(props){
                         <label className="form-check-label" htmlFor="jsCatSwitch">HTML</label>
                     </div>
                 </div>
-                <div>
+                <button type="submit" className="btn btn-primary mt-3">Submit</button>
+            </form>
+        </div>
+    );
+                {/* <div>
                     <h4>Select hardness level</h4>
                     <div className="form-check">
                         <input type="radio" className="form-check-input" id="radioEasy" name="hardness" value="easy" defaultChecked/>
@@ -96,8 +91,8 @@ function QuizStartPage(props){
                         <input type="radio" className="form-check-input" id="radioHard" name="hardness" value="hard" />
                         <label className="form-check-label" htmlFor="radioHard">Hard</label>
                     </div>
-                </div>
-                <div>
+                </div> */}
+                {/* <div>
                     <h4>Select nr of questions</h4>
                     <div className="form-check">
                         <input type="radio" className="form-check-input" id="nrQuestions1" name="nrQuestions" value="3" defaultChecked />
@@ -112,10 +107,10 @@ function QuizStartPage(props){
                         <label className="form-check-label" htmlFor="nrQuestions3">20</label>
                     </div>
                     <button type="submit" className="btn btn-primary mt-3">Submit</button>
-                </div>
-            </form>
-        </div>
-    );
+                </div> */}
+    //         </form>
+    //     </div>
+    // );
 }
 
-export default QuizStartPage;
+export default QuizTestStartPage;
