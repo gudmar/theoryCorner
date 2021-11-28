@@ -165,9 +165,14 @@ function Question(props){
         if (qType == 'fill-in') return (
             qAnswers.map((answer, index)=>{
                 return (
-                    <div key={index}>
-                        {getSingleAnswer(answer, index)}
-                    </div>
+                    <>
+                        <div className="card bg-light text-dark" key={index}>
+                            <div className="card-body">
+                                {getSingleAnswer(answer, index)}
+                            </div>
+                        </div>
+                        <br/>
+                    </>
                 )
 
             })
