@@ -4,6 +4,7 @@ import Link from './link.js'
 import UnsignedList from './unsignedList.js'
 import Image from './image.js'
 import Note from './note.js'
+import Code from './code.js'
 
 
 function getSingleElement(type, content, otherProps){
@@ -37,6 +38,7 @@ function getSingleNonListElementType(type, content, otherProps){
     if (type === 'UnsignedList') return <UnsignedList items={content}/>
     if (type === 'Link') return <Link key={content} href={otherProps.href} content={content} />
     if (type === 'Image') return <Image name={otherProps.name} alt={otherProps.alt} />
+    if (type === 'Code') return <Code content={content} />
 }
 
 function isListElementType(elementType){
@@ -46,7 +48,8 @@ function isListElementType(elementType){
 
 function isNonListElementType(elementType){
     let nonListElementTypes = [
-        'Paragraph', 'Headline','UnsignedList', 'Headline-2', 'Title', 'ListItem', 'Link', 'NoteWarning', 'Image'
+        'Paragraph', 'Headline','UnsignedList', 'Headline-2', 
+        'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code'
     ];
     return nonListElementTypes.includes(elementType)
 }
