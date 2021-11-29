@@ -230,6 +230,102 @@ let questions = [
             '',''
         ]
     },
+    {
+        category: 'js',
+        level: 'easy',
+        subcategory:'DOM-access',
+        question: 'Please complete below statements',
+        answers: [
+            `<b>Find element with specified Id</b> <br>
+            <code>let found = document.{{{}}}('someId')</code>
+            `,
+            `<b>Find all elements with class 'my-class'</b> <br>
+            <code>let found = document.{{{}}}('.my-class')</code>
+            `,
+            `<b>Find all 'p' elements in document</b> <br>
+            <code>let found = {{{}}}.('p')</code>
+            `,
+        ],
+        correctAnswers: [['getElementById'], ['querySelectorAll'], ['document.getElementsByTagName']],
+        type: 'fill-in',
+        explanation:`
+            ${getUl([
+                `<code>getElementById</code> for accessing element by unique Id`,
+                `<code>getElementsByTagName</code> for accessing NodeList of elements with specific tag,`,
+                `<code>getElementsByClassName</code> can be used to access NodeList of elements with specified class name,
+                however in this case there is a dot before class name, and this is a css selector, so <code>querySelectorAll</code>
+                will be a right solution. `
+            ]
+            )}
+        `,
+        links: [
+            '',''
+        ]
+    },
+    {
+        category: 'js',
+        level: 'easy',
+        subcategory:'DOM-access',
+        question: 'Please complete below statements',
+        answers: [
+            `<b>get all forms from document</b> <br>
+            <code>let forms = document.{{{}}}</code>
+            `,
+            `<b>Set page title to 'my new title'</b> <br>
+            <code>{{{}}} = 'my new title</code>
+            `,
+            `<b>Find all elements in document with name 'someName'</b> <br>
+            <code>let found = {{{}}}.('someName')</code>
+            `,
+        ],
+        correctAnswers: [['forms'], ['document.title'], ['document.getElementsByName']],
+        type: 'fill-in',
+        explanation:`
+            ${getUl([
+                `<code>getElementById</code> for accessing element by unique Id`,
+                `<code>getElementsByTagName</code> for accessing NodeList of elements with specific tag,`,
+                `<code>getElementsByClassName</code> can be used to access NodeList of elements with specified class name,
+                however in this case there is a dot before class name, and this is a css selector, so <code>querySelectorAll</code>
+                will be a right solution. `
+            ]
+            )}
+        `,
+        links: [
+            '',''
+        ]
+    },
+
+    {
+        category: 'js',
+        level: 'easy',
+        subcategory:'DOM-access',
+        question: 'Please complete below statements',
+        answers: [
+            `<b>get parent element</b> <br>
+            <code>let parent = element.{{{}}}</code>
+            `,
+            `<b>Clone node</b> <br>
+            <code>let cloned = element.{{{}}}(true)</code>
+            `,
+            `<b>Insert an element before element'</b> <br>
+            <code>element.{{{}}}()</code>
+            `,
+        ],
+        correctAnswers: [['parentNode'], ['cloneNode'], ['insertBefore()']],
+        type: 'fill-in',
+        explanation:`
+            ${getUl([
+                `<code>parentNode</code> will access a parent component`,
+                `<code>element.cloneNode</code> makes exect copy of an element. Beware -> Ids that are supposed to be 
+                unique will be cloned aswell`,
+                `<code>insertBefore </code> inserts an element before given node. `
+            ]
+            )}
+        `,
+        links: [
+            '',''
+        ]
+    },
 ]
 
 export function getJsQuestions(){

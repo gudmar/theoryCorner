@@ -66,6 +66,8 @@ let data =     {
                     `,
                     `<code>someElement.appendChild(createdElement)</code>: will add already created element as a last
                     child of someElement`,
+                    `<code>someElement.prepent(setOfNodeObjects)</code>: inserts a set of Node objects before first child
+                    of <i>someElement</i>`
                     `<code>someElement.removeElement()</code>: removes element.`
                     ]
                 },
@@ -89,10 +91,10 @@ let data =     {
                         This returns also text and comments, and as this is a live node, all changes will ba updated`,
                         `<code>Node.firstChild</code> returns a first direct child node of target element,  or null
                         in case there are no children.`,
-                        `<code>Node.lastChild</coed> returns a last child of target node`,
+                        `<code>Node.lastChild</code> returns a last child of target node`,
                         `<code>Node.nextSibling</code> returns a next to current node child of parent node`,
                         `<code>Node.previousSibling</code> returns a previous child node of current nodes parent, or null.`,
-                        `<code>Node.nodeName</cdoe>: returns either node name in capital letters ('DIV') or <code>#document</code>,
+                        `<code>Node.nodeName</code>: returns either node name in capital letters ('DIV') or <code>#document</code>,
                         or <code>#text</code in case of text node.`,
                         `<code>Node.value</code>: returns a value under <code>value</code> attribute of target node, or null if element
                          has no value attribute.`,
