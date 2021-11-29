@@ -33,9 +33,11 @@ let data =     {
                     `,
                     `<code>getElementsByTagName('someTag')</code>: allows to find an NodeList of all elements with specified
                     tag name in subtree. Example tags in HTML are: <code>p</code>, <code>html</code>, <code>div</code>,
-                    <code>span</code>, <code>form</code>. There is no necessity to search whole tree, as 
+                    <code>span</code>, <code>form</code>. There is no necessity to search whole DOM tree starting from
+                    a <code>document</code> root node, as 
                     <code>document.getElementById('someId').getElementsByTagName('p')</code> will find all <code>p</code>
-                    elements that are nested in element with id equal to 'someId'`,
+                    elements that are nested in element with id equal to 'someId'. So if we have <code>document.getElementById('someId')
+                    </code> stored in some variable already, we may start from already fonund element <code>someElement.document.getElementsByTagName...</code>`,
                     `<code>querySelector('.css-selector')</code>: this method allows user to find a NodeList with
                      <b>first element</b> matching specified <a href="./selectors">css selector</a>.`,
                     `<code>querySelectorAll('.css-selector')</code>: this method returns a NodeList of elements matching
@@ -67,7 +69,7 @@ let data =     {
                     `<code>someElement.appendChild(createdElement)</code>: will add already created element as a last
                     child of someElement`,
                     `<code>someElement.prepent(setOfNodeObjects)</code>: inserts a set of Node objects before first child
-                    of <i>someElement</i>`
+                    of <i>someElement</i>`,
                     `<code>someElement.removeElement()</code>: removes element.`
                     ]
                 },
@@ -110,8 +112,8 @@ let data =     {
                         `<code>Node.parentNode</code>: returns a parent <strong>Node</strong> of current node, or null in case there is no parent.`,
                         `<code>Node.parentElement</code>: returns a parent <strong>Element</strong> of current node, or null in case no parent.`,
                         `<code>Node.textContent</code>: returns/<strong>sets</strong> text content of element and descendants. <strong>
-                        This will set text content, so <code>element.textContent = '&lt;div>'some content&lt;/div>'<code> will not
-                        create a div, but insert this text literaly.</strong>`,
+                        This will set text content, so <code>element.textContent = '&lt;div>'some content&lt;/div>'</code> will not
+                        create a div, but will insert this text literaly.</strong>`,
                         `<code>Node.cloneNode(deep)</code>, deep is an optional parameter. If true node and its content will be clonde 
                         recursively with all descendants, if false then sahllow clone of current node will be made. <strong>Beware, 
                         as id attributes will be cloned</strong>. New clonded node will be returned.`,
@@ -128,6 +130,45 @@ let data =     {
                     ]
                                     
                 },
+                {
+                    elementType:'Headline-2',
+                    content:'Beware - unwanted text nodes'
+                },
+                {
+                    elementType:'Code',
+                    content: `
+<pre>
+    &lt;!-- A -->
+    &lt;div id="Aparent">
+        &lt;div id="Achild-1">
+        &lt;div id="Achild-2">
+        &lt;div id="Achild-3">
+    &lt;/div>
+
+    &lt;!-- B -->
+    &lt;div id="Bparent">&lt;div id="Bchild-1">&lt;div id="Bchild-2">&lt;div id="Bchild-3">&lt;/div>
+    &lt;script>
+        const parentA = document.getElementById('Aparent');
+        const parentB = document.getElementById('Bparent');
+    &lt;script>
+</pre>                    
+                    `
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    What is the difference between those snippets? Output of <code>parentA.childNodes</code>
+                    will be [<code>text</code>, <code>div#Achild-1</code>, <code>text</code>, <code>div#Achild-2</code>,
+                    <code>text</code>, <code>div#Achild-3</code>, <code>text</code>], where <code>parentB.childNodex</code>
+                    will produce [<code>div#Bchild-1</code>, <code>div#Bchild-2</code>, <code>div#Bchild-3</code>],
+                    so in filst examplet there are additional text nodes added. First code was written with new line 
+                    symbols after each <code>div</code> element for readebility, but this gives unwanted side effect
+                    not every one is avare of, as this new line symbols become additional text nodes.
+                    In second example there are no extra spaces and no extra new line symbols. It is not as easy to read 
+                    this code, but no extra nodes added.
+                    `
+                },
+                
                 {
                     elementType: 'Headline-2',
                     content: `

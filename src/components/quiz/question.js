@@ -111,8 +111,9 @@ function Question(props){
                                 onChange={setAnswer(questionNr, index)}
                                 defaultChecked={shouldBeChecked(answer.originalIndex)}
                             />
-                            <label className="fomr-check-label" htmlFor={`radio${index}`}>
-                                {answer.content}
+                            <label className="fomr-check-label" htmlFor={`radio${index}`}
+                                dangerouslySetInnerHTML={getDangerousHTML(answer.content)}
+                            >
                             </label>
                         </div>
                     )
@@ -209,8 +210,9 @@ function Question(props){
                                 onChange={setAnswer(questionNr, index)}
                                 defaultChecked={shouldBeChecked(answer.originalIndex)}
                             />
-                            <label className="form-check-label" htmlFor={`checkobox${index}`}>
-                                {answer.content}
+                            <label className="form-check-label" htmlFor={`checkobox${index}`}
+                                dangerouslySetInnerHTML={getDangerousHTML(answer.content)}
+                            >
                             </label>
                         </div>
                     )
