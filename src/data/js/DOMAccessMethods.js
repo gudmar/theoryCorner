@@ -2,6 +2,11 @@ let data =     {
     summary: 'DOM access methods',
     title: 'DOM access methods',
     cathegory: 'js',
+    searchKeywords: `DOM getElementById getElementsByTagName querySelectorAll, getElementByClassName getElements 
+    document.froms document.images document.title, document.cookie document.referrer createElement appendChild prepend
+    removeElement baseURI childNodes firstChild lastChild nextSibing previousSibling nodeName value type parentNode parentElement
+    cloneNode hasChildNodes appendCHild inserBefore isEqualNode isSameNode removeChildNode shadow innerHTML inserAdjacentHTML
+    DocumentFragment fagment`,
     content: [
         {
             elementType:'Article',
