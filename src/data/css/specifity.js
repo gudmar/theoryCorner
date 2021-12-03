@@ -35,7 +35,7 @@ let data =     {
                     elementType:'UnsignedList',
                     content:[
                         `<code>inline styling</code>: multiplied by 1000`,
-                        `<code>id attribute</code>: multiplied by 100`,
+                        `<code>id</code> attribute: multiplied by 100`,
                         `<code>class, pseudo-class, attribute selector</code>: multiplied by 10`,
                         `<code>HTML tags</code>: multiplied by 1`,
                         `<code>* + > ~ , :not()</code>: multiplied by 0`,
