@@ -1,9 +1,4 @@
-{/* <Question questionNrHandel={[questionNr, setquestionNr]}
-answersHandel={[answers, setCurrentAnswers]}
-isQuizFinished={[isQuizFinished, setIsQuisFinished]}
-currentQuestionContent={setOfQuestions[questionNr]} */}
-
-
+import { getDangerousHTML } from '../../services/toolbox'
 
 function Question(props){
     let [answers, setCurrentAnswers] = props.answersHandel;
@@ -236,10 +231,10 @@ function Question(props){
 )
 }
 
-function getDangerousHTML(content){
-    return {
-        __html: content
-    };
-}
+// function getDangerousHTML(content){
+//     return {
+//         __html: content
+//     };
+// }
 
 export default Question;

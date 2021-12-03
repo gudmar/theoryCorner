@@ -1,3 +1,5 @@
+import specifityQuestions from "./css/quiz/specifityQuestions";
+
 // category: 'js'|'css'|'html'|'ts'|'angular'|'react'|'npm'
 // subcategory: 'variables','this','strict mode','DOM',
 // level:'hard'|'medium'|'easy'
@@ -225,8 +227,10 @@ let questions = [
             '',''
         ]
     },
+
 ]
 
 export function getCssQuestions(){
-    return questions
+    let output = questions.concat(specifityQuestions());
+    return output;
 }
