@@ -14,7 +14,7 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                        If there is only one css selector matching each element things are simple. But when multiple 
+                        If there is only one css selector matching an each element things are simple. But when multiple 
                         different selectors want to influence a single element, what rule should be chosen? The last one
                         or the first one, or all of them? What should happen if rules deny each other?
                     `
@@ -58,8 +58,9 @@ let data =     {
                         Specifity is 15.`,
                         `<code>&lt;div style="background-color:green"></code>: 1, 0, 0, 0 => as there is one inline styling,
                         so specifity equals 1000`,
-                        `<code>#someId#someOtherId.col_8.card.content>p>b</code>: 0, 2, 3, 2 => there are two id selectors (someId and someOtherId)
-                        three class selectors (col_9, card, content), and two tag selectors (b, p), so specifity is 232`
+                        `<code>#someId#someOtherId.col_8.card.content>p>b</code>: 0, 2, 3, 2 => there are two id selectors 
+                        (someId and someOtherId) three class selectors (col_9, card, content), and two tag selectors 
+                        (b, p), so specifity is 232`
                     ]
                 },
                 {
@@ -71,11 +72,11 @@ let data =     {
                     elementType:'Paragraph',
                     content:`
                     As this keyword overrides all specifity, even inline styling, it should be used very reasonably. 
-                    In most cases this keyword should be avoided, as it leads to ignoring the real issues in the HTML structure
-                    and the corresponding CSS. This is especially important when working on a bigger project in which more people
-                    are involved. In some cases it whould make code impossible to debug, as removing the <i>important</i> keyword
-                    from already existing CSS rule may cause other issues to appear. Important rules make it difficult to apply
-                    <i>user stylesheets</i>. So to summarize:
+                    In most cases this keyword should be avoided, as it leads to ignoring the real issues in the HTML 
+                    structure and the corresponding CSS. This is especially important when working on a bigger project 
+                    in which more people are involved. In some cases <i>important<i> make code impossible to debug, 
+                    as removing the it keyword from already existing CSS rule may cause other issues to appear. 
+                    Important rules make it difficult to apply <i>user stylesheets</i>. So to summarize:
                     `
                 },
                 {
@@ -101,9 +102,14 @@ let data =     {
                         `<strong>user stylesheets</strong> will be hard or impossible to apply,`,
                         `Similar to user stylesheets is working with a third party code, when some CSS rules needs to be 
                         overwritten to suite your needs,`,
-                        `Even the Bootstrap uses the important keyword. Considering a <code>hidden-sm</code> class, that 
+                        `Even Bootstrap uses the important keyword. Considering a <code>hidden-sm</code> class, that 
                         hides elements on smaller devices. It must work in all circumstances. Even when other classes are
-                        applied `
+                        applied `,
+                        `There is an already finished and encapsulated element, lets call it <code>custom-input</code>,
+                        without shadow DOM applied to is. If <code>custom-input</code> is nested, and other elements
+                        start interfering with <code>custom-input</coed> css, then using <code>!important</code> may
+                        be considerated inside the <code>custom-input</code>. However it would be better to use 
+                        a custom web element with shadow root instead.`
                     ]
                 },
                 {
@@ -163,12 +169,23 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                    <strong>Fighting with specifity is a bad idea</strong>. Selectors needed to be applied to style some element might
-                    be quite complex, and in bigger applications they might get out of hand. So the best solution is to
-                    understand specifity, know the rules, but avoid it in the code. It is mutch better to use more classes
-                    and keep less selectors than use specifity based ones. It is a very interesting experience to work 
-                    with a css framework to see how it works. Css frameworks are reusable and generic, so classes are named
-                    in a proper way, and whey do not use specifity based selectors much.
+                    <strong>Fighting with specifity is a bad idea</strong>. Selectors needed to be applied to style some 
+                    element might be quite complex, and in bigger applications they might get out of hand. 
+                    So the best solution is to understand specifity, know the rules, but avoid it in the code. 
+                    It is mutch better to use more classes and keep less selectors than use specifity based ones. 
+                    It is a very interesting experience to build something with a css framework to see how it works. 
+                    Css frameworks are reusable and generic, so classes are named in a proper way, and whey do not use 
+                    specifity based selectors much.
+                    `
+                },
+                {
+                    elementType:'Headline-2',
+                    content:'More than one selectors have the same specifity'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    In this case the one that has lower position in our css file will be applied.
                     `
                 },
             ]
@@ -194,6 +211,12 @@ let data =     {
                 {
                     elementType:'Headline-2',
                     content:'References'
+                },
+                {
+                    elementType:'Link',
+                    content:'css-tircks',
+                    href: 'https://css-tricks.com/specifics-on-css-specificity/',
+                    description:'Nice visual explanation of specifity calculation'
                 },
                 {
                     elementType:'Link',
