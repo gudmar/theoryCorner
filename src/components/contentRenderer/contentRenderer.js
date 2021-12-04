@@ -32,7 +32,7 @@ function getSingleNonListElementType(type, content, otherProps){
     if (type === 'Paragraph') return <p dangerouslySetInnerHTML={getDangerousHTML(content)}></p>;
     if (type === 'Headline')  return <h1 className="display-2">{content}</h1>
     if (type === 'Headline-2')  return <h3 className="display-4">{content}</h3>
-    if (type === 'Headline-2')  return <h4 className="display-5">{content}</h4>
+    if (type === 'Headline-3')  return <h4 className="display-5">{content}</h4>
     if (type === 'NoteWarning') return <Note severity="warning" content={content} />
     if (type === 'Title')     return <h1 className="display-6">{content}</h1>
     if (type === 'ListItem')  return <li key={content}>{content}</li>
@@ -49,7 +49,7 @@ function isListElementType(elementType){
 
 function isNonListElementType(elementType){
     let nonListElementTypes = [
-        'Paragraph', 'Headline','UnsignedList', 'Headline-2', 
+        'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code'
     ];
     return nonListElementTypes.includes(elementType)
