@@ -51,13 +51,17 @@ let data =     {
                     specified class`,
                     `<code>getElementsByName('name')</code>: will return a NodeList of all elements having name attribute
                     equal to name speficied as argument passed to this method`,
+                    `<code>element.closest('cssSelector')</code> Searches for a first parent of element, that matches 
+                    the given css selector,`,
+                    `<code>element.matches('cssSelector')</code> ture if element would be selected by the given css selector,`,
                     `<code>document.forms['someFormId']</code>: forms is a read only HTMLCollection of all forms in the document`,
                     `<code>document.images</code>: readonly collection of all <code>img</code> elements in a document.`,
                     `<code>document.title</code>: title element in head document. This is displayed in browser tab. Can be 
                     changed with this attribute`,
                     `<code>document.cookie</code>: perhaps not related to DOM, but useful, all cookies related to this page,`,
                     `<code>document.referrer</code>: also not DOM related, but returns a page that linked to current page, or null
-                    if page was accessed directly.`
+                    if page was accessed directly.`,
+                    
                     ]
                 },
                 {

@@ -129,7 +129,7 @@ const data =         {
                             content: `As in example:
                             <ul>
                                 <li><code>#outlet p:first-of-type</code> in case element has
-<pre>
+<pre class="alert alert-dark">
     &lt;div id="outlet">
         &lt;span></span>
         &lt;input/>
@@ -138,7 +138,7 @@ const data =         {
 </pre>    
                                 this p element will be matched, because it is the first of type,</li>      
                                 <li><code>#outlet input:only-type-of</code> in case element has
-<pre>
+<pre class="alert alert-dark">
     &lt;div id="outlet">
         &lt;span></span>
         &lt;input/>
@@ -206,10 +206,6 @@ const data =         {
                             like a third boolean value, and comes handy when multiple checkboxes are set by a complicated algorithm,`
                         },   
                         {
-                            headline:':blank',
-                            content: `Empty or containing empty string inputs,`
-                        },  
-                        {
                             headline:':valid',
                             content: `Matches an input with valid value,`
                         },       
@@ -273,6 +269,11 @@ const data =         {
                             Can be used for example on a <code>form</code> element. When descendants gain focus, form will
                             change styling.`
                         },
+                        {
+                            headline:':selection',
+                            content: `Matches a portion of a document selected by user, for example with press left mouse button and 
+                            drag it over selected element.`
+                        },
                     ]
                 },
                 {
@@ -295,7 +296,7 @@ const data =         {
                             content: `
                             Element that is the target of the link. Useful, when link is on the same page:
                             <span id="targetControl">
-                            <a href="#targetExample">Try it out link</a>
+                            <a href="#targetExample">Try it out</a>
                             <a href="#" class="clear">Clear</a>
                             </span>
                             <style>
@@ -320,6 +321,48 @@ const data =         {
                             </ul>
                             `
                         },
+                    ]
+                },
+                {
+                    elementType:'Headline-3',
+                    content:'Other'
+                },
+                {
+                    elementType: 'ExplanationList',
+                    content: [      
+                        {
+                            headline:':not(selector)',
+                            content: `Selects all elements that do <strong>not</strong> match the given selector.
+                            `
+                        },                  
+                        {
+                            headline:':host',
+                            content: `
+                            In shadow DOM matches the host of a <code>shadow-root</code>. Usable also in Angular for 
+                            targeting a component from inner css file.
+                            `
+                        },
+                        {
+                            headline:':is(selector, selector)',
+                            content: `Takes a selector list, and matches each element in this list. This element counts to
+                            <a href="./specifity">specifity</a> as a class, so multiplication 10:
+                            <ul>
+                                <li><code>:is(.danger, .warning, .info) p</code> will match all of <code>.danger p</code>,
+                                <code>.warning p</code>, <code>.info p</code>.</li>
+                            </ul>
+                            `
+                        },
+                        {
+                            headline:':where(selector, selector)',
+                            content: `Exectly the same as an <code>is</code> pseudo-class, except for the fact, that
+                            it <strong>counts to specifity as 0</strong>:
+                            <ul>
+                                <li><code>:is(.danger, .warning, .info) p</code> will match all of <code>.danger p</code>,
+                                <code>.warning p</code>, <code>.info p</code>.</li>
+                            </ul>
+                            `
+                        },
+                        
                     ]
                 },
                 {
