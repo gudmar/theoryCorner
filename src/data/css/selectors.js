@@ -40,7 +40,7 @@ const data =     {
                         `<code>.some-class-name</code>: a selector with a dot is a class selector. Choses each element with
                         containing this class in class list`,
 
-                        `<code>[attribute]</code>, select all elements having an 'attribute' value,`,
+                        `<code>[attribute]</code>, select all elements having the 'attribute',`,
                         `<code>[attribute="value"]</code>: selects all elements having the 'attribute' value equal to
                         'value'`,
 
