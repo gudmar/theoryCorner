@@ -4,6 +4,8 @@
 // import { getHtmlQuestions } from "../../data/quizHTML";
 import React, { useState, useEffect } from 'react';
 import QuizStartPage from './quizStartPage'
+import QuizMenu from './quizMenu'
+
 
 import Question from './question'
 import Pagination from '../pagination.js'
@@ -46,6 +48,7 @@ function QuizMain(props){
                 currentQuestionDescriptor={setOfQuestions[currentQuestionNr]}
                 currentQuestionNr = {currentQuestionNr}
                 nrOfQuestions = {nrOfQuestions}
+                
                 />                    
             )
         }
@@ -57,6 +60,15 @@ function QuizMain(props){
                 <Pagination maxNrOfItems = {nrOfQuestions}
                 currentItemNrHandel = {[currentQuestionNr, setCurrentQuestionNr]}
                 />
+            )
+        }
+        return <></>;
+    }
+
+    function QuizMenuIfApplicable(){
+        if ((currentQuestionNr > -1) && (!isQuizFinished)){
+            return (
+                <QuizMenu allQuestionsDescriptors = {setOfQuestions} userAnswers={answers}/>
             )
         }
         return <></>;
@@ -73,6 +85,7 @@ function QuizMain(props){
         <>
             <StartPageIfApplicable />
             <QuestionIfApplicable />
+            <QuizMenuIfApplicable />
             <PaggiationIfApplicable />
         </>
         
