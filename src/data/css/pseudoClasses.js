@@ -358,11 +358,20 @@ const data =         {
                             it <strong>counts to specifity as 0</strong>:
                             <ul>
                                 <li><code>:is(.danger, .warning, .info) p</code> will match all of <code>.danger p</code>,
-                                <code>.warning p</code>, <code>.info p</code>.</li>
+                                <code>.warning p</code>, <code>.info p</code>,</li>
                             </ul>
                             `
                         },
-                        
+                        {
+                            headline:':first-letter',
+                            content: `Selects the first letter of each element,
+                            `
+                        },
+                        {
+                            headline:':first-line',
+                            content: `Selects the first line.
+                            `
+                        },
                     ]
                 },
                 {

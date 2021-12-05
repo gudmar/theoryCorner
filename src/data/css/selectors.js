@@ -1,3 +1,5 @@
+import { on } from "events";
+
 const data =     {
     summary: 'selectors',
     title: 'selectors',
@@ -53,21 +55,21 @@ const data =     {
                         contained, and moreover <code>attribute="somevaluesome"</code> will be matched.`,
 
                         `<code>[attribute|="value"]</code> selects all elements having an attribute starting with word 'value' 
-                        immediately followed by "-" (U+002D) or being equal to value - so for example 
+                        immediately followed by "-" (U+002D) or being equal to 'value', so for example 
                         <code>attr="my-attr"</code> or <code>attr="my"</code>, but not <code>myattr</code>. 
                         This selector was designed to match locale/language codes like , <i>pl</i> or <i>en-gb</i>`,
 
                         `<code>[attribute^="value"]</code> selects all elements having the "attribute" starting with "value", 
                         so both <i>my-attr</i> and <i>myattr</i> will match`,
 
-                        `<code>[attribute&="value"]</code> selects all elements thats "attribute" value ends with a "value" 
+                        `<code>[attribute$="value"]</code> selects all elements thats "attribute" value ends with a "value" 
                         word. For expample: <code>[attribute$=".pdf"]</code> is good for selecting all elements ending with a 
                         <q>.pdf</q>`,
 
                         `<code>:first-child</code>, <code>:not(p)</code>: pseudo class selectors. To learn more please refer to 
                         <a href="./pseudo%20classes>pseudo class</a> section,`,
 
-                        `<code>:before</code>, <code>:end</code>: pseudo-element selectrs select pseudo-elements. Those
+                        `<code>:before</code>, <code>:after</code>: pseudo-element selectrs select pseudo-elements. Those
                         elements do not exist in HTML, however they are present in DOM and they are defined in CSS. To learn 
                         more read the <a href="./pseudo%20elements">pseudo elements</a> article.`,
 
@@ -82,14 +84,22 @@ const data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                    Combinators are used to join css selectors in a way, that descendant or more specific elemens are chosen.
+                    Combinators are used to join css selectors together.
                     <strong>There is currently (year 2021) no possibility to selec a parent element with css</strong>
                     `
                 },
                 {
                     elementType:'UnsignedList',
                     content:[
-                        '',
+                        `A space &#8594; <code>div p</code> will select all p elements that are descendants of div. Chidren, their 
+                        children and so on,`,
+                        `<code>></code> &#8594; <code>div>p</code> will select only direct children, so only <code>p</code>
+                        elements if they are direct child of div,`,
+                        `<code>+</code> &#8594; <code>div+p</code> matches adjacent elements, so matches a <code>p</code> 
+                        element only if it is a next direct sibling of the <code>div</code>`,
+                        `<code>~</code> &#8594; <code>div~p</code> matches a <code>p</code> element if it s a sibling of the
+                        <code>div</code> element, but in this case it does not have to be a direct sibling, but can be 
+                        placed anywhere under the same parent.`
                     ]
                 }
             ]
@@ -103,9 +113,15 @@ const data =     {
                 },
                 {
                     elementType:'Link',
-                    content:'css-tircks',
-                    href: 'https://css-tricks.com/specifics-on-css-specificity/',
+                    content:'w3schools',
+                    href: 'https://www.w3schools.com/cssref/css_selectors.asp',
                     description:'Nice visual explanation of specifity calculation'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/en-US/docs/Learn/CSS/Building_blocks/Selectors/Combinators',
+                    description:'Combinators explanation'
                 },
             ]
         }
