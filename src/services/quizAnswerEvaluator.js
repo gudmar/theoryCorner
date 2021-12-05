@@ -68,6 +68,8 @@ function getIncorrectReport(correctQuestionDescriptor, userAnswer){
 
 function getIncorrectReportFillIn(correctQuestionDescriptor, userAnswer){
     let correctAnswersFillIn = correctQuestionDescriptor.correctAnswers;
+    //Content here -> Idea is to write a full question in manner:
+    // question_content correct_answer(greenBG) incorrect_answer(redBG) rest_of_question_content
 }
 
 function getIncorrectReportRadioCheckbox(correctQuestionDescriptor, userAnswer){
