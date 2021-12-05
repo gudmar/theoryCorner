@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import QuizTestStartPage from './quizTestStartPage'
 
 import Question from './question'
+import QuizMenu from './quizMenu'
 import Pagination from '../pagination.js'
 
 function QuizTestMode(props){
@@ -63,11 +64,21 @@ function QuizTestMode(props){
         }
         return <></>;
     }
+
+    function QuizMenuIfApplicable(){
+        if ((currentQuestionNr > -1) && (!isQuizFinished)){
+            return (
+                <QuizMenu allQuestionsDescriptors = {setOfQuestions} userAnswers={answers}/>
+            )
+        }
+        return <></>;
+    }
     
     return (
         <>
             <StartTestPageIfApplicable />
             <QuestionIfApplicable />
+            <QuizMenuIfApplicable />
             <PaggiationIfApplicable />
         </>
     );

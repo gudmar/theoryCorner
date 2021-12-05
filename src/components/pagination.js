@@ -3,8 +3,8 @@ function Pagination(props){
     // currentItemNrHandel = {[currentQuestionNr, setCurrentQuestionNr]}
     let [currentItemNr, setCurrentItemNr] = props.currentItemNrHandel;
     let items = getArrayOfNElements(maxNrOfItems);
-    console.log(maxNrOfItems)
-    console.log(items)
+    // console.log(maxNrOfItems)
+    // console.log(items)
 
     function isActive(itemNr){
         return itemNr == currentItemNr?'active':'';

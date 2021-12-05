@@ -1,5 +1,6 @@
 import { getDangerousHTML } from '../../services/toolbox'
 
+
 function Question(props){
     let [answers, setCurrentAnswers] = props.answersHandel;
     let [isQuizFinished, setIsQuisFinished] = props.isQuizFinishedHandel;
@@ -14,6 +15,7 @@ function Question(props){
     let qCorrectAnswerId = currentQuestionContent.correctAnswersIds;
     let qCorrectAnswersFillIn = currentQuestionContent.correctAnswers
     let qType = currentQuestionContent.type;
+    
 
     function setAnswer(questionId, userAnswerOriginalIndex){
         // answers[questionId].userAnswerOriginalId = userAnswerOriginalIndex;
