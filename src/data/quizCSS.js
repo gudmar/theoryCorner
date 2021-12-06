@@ -1,6 +1,7 @@
 import specifityQuestions from "./css/quiz/specifityQuestions";
 import selectorsQuestions from "./css/quiz/selectors";
 import pseudoclassesQuestions from "./css/quiz/pseudoclasses";
+import pseudoElementsQuestions from "./css/quiz/pseudoElements";
 
 // category: 'js'|'css'|'html'|'ts'|'angular'|'react'|'npm'
 // subcategory: 'variables','this','strict mode','DOM',
@@ -231,6 +232,7 @@ let questions = [
     },
     selectorsQuestions(),
     pseudoclassesQuestions(),
+    pseudoElementsQuestions(),
 ]
 
 export function getCssQuestions(){
