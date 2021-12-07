@@ -2,7 +2,7 @@ const data =     {
     summary: 'pseudo elements',
     title: 'pseudo elements',
     cathegory: 'css',
-    searchKeywords: `selector selectors combinator combinators class classes tag id pseudo-class`,
+    searchKeywords: `selector before after`,
     content: [
         {
             elementType:'Article',

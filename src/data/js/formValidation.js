@@ -1,6 +1,7 @@
 let data =     {
     summary: 'form validation api',
     title: 'form validation api',
+    searchKeywords:"valid invalid required pattern long short range input pseudoclasses",
     cathegory: 'js',
     content: [
         {
