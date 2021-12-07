@@ -99,7 +99,60 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-
+                        JS history started in 1996 with netscape. However before JS started becomming more popular
+                        internet pages were build as static resources. There was a folder structure, and HTML files.
+                        Pages were linked together with <code>a href</code> links. Today this approach is also 
+                        possible, but with bigger than just a one html file they are not maintainable. That is why
+                        there are other solutions. However serving static pages is still good enough for some 
+                        simpler content, as JS and CSS files may be served this way. Moreover applicatoin may be 
+                        build in a framework like Angular or with React and served as static files. The drwaback is 
+                        however no server side, as server in this solution does not more than just serve ready files.
+                        There is no way to store data on server or exchange it between clietn computers. 
+                        I wrote a notePad application, that can store user notes on pages, that are then grouped in 
+                        sheet components. Moreover this application has a build in calendar enabling to store and manage
+                        events, and a feature allowing easy store and search user added links. Quite usable functionalities,
+                        but this is just a static page, so user data may be saved to browser memory, or exported to a file.
+                        This data will not be synchronized even between two browsers on the same machine.</br>
+                        My notePad application uses routing system, so although it is a client site application, link in
+                        browser address bar changes when user switches between linker, calendar and notePad. Such SPA applications
+                        are capable of parsing queries passed with URL, so it may be difficult to say if this is really only
+                        a static application.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        So nowadays static servers may serve js, css and html files. They may also serve SPA. So 
+                        only one HTML file is loaded, and changed with JS. Only drawback is no real server side support, as
+                        server only sends files, and does not share client data.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        <strong>SPA</strong>, or a single page application is a web page quite similar to native 
+                        applications. Only one HTML file is uploaded form a server, and this HTML file is modified 
+                        later on with JS, so DOM may be changed entirely. You want to send a friend a link directing to a 
+                        certain location is SPA? This is possible thanks to described above routing mechanism. Even 
+                        http queries may be passed with URL. Does this mean SPA is a static file page? Not at all. It may be,
+                        but does not have to be. It is not efficient to download all data at once, as it will take ages and
+                        some data may be even restricted. So SPA allows user login, and lazy loading (download content only
+                        if it is needed). Mentioned Angular and React are good for creating such apps. SPA may be serverd as
+                        a static content, but may also be an application that works dynamically.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        So what does dynamic server do? Sometimes it may be difficult to see this from a client perspective,
+                        as staticly served applicatoin may have lazy loaded <b>files<b> and respond to route queries. However 
+                        word <i>files</i> is a key here. Dynamic server will respond to routes, and will not just serve 
+                        whole files. It will serve data. So either ready HTML content, or data as for example json or XML, 
+                        so client side may parse it and create some view content out of it. Server will make queries to 
+                        data base, will make some calculations and send ready results, will make possible to identify a 
+                        user and send data if the user is authorized to use this data, and will store data for the user, so it is 
+                        available on other machine. In other words server gets an URI and responds to it with data, not just
+                        with a static file. This is like working with an API.
                     `
                 },
                 {
@@ -121,7 +174,13 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-
+                        HTTP has a serious drawback. Lets concidere user login:
+                        <i>http://some-portal.pl/login?user=johnDoe&password=myPass11</i>.
+                        After reading section about URL it is not hard to guess, that 
+                        login is <i>johnDoe</i> and password is <i>myPass11</i>. So getting 
+                        data passed with HTTP is not hard at all, and data passed with HTTP
+                        is not safe at all. That is why HTTP is wrapped in the TLS protocol to encript it 
+                        and make things a lot more complicated.
                     `
                 },
                 {
