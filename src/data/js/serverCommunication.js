@@ -87,6 +87,31 @@ let data =     {
                     `URL encoding is genius, as it is capable of encoding any data, including images.`
                     ]
                 },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    HTTP supports a banch of request methods:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>GET</code>: a method capable of only fetching data from a server,`,
+                        `<code>PUT</code>: update an existing resource, or create a new resource and add data to it, if
+                        resource does not exist,`,
+                        `<code>POST</code> creates a new resource and adds data to it. Difference between POST and PUT is,
+                        that POST is designed to always create a new resource and add data, where is PUT is designed to 
+                        update data, and creates a resource if needed. So if resource exists PUT is the right method,`,
+                        `<code>HEAD</code> fetches only resource metadata, so no content, no body. May be used to peep if 
+                        a resource is worth downloading or to allow a user to decide if it is worth downloading,`,
+                        `<code>DELETE</code> deletes a specified resource,`,
+                        `<code>CONNECT</code> is for creating a tunnel to the server identified by the target resource,`,
+                        `<code>OPTIONS</code> is for describing communication options for the target resource,`,
+                        `<code>TRACE</code> message loop-back test along the path of the target resource,`,
+                        `<code>PATCH</code> partial modificatoins to a resource.`
+                    ]
+                    
+                },
             ]
         },
         {
@@ -180,7 +205,8 @@ let data =     {
                         login is <i>johnDoe</i> and password is <i>myPass11</i>. So getting 
                         data passed with HTTP is not hard at all, and data passed with HTTP
                         is not safe at all. That is why HTTP is wrapped in the TLS protocol to encript it 
-                        and make things a lot more complicated.
+                        and make things a lot more complicated. It is not important from client side what sort
+                        of communication is used. Both http and https will be handled in the same way.
                     `
                 },
                 {
@@ -200,27 +226,76 @@ let data =     {
                     content:'Communication methods'
                 },
                 {
+                    elementType:'Headline-3',
+                    content:'WebSocket'
+                },
+                {
                     elementType:'Paragraph',
                     content:`
-
+                        Enables establishing a full-duplex connection stream between a client and a server.
+                        Ws protocol is platform independant, but in this case client is the browser. WebSocket
+                        provides:
                     `
                 },
                 {
                     elementType:'UnsignedList',
                     content:[
-                    `
-                    `
+                    `Low latancy in both directions,`,
+                    `Interoperability with HTTP,`,
+                    `Message oriented communication,`,
+                    `Same origin policy enforcement`
                     ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        Sample server side snippet:
+                    `
                 },
                 {
                     elementType:'Code',
                     content:`
 <pre>
-
+const WebSocketServer = require('ws').Server
+const wss = new WebSocketServer({ port: 8081 });
+wss.on('connection', ((ws) =&gt; {
+ws.on('message', (message) =&gt; {
+console.log(\`received: \${message}\`);
+});
+ws.on('end', () =&gt; {
+console.log('Connection terminated.');
+});
+ws.send('Data from server');
+}));
 </pre>                        
                     `
-                        
-                    
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        And a client side snippet:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+var ws = new WebSocket("ws://127.0.0.1:8081");
+ws.onopen = function (event) {
+console.log('Connection oppened');
+ws.send("Data from client");
+};
+ws.onerror = function (err) {
+console.log('error: ', err);
+}
+ws.onmessage = function (event) {
+console.log(event.data);
+};
+ws.onclose = function() {
+console.log("Connection closed");
+}
+</pre>                        
+                    `
                 }
             ]
         },
