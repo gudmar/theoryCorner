@@ -1,5 +1,6 @@
 import getJSFormValidationData from './js/formValidation.js';
-import getDomAccessMethods from './js/DOMAccessMethods.js'
+import getDomAccessMethods from './js/DOMAccessMethods.js';
+import getJSServerCommunicationData from './js/serverCommunication.js';
 let theoryDataJs = [
     {
         summary: 'this keyword',
@@ -255,6 +256,7 @@ let theoryDataJs = [
         ]
     },
     getJSFormValidationData(),
+    getJSServerCommunicationData(),
 ]
 
 export function getTheoryDataJs(){
