@@ -112,6 +112,23 @@ let data =     {
                     ]
                     
                 },
+                {
+                    elementType:'Headline-3',
+                    content:'Responses'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<strong>103</strong>`,
+                        `<strong>201: Created</strong>: as a response to POST or some PUT, 
+                            resource was created as a result`,
+                        `<strong>203 Non-Authoritive Information</strong>: server got a third-party data copy. Case of 200 OK,`,
+                        `<strong>200</strong>`,
+                        `<strong>200</strong>`,
+                        `<strong>200</strong>`,
+
+                    ]
+                },
             ]
         },
         {
@@ -296,7 +313,70 @@ console.log("Connection closed");
 }
 </pre>                        
                     `
-                }
+                },
+                {
+                    elementType:'Headline-3',
+                    content:'SSE or Server Send Events'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        An event based low latancy one way connection communication technology. Allows server to update data 
+                        on client side. No possibility to send data back to server. If needed other server-client 
+                        communication means may be used. Hmm... Better using web-socket then, as it provides 
+                        bi-directional communication? Not quite, as SSE provides some unique features, like automatic reconnection,
+                        event ids and ability to send arbitrary events.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        Example usege on client side:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+const eventSource = new EventSource("//someApi.com/example.php", {withCredentioas: true});
+eventSource.onmessage = function(event){
+    let elementToBeUpdated = document.getElementById('to-be-updated-id');
+    elementToBeUpdated.innerText = event.data;
+}
+</pre>                        
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        And thats it. Data will be updated in this element automatically. No need to worry about it.
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content:'XMLHttpRequest'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        XMLHttpRequest enables browser to script data transfer via JS. It may be used to serve not 
+                        only XML, but also JSON for instance. XMLHttpRequest should be used asynchronously, not to 
+                        block side interactions, but most simple usege would be:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+var req = new XMLHttpRequest();
+req.open('GET', 'http://some-example.com/', false); // false -> not async
+req.send(null);
+if(req.status == 200)
+  dump(req.responseText);
+}
+</pre>                        
+                    `
+                },
             ]
         },
         {
@@ -323,6 +403,18 @@ console.log("Connection closed");
                     content:'IBM',
                     href: 'https://www.ibm.com/docs/en/cics-ts/5.3?topic=concepts-components-url',
                     description:'The components of a URL'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/pl/docs/Web/API/XMLHttpRequest',
+                    description:'XMLHttpRequest description'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status',
+                    description:'HTTP statuses'
                 },
             ]
         }
