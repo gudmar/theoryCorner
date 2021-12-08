@@ -112,6 +112,52 @@ let data =     {
                     ]
                     
                 },
+                {
+                    elementType:'Headline-3',
+                    content:'Responses'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<strong>103</strong>`,
+                        `<strong>201: Created</strong>: as a response to POST or some PUT, 
+                            resource was created as a result`,
+                        `<strong>203 Non-Authoritive Information</strong>: server got a third-party data copy. Case of 200 OK,`,
+                        `<strong>303 See other</strong>: server wants client to get request resource at another URI wit 
+                        GET,`,
+                        `<strong>304 Not modified</strong>: Resource was not modified, so client should user cached version,`,
+                        `<strong>400 Bad request</strong>: server could not understand the request due to invalid syntax,`,
+                        `<strong>401 Unauthorized</strong>: Client must authenticate to get the requested response, client identity
+                        is not known to a server,`,
+                        `<strong>403 Forbidden</strong>: Clients identity is known to a server and client has no access rights,`,
+                        `<strong>404 Not found</strong>: Resource not exists. Server may chose to hide its topology by sending a 
+                        403 - forbidden instead. This is most used and known code. It is good to design a custom page to 
+                        display this error, and give possiblities/existing redirections there. If a static server is used, 
+                        then a <code>404.html</code> page may be placed in base folder, and it will be loaded when needed,`,
+                        `<strong>405: Method not allowed</strong>: method is known to a server, but not allowed for the resource,
+                        for example the DELETE method may be forbidden to use on a specific resournce,`,
+                        `<strong>408 Request Timeout</storng> server would like to close unused connection,`,
+                        `<strong>409 Conflict</strong> request is in conflict with the current server state,`,
+                        `<strong>410 Gone</strong> resource is gone, so cached data should be removed, API should not be used anymore,`,
+                        `<strong>418 I'm a teapot</strong> The server refuses the attempt to brew coffee with a teapot. This is aprils fool month
+                        1998 joke :), but it really exists in standard,`,
+                        `<strong>429 Too many requests</stron>: client send too many requests in too short ammount of time,`,
+                        `<strong>451 Unavailable For legal reasons</strong>: page may be censored,`,
+                        `<strong>500 Internal server error</strong>: server encountered a situation it does not know how to handle`,
+                        `<strong>501 Not Implemented</strong>: server has no support for this method,`,
+                        `<strong>502 Bad Gateway</strong>: server working as a gateway got invalid response,`,
+                        `<strong>503 Service unavailable: </strong>: server cannot handle a request at the moment, as it is 
+                         in maitenance or is overloaded. Some frilendly page should be displayed at this moment`,
+                        `<strong>504 Gateway Timeout</strong>: server acting as a gateway did not get a response in expected time,`,
+                        `<strong>508 Loop detected</strong>: Server went into an infinite loop while processing the request,`,
+                        `<strong>511 Network authentication required</strong>: Client needs to authenticate to gain network access,`,
+                    ]
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `There are much more resopnses, and above list is just a snippet. To see all available request
+                    please go to the reference section`
+                }
             ]
         },
         {
@@ -296,7 +342,70 @@ console.log("Connection closed");
 }
 </pre>                        
                     `
-                }
+                },
+                {
+                    elementType:'Headline-3',
+                    content:'SSE or Server Send Events'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        An event based low latancy one way connection communication technology. Allows server to update data 
+                        on client side. No possibility to send data back to server. If needed other server-client 
+                        communication means may be used. Hmm... Better using web-socket then, as it provides 
+                        bi-directional communication? Not quite, as SSE provides some unique features, like automatic reconnection,
+                        event ids and ability to send arbitrary events.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        Example usege on client side:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+const eventSource = new EventSource("//someApi.com/example.php", {withCredentioas: true});
+eventSource.onmessage = function(event){
+    let elementToBeUpdated = document.getElementById('to-be-updated-id');
+    elementToBeUpdated.innerText = event.data;
+}
+</pre>                        
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        And thats it. Data will be updated in this element automatically. No need to worry about it.
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content:'XMLHttpRequest'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        XMLHttpRequest enables browser to script data transfer via JS. It may be used to serve not 
+                        only XML, but also JSON for instance. XMLHttpRequest should be used asynchronously, not to 
+                        block side interactions, but most simple usege would be:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+var req = new XMLHttpRequest();
+req.open('GET', 'http://some-example.com/', false); // false -> not async
+req.send(null);
+if(req.status == 200)
+  dump(req.responseText);
+}
+</pre>                        
+                    `
+                },
             ]
         },
         {
@@ -323,6 +432,18 @@ console.log("Connection closed");
                     content:'IBM',
                     href: 'https://www.ibm.com/docs/en/cics-ts/5.3?topic=concepts-components-url',
                     description:'The components of a URL'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/pl/docs/Web/API/XMLHttpRequest',
+                    description:'XMLHttpRequest description'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status',
+                    description:'HTTP statuses'
                 },
             ]
         }
