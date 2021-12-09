@@ -16,7 +16,7 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                    A pure front-end application might do some work, but it must be served in some way, however 
+                    A pure front-end application might do some work, but it must be served in some way. However 
                     modern programming is cloud/web based, so there is a sort of a client side code and data 
                     is provided by a server. That is why understanding client-server side communication is necessary
                      `
@@ -38,7 +38,7 @@ let data =     {
             elementType:'Article',
             content:[
                 {
-                    elementType:'Headline-2',
+                    elementType:'Headline-3',
                     content:'HTTP overwiev'
                 },
                 {
@@ -46,13 +46,11 @@ let data =     {
                     content:[
                     `<strong>URI</strong>: Uniform Resource Indicator. URI = URN + URL,`,
                     `<strong>URL</strong>: Uniform Resource Locator, tels where a specific resource is located, does
-                    not refere to it by the name. Example: <i>urn:isbn:0-486-27557-4</i>`,
+                    not refere to it by the name.`,
                     `<storng>URN</strong>: Unifrom Resource Name, refers to the specific name of the resource, not 
-                    telling mutch where to look for this resource,`,
+                    telling mutch where to look for this resource. Example: <i>urn:isbn:0-486-27557-4</i>,`,
                     `<strong>IRI</strong>: International Resource Identifier, extends URI with national languates other
                     then English. Can be used instead of URI or URL in applications supporting IRI.`,
-                    `<strong>www</strong>: world wide web `
-                    
                     ]
                 },
                 {
@@ -66,14 +64,18 @@ let data =     {
                 {
                     elementType:'UnsignedList',
                     content:[
-                    `<code>http</code>: Hypertext transfer protocol, an application layer protocol (layer 7 of OSI, and layer 4 of TCP/IP model),
-                    that is used to transfer documents as text,`,
-                    `<code>www.some-page.pl</code> is server/host name. This will be send to DNS server to extract IP from it,`,
+                    `<code>http</code>: A protocol field. In this case the 
+                    Hypertext transfer protocol, an application layer protocol (layer 7 of OSI, and layer 4 of TCP/IP model),
+                    that is used to transfer documents as text. Other protocol type in this field might be eg. ftp,`,
+                    `<code>www.some-page.pl</code> is domain name. This will be send to DNS server to extract IP from it,`,
                     `<code>:8080</code> is a port number. As <code>www.some-page.pl</code> is a server location (like a city, street
                         and flat number), port is a concrete application address. Application query is addressed to listens to requests
-                        on port 8080. This may be considered a certain person reachable under a city, street and number of flat address.`,
+                        on port 8080. This may be considered a certain person reachable under a city, 
+                        street and number of flat address. If this is ommited in URL, it does not mean it is not present. It may be
+                        for example set by dafault. It is an important field, as a server always listens on some port,`,
                     `<code>/catalog/some%20file</code> is a detailed resource location. Years ago (90s), when web pages were based on static model,
-                    this was cathalog and a html file name. In present times this is just a route. This route might be resolved by a server,
+                    this was an exact location of a html file that was to be served. 
+                    In present times this is just a route. This route might be resolved by a server,
                     but front end applications are also capable of resolving routes like this. URL accepts no spaces, so <code>%20</code> is 
                     URL encoded space symbol,`,
                     `<code>?</code> is a separator, dividing URL into location section and a query section,`,
@@ -83,7 +85,7 @@ let data =     {
                     `Query section between <code>?</code> and <code>#</code> indicate, that URL does not point to a static html file, but
                     to a resource route that is resolved dynamically,`,
                     `<code>#document_fragment</code> is a concrete document fragmet that browser will rewind to after DOM is displayed.
-                    If someone is familiar with css selectors this may look familiar, as this is equal to <code>[attr=id]</code> selector,`,
+                    If someone is familiar with css selectors this may look familiar, as this is equal to a <code>[attr=id]</code> selector,`,
                     `URL encoding is genius, as it is capable of encoding any data, including images.`
                     ]
                 },
@@ -119,7 +121,6 @@ let data =     {
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<strong>103</strong>`,
                         `<strong>201: Created</strong>: as a response to POST or some PUT, 
                             resource was created as a result`,
                         `<strong>203 Non-Authoritive Information</strong>: server got a third-party data copy. Case of 200 OK,`,
@@ -173,19 +174,19 @@ let data =     {
                         JS history started in 1996 with netscape. However before JS started becomming more popular
                         internet pages were build as static resources. There was a folder structure, and HTML files.
                         Pages were linked together with <code>a href</code> links. Today this approach is also 
-                        possible, but with bigger than just a one html file they are not maintainable. That is why
+                        possible, but pages bigger than just a one html file would not be maintainable. That is why
                         there are other solutions. However serving static pages is still good enough for some 
                         simpler content, as JS and CSS files may be served this way. Moreover applicatoin may be 
                         build in a framework like Angular or with React and served as static files. The drwaback is 
                         however no server side, as server in this solution does not more than just serve ready files.
-                        There is no way to store data on server or exchange it between clietn computers. 
+                        There is no way to store data on server or exchange it between client computers. 
                         I wrote a notePad application, that can store user notes on pages, that are then grouped in 
                         sheet components. Moreover this application has a build in calendar enabling to store and manage
                         events, and a feature allowing easy store and search user added links. Quite usable functionalities,
-                        but this is just a static page, so user data may be saved to browser memory, or exported to a file.
+                        but this is just a static page, so user data may be saved to the browser memory, or exported to a file.
                         This data will not be synchronized even between two browsers on the same machine.</br>
                         My notePad application uses routing system, so although it is a client site application, link in
-                        browser address bar changes when user switches between linker, calendar and notePad. Such SPA applications
+                        browser address bar changes when a user switches between linker, calendar and notePad. Such SPA applications
                         are capable of parsing queries passed with URL, so it may be difficult to say if this is really only
                         a static application.
                     `
@@ -193,8 +194,8 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                        So nowadays static servers may serve js, css and html files. They may also serve SPA. So 
-                        only one HTML file is loaded, and changed with JS. Only drawback is no real server side support, as
+                        Nowadays static servers may serve js, css and html files. They may also serve SPA. 
+                        Drawback is no real server side support, as
                         server only sends files, and does not share client data.
                     `
                 },
@@ -216,11 +217,11 @@ let data =     {
                     elementType:'Paragraph',
                     content:`
                         So what does dynamic server do? Sometimes it may be difficult to see this from a client perspective,
-                        as staticly served applicatoin may have lazy loaded <b>files<b> and respond to route queries. However 
+                        as staticly served applicatoin may have lazy loaded <b>files</b> and respond to route queries. However 
                         word <i>files</i> is a key here. Dynamic server will respond to routes, and will not just serve 
                         whole files. It will serve data. So either ready HTML content, or data as for example json or XML, 
                         so client side may parse it and create some view content out of it. Server will make queries to 
-                        data base, will make some calculations and send ready results, will make possible to identify a 
+                        data base, will make some calculations and send ready results, will make it possible to identify a 
                         user and send data if the user is authorized to use this data, and will store data for the user, so it is 
                         available on other machine. In other words server gets an URI and responds to it with data, not just
                         with a static file. This is like working with an API.
@@ -245,7 +246,7 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                        HTTP has a serious drawback. Lets concidere user login:
+                        HTTP has a serious drawback. Lets consider user login:
                         <i>http://some-portal.pl/login?user=johnDoe&password=myPass11</i>.
                         After reading section about URL it is not hard to guess, that 
                         login is <i>johnDoe</i> and password is <i>myPass11</i>. So getting 
@@ -254,13 +255,6 @@ let data =     {
                         and make things a lot more complicated. It is not important from client side what sort
                         of communication is used. Both http and https will be handled in the same way.
                     `
-                },
-                {
-                    elementType:'UnsignedList',
-                    content:[
-                    `
-                    `
-                    ]
                 },
             ]
         },
@@ -360,7 +354,7 @@ console.log("Connection closed");
                         are custom user implemented subprotocols for exchanging eg. metadata. This field may be left 
                         empty. A <i>protocols</i> field has no effect on WebSocket protocol itself.`,
                         `<code>ws.send('some data')</code> will send data to a server once a connection is established`,
-                        `<code>ws.readyState</code> ignicates the state web socket object is in. 
+                        `<code>ws.readyState</code> indicates in what is the state of the web socket object. 
                         <ul>
                             <li><strong>0: CONNECTING</strong> A socket was created, but the connection is not yet open,</li>
                             <li><strong>1: OPEN</strong> ready to communicate,
@@ -389,7 +383,7 @@ console.log("Connection closed");
                     content:`
                         An event based low latancy one way connection communication technology. Allows server to update data 
                         on client side. No possibility to send data back to server. If needed other server-client 
-                        communication means may be used. Hmm... Better using web-socket then, as it provides 
+                        communication means may be used. Hmm... Better using web-socket, as it provides 
                         bi-directional communication? Not quite, as SSE provides some unique features, like automatic reconnection,
                         event ids and ability to send arbitrary events.
                     `
@@ -404,7 +398,7 @@ console.log("Connection closed");
                     elementType:'Code',
                     content:`
 <pre>
-const eventSource = new EventSource("//someApi.com/example.php", {withCredentioas: true});
+const eventSource = new EventSource("//someApi.com/example.php", {withCredentials: true});
 eventSource.onmessage = function(event){
     let elementToBeUpdated = document.getElementById('to-be-updated-id');
     elementToBeUpdated.innerText = event.data;
@@ -416,7 +410,23 @@ eventSource.onmessage = function(event){
                     elementType:'Paragraph',
                     content:`
                         And thats it. Data will be updated in this element automatically. No need to worry about it.
+                        Below a short API descriptoin is added:
                     `
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content:[
+                        `<code>eS = new EventSource("//someAPI.com", conf) </code> is a constructor
+                        returning a SSE object. It takes and URL of our connection endpoint, and a <code>conf</code>
+                        that is an optional field being an object, and having only <code>withCredentials</code> property,
+                        that is by default set to false,
+                        `,
+                        `<code>eS.onmessage = function(event){}</code> handler for an message source event,`,
+                        `<code>eS.addEventListener.('customEvent', handler)</code> adds a custom event listener to
+                        an event source`,
+                        `<code>eS.onError = function(err)</code> an error handler,`,
+                        `<code>eS.close()</code> connection has to be closed by a client side if not used anymore.`
+                    ]
                 },
                 {
                     elementType:'Headline-3',
@@ -425,9 +435,9 @@ eventSource.onmessage = function(event){
                 {
                     elementType:'Paragraph',
                     content:`
-                        XMLHttpRequest enables browser to script data transfer via JS. It may be used to serve not 
-                        only XML, but also JSON for instance. XMLHttpRequest should be used asynchronously, not to 
-                        block side interactions, but most simple usege would be:
+                        XMLHttpRequest enables browser script data transfer with JS. It may be used to serve not 
+                        only XML, but also JSON, binary and so on. XMLHttpRequest should be used asynchronously, not to 
+                        block side interactions. Most simple usege would be:
                     `
                 },
                 {
@@ -446,7 +456,7 @@ if(req.status == 200)
                 {
                     elementType:'Paragraph',
                     content:`
-                        XMLHttpRequest should be used with an async function, so page is not blocked with request:
+                        XMLHttpRequest should be used as an async function, so page is not blocked with request:
                     `
                 },
                 {
@@ -475,8 +485,8 @@ req.send(null);
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>onprogress = function f(event)</code>: this is an attribute, that should have a function set to it. This 
-                        function takes an event, and this event has properties <code>event.position</code> for
+                        `<code>onprogress = function f(event)</code>: An event handler. Given event has properties 
+                        <code>event.position</code> for
                         indicating how much data is already downloaded, and <code>event.totalSize</code> to state
                         how much data has to be downloaded.`,
                         `<code>onerror = function f(event)</code>: for handling an error, <code>e.target.status</code>
@@ -509,10 +519,10 @@ req.send(null);
                     elementType: 'NoteWarning',
                     content: `
                         There is a maximum default number of XMLHttpRequest connections that may be established at the time.
-                        This is sed by default to 2, and is browser instance dependant. So user may change this, but a 
-                        page developer may not. This may be changed in firefox in <code>about:config</code> in address bar
+                        This is sed by default to 2, and is browser instance dependant. A user may change this, but a 
+                        page developer may not. This may be altered in firefox in <code>about:config</code> in address bar
                         and <code>network.http.max-persistent-connections-per-server</code>. In chrome it is a lot more 
-                        complicated, as this will force to build a custom version of the browser form the source code
+                        complicated, as this will force to build a custom version of the browser form the source code.
                     `
                 },
             ]
