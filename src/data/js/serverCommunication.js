@@ -279,7 +279,9 @@ let data =     {
                     elementType:'Paragraph',
                     content:`
                         Enables establishing a full-duplex connection stream between a client and a server.
-                        Ws protocol is platform independant, but in this case client is the browser. WebSocket
+                        Ws protocol is platform independant, but in this case client is the browser. 
+                        WebSocket opens a connection with a server, so communication is handled with
+                        events, making it redundant to send requests over and over again. WebSocket
                         provides:
                     `
                 },
@@ -289,7 +291,9 @@ let data =     {
                     `Low latancy in both directions,`,
                     `Interoperability with HTTP,`,
                     `Message oriented communication,`,
-                    `Same origin policy enforcement`
+                    `Event driven approach`,
+                    `Same origin policy enforcement`,
+                    `After establishing a connection with HTTP, webSocket switches to the WebSocket protocol.`
                     ]
                 },
                 {
@@ -342,6 +346,39 @@ console.log("Connection closed");
 }
 </pre>                        
                     `
+                },
+                {
+                    elementType: 'Paragraph',
+                    content:'WebSocket browser side API description:'
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `<code>ws = new WebSocket(url, protocols)</code> is for establishing a connection to an
+                        <i>url</i>. <i>protocols</i> is a string or an array of strings listing sub-protocols that may 
+                        be negotiated with the server. Server will pick one of those sub-protocols. Sub-protocols
+                        are custom user implemented subprotocols for exchanging eg. metadata. This field may be left 
+                        empty. A <i>protocols</i> field has no effect on WebSocket protocol itself.`,
+                        `<code>ws.send('some data')</code> will send data to a server once a connection is established`,
+                        `<code>ws.readyState</code> ignicates the state web socket object is in. 
+                        <ul>
+                            <li><strong>0: CONNECTING</strong> A socket was created, but the connection is not yet open,</li>
+                            <li><strong>1: OPEN</strong> ready to communicate,
+                            <li><strong>2: CLOSING</strong> connection is being closed,
+                            <li><strong>3: CLOSED</strong> connection is closed and could not be opened.
+                        <i>OPEN</i>
+                        </ul>`
+                        `<code>ws.onopen = function(event){}</code> this is an event handler for on open event,`,
+                        `<code>ws.onerror = function(event){}</code> this is an event handler for an error,`
+                        `<code>ws.close()</code> this <b>must</b> run on connection end,`,
+                        `<code>ws.onclose = function(event){}</code> is an event handler launched when connection is closed,`
+                        `<code>ws.onmessage(event) = function(event){}</code> is an evnet handler that will be run when a 
+                        message occures,`,
+                        `<code>ws.protocol</code> is a protocol that was chosen by the server,`,
+                        `<code>ws.url</close> the absolute URL of the WebSocket.`,
+                        `<code>ws.binaryType</code> property that controls the type of binary data received,`,
+                        `<code>ws.bufferedAmount</code> a number of bytes of queued data,`
+                    ]
                 },
                 {
                     elementType:'Headline-3',
@@ -516,6 +553,18 @@ req.send(null);
                     content:'Developer mozilla',
                     href: 'https://developer.mozilla.org/en-US/docs/Web/HTTP/Status',
                     description:'HTTP statuses'
+                },
+                {
+                    elementType:'Link',
+                    content:'hpbn.co/websocket',
+                    href: 'https://hpbn.co/websocket/',
+                    description:'Web-socket more detailed description'
+                },
+                {
+                    elementType:'Link',
+                    content:'developer Mozilla',
+                    href: 'https://developer.mozilla.org/en-US/docs/Web/API/WebSocket',
+                    description:'API short description'
                 },
             ]
         }
