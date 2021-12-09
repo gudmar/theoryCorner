@@ -7,6 +7,7 @@
 // correctAnswersIds: ['a','b',....],
 // explanation:string
 // links:[string]
+import getServerCommunicationQuestions from './js/quiz/serverCommunication'
 function getUl(itemArray){
     return <ul>{itemArray.map((element)=>{return <li key="element">element</li>}) }</ul>
 }
@@ -500,7 +501,7 @@ let questions = [
             'Document fragment is a minimal document object not attached to DOM tree',
             'Document fragment is perfect for preparing a part of component before adding it as a whole to DOM',
             'Thanks to preparing a document fragment before adding it to DOM, code is faster due to less DOM operations',
-            'Preparation of a document fragment in stead of adding a lot of elements one by one to DOM improves user experience',
+            'Preparation of a document fragment instead of adding a lot of elements one by one to DOM improves user experience',
             `Methods like <code>append(element)</code>, <code>prepend(element)</code>, <code>querySelectorAll</code>, 
             <code>getElementById(element)</code> work with a <code>DocumentFragment</code>`
         ],
@@ -518,7 +519,7 @@ let questions = [
             'https://en.wikipedia.org/wiki/Naming_convention_(programming)'
         ]
     },   
-    
+    getServerCommunicationQuestions(),
 ]
 
 export function getJsQuestions(){

@@ -68,7 +68,7 @@ let data =     {
                     content:[
                     `<code>http</code>: Hypertext transfer protocol, an application layer protocol (layer 7 of OSI, and layer 4 of TCP/IP model),
                     that is used to transfer documents as text,`,
-                    `<code>www.some-page.pl<code> is server/host name. This will be send to DNS server to extract IP from it,`,
+                    `<code>www.some-page.pl</code> is server/host name. This will be send to DNS server to extract IP from it,`,
                     `<code>:8080</code> is a port number. As <code>www.some-page.pl</code> is a server location (like a city, street
                         and flat number), port is a concrete application address. Application query is addressed to listens to requests
                         on port 8080. This may be considered a certain person reachable under a city, street and number of flat address.`,
@@ -404,6 +404,78 @@ if(req.status == 200)
   dump(req.responseText);
 }
 </pre>                        
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        XMLHttpRequest should be used with an async function, so page is not blocked with request:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+var req = new XMLHttpRequest();
+req.open('GET', 'http://some-example.com/', true); // true -> an async request
+req.onreadystatechange = function(asyncEvent) {
+    if(req.readyState == 4) {
+        if(req.status == 200) dump(req.responseText);
+        else console.error('An error with side loading occured');
+    }
+}
+req.send(null);
+
+</pre>                        
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        There is a set of properties, event handlers and methods that can be used with XMLHttpRequest:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>onprogress = function f(event)</code>: this is an attribute, that should have a function set to it. This 
+                        function takes an event, and this event has properties <code>event.position</code> for
+                        indicating how much data is already downloaded, and <code>event.totalSize</code> to state
+                        how much data has to be downloaded.`,
+                        `<code>onerror = function f(event)</code>: for handling an error, <code>e.target.status</code>
+                        indicates a HTTP status of error,`,
+                        `<code>onabort</code> function that will be called if reequest is cancelled by the user,`,
+                        `<code>onload</code>: will be called when the request is successfully completed,`,
+                        `<code>onreadystatechange</code>: an event handler called whenever the readyState attribute changes,`,
+                        `<code>onloadend = function f(event)</code>: when load ends`,
+                        `<code>ontimeout = function f(event)</code>: when response does not meet time constraints`,
+                        `<code>overrideMimeType(newMimeType)</code>: used to force a new mime type on handled document,`,
+                        `<code>readyState</code>: 
+                            <ul>
+                                <li><strong>0: UNSET</strong> no open() method called yet,</li>
+                                <li><strong>1: OPENED</strong> open() was called already,</li>
+                                <li><strong>2: HEADERS_RECEIVED</strong></li>
+                                <li><strong>3: LOADING</strong></li> downloading, responseText holds partial data,</li>
+                                <li><strong>4: DONE</strong></li> The operation is complete</li>
+                            <ul>
+                        `,
+                        `<code>upload</code> a property returning a <code>XMLHttpRequestUpload</code> object allowing an user
+                        to monitor upload process progress. Has similar to <code>XMLHttpRequest</code> event handlers:
+                        <code>onabort</code>, <code>onerror</code>, <code>onloadend</code>, <code>onloadstart</code>,
+                        <code>onprogress</code>, <code>ontimeout</code>`,
+                        `<code>setRequestHeader()</code> for setting a custom HTTP request header <b>before</b> sending it,`,
+                        `<code>getResponseHeader()</code> for getting a response header from server,`,
+                        `<code>abort()</code> for aborting already opened request,`
+                    ]
+                },
+                {
+                    elementType: 'NoteWarning',
+                    content: `
+                        There is a maximum default number of XMLHttpRequest connections that may be established at the time.
+                        This is sed by default to 2, and is browser instance dependant. So user may change this, but a 
+                        page developer may not. This may be changed in firefox in <code>about:config</code> in address bar
+                        and <code>network.http.max-persistent-connections-per-server</code>. In chrome it is a lot more 
+                        complicated, as this will force to build a custom version of the browser form the source code
                     `
                 },
             ]
