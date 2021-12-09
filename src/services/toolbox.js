@@ -1,5 +1,6 @@
 function getUl(itemArray){
-    return <ul>{itemArray.map((element)=>{return <li key="element">element</li>}) }</ul>
+    let liElements = itemArray.map((element)=>{return "<li>" + element + "</li>"}).join('');
+    return `<ul>${liElements}</ul>`
 }
 
 function getDangerousHTML(content){
