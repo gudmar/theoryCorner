@@ -136,6 +136,36 @@ const data = [
             '',''
         ]
     },
+
+    {
+        category: 'js',
+        level: 'easy',
+        subcategory:'server communication',
+        question: `Fill event handlers for web socket:`,
+        answers: [
+            `<code>ws.</code>{{{}}}<code>('data to send')</code> send data to a server,`,
+            `<code>ws.</code>{{{}}}<code>()</code> when connection will no longer be needed,`,
+            `<code>let dataLeft = ws.</code>{{{}}} to get number of bytes of queued data,`,
+            `<code>ws.</code>{{{}}}<code>=function dataIncommint(event)</code> for handling incomming data.`,
+            
+        ],
+        correctAnswers: [['send'], ['close'], ['bufferedAmount'], ['onmessage']],
+        type: 'fill-in',
+        points: 4,
+        explanation:`
+            ${getUl([
+                `<code>send</code> is for sending data when connection is ready,`,
+                `<code>close</code> unwanted connection should always be closed, as connections are limited,
+                not closing connections may result in hard to debug memory leaks,`,
+                `<code>bufferedAmmount</code> is for getting information on how much bytes are queued,`,
+                `<code>onmessage</code> is an event handler for incomming message.`
+            ]
+            )}
+        `,
+        links: [
+            '',''
+        ]
+    },
 ]
 
 export default function getServerCommunicationQuestions(){
