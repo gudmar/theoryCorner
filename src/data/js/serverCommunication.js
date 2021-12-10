@@ -227,13 +227,6 @@ let data =     {
                         with a static file. This is like working with an API.
                     `
                 },
-                {
-                    elementType:'UnsignedList',
-                    content:[
-                    `
-                    `
-                    ]
-                },
             ]
         },
         {
@@ -282,7 +275,7 @@ let data =     {
                 {
                     elementType:'UnsignedList',
                     content:[
-                    `Low latancy in both directions,`,
+                    `Low latency in both directions,`,
                     `Interoperability with HTTP,`,
                     `Message oriented communication,`,
                     `Event driven approach`,
@@ -353,7 +346,9 @@ console.log("Connection closed");
                         be negotiated with the server. Server will pick one of those sub-protocols. Sub-protocols
                         are custom user implemented subprotocols for exchanging eg. metadata. This field may be left 
                         empty. A <i>protocols</i> field has no effect on WebSocket protocol itself.`,
+
                         `<code>ws.send('some data')</code> will send data to a server once a connection is established`,
+
                         `<code>ws.readyState</code> indicates in what is the state of the web socket object. 
                         <ul>
                             <li><strong>0: CONNECTING</strong> A socket was created, but the connection is not yet open,</li>
@@ -361,18 +356,25 @@ console.log("Connection closed");
                             <li><strong>2: CLOSING</strong> connection is being closed,
                             <li><strong>3: CLOSED</strong> connection is closed and could not be opened.
                         <i>OPEN</i>
-                        </ul>`
+                        </ul>`,
+
                         `<code>ws.onopen = function(event){}</code> this is an event handler for on open event,`,
-                        `<code>ws.onerror = function(event){}</code> this is an event handler for an error,`
+                        `<code>ws.onerror = function(event){}</code> this is an event handler for an error,`,
                         `<code>ws.close()</code> this <b>must</b> run on connection end,`,
-                        `<code>ws.onclose = function(event){}</code> is an event handler launched when connection is closed,`
-                        `<code>ws.onmessage(event) = function(event){}</code> is an evnet handler that will be run when a 
+                        `<code>ws.onclose = function(event){}</code> is an event handler launched when connection is closed,`,
+                        `<code>ws.onmessage = function(event){}</code> is an evnet handler that will be run when a 
                         message occures,`,
                         `<code>ws.protocol</code> is a protocol that was chosen by the server,`,
-                        `<code>ws.url</close> the absolute URL of the WebSocket.`,
+                        `<code>ws.url</code> the absolute URL of the WebSocket.`,
                         `<code>ws.binaryType</code> property that controls the type of binary data received,`,
                         `<code>ws.bufferedAmount</code> a number of bytes of queued data,`
                     ]
+                },
+                {
+                    elementType: 'NoteWarning',
+                    content: `
+                    Number of WebSocket connections may be limited for the whole browser up to 6 instances.
+                    `
                 },
                 {
                     elementType:'Headline-3',
@@ -381,7 +383,7 @@ console.log("Connection closed");
                 {
                     elementType:'Paragraph',
                     content:`
-                        An event based low latancy one way connection communication technology. Allows server to update data 
+                        An event based low latency one way connection communication technology. Allows server to update data 
                         on client side. No possibility to send data back to server. If needed other server-client 
                         communication means may be used. Hmm... Better using web-socket, as it provides 
                         bi-directional communication? Not quite, as SSE provides some unique features, like automatic reconnection,
