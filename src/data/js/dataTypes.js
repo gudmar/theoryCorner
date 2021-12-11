@@ -172,7 +172,7 @@ let data =     {
                         they can be overflowed. BigInt numbers have an <i>n</i> at the end, so <code>let a = 1n</code> defines a
                         BigInt variable.<br>
                         <a href ="#bigIntUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#bigIntUseCases">
-                            Boolean detailes
+                            BigInt detailes
                         </a>
                         <div id="bigIntUseCases" class="collapse m-3">
                             <ul>
@@ -188,9 +188,80 @@ let data =     {
                                 <li><code>5n / 2n == 2n</code> no fractions here</li>
                                 <li>Cannot be used in JSON.stringify, unless a toJSON method is added to BigInt prototype</li>
                             </ul>
-                        </div>`
+                        </div>`,
+                        `
+                        <code>string</code> is a type for representing textual data in a set of 16-bit undigned integer values.
+                        Please refer to the <a href="./string%20methods">string</a> section for more information.
+                        `,
+                        `
+                        <code>symbol</code> is a type aspecially designed to serve as a key for object, as objects keys in JS
+                        may only be of a type string or symbol.<br>
+                        <a href ="#symbolUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#symbolIntUseCases">
+                            Symbol detailes
+                        </a>
+                        <div id="symbolIntUseCases" class="collapse m-3">
+                        <div class="alert alert-dark">
+<pre>
+Ex 1:
+let s1 = Symbol('someSymbol');
+let s2 = Symbol('someSymbol');
+// s1 != s2
+
+Ex2:
+alert(s1);
+// TypeError cannot conver a Symbol to a string,
+alert(s1.toString());
+// OK, displayes 'Symbol('someSymbol');
+alert(s1.description);
+// Ok, displayes 'someSymbol'
+
+Ex3:
+let s3 = Symbol();
+
+Ex4:
+let s4 = Symbol('abc');
+console.log(Symbol.for('abc')); // will return a s4 symbol
+let s5 = Symbol('cde'); // there is no such symbol, so a new one will be created and returned,
+
+Ex5:
+let globSym = Symbol.for('fgh');
+console.log(Symbol.keyFor(globSym)); // this will print 'fgh'
+</pre>                                    
+                        </div>
+                            <ul>
+                                <li>
+                                    (Ex1) Symbols are guaranteed to be unique,
+                                </li>
+                                <li>    
+                                    (Ex2) Symbols are not by default converted to a string,
+                                </li>
+                                <li>
+                                    (Ex3) Description, the only argument, is optional, so in this case code will also work.
+                                    A description optional field is only for debugging purposes,
+                                </li>
+                                <li>There is a global symbol registry</li>
+                                <li>(Ex4) <code>Symbol.for(key)</code> returns a symbol for the specified key or 
+                                    creates a new symbol and returnes it in case symbol does not exist,
+                                </li>
+                                <li>
+                                    (Ex5) <code>Symbol.keyFor(symboValue)</code> returns a shared symbol key from the 
+                                    global registry
+                                </li>
+                                <li>
+                                    There is a list of well-known-symbols that are for 
+                                </li>
+                            </ul>
+                        </div>
+                        `
 
                     ]
+                },
+                {
+                    elementType: 'NoteWarning',
+                    content: `
+                        Beware of creating primitives as objects: <code>new Boolean()</code>, <code>new Number()</code>,
+                        as this is not a primitive anymore and will cause problems.
+                    `
                 },
                 {
                     elementType:'Article',
@@ -213,5 +284,6 @@ let data =     {
 };
 
 export default function getDataTypes(){
+    console.error('!!! Finish reading about well-konwn-symbols, what they are, and about Symbol.keyFor')
     return data;
 }
