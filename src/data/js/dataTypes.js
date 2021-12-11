@@ -196,11 +196,82 @@ let data =     {
                         `
                         <code>symbol</code> is a type aspecially designed to serve as a key for object, as objects keys in JS
                         may only be of a type string or symbol.<br>
-                        <a href ="#symbolUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#symbolIntUseCases">
-                            Symbol detailes
-                        </a>
-                        <div id="symbolIntUseCases" class="collapse m-3">
-                        <div class="alert alert-dark">
+                        `
+                                ]
+                },
+                {
+                    elementType: 'NoteWarning',
+                    content: `
+                        Beware of creating primitives as objects: <code>new Boolean()</code>, <code>new Number()</code>,
+                        as this is not a primitive anymore and will cause problems.
+                    `
+                },
+            ]
+        },
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline-3',
+                    content: 'Symbols'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`As symbols serve as keys for objects, they are a sort of a bridge between 
+                    primitives and objects when talking about 
+                    JS types. Of course symbols are primitives, but they purpose is to serve as a part of an object,
+                    so it is difficult not to mention objects in this section.<br> `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Keys described by symbols are not plane keys, as they don't 
+                    show up with <code>Object.getOwnPropertyNames()</code>, <code>Object.keys()</code> or 
+                    <code>for(let key in someObject) </code>. So how to use symbols with objects?
+                    With a <strong>computed property name</strong> syntax, that allows one to get to an object value, 
+                    with a key taken from a variable:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+Ex 1:
+let s1 = Symbol('someSymbol');
+let s2 = Symbol('someSymbol');
+let obj = {
+    aProp: 'abc',
+    bProp: 'cde',
+    [Symbol('c')]: 'efg',
+    [s1]:'hij'
+}
+
+console.log(Object.keys(obj));
+// ['aProp','bProp']
+console.log(Object.getOwnPropertyNames(obj));
+// ['aProp','bProp']
+for(let i in obj){
+    console.log(i);
+}
+//aProp
+//bProp
+console.log(Object.getOwnPropertySymbols(obj));
+//[Symbol(c), Symbol(someSymbol)]
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content: 'Symbol features'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`So now it is known how to access object symbol keyed properties, and it is known, that
+                    they are hidden if accessed in most common way. But what exectly are symbols and why to use them?`
+                },
+                {
+                    elementType:'Code',
+                    content:`
 <pre>
 Ex 1:
 let s1 = Symbol('someSymbol');
@@ -216,70 +287,75 @@ alert(s1.description);
 // Ok, displayes 'someSymbol'
 
 Ex3:
-let s3 = Symbol();
+let s3 = Symbol(); 
+//description argument optional
 
 Ex4:
 let s4 = Symbol('abc');
-console.log(Symbol.for('abc')); // will return a s4 symbol
+console.log(Symbol.for('abc')); // will return a Symbol('abc') not as a string
 let s5 = Symbol('cde'); // there is no such symbol, so a new one will be created and returned,
 
 Ex5:
 let globSym = Symbol.for('fgh');
 console.log(Symbol.keyFor(globSym)); // this will print 'fgh'
-</pre>                                    
-                        </div>
-                            <ul>
-                                <li>
-                                    (Ex1) Symbols are guaranteed to be unique,
-                                </li>
-                                <li>    
-                                    (Ex2) Symbols are not by default converted to a string,
-                                </li>
-                                <li>
-                                    (Ex3) Description, the only argument, is optional, so in this case code will also work.
-                                    A description optional field is only for debugging purposes,
-                                </li>
-                                <li>There is a global symbol registry</li>
-                                <li>(Ex4) <code>Symbol.for(key)</code> returns a symbol for the specified key or 
-                                    creates a new symbol and returnes it in case symbol does not exist,
-                                </li>
-                                <li>
-                                    (Ex5) <code>Symbol.keyFor(symboValue)</code> returns a shared symbol key from the 
-                                    global registry
-                                </li>
-                                <li>
-                                    There is a list of well-known-symbols that are for 
-                                </li>
-                            </ul>
-                        </div>
-                        `
-
-                    ]
-                },
-                {
-                    elementType: 'NoteWarning',
-                    content: `
-                        Beware of creating primitives as objects: <code>new Boolean()</code>, <code>new Number()</code>,
-                        as this is not a primitive anymore and will cause problems.
+</pre>                     
                     `
                 },
                 {
-                    elementType:'Article',
+                    elementType:'UnsignedList',
                     content:[
-                        {
-                            elementType:'Headline-2',
-                            content:'References'
-                        },
-                        {
-                            elementType:'Link',
-                            content:'Developer mozilla',
-                            href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null',
-                            description:'null'
-                        },
+                        `(Ex1) Symbols are guaranteed to be unique,`,
+                        `(Ex2) Symbols are not by default converted to a string,`,
+                        `(Ex3) Description, the only argument, is optional, so in this case code will also work.
+                        A description optional field is only for debugging purposes,`,
+                        `(Ex4) <code>Symbol.for(key)</code> returns a symbol for the specified key or 
+                        creates a new symbol and returnes it in case symbol does not exist,`,
+                        `(Ex5) <code>Symbol.keyFor(Symbol('keyToReturn'))</code> returns a shared symbol key from the 
+                        global registry`,
+                        `There is a global symbol registry`,
+                        `There is a term <i>well-known-symbols</i> in JS, and these are keys, where we can put 
+                        our own values/functions to overwritte a default object behaviour.`
                     ]
                 }
             ]
         },
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline-3',
+                    content: 'Symbols'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`As symbols serve as keys for objects, they are a sort of a bridge between 
+                    primitives and objects when talking about 
+                    JS types. Of course symbols are primitives, but they purpose is to serve as a part of an object,
+                    so it is difficult not to mention objects in this section.<br> `
+                },
+            ]
+        },
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline-2',
+                    content:'References'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null',
+                    description:'null'
+                },
+                {
+                    elementType:'Link',
+                    content:'dmitripavlutin.com',
+                    href: 'https://dmitripavlutin.com/detailed-overview-of-well-known-symbols/',
+                    description:'well-known symbols introduction with examples'
+                },
+            ]
+        }
     ]
 };
 
