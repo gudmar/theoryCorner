@@ -43,7 +43,7 @@ let data =     {
                         <a href ="#nullUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#nullUseCases">
                             Difference from undefined
                         </a>
-                        <div id="nullUseCases" class="collapse">
+                        <div id="nullUseCases" class="collapse m-3">
                             <ul>
                                 <li><code>typeof null</code> "object", not "null" as every object derives from null,</li>
                                 <li><code>typeof undefined</code> "undefined",</li>
@@ -72,7 +72,7 @@ let data =     {
                         <a href ="#booleanUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#booleanUseCases">
                             Boolean detailes
                         </a>
-                        <div id="booleanUseCases" class="collapse">
+                        <div id="booleanUseCases" class="collapse m-3">
                             <ul>
                                 <li><code>let x = false</code> declaration and definition of a boolean primitive</li>
                                 <li><code>let y = new Boolean(false)</code> creates a new <code>typeof y == 'object'</code>,
@@ -108,7 +108,7 @@ let data =     {
                         <a href ="#numberUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#numberUseCases">
                             Number detailes
                         </a>
-                        <div id="numberUseCases" class="collapse">
+                        <div id="numberUseCases" class="collapse m-3">
                             <ul>
                                 <li><code>Number.MAX_VALUE</code> property representing largest possible numeric value
                                     in JS (about 1.8e+308). Every value greater that this will be an <code>Infinity</code>
@@ -157,9 +157,38 @@ let data =     {
                                 <li><code>isFinite(x)</code> is better that <code>if (x < Infinite)</code></li>
                                 <li><code>+0 === -0</code> is true, hovewer <code> 4 / +0</code> is Infinity, and
                                 <code> 4 / -0</code> is -Infinity.</li>
+                                <li><code>Number.isSafeInteger()</code> indicates if a number given as an argument is 
+                                    a safe integer
+                                </li>
+                                <li><code>isNaN()</code> indicates if the value passed as an argument is a number</li>
+                                <li><code>NaN</code> a global property representing a not a number</li>
                             </ul>
                         </div>
-                        `,      
+                        `,  
+                        
+                        
+                        `<code>BigInt</code> is a type for representing values larger than <code>Number.MAX_SAFE_INTEGER</code>
+                        and smaller than <code>Number.MIN_SAFE_INTEGER</code>. They are said not go be bounded, but in practice
+                        they can be overflowed. BigInt numbers have an <i>n</i> at the end, so <code>let a = 1n</code> defines a
+                        BigInt variable.<br>
+                        <a href ="#bigIntUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#bigIntUseCases">
+                            Boolean detailes
+                        </a>
+                        <div id="bigIntUseCases" class="collapse m-3">
+                            <ul>
+                                <li><code>2n == 2 is true</code> BitInts can be compared with numbers, and give proper results,</li>
+                                <li><code>[4n, 6n, 10, 0, 0n].sort() == [0, 0n, 4n, 6n, 10]</code> so BigInts can be sorted together with
+                                numbers</li>
+                                <li><code>typeof 1n == 'bigint', typeof BigInt(1) == 'bigint'</code></li>
+                                <li><code>let a = new BigInt(1)</code><strong>!!!</strong> this is not a primitive anymore,
+                                so <code>typeof a == 'object'</code></li>
+                                <li>BigInts can primitives and objects and mixed may be used with operators +, -, /, *, **, %. 
+                                Only one-argument + is not supported,</li>
+                                <li>BigInts and plane numbers cannot be added, substracted, divided or multiplied,</li>
+                                <li><code>5n / 2n == 2n</code> no fractions here</li>
+                                <li>Cannot be used in JSON.stringify, unless a toJSON method is added to BigInt prototype</li>
+                            </ul>
+                        </div>`
 
                     ]
                 },
