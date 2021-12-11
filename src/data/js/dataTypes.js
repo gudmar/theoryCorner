@@ -95,7 +95,72 @@ let data =     {
                                 expression to a boolean primitive</li>
                             </ul>
                         </div>
-                        `,                   
+                        `,       
+                        
+                        
+                        `<code>number</code>: is a douvle-precision 64-bit binary format value, that is in range 
+                        <code>Number.MIN_SAFE_INTEGER</code> to <code>Number.MAX_SAFE_INTEGER</code>, so (2^52-1) to
+                        (2^53+1). There are <code>Number.MAX_VALUE</code> and <code>Number.MIN_VALUE</code>
+                        values that are in range of approximately (5e-324) to (1.79e+308), but it is not safe to use 
+                        those values, as they are a double-precision floating point approximation of the value<br>
+                        There is an <code>Infinity</code>, a global property for representing numbers greater ths number max
+                        values.<br>
+                        <a href ="#numberUseCases" class="btn btn-primary m-3" data-bs-toggle="collapse" data-bs-target="#numberUseCases">
+                            Number detailes
+                        </a>
+                        <div id="numberUseCases" class="collapse">
+                            <ul>
+                                <li><code>Number.MAX_VALUE</code> property representing largest possible numeric value
+                                    in JS (about 1.8e+308). Every value greater that this will be an <code>Infinity</code>
+                                    This is an unsafe range, as any number greater than <code>Number.MAX_SAFE_INTEGER</code>
+                                    will be approximated,
+                                </li>
+                                <li><code>Number.MIN_VALUE</code> property representing smallest possible numeric value
+                                    in JS (about 5e-324), in other words this value is <b>closest to 0</b>
+                                </li>
+                                <li><code>Number.MIN_SAFE_INTEGER</code> (-(2^53 - 1)). Any number smaller than this will
+                                    be an approximation,
+                                </li>
+                                <li><code>Number.MAX_SAFE_INTEGER</code>(2^53 + 1). Any number greater than this will
+                                    be an approximation,
+                                </li>
+                                <li><code>Infinity</code> A global object property. Is the same as <code>Number.POSITIVE_INFINITY</code></li>
+                                <li><code>Number.POSITIVE_INFINITY</code> The same as a <code>Infinity</code>
+                                    <ul>
+                                        <li><code>POSITIVE_INFINITY * POSITIVE_INFINITY == POSITIVE_INFINITY</code></li>
+                                        <li><code>NEGATIVE_INFINITY * POSITIVE_INFINITY == NEGATIVE_INFINITY</code></li>
+                                        <li><code> anyPositiveNumber / POSITIVE_INFINITY == +0</code></li>
+                                        <li><code> anyNegativeNumber / POSITIVE_INFINITY == -0</code></li>
+                                        <li><code> 0 * POSITIVE_INFINITY == NaN</code></li>
+                                        <li><code> NaN * POSITIVE_INFINITY == NaN</code></li>
+                                        <li><code>POSITIVE_INFINITY / anyNegativeNumber == NEGATIVE_INFINITY</code></li>
+                                        <li><code>POSITIVE_INFINITY / anyPositiveNumber == POSITIVE_INFINITY</code></li>
+                                        <li><code>POSITIVE_INFINITY / POSITIVE_INFINITY == NaN</code></li>
+                                        <li><code>POSITIVE_INFINITY / NEGATIVE_INFINITY == NaN</code></li>
+                                    </ul>
+                                </li>
+                                <li><code>Number.NEGATIVE_INFINITY</code> The same as a <code>-Infinity</code>
+                                    <ul>
+                                        <li><code>NEGATIVE_INFINITY * NEGATIVE_INFINITY == POSITIVE_INFINITY</code></li>
+                                        <li><code>NEGATIVE_INFINITY * anyNegativeNumber == POSITIVE_INFINITY</code></li>
+                                        <li><code>NEGATIVE_INFINITY * POSITIVE_INFINITY == NEGATIVE_INFINITY</code></li>
+                                        <li><code> anyPositiveNumber / NEGATIVE_INFINITY == -0</code></li>
+                                        <li><code> anyNegativeNumber / NEGATIVE_INFINITY == +0</code></li>
+                                        <li><code> 0 * NEGATIVE_INFINITY == NaN</code></li>
+                                        <li><code> NaN * NEGATIVE_INFINITY == NaN</code></li>
+                                        <li><code>NEGATIVE_INFINITY / anyNegativeNumebr == POSITIVE_INFINITY</code></li>
+                                        <li><code>NEGATIVE_INFINITY / anyPositiveNumebr == NEGATIVE_INFINITY</code></li>
+                                        <li><code>NEGATIVE_INFINITY / POSITIVE_INFINITY == NaN</code></li>
+                                        <li><code>NEGATIVE_INFINITY / NEGATIVE_INFINITY == NaN</code></li>
+                                    </ul>
+                                </li>                                
+                                <li><code>isFinite(x)</code> is better that <code>if (x < Infinite)</code></li>
+                                <li><code>+0 === -0</code> is true, hovewer <code> 4 / +0</code> is Infinity, and
+                                <code> 4 / -0</code> is -Infinity.</li>
+                            </ul>
+                        </div>
+                        `,      
+
                     ]
                 },
                 {
