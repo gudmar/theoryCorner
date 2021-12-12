@@ -1,7 +1,9 @@
 let data =     {
     summary: 'data types',
     title: 'data types',
-    searchKeywords:`object array set map null undefined boolean number BigInt string symbol basic types variable`,
+    searchKeywords:`
+        object array set map null undefined boolean number BigInt string symbol basic types variable well-known symbols
+        `,
     cathegory: 'js',
     content: [
         {
@@ -426,6 +428,7 @@ function someIterator() {
                 {
                     elementType:'Code',
                     content: `
+<pre>                    
 function myToPrimitive(hint){
     if (hint=='number') return 44;
     if (hint=='string') return '44';
@@ -435,10 +438,137 @@ let arr = [2, 3];
 arr[Symbol.toPrimitive] = myToPrimitive;
 //now this is possible:
 let c = arr + 5;
+</pre>
                     `
-                }
-    ]
-},
+                                }
+                    ]
+                },
+                {
+                    elementType:'Headline-3',
+                    content: '@@toStringTag'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    A <code>.toString</code> method is capable of turning arrays, numbers, booleans or dates into 
+                    strings. However if a generic object is concerned, <code>{}.toString()</code> would return a 
+                    <code>[object Object]</code>. If there is a need of customizing this returned tag, a <code>
+                    @@toStringTag</code> is a good key to set this custom tag. This may be needed only in work with backword
+                    compatibility. Should not be used in present code.
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content: `
+<pre>
+let obj = {};
+console.log(obj.toString());// [Object object]
+obj[Symbol.toStringTag] = "someTag";
+console.log(obj.toString());// [Object someTag]
+</pre>                        
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content: '@@species'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Some methods, like <code>.map()</code> belonging to Array return a object.
+                    In case of Array, object returned by the <code>.map()</code> method is Array. If there is 
+                    a class <code>SomeArray</code> derived from an <code>Array</code> class, then a <code>.map()</code>
+                    would return a object of the type <code>SomeArray</code>. If there was a necessity to get an 
+                    <code>Array</code> object with <code>someArrayInstence.map()</code>, the <code>SomeArray[Symbol.species]</code>
+                    would have to be set to an <code>Array</code> function. So <code>Symbol.species</code> should be used to
+                    specify a property, whose value is a constructor function used to create derived objects.
+                    
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content: '@@match, @@replace, @@serach, @@split',
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    String prototype has methods <code>match</code>, <code>replace</code>, <code>search</code>,
+                    <code>split</code> to test a string against a regular expression. This methods may be redefined
+                    to accept values other than a <code>RegExp</code>, and <code>@@match</code>, <code>@@replace</code>,
+                    <code>@@serach</code>, <code>@@split</code> well-known symbols are keys where new functions should 
+                    be places.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    If there is a necessity to create a custom class using methods 
+                    <code>match</code>, <code>replace</code>, <code>search</code>,
+                    <code>@@match</code>, <code>@@replace</code>,
+                    <code>@@serach</code>, <code>@@split</code> would be a perfect place to put them.
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content: '@@isConcatSpreadable',
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+let a1 = [1, 2, 3];
+let a2 = [4, 5, 6];
+let a3 = [7, 8, 9];
+a3[Symbol.isConcatSpreadable] = false;
+let a12 = a1.concat(a2); // [1, 2, 3, 4, 5, 6]
+let a13 = a1.concat(a2, a3);
+//[1, 2, 3, 4, 5, 6, [7, 8, 9]]
+
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        If <code>@@isContentSpreadable</code> if false, then a target array is not spreaded 
+                        in concatenation process. It stayes in new array as an individual array.
+                    `
+                },
+
+                {
+                    elementType:'Headline-3',
+                    content: '@@unscopables',
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    An object valuated property defined for an <code>Array</code> in ES2015. It
+                    determines what methods will be allowed to be used in a <code>with</code> binding 
+                    block. As <code>unscopables</code> is defined for a whole object, value added under this key is an
+                    object:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+class someArray extends Array{
+    constructor(){super();}
+    static get [Symbol.unscopables]() {
+        return {
+            concat: false,  //default
+            entries: true   // default
+        }
+    }
+};
+let a = new someArray(1, 2, 3);
+with (a){
+    concat(3); // ok
+    entries; // nok, unscoped
+}
+</pre>                    
+                    `
+                },
         {
             elementType:'Article',
             content:[
@@ -462,6 +592,10 @@ let c = arr + 5;
         }
     ]
 };
+
+(function showError(){
+    console.error('@@species from https://dmitripavlutin.com/detailed-overview-of-well-known-symbols/')
+})();
 
 export default function getDataTypes(){
     console.error('!!! Finish reading about well-konwn-symbols, what they are, and about Symbol.keyFor')

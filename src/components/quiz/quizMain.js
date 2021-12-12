@@ -26,7 +26,7 @@ function QuizMain(props){
     useEffect(()=>{console.log(answers)})
 
     function StartPageIfApplicable(){
-        if (currentQuestionNr == -1) return (
+        if (currentQuestionNr === -1) return (
             <QuizStartPage categoriesHandel={[categories, setCategories]}
             hardnessLevelHandel={[hardnessLevel, setHardnessLevel]}
             nrOfQuestionsHandel={[nrOfQuestions, setNrOfQuestions]}

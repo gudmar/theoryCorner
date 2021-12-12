@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import ExplanationList from './explanationList.js'
 import Link from './link.js'
 import UnsignedList from './unsignedList.js'

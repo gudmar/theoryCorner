@@ -1,5 +1,5 @@
-import { Outlet, Link } from "react-router-dom";
-import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom";
+import React, { useState } from 'react';
 
 
 function Menu(props){
@@ -31,11 +31,11 @@ function Menu(props){
 
 function filterSubmenu(filter, submenuContent){
     function getSummary(item) {return item.summary;}
-    function getSearchKeywords(item) {return item.searchKeywords==undefined?'':item.searchKeywords;}
+    function getSearchKeywords(item) {return item.searchKeywords===undefined?'':item.searchKeywords;}
     function getStringToSearch(item) {
         return `${getSummary(item)} ${getSearchKeywords(item)}`
     }
-    if (filter.trim()=='') return submenuContent;
+    if (filter.trim()==='') return submenuContent;
     return submenuContent.filter((item)=>{
         return getStringToSearch(item).includes(filter);
     })
@@ -74,7 +74,7 @@ function MenuItem(props){
         <Link to={`/theory/${props.summary}`}>{props.summary}</Link>
     </li>
 
-    return <li className="nav-item">{props.summary}</li>
+    // return <li className="nav-item">{props.summary}</li>
 }
 
 export default Menu;

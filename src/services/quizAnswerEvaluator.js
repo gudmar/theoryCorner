@@ -1,12 +1,10 @@
-import { func } from "prop-types";
-
 function checkIfAllAnswersAreGiven(allQuestionDescriptors, userAnswers){
     const correctAnswers = getAnswersFromAllQuestionDescriptors(allQuestionDescriptors);
     let correctAnswersLength = correctAnswers.length;
     let userAnswersLength = userAnswers.length;
-    if (correctAnswersLength != userAnswersLength) throw new Error(`${this.constructor.name}: correctANswerLength != userAnswerLenght`);
+    if (correctAnswersLength !== userAnswersLength) throw new Error(`${this.constructor.name}: correctANswerLength != userAnswerLenght`);
     for (let i=0; i<userAnswersLength; i++){
-        if (checkIfSingleQuestionIsGiven(correctAnswers[i], userAnswers[i]) == false) return false;
+        if (checkIfSingleQuestionIsGiven(correctAnswers[i], userAnswers[i]) === false) return false;
     }
     return true;
 }
@@ -41,7 +39,7 @@ function getCorrectReport(correctQuestionDescriptor){
 
     let question = correctQuestionDescriptor.question;
     let allAnswers = correctQuestionDescriptor.answers;
-    if (questionType == 'fill-in'){
+    if (questionType === 'fill-in'){
         let correctAnswers = correctQuestionDescriptor.correctAnswers;
         return {
             isCorrect: true,
@@ -62,7 +60,7 @@ function getCorrectReport(correctQuestionDescriptor){
 
 function getIncorrectReport(correctQuestionDescriptor, userAnswer){
     let questionType = correctQuestionDescriptor.type;
-    if (questionType == 'fill-in') return getIncorrectReportFillIn(correctQuestionDescriptor, userAnswer)
+    if (questionType === 'fill-in') return getIncorrectReportFillIn(correctQuestionDescriptor, userAnswer)
     else return getIncorrectReportRadioCheckbox(correctQuestionDescriptor, userAnswer);    
 }
 
@@ -124,7 +122,7 @@ function mapIndexesToAnswerContent(correctAnswerDescriptor, indexesArray){
     let correctAnswers = correctAnswerDescriptor.answers;
     function findSingleElement(indexToMap){
         return function(element){
-            return element.originalIndex == indexToMap? true : false;
+            return element.originalIndex === indexToMap? true : false;
         }
     }
     for (let index of indexesAsInt){
@@ -140,9 +138,9 @@ function isSingleAnswerCorrect(correctAnswer, userAnswer, questionType){
         console.log(correctAnswer);console.log(userAnswer);
         return false;
     }
-    if (questionType == 'radio' || questionType == 'checkbox') {
+    if (questionType === 'radio' || questionType === 'checkbox') {
         return checkIfArraysHaveSameValuesAsString(correctAnswer, userAnswer);
-    } else if (questionType == 'fill-in'){
+    } else if (questionType === 'fill-in'){
         if (!haveArraysSameLength(correctAnswer, userAnswer)) return false;
         let length = correctAnswer.length;
         for (let i = 0; i<length; i++){
@@ -154,7 +152,7 @@ function isSingleAnswerCorrect(correctAnswer, userAnswer, questionType){
 
 function haveArraysSameLength(arr1, arr2){
     let [l1, l2] = [arr1.length, arr2.length];
-    if (l1 != l2) return false;
+    if (l1 !== l2) return false;
     return true;    
 }
 
@@ -162,7 +160,7 @@ function areArraysEqual(arr1, arr2){
     if (!haveArraysSameLength(arr1, arr2)) return false;
     let length = arr1.length;
     for (let i=0; i< length; i++){
-        if (arr1[i]!=arr2[i]) return false;
+        if (arr1[i]!==arr2[i]) return false;
     }
     return true;
 }
@@ -171,10 +169,10 @@ function checkIfArraysHaveSameValuesAsString(arr1, arr2){
     let arr1String = [...allArrayElementsToString(arr1)];
     let arr2String = [...allArrayElementsToString(arr2)];
     let arrLength = arr1.length;
-    if (arrLength != arr2.length) return false;
+    if (arrLength !== arr2.length) return false;
     for (let item of arr1String){
         let indexInArr2 = arr2String.indexOf(item);
-        if (indexInArr2 == -1) return false;
+        if (indexInArr2 === -1) return false;
         arr2String.splice(indexInArr2, 1);
     }
     return true;
@@ -183,7 +181,7 @@ function checkIfArraysHaveSameValuesAsString(arr1, arr2){
 function allArrayElementsToString(arr){
     let arrCp = [...arr];
     for(let item of arrCp){
-        if(typeof(item)!="string") item=item.toString();
+        if(typeof(item)!=="string") item=item.toString();
     }
     return arrCp;
 }
@@ -191,7 +189,7 @@ function allArrayElementsToString(arr){
 function allArrayElementsToInt(arr){
     let arrCp = [...arr];
     for(let item of arrCp){
-        if(typeof(item)=="string") item=parseInt(item);
+        if(typeof(item)==="string") item=parseInt(item);
     }
     return arrCp;
 }
@@ -199,9 +197,9 @@ function allArrayElementsToInt(arr){
 function checkIfSingleQuestionIsGiven(correctAnswerDescriptor, userAnswer){
     const questionType = correctAnswerDescriptor.type;
     const correctAnswer = correctAnswerDescriptor.answers;
-    if (questionType == 'radio' || questionType == "checkbox"){
-        return userAnswer != []?true:false;
-    } else if (questionType == 'fill-in'){
+    if (questionType === 'radio' || questionType === "checkbox"){
+        return userAnswer !== []?true:false;
+    } else if (questionType === 'fill-in'){
         return checkIfAllArraysHaveSameLength(correctAnswerDescriptor, userAnswer)
     } else {
         console.error(`${constructor.name}: Question type of ${questionType} is not supported`);
@@ -212,15 +210,15 @@ function checkIfSingleQuestionIsGiven(correctAnswerDescriptor, userAnswer){
 function checkIfAllArraysHaveSameLength(arraySet1, arraySet2){
     let len1 = arraySet1.length;
     let len2 = arraySet2.length;
-    if (len1 != len2) return false;
+    if (len1 !== len2) return false;
     for(let i = 0; i < len1 ; i++){
         let item1 = arraySet1[i];
         let item2 = arraySet2[i];
-        if (Array.isArray(item1) == false || Array.isArray(item2) == false){
+        if (Array.isArray(item1) === false || Array.isArray(item2) === false){
             console.error(`${constructor.name}: checkIfAllArraysHaveSameLenght: one of items is not an array`);
             return false;
         }
-        if (item1.length != item2.length) return false
+        if (item1.length !== item2.length) return false
     }
     return true;
 }
@@ -229,7 +227,7 @@ function getAnswersFromAllQuestionDescriptors(allQuestionDescriptors){
     let answers = [];
     for (let answer of allQuestionDescriptors){
         let questionType = answer.type;
-        let questionAnswers = answer.correctAnswers==undefined?answer.correctAnswersIds:answer.correctAnswers;
+        let questionAnswers = answer.correctAnswers===undefined?answer.correctAnswersIds:answer.correctAnswers;
 
         answers.push({type:questionType, answers:questionAnswers})
     }

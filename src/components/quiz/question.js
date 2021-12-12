@@ -23,8 +23,8 @@ function Question(props){
             let value = event.target.value;
             let elementType=event.target.type; //'radio'/'checkbox'
             let isChecked = event.target.checked; //true/false
-            if (elementType == 'radio') setRadio(value);
-            else if (elementType == 'checkbox') setCheckBox(value);
+            if (elementType === 'radio') setRadio(value);
+            else if (elementType === 'checkbox') setCheckBox(value);
             else console.warn(`question.js: What? Target should be either radio or change and is ${elementType}`)
         }
     }
@@ -36,11 +36,11 @@ function Question(props){
 
     function setCheckBox(value){
         let isElementInAnswers = answers[questionNr].includes(value);
-        if (isElementInAnswers == false) answers[questionNr].push(value);
+        if (isElementInAnswers === false) answers[questionNr].push(value);
         else {
             let indexOfValueInCurrentAnswers = answers[questionNr].findIndex(
                 (element)=>{
-                    return value == element;
+                    return value === element;
                 }
             )
             answers[questionNr].splice(indexOfValueInCurrentAnswers, 1);
@@ -65,7 +65,6 @@ function Question(props){
         }
         function fillEachRowWithEmptyArrays(arrOfArrays, arrOfLengths){
             for (let i = 0; i<arrOfArrays.length; i++){
-                let arrLen = arrOfArrays[i].length;
                 let howManyArraysShouldBe = arrOfLengths[i];
                 fillWithEmptyArrays(arrOfArrays[i], howManyArraysShouldBe);
             }
@@ -93,7 +92,7 @@ function Question(props){
 
 
     function RatioAnswersIfApplicable(){
-        if(qType=='radio') return (
+        if(qType==='radio') return (
             <form onSubmit={applicatoinShouldSwitchToRaportView}>
                 {qAnswers.map((answer, index)=>{
                     return (
@@ -137,8 +136,8 @@ function Question(props){
         function getFillInAnswerValue(answerNr, fieldNr){
             let answerToSearchIn = answers[questionNr];
             if (!Array.isArray(answerToSearchIn)) return '';
-            if (answerToSearchIn[answerNr] == undefined) return '';
-            if (answerToSearchIn[answerNr][fieldNr] == undefined) return '';
+            if (answerToSearchIn[answerNr] === undefined) return '';
+            if (answerToSearchIn[answerNr][fieldNr] === undefined) return '';
             return answerToSearchIn[answerNr][fieldNr];
         }
 
@@ -172,7 +171,7 @@ function Question(props){
                 </div>
             )
         }
-        if (qType == 'fill-in') return (
+        if (qType === 'fill-in') return (
             qAnswers.map((answer, index)=>{
                 return (
                     <>
@@ -191,7 +190,7 @@ function Question(props){
     }
 
     function CheckboxAnswersIfApplicable(){
-        if(qType=='checkbox') return (
+        if(qType==='checkbox') return (
             <form onSubmit={applicatoinShouldSwitchToRaportView}>
                 {qAnswers.map((answer, index)=>{
                     return (

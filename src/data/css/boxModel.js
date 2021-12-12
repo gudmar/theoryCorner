@@ -1,7 +1,6 @@
 let data =     {
     summary: 'box model',
     title: 'box model',
-    searchKeywords: 'margin padding border outline css',
     cathegory: 'css',
     searchKeywords: `margin padding collapsed margin top-margin bottom-margin left-margin right-margin padding
         padding-top padding-bottom padding-left padding-right border outline border-top border-right border-bottom

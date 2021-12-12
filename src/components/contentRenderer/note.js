@@ -1,7 +1,7 @@
 function Note(props){
     let severity = props.severity;
     let content = props.content;
-    if (severity == 'warning') {
+    if (severity === 'warning') {
         // should return warning, for danger and info other returns
     }
     return (
