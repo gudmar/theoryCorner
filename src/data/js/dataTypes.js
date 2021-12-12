@@ -323,18 +323,122 @@ console.log(Symbol.keyFor(globSym)); // this will print 'fgh'
             elementType:'Article',
             content:[
                 {
-                    elementType:'Headline-3',
-                    content: 'Symbols'
+                    elementType:'Headline-2',
+                    content: 'Well-known symbols'
                 },
                 {
                     elementType:'Paragraph',
-                    content:`As symbols serve as keys for objects, they are a sort of a bridge between 
-                    primitives and objects when talking about 
-                    JS types. Of course symbols are primitives, but they purpose is to serve as a part of an object,
-                    so it is difficult not to mention objects in this section.<br> `
+                    content:`As mentioned, well-known symbols allow defining or redefining of some custom
+                    defined object behavoiurs. This is for inheritance purposes, not for redefinision of 
+                    existing objects behavour.
+                    `
                 },
-            ]
-        },
+                {
+                    elementType:'Headline-3',
+                    content: '@@iterator'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`An iterator is a function knowing how to get to next collection item, and knowin when
+                    whole collection is already iterated through. An iterator function returns a <code>next()</code>
+                    function, that returns an object having a <code>value</code> property, keeping a next item of the
+                    collection, and a <code>done</code> property that equals to <code>fasle</code> if there are still
+                    more elements in the collection, or <code>true</code> if there are no more elements in the colleciton.
+                    In case of <code>done == false</code> a value field may not exist.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`An object is iterable if it has a iterator function under its <code>Symbol.iterator</code>
+                    property. Such object is capable of:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `Being used in a <code>for..of iterabelObj</code> loop,`,
+                        `An array may be created wit a spread operator <code>[...iterableObj]</code>,`,
+                        `An array of elements may be created using <code>Array.from(iterableObj)</code>`,
+                        `In promise static methods <code>Promise.all(iterableObj)</code>, <code>Promise.race(iterableObj)</code>`
+                    ]
+                    
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+function someIterator() {
+    let n = 0;
+    return {
+      next: function() {
+        n += 10;
+        return n > 100?{done:true}:{value:n, done:false};
+      }
+    };
+  }
+  let a = {};
+  a[Symbol.iterator] = someIterator;
+  //now this will work
+  for(let i of a ) {console.log(i)}
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content: '@@hasInstance'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`Can be used to customise a <code>instanceof</code> operator work:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content: `
+<pre>
+    class SomeNewType{
+        static [Symbol.hasInstance](obj){
+            return true
+        }
+    }
+    //now every existing instance of any object 
+    //will be also an instance of SomeNewType
+    let arr = [2, 3];
+    arr instanceof Array; //true;
+    arr instanceof Object; // true;
+    arr instanceof SomeNewType; //true;
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Headline-3',
+                    content: '@@toPrimitive'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`If custom object [symbol.toPrimitive] holds a function returning a primitive, than 
+                    this object may be used with operators like <code>+</code>, <code>-</code>, <code>==</code>.
+                    There is a <code>hint</code> property taking a suggested primitive type that object should be 
+                    converted into
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content: `
+function myToPrimitive(hint){
+    if (hint=='number') return 44;
+    if (hint=='string') return '44';
+    else return this.toString();
+}
+let arr = [2, 3];
+arr[Symbol.toPrimitive] = myToPrimitive;
+//now this is possible:
+let c = arr + 5;
+                    `
+                }
+    ]
+},
         {
             elementType:'Article',
             content:[
