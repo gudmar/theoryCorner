@@ -5,6 +5,7 @@ import getArrayMethods from './js/arrayMethods';
 import  getDataTypes from './js/dataTypes';
 import getJSOperatorsData from './js/operators';
 import getStringMethods from './js/stringMethods';
+import getJSObjectsData from './js/objects';
 let theoryDataJs = [
     {
         summary: 'this keyword',
@@ -182,6 +183,7 @@ let theoryDataJs = [
     getDataTypes(),
     getJSOperatorsData(),
     getStringMethods(),
+    getJSObjectsData(),
 ]
 
 export function getTheoryDataJs(){
