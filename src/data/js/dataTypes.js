@@ -1,3 +1,4 @@
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'data types',
     title: 'data types',
@@ -61,9 +62,9 @@ let data =     {
                         `,
 
                         `
-                        <code>undefined</code> is automaticly assigned to variables that have just been declaired but not
-                        defined. Undefined is not writable, enumerable or configurable. However it may be used as a variable name,
-                        in this case it gets overwritten. Nevertheless overwritting undefined seems a very bad idea and should be
+                        <code>undefined</code> is automaticlly assigned to variables that have just been declared but not
+                        defined. Undefined is not writable, enumerable or configurable. However, it may be used as a variable name,
+                        in this case it gets overwritten. Nevertheless overwriting undefined seems a very bad idea and should be
                         never done. Undefined should be compared with a <i>strict equality</i> operator <code>===</code>. 
                         In case an object key does not exist its returned value will be undefined. <strong>It is better to use </storng>
                         <code>typeof x === 'undefined'</code> in stead of <code>x === undefined</code> to avoid an error if x id not declaired.
@@ -84,7 +85,7 @@ let data =     {
                                 </li>
                                 <li><code>let z = Boolean(false)</code> does not create an object anymore, 
                                 as it is a call of the function, not a constructor. 
-                                It casts value given as an argument to a boolean primitive value,
+                                It casts value a given as an argument to a boolean primitive value,
                                     so <code>z != y</code>, <code>z === false</code>
                                 </li>
                                 <li><code>Boolean(undefined)==false</code></li>
@@ -100,10 +101,10 @@ let data =     {
                         `,       
                         
                         
-                        `<code>number</code>: is a douvle-precision 64-bit binary format value, that is in range 
+                        `<code>number</code>: is a double-precision 64-bit binary format value, that is in range 
                         <code>Number.MIN_SAFE_INTEGER</code> to <code>Number.MAX_SAFE_INTEGER</code>, so (2^52-1) to
                         (2^53+1). There are <code>Number.MAX_VALUE</code> and <code>Number.MIN_VALUE</code>
-                        values that are in range of approximately (5e-324) to (1.79e+308), but it is not safe to use 
+                        values that are in the range of approximately (5e-324) to (1.79e+308), but it is not safe to use 
                         those values, as they are a double-precision floating point approximation of the value<br>
                         There is an <code>Infinity</code>, a global property for representing numbers greater ths number max
                         values.<br>
@@ -112,13 +113,13 @@ let data =     {
                         </a>
                         <div id="numberUseCases" class="collapse m-3">
                             <ul>
-                                <li><code>Number.MAX_VALUE</code> property representing largest possible numeric value
+                                <li><code>Number.MAX_VALUE</code> property representing the largest possible numeric value
                                     in JS (about 1.8e+308). Every value greater that this will be an <code>Infinity</code>
                                     This is an unsafe range, as any number greater than <code>Number.MAX_SAFE_INTEGER</code>
                                     will be approximated,
                                 </li>
-                                <li><code>Number.MIN_VALUE</code> property representing smallest possible numeric value
-                                    in JS (about 5e-324), in other words this value is <b>closest to 0</b>
+                                <li><code>Number.MIN_VALUE</code> property representing the smallest possible numeric value
+                                    in JS (about 5e-324), in other words this value is the <b>closest to 0</b> value,
                                 </li>
                                 <li><code>Number.MIN_SAFE_INTEGER</code> (-(2^53 - 1)). Any number smaller than this will
                                     be an approximation,
@@ -127,7 +128,7 @@ let data =     {
                                     be an approximation,
                                 </li>
                                 <li><code>Infinity</code> A global object property. Is the same as <code>Number.POSITIVE_INFINITY</code></li>
-                                <li><code>Number.POSITIVE_INFINITY</code> The same as a <code>Infinity</code>
+                                <li><code>Number.POSITIVE_INFINITY</code> The same as an <code>Infinity</code>
                                     <ul>
                                         <li><code>POSITIVE_INFINITY * POSITIVE_INFINITY == POSITIVE_INFINITY</code></li>
                                         <li><code>NEGATIVE_INFINITY * POSITIVE_INFINITY == NEGATIVE_INFINITY</code></li>
@@ -184,19 +185,20 @@ let data =     {
                                 <li><code>typeof 1n == 'bigint', typeof BigInt(1) == 'bigint'</code></li>
                                 <li><code>let a = new BigInt(1)</code><strong>!!!</strong> this is not a primitive anymore,
                                 so <code>typeof a == 'object'</code></li>
-                                <li>BigInts can primitives and objects and mixed may be used with operators +, -, /, *, **, %. 
+                                <li>BigInt primitives, objects and mixed BigInt primitives with objects 
+                                may be used with operators +, -, /, *, **, %. 
                                 Only one-argument + is not supported,</li>
-                                <li>BigInts and plane numbers cannot be added, substracted, divided or multiplied,</li>
+                                <li>BigInts and plane numbers cannot be added, subtracted, divided or multiplied,</li>
                                 <li><code>5n / 2n == 2n</code> no fractions here</li>
-                                <li>Cannot be used in JSON.stringify, unless a toJSON method is added to BigInt prototype</li>
+                                <li>Cannot be used in JSON.stringify, unless a toJSON method is added to the BigInt prototype</li>
                             </ul>
                         </div>`,
                         `
-                        <code>string</code> is a type for representing textual data in a set of 16-bit undigned integer values.
+                        <code>string</code> is a type for representing textual data in a set of 16-bit unsigned integer values.
                         Please refer to the <a href="./string%20methods">string</a> section for more information.
                         `,
                         `
-                        <code>symbol</code> is a type aspecially designed to serve as a key for object, as objects keys in JS
+                        <code>symbol</code> is a type a specially designed to serve as a key for the object, as objects keys in JS
                         may only be of a type string or symbol.<br>
                         `
                                 ]
@@ -269,7 +271,7 @@ console.log(Object.getOwnPropertySymbols(obj));
                 {
                     elementType:'Paragraph',
                     content:`So now it is known how to access object symbol keyed properties, and it is known, that
-                    they are hidden if accessed in most common way. But what exectly are symbols and why to use them?`
+                    they are hidden if accessed in most common way. But what exactly are symbols and why to use them?`
                 },
                 {
                     elementType:'Code',
@@ -295,7 +297,7 @@ let s3 = Symbol();
 Ex4:
 let s4 = Symbol('abc');
 console.log(Symbol.for('abc')); // will return a Symbol('abc') not as a string
-let s5 = Symbol('cde'); // there is no such symbol, so a new one will be created and returned,
+let s5 = Symbol.for('cde'); // there is no such symbol, so a new one will be created and returned,
 
 Ex5:
 let globSym = Symbol.for('fgh');
@@ -331,8 +333,8 @@ console.log(Symbol.keyFor(globSym)); // this will print 'fgh'
                 {
                     elementType:'Paragraph',
                     content:`As mentioned, well-known symbols allow defining or redefining of some custom
-                    defined object behavoiurs. This is for inheritance purposes, not for redefinision of 
-                    existing objects behavour.
+                    defined object behavoiurs. This is for inheritance purposes, not for redefinition of 
+                    existing object's behavour.
                     `
                 },
                 {
@@ -341,17 +343,17 @@ console.log(Symbol.keyFor(globSym)); // this will print 'fgh'
                 },
                 {
                     elementType:'Paragraph',
-                    content:`An iterator is a function knowing how to get to next collection item, and knowin when
+                    content:`An iterator is a function knowing how to get to next collection item, and knowing when
                     whole collection is already iterated through. An iterator function returns a <code>next()</code>
                     function, that returns an object having a <code>value</code> property, keeping a next item of the
                     collection, and a <code>done</code> property that equals to <code>fasle</code> if there are still
-                    more elements in the collection, or <code>true</code> if there are no more elements in the colleciton.
+                    more elements in the collection, or <code>true</code> if there are no more elements in the collection.
                     In case of <code>done == false</code> a value field may not exist.
                     `
                 },
                 {
                     elementType:'Paragraph',
-                    content:`An object is iterable if it has a iterator function under its <code>Symbol.iterator</code>
+                    content:`An object is iterable, if it has an iterator function under its <code>Symbol.iterator</code>
                     property. Such object is capable of:
                     `
                 },
@@ -359,7 +361,7 @@ console.log(Symbol.keyFor(globSym)); // this will print 'fgh'
                     elementType:'UnsignedList',
                     content:[
                         `Being used in a <code>for..of iterabelObj</code> loop,`,
-                        `An array may be created wit a spread operator <code>[...iterableObj]</code>,`,
+                        `An array may be created with a spread operator <code>[...iterableObj]</code>,`,
                         `An array of elements may be created using <code>Array.from(iterableObj)</code>`,
                         `In promise static methods <code>Promise.all(iterableObj)</code>, <code>Promise.race(iterableObj)</code>`
                     ]
@@ -391,7 +393,7 @@ function someIterator() {
                 },
                 {
                     elementType:'Paragraph',
-                    content:`Can be used to customise a <code>instanceof</code> operator work:
+                    content:`Can be used to customise an <code>instanceof</code> operator work:
                     `
                 },
                 {
@@ -419,7 +421,7 @@ function someIterator() {
                 },
                 {
                     elementType:'Paragraph',
-                    content:`If custom object [symbol.toPrimitive] holds a function returning a primitive, than 
+                    content:`If custom object [symbol.toPrimitive] holds a function returning a primitive, then 
                     this object may be used with operators like <code>+</code>, <code>-</code>, <code>==</code>.
                     There is a <code>hint</code> property taking a suggested primitive type that object should be 
                     converted into
@@ -453,8 +455,8 @@ let c = arr + 5;
                     A <code>.toString</code> method is capable of turning arrays, numbers, booleans or dates into 
                     strings. However if a generic object is concerned, <code>{}.toString()</code> would return a 
                     <code>[object Object]</code>. If there is a need of customizing this returned tag, a <code>
-                    @@toStringTag</code> is a good key to set this custom tag. This may be needed only in work with backword
-                    compatibility. Should not be used in present code.
+                    @@toStringTag</code> is a good key to set this custom tag. This may be needed only to work with backward
+                    compatibility. Should not be used in the present code.
                     `
                 },
                 {
@@ -493,10 +495,10 @@ console.log(obj.toString());// [Object someTag]
                     elementType:'Paragraph',
                     content:`
                     String prototype has methods <code>match</code>, <code>replace</code>, <code>search</code>,
-                    <code>split</code> to test a string against a regular expression. This methods may be redefined
+                    <code>split</code> to test a string against a regular expression. These methods may be redefined
                     to accept values other than a <code>RegExp</code>, and <code>@@match</code>, <code>@@replace</code>,
                     <code>@@serach</code>, <code>@@split</code> well-known symbols are keys where new functions should 
-                    be places.
+                    be placed.
                     `
                 },
                 {
@@ -530,8 +532,8 @@ let a13 = a1.concat(a2, a3);
                 {
                     elementType:'Paragraph',
                     content:`
-                        If <code>@@isContentSpreadable</code> if false, then a target array is not spreaded 
-                        in concatenation process. It stayes in new array as an individual array.
+                        If <code>@@isContentSpreadable</code> if false, then a target array is not spread 
+                        in concatenation process. It stayes in the new array as an individual array.
                     `
                 },
 
