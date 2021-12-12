@@ -4,18 +4,18 @@ import { getAboutData } from './data/aboutData';
 import  Menu  from './components/menu';
 import  ContentSection  from './components/contentSection';
 // import { BrowserRouter } from "react-router-dom";
-import { Outlet, Link, useLocation, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 function getAllPaths(locationDescriptor){
-  if (locationDescriptor == undefined) return [];
-  if (locationDescriptor == null) return [];
-  if (locationDescriptor.pathname == undefined) return [];
+  if (locationDescriptor === undefined) return [];
+  if (locationDescriptor === null) return [];
+  if (locationDescriptor.pathname === undefined) return [];
   return locationDescriptor.pathname.split('/').slice(1);
 }
 
 function isPathNotNestedAndContains(locationDescriptor, pathToMatch){
   let allPaths = getAllPaths(locationDescriptor);
-  if (allPaths.length != 1) return false;
+  if (allPaths.length !== 1) return false;
   return allPaths[0] === pathToMatch;
 }
 
@@ -40,10 +40,10 @@ function getTopicFromTheory(topic){
 
 function doLocationParamsMatch(locationParamsDescriptor, keyToMatch){
   console.log(locationParamsDescriptor)
-  console.log(locationParamsDescriptor==undefined)
+  console.log(locationParamsDescriptor===undefined)
   console.log(locationParamsDescriptor[keyToMatch])
-  if (locationParamsDescriptor == undefined) return false;
-  if (locationParamsDescriptor[keyToMatch] == undefined) return false;
+  if (locationParamsDescriptor === undefined) return false;
+  if (locationParamsDescriptor[keyToMatch] === undefined) return false;
   return true;
   // return locationParamsDescriptor[keyToMatch] == keyToMatch;
 }

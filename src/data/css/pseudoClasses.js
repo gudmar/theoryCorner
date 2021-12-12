@@ -6,7 +6,6 @@ const data =         {
         :read-only :read-write :placeholder-shown :dafault :checked :indeterminate :blank :valid :invalid :in-range
         :out-of-range :reequired :optional :user-invalid :root :empty :nth-child :nth-last-child :firslt-child :only-child
         :nth-of-type :nth-last-of-type :first-of-type :last-of-type :only-of-type`,
-    searchKeywords: ' css',
     cathegory: 'js',
     content: [
         {

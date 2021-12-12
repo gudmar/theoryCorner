@@ -7,11 +7,11 @@ function Pagination(props){
     // console.log(items)
 
     function isActive(itemNr){
-        return itemNr == currentItemNr?'active':'';
+        return itemNr === currentItemNr?'active':'';
     }
     function setCurrentActive(itemNr){
         return ()=>{
-            if (itemNr != currentItemNr) setCurrentItemNr(itemNr)
+            if (itemNr !== currentItemNr) setCurrentItemNr(itemNr)
         }
     }
 
@@ -33,7 +33,7 @@ function getArrayOfNElements(n){
     return arr;
 }
 function toInt(n){
-    return typeof(n)=="number"?n:parseInt(n);
+    return typeof(n)==="number"?n:parseInt(n);
 }
 
 export default Pagination;
