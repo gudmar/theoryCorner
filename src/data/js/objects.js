@@ -181,7 +181,7 @@ function Person(firstName, familyName, age){
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `Basic syntax: <code>var obj = {prop = 'val'};`,
+                        `Basic syntax: <code>var obj = {prop: 'val'};`,
                         `With a constructor (see above)`,
                         `With a
                         <code>
