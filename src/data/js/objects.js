@@ -144,6 +144,59 @@ let data =     {
                     elementType:'Paragraph',
                     content:[
                         `
+                        An object may be created with a constructor function. It is a good practice to start a 
+                        constructor name with a capital letter. Each object in JS has its constructor property.
+                        When object is created with <code>let obj = {}</code> then <code>obj.constructor.name === "Object"
+                        </code>. But if an object is created with a constructor function, then constructor name of 
+                        newly created object would be the name of the constructor function.
+                        `
+                    ]
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+function Person(firstName, familyName, age){
+    this.firstName = firstName;
+    this.familyName = familyName;
+    this.age = age;
+}
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content:`Ways of creating new objects`
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `Basic syntax: <code>var obj = {prop = 'val'};`,
+                        `With a constructor (see above)`,
+                        `With a
+                        <code>
+<pre>
+var obj = {prop: 'val'};
+var obj2 = Object.create(obj); // obj2 inherits obj
+</pre>                        
+                        </code>
+                        `,
+                        `With classes
+                        <code>
+<pre>
+class Basic {
+    constructor(){this.prop = 'val'}
+}
+class Extending extends Basic{
+    constructor(){
+        super(); //mandatory in class extending another class,
+        // without this no possibility to refer to this keyword
+        this.prop2 = 'val2'
+    }
+}
+let instance = new Extending();
+</pre>                        
+                        </code>
                         `
                     ]
                 },
@@ -165,12 +218,76 @@ let data =     {
             content:[
                 {
                     elementType:'Headline-2',
-                    content:'Prototype vs. __proto__'
+                    content:'Prototype chain'
                 },
                 {
                     elementType:'Paragraph',
                     content:`
-
+                    Everything in JS is an object. Each object has its private property binding it to other objects.
+                    This property is called a <strong>prototype</storng>. Each prototype has its own prototype.
+                    The last prototype in this chain points to <code>null</code>.
+                    `
+                },
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    Prototypes of existing objects (like <code>Array</code>) should never be modified as this 
+                    practice breaks encapsulation. Instead a new class extending some class should be created, and
+                    needed properties should be added to newly created class.
+                    `
+                },
+                {
+                    elementType:'Headline-3',
+                    content:'A chain'
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+function Person(name, familyName) {
+    this.firstName: name,
+    this.familyName: familyName
+};
+function PersonWithAge(name, familyName, age){
+    Person.call(this, name, familyName);
+    this.age = age;
+}
+function PersonWithGender(name, familyName, age, gender){
+    PersonWithAge.call(this, name, familyName, age, gender);
+    this.gender = gender;
+}
+let p = new PersonWithGender('Genowefa', 'Kowalska', 87, 'female');
+let gender = p.gender;
+let name = p.firstName;
+let hairColor = p.hairColor;
+// lets see what happens here
+</pre>                             
+                    `
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content:[
+                        `There is a base constructor <code>Person</code>`,
+                        `<code>PersonWithAge</code> extends <code>Person</code>`,
+                        `<code>PersonWithGender</code> inherits after <code>PersonWithAge</code>`,
+                        `<code>let gender = p.gender</code>: here a gender property of <code>p</code> is referenced,
+                        so JS engine seraches <code>p</code> own properties and finds desired property, end of search,`,
+                        `<code>let name = p.firstName</code>: JS engine searches <code>p</code> own properties for 
+                        a <code>firstName</code> property, and does not find it. So it searches its prototype for that 
+                        property. Prototype of <code>PersonWithGender</code> has only one property, and that is <code>age</code>,
+                        so search is continued in prototypes prototype (<code>Person</code>). Here property is found, end of search,`,
+                        `<code>let hairColor = p.hairColor<code>. Here a not existing property is enquired, so JS
+                        engine searches own properties of <code>p</code>, then all prototypes, until <code>null</code> is
+                        encountered. Now <code>undefined</code> is returned.`
+                    ]
+                },
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    Searching whole prototype chain is time consuming, so if time is crucial there are 
+                    <code>Object.hasOwnProperty(o)</code> and <code>Object.getOwnPropertyNames(o)</code> methods
+                    that will not search whole prototype chain but look only in properties owned directly by the
+                    object <code>o</code>.
                     `
                 },
                 {
@@ -180,19 +297,20 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-
+                        <code>__proto__</code> is depraciated, and should not be used anymore. <code>__proto__</code> object
+                        is holding a setter and getter of the prototype, so
+                        <code>Object.getPrototypeOf(o)</code> and <code>Object.setPrototypeOf(o)</code> should be used instead.
                     `
                 },
                 {
-                    elementType:'Headline-3',
-                    content:'Prototype'
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
-
-                    `
-                },
+                    elementType:'UnsignedList',
+                    content: [
+                    `If object was created by a <code>let o = {}</code> expression __proto__ is holding "Object.prototype"`,
+                    `If an object was created with a creator, then __proto__ holds creators prototype,`,
+                    `<code>someObj.__proto__ = someOtherObj</code> should be substituted with 
+                    <code>Object.setPrototypeOf(someObj, someOtherObj)</code>`
+                    ]
+                }
             ]
         },
         {
@@ -213,6 +331,18 @@ let data =     {
                     content:'Developer mozilla',
                     href: 'https://developer.mozilla.org/pl/docs/Web/JavaScript/Reference/Global_Objects/Object',
                     description:'About Object'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/pl/docs/Web/JavaScript/Inheritance_and_the_prototype_chain',
+                    description:'Prototype chain'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto',
+                    description:'__proto__'
                 },
             ]
         }
