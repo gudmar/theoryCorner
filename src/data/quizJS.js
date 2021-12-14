@@ -9,6 +9,7 @@
 // links:[string]
 import getServerCommunicationQuestions from './js/quiz/serverCommunication'
 import getDataTypeQuestions from './js/quiz/dataTypes'
+import getObjectsQuestions from './js/quiz/objects'
 function getUl(itemArray){
     return <ul>{itemArray.map((element)=>{return <li key="element">element</li>}) }</ul>
 }
@@ -522,6 +523,7 @@ let questions = [
     },   
     getServerCommunicationQuestions(),
     getDataTypeQuestions(),
+    getObjectsQuestions()
 ]
 
 export function getJsQuestions(){

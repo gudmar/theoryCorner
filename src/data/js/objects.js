@@ -1,3 +1,4 @@
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'objects',
     title: 'objects',
@@ -44,7 +45,8 @@ let data =     {
                     elementType: 'Paragraph',
                     content: `
                         A new property could be set to an object by calling it and new property key in brackets:
-                        <code>person['height']= 184cm</code>. If the <code>heigth</code> property does not exist it 
+                        <code>person['height'] = 184cm</code>, or with a dot notation: <code>person.height</code>.
+                        If the <code>heigth</code> property does not exist, it 
                         will be created under the person object. In case it would already exist, it would be 
                         overriden with a new value.
                     `
@@ -52,10 +54,18 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                        A object property may be referred in similar way it is created: by object name and 
+                        An object property may be referred in similar way it is created: by object name and 
                         a property name in brackets: <code>let gender = person['gender']</code>, or with a dot
                         notation <code>let gender = person.gender</code>. In case a property does not exist under 
                         a person object <code>undefined</code> is returned.
+                    `
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                        If a symbol has to be used as a key, then the bracket notation is the right one:
+                        <code>person[Symbol('height')]</code>. To learn more about symbols please visit a 
+                        <a href="./data%20types">data types</a> section.
                     `
                 },
                 {
@@ -79,8 +89,8 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:
-                        `There is a way to hide a property from being listed with a <code>Object.keys()</code> or
-                        <code>for..in</code> loop. This can be done with setting object descriptors enumerable to
+                        `There is a way to hide a property from being listed with an <code>Object.keys()</code> or
+                        <code>for..in</code> loop. This can be done by setting object descriptors enumerable to
                         false. Each object property besides its value has more attributes:`
                 },
                 {
@@ -88,24 +98,24 @@ let data =     {
                     content:[
                         `<strong>value</strong>: this is the value property will have, by default it is <code>undefined</code>`,
                         `<strong>writable</strong>: this indicates if property value may be changed with an assignment operator`,
-                        `<strong>enumerable</strong>: indicates if a property will show up in <code>Object.keys()</code>
+                        `<strong>enumerable</strong>: indicates if a property will show up in the <code>Object.keys()</code>
                         or <code>for..in</code> loop,`,
-                        `<strong>configurable</strong>: if true then objects descriptor property may be modified or property may
+                        `<strong>configurable</strong>: if true, then objects descriptor property may be modified or property may
                         be deleted,`,
-                        `<strong>get(){}</strong>: This is a getter, a special function that if defined will be executed when
-                        property appears as a right-hand operand. This functions value will be returned instead of actual 
+                        `<strong>get(){}</strong>: This is a getter, a special function that if defined, will be executed when
+                        the property appears as a right-hand operand. This functions value will be returned instead of actual 
                         property value. This function may be used if property value does not exist, and is dynamically computed, 
                         or is taken from the view (DOM) at the time it is enquired. A getter must return a value.
-                        A getter should never attempt to change any state of application!`,
-                        `<strong>set(val){}</strong>: This is the function that will be executed when property appears as a 
+                        A getter should never attempt to change any state of the application!`,
+                        `<strong>set(val){}</strong>: This is the function that will be executed when the property appears as a 
                         left-hand operator instead of setting a value to it. This function is called a setter. This function
-                        may be used for some side-effects when parameter is being set. For example it may update view.`,
+                        may be used for some side-effects when the parameter is being set. For example, it may update the view.`,
                     ]
                 },
                 {
                     elementType:'Paragraph',
                     content:
-                        `Getter ans setter cannot be set together with a value or writable property, as if a property is 
+                        `Getter and setter cannot be set together with a value or writable property, as if a property is 
                         set or evaluated dynamically it cannot have a static value. There are methods that should be 
                         used to set/get a property descriptor:` 
                 },
@@ -147,7 +157,7 @@ let data =     {
                         An object may be created with a constructor function. It is a good practice to start a 
                         constructor name with a capital letter. Each object in JS has its constructor property.
                         When object is created with <code>let obj = {}</code> then <code>obj.constructor.name === "Object"
-                        </code>. But if an object is created with a constructor function, then constructor name of 
+                        </code>. But if an object is created with a constructor function, then the constructor name of 
                         newly created object would be the name of the constructor function.
                         `
                     ]
@@ -171,7 +181,7 @@ function Person(firstName, familyName, age){
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `Basic syntax: <code>var obj = {prop = 'val'};`,
+                        `Basic syntax: <code>var obj = {prop: 'val'};`,
                         `With a constructor (see above)`,
                         `With a
                         <code>
@@ -271,12 +281,13 @@ let hairColor = p.hairColor;
                         `<code>PersonWithAge</code> extends <code>Person</code>`,
                         `<code>PersonWithGender</code> inherits after <code>PersonWithAge</code>`,
                         `<code>let gender = p.gender</code>: here a gender property of <code>p</code> is referenced,
-                        so JS engine seraches <code>p</code> own properties and finds desired property, end of search,`,
+                        so the JS engine seraches <code>p</code> own properties and finds a desired property, end of the search,`,
                         `<code>let name = p.firstName</code>: JS engine searches <code>p</code> own properties for 
                         a <code>firstName</code> property, and does not find it. So it searches its prototype for that 
                         property. Prototype of <code>PersonWithGender</code> has only one property, and that is <code>age</code>,
-                        so search is continued in prototypes prototype (<code>Person</code>). Here property is found, end of search,`,
-                        `<code>let hairColor = p.hairColor<code>. Here a not existing property is enquired, so JS
+                        so the search is continued in prototypes prototype (<code>Person</code>). Here property is found, end of
+                        the search,`,
+                        `<code>let hairColor = p.hairColor</code>. Here a not existing property is enquired, so the JS
                         engine searches own properties of <code>p</code>, then all prototypes, until <code>null</code> is
                         encountered. Now <code>undefined</code> is returned.`
                     ]
@@ -286,7 +297,7 @@ let hairColor = p.hairColor;
                     content:`
                     Searching whole prototype chain is time consuming, so if time is crucial there are 
                     <code>Object.hasOwnProperty(o)</code> and <code>Object.getOwnPropertyNames(o)</code> methods
-                    that will not search whole prototype chain but look only in properties owned directly by the
+                    that will not search whole prototype chain but look only at properties owned directly by the
                     object <code>o</code>.
                     `
                 },
@@ -306,7 +317,7 @@ let hairColor = p.hairColor;
                     elementType:'UnsignedList',
                     content: [
                     `If object was created by a <code>let o = {}</code> expression __proto__ is holding "Object.prototype"`,
-                    `If an object was created with a creator, then __proto__ holds creators prototype,`,
+                    `If an object was created by a creator, then __proto__ holds creators prototype,`,
                     `<code>someObj.__proto__ = someOtherObj</code> should be substituted with 
                     <code>Object.setPrototypeOf(someObj, someOtherObj)</code>`
                     ]
