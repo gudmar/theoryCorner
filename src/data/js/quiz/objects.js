@@ -10,7 +10,7 @@ const data = [
         `,
         answers: [
             `<code>var obj = {prop: 'val'}</code>`,
-            `<code>var obj = Object.create()</code>`,
+            `<code>var obj = Object.create({})</code>`,
             `<code>
 <pre>
     function SomeObject(property){
@@ -60,7 +60,7 @@ const data = [
             Correct syntaxes:`+
             getUl([
                 `<code>var obj = {prop: 'val'}</code>`,
-                `<code>var obj = Object.create()</code>`,
+                `<code>var obj = Object.create({})</code>`,
                 `<code>
     <pre>
         function SomeObject(property){
