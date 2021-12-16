@@ -23,9 +23,7 @@ function concatAllTheoryData(dataAsArrayOfTheoryDataObjects){
   let output = [];
   dataAsArrayOfTheoryDataObjects.forEach(element => {
     output = output.concat(element.content)
-    console.log(element.content)
   });
-  console.log(output)
   return output;
 }
 
@@ -39,9 +37,6 @@ function getTopicFromTheory(topic){
 }
 
 function doLocationParamsMatch(locationParamsDescriptor, keyToMatch){
-  console.log(locationParamsDescriptor)
-  console.log(locationParamsDescriptor===undefined)
-  console.log(locationParamsDescriptor[keyToMatch])
   if (locationParamsDescriptor === undefined) return false;
   if (locationParamsDescriptor[keyToMatch] === undefined) return false;
   return true;
@@ -54,13 +49,6 @@ function App(props) {
   let aboutData = getAboutData();
   let location = useLocation();
   let locationParams = useParams();
-  console.log(locationParams)
-  console.log(location)
-  console.log(getAllPaths(location))
-  // console.log(theoryData)
-  // console.log(aboutData)
-  console.log(props)
-  console.log(doLocationParamsMatch(locationParams, 'topic'))
 
   return ( 
     <div className="container">

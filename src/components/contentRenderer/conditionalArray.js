@@ -1,12 +1,11 @@
 import { getDangerousHTML } from '../../services/toolbox'
+import React, { useState, useEffect } from 'react';
 
 function getValuesFromObject(obj, orderArray){
     let output = [];
     if (orderArray != undefined){
         for(let key of orderArray) {
             output.push(obj[key])
-            console.log(obj)
-            console.log(key)
         }
         return output;
     }
@@ -25,13 +24,10 @@ function TableRow(props){
     let contentItem = props.contentItem;
     let orderArray = props.orderArray;
     let orderedTableData = getValuesFromObject(contentItem, orderArray)
-    console.log(orderedTableData)
 
     return (
         <tr >
             {orderedTableData.map((element, index) => {
-                console.log(getDangerousHTML(element))
-                console.log(element)
                 return <td key={index} dangerouslySetInnerHTML={getDangerousHTML(element)}></td>
             })}
         </tr>
@@ -67,9 +63,31 @@ function Table(props){
 }
 
 function ConditionalArray(props){
+    function evaluateWindowSize(windowInnerWidth){
+        return windowInnerWidth < 1000 ? "small" : "big"
+    }
+    function onResize(e){
+        
+        let windowSize = window.innerWidth;
+        console.log(evaluateWindowSize(windowSize));
+        setCurrentWidth(evaluateWindowSize(windowSize));
+    }
+
+    let [currentWidth, setCurrentWidth] = useState('');
+
+    useEffect(() => {
+
+        window.addEventListener('resize', onResize)
+
+        return function cleanup() {
+            console.log('ConditionalArray removed')
+            window.removeEventListener('resize', onResize)
+        }
+    })
+
     let headItems = props.headlines;
     let content = props.contentItems;
-    console.log(props)
+    
     return <Table headItems={headItems} content = {content} />
 }
 
