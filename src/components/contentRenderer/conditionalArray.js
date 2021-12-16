@@ -14,6 +14,17 @@ function getValuesFromObject(obj, orderArray){
     return output;
 }
 
+function getObjectInOrder(obj, orderArray){
+    let output = [];
+    for (let key of orderArray){
+        output.push({
+            headline: key,
+            content: obj[key]
+        })
+    }
+    return output;
+}
+
 function concatArray(arr){
     return arr.reduce((acc, item, index, array)=>{
         return acc + item;
@@ -31,6 +42,25 @@ function TableRow(props){
                 return <td key={index} dangerouslySetInnerHTML={getDangerousHTML(element)}></td>
             })}
         </tr>
+    )
+}
+
+function NotATableEntry(props){
+    let contentItem = props.contentItem;
+    let orderArray = props.orderArray;
+    let orderedTableData = getObjectInOrder(contentItem, orderArray)
+
+    return (
+        <div className="card my-3">
+            {orderedTableData.map((element, index) => {
+                return (
+                    <div key={index} className="card-body">
+                        <h4 dangerouslySetInnerHTML={getDangerousHTML(element.headline)}></h4>
+                        <p dangerouslySetInnerHTML={getDangerousHTML(element.content)}></p>
+                    </div>
+                )
+            })}
+        </div>
     )
 }
 
@@ -62,6 +92,20 @@ function Table(props){
 
 }
 
+
+function NotATable(props){
+    let headItems = props.headItems;
+    let content = props.content;
+
+    return(
+        <div className="container-fluid my-3">
+            {content.map((element, item) => {
+                return <NotATableEntry key={JSON.stringify(element)} contentItem={element} orderArray={headItems} />
+            })}
+        </div>
+    )
+}
+
 function ConditionalArray(props){
     function evaluateWindowSize(windowInnerWidth){
         return windowInnerWidth < 1000 ? "small" : "big"
@@ -87,6 +131,12 @@ function ConditionalArray(props){
 
     let headItems = props.headlines;
     let content = props.contentItems;
+
+    if (currentWidth == 'small'){
+        return (
+            <NotATable headItems={headItems} content = {content} />
+        )
+    }
     
     return <Table headItems={headItems} content = {content} />
 }
