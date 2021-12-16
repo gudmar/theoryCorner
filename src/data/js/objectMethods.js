@@ -258,16 +258,66 @@ Object.defineProperties(obj,
                 {
                     elementType:'Paragraph',
                     content:`
-                        Makes an shallow object fixed. Attempt to change, add or delete frozen objects properties 
+                        Frozen object is not extensible, its properties are non-configurable, all its data properties 
+                        are non-writable. <br>
+                        <code>Object.freeze()</code>Makes an shallow object fixed. 
+                        Attempt to change, add or delete frozen objects properties 
                         will throw slient or not silent errors. Getters and setters will work, however they will
                         not change a value that belongs to the frozen object. Nested objects
-                        will not be froze, so to make them fixed they need to be frozen recursivly.
+                        will not be frozen, so to make them fixed they need to be frozen recursivly.
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+let out = 0;
+function Obj(a){
+    this.a = a;
+    Object.defineProperty(this, 'b', {
+        configurable: true,
+        get: ()=>{return this.a},
+        set: (val)=>{this.a = val;}
+    });
+    Object.defineProperty(this, 'c', {
+        get: ()=> {return out;},
+        set: (val)=> {out = val;}
+    });
+}
+let obj = new Obj(3);
+obj.b = 4;
+console.log(obj.a); // 4;
+Object.freeze(obj);
+obj.a = 1;
+console.log(obj.a); // 4
+obj.b = 1;
+console.log(obj.b); // 4, as obj.a was not set, as obj is frozen
+obj.c = 1;
+console.log(out); // 1, as out is not a member of the obj.
+//Getters and setters work in frozen objects
+
+</pre>                    
                     `
                 },
                 {
                     elementType:'NoteWarning',
                     content:`
                     Once frozen object cannot be unfrozen.
+                    `
+                },
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.isFrozen(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns <code>true</code> if an <code>obj</code> is frozen, and <code>false</code> if not.
+                    Argument of <code>Object.isFrozen()</code> should <b>not</b> be a primitive value, as a 
+                    <code>TypeError</code> will be thrown.
                     `
                 },
 
@@ -291,6 +341,272 @@ Object.defineProperties(obj,
                     Once sealed object cannot be unsealed.
                     `
                 },
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.isSealed(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns <code>true</code> if an <code>obj</code> is sealed, and <code>false</code> if not.
+                    Argument of <code>Object.isSealed()</code> should <b>not</b> be a primitive value, as a 
+                    <code>TypeError</code> will be thrown.
+                    `
+                },
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.preventExtensions(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Object is extensible if it can have new properties added to it. <code>Object.preventExtensions()</code>
+                    makes it impossible to add new own properties to an object. It can still have properties added to the
+                    [[Prototype]], however changing the [[Prototype]] itself causes a silent <code>TypeError</code>.
+                    In the <code>Strict mode</code> this error will not be silet. 
+                    `
+                },
+                {
+                    elementType: "Code",
+                    content:`
+<pre>
+function Fixed(a, b, c){
+    this.a = a;
+    this.nested = {};
+    this.nested.b = b;
+    this.nested.c = c;
+}
+let fixed = new Fixed(1, 2, 3);
+console.log(fixed);
+Object.preventExtensions(fixed);
+fixed.d = 4;
+//a silent TypeError, as not in strict mode;
+Object.getPrototypeOf(fixed).f = 8;
+console.log(fixed.f); // 8, as added to prototype
+Object.setPrototypeOf(fixed, Object); // fail
+let notFixed = new Fixed(5, 6, 7);
+Object.getPrototypeOf(notFixed).e = 8;
+console.log(notFixed.e); // e is 8
+console.log(fixed.e); //e is 8, as it was added to the prototype
+fixed.nested.g = 9; 
+console.log(fixed.nested.g); // 9, as nested was not made not extensible together with fixed
+</pre>                    
+                    `
+                },
+                {
+                    elementType: "NoteWarning",
+                    content: `
+                    Making an object not extensible cannot be reverted.
+                    `
+                },
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.isExtensible(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns <code>true</code> if an <code>obj</code> can have new properties added to it, and false if not.
+                    Argument of <code>Object.isSealed()</code> should <b>not</b> be a primitive value, as a 
+                    <code>TypeError</code> will be thrown.
+                    `
+                },
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.getOwnPropertyDescriptor(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns a descriptor of object own (not inherited with a prototype) property, or
+                    undefined in case the property on this object does not exist. The descriptor is an object describing
+                    a property behaviour, and has attributes:
+                    <code>value</code>, <code>writable</code>, <code>enumerable</code>, <code>configurable</code>,
+                    <code>get</code> and <code>set</code>. Please see an <a href = "./object">object</a> article to learn more.
+                    `
+                },
+
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.getOwnPropertyKeys(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns an array of own (not inherited with a prototype), string <strong>enumerable and not 
+                    enumerable</strong> properties. This method does not return symbol keyed properties.
+                    `
+                },
+
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.getOwnPropertySymbols(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns an array of own (not inherited with a prototype), symbol <strong>enumerable and not 
+                    enumerable</strong> properties. This method does not return string keyed properties.
+                    `
+                },
+
+                
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.getPrototypeOf(obj)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns a prototype of the given object. A new property can be added to the object with
+                    <code>Object.getPrototypeOf(obj).newProperty = value</code>
+                    `
+                },
+
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.setPrototypeOf(obj, newPrototype)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Sets a newPrototype as obj prototype.
+                    `
+                },
+                {
+                    elementType:'NoteWarging',
+                    content:`
+                    Changeing the [[Prototype]] is an expensive operation, as it requires the change not only to
+                    the [[Prototype]], but also to all code having access to that [[Prototype]]. It is better to
+                    create a new object with a new [[Prototype]] instead.
+                    `
+                },
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.is(obj1, obj2)`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    True if 2 objects fill one of the following conditions:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `both objects are undefined,`,
+                        `both objects are null,`,
+                        `both objects are true,`,
+                        `both objects are false,`,
+                        `both objects are stirngs and have characters in the same order,`,
+                        `both refer to the same place in the memory,`,
+                        `both are <code>+0</code>,`,
+                        `both are <code>-0</code>,`,
+                        `both are <code>NaN</code>,`,
+                        `both are numbers or BigInts of the same value`
+                    ]
+                    
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+let objA = {
+    a: 1, b:2, c:3, d: {f:4, g:5}
+}
+let objB = {
+    a: 1, b:2, c:3, d: {f:4, g:5}
+}
+console.log(Object.is(objA, objB));
+
+let objC = {a: 5};
+let objD = {a: 5};
+console.log(Object.is(objC, objD));
+
+console.log(objA == objB); //false
+console.log(objA === objB);//false
+
+Object.is({}, {}); //false as not the same place in memory
+</pre>                    
+                    `
+                },
+
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.keys()`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns an array of objects <b>own</b>, <b>enumerable</b> proptery names (string keys)
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+let objA = {
+    a: 1, b: 2, c: 3, [Symbol('d')]:4, [Symbol('e')]:5
+}
+console.log(Object.keys(objA)) // ['a', 'b', 'c']
+</pre>                    
+                    `
+                },
+
+
+
+
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Object.values()`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Returns an array of objects <b>own</b>, <b>enumerable</b> proptery values that have keys as 
+                    strings. Symbol keyed values are not included.
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+let objA = {
+    a: 1, b: 2, c: 3, [Symbol('d')]:4, [Symbol('e')]:5
+}
+console.log(Object.values(objA)) // ['a', 'b', 'c']
+</pre>                    
+                    `
+                },
+
             ]
         },
 
