@@ -12,7 +12,7 @@ let data = {
                 {
                     elementType:'Paragraph',
                     content:`
-                    A static method or property is called not on instance of an object, but on a constructor
+                    A static method or property is called not on an instance of an object, but on a constructor
                     or class name:                    
                     `
                 },
@@ -39,7 +39,8 @@ let arrLenght = [1, 2, 3].length; // not a static method
                     This is a static property of the Object. It may be used to add methods or properties to the Object.
                     Because each object in JS inherits the Objects methods and properties with the prototype, 
                     a method or property added to the Object will be available in each JS object.
-                    Adding to the global prototype should be avoided, as it breaks encapsulation.
+                    Adding to the global prototype should be avoided, as it breaks encapsulation. Moreover, changing the 
+                    prototype of existing objects is time consuming, as all code having access to this prototype is affected.
                     `
                 },
                 {
@@ -105,8 +106,8 @@ Object.getPrototypeOf(b).someOtherF = ()=>{}
                     elementType:'Paragraph',
                     content:`
                     Assigns all <strong>own</strong> properties and property values from sources to destination.
-                    If source has the same property value that the destination, destinations value is overriden.
-                    The key word is <storn>assign</code> as values are copied using getters and setters, so this
+                    If source has the same property value that the destination, destinations value is overridden.
+                    The key word is '<storn>assign</code>' as values are copied using getters and setters, so this
                     is not a real copy.
                     `
                 },
@@ -130,7 +131,7 @@ console.log(destination);
                     elementType:'NoteWarning',
                     content:`
                     <ul>
-                    <li>This should not be used for deep object cloning. If object is nested, then
+                    <li>This should not be used for deep object cloning. If a object is nested, then
                     only a reference would be passed with <code>Object.assign</code>, and attempt to 
                     alter something in a nested object part would result in changing the nested object itself,
                     and change would be visible in the original object as well
@@ -150,9 +151,9 @@ console.log(destination);
                     elementType:'Paragraph',
                     content:`
                     Creates a new object with a prototype set to <code>obj</code>. <code>obj</code> is an 
-                    object that will become the newly created objects prototype. This argument is mandatory,
-                    properties is optional, and takes an object with keys as property names, and values as 
-                    descriptors
+                    object that will become the newly created objects prototype. <code>obj</code> argument is mandatory,
+                    <code>properties</code> argument is optional, and takes an object with keys as property names, and 
+                    values as descriptors
                     `
                 },
                 {
@@ -174,9 +175,9 @@ let objC = Object.create({a: 1, b:2, c:3},
                 {
                     elementType:'NoteWarning',
                     content:`
-                    Beware of creating a object out of null: <code>let obj = ObjectCreate(null);</code>.
+                    Beware of creating an object out of null: <code>let obj = ObjectCreate(null)</code>.
                     This may cause difficult to debug situations, as this object has no __proto__, nore 
-                    prototype, nothing. A prototype could be set with <code>Object.setPrototypeOf(obj, Object.prototype)
+                    prototype. A prototype could be set with <code>Object.setPrototypeOf(obj, Object.prototype)
                     </code> and this would solve some problems.
                     `
                 },
@@ -196,13 +197,13 @@ let objC = Object.create({a: 1, b:2, c:3},
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>value</code>: this key describes value under property,`,
-                        `<code>writable</code>: if false then there will be no possiblity to assign a new value to this 
+                        `<code>value</code>: this key describes the value under property,`,
+                        `<code>writable</code>: if false then there will be no possibility to assign a new value to this 
                         property`,
                         `<code>enumerable</code>: if set to false this property will not show up when accessed with <code>
                         for..in</code>, or <code>Object.getOwnPropertyKeys</code> or <code>Object.getOwnPropertySymbols</code>,`,
-                        `<code>configuralble</code>: if set to false, then this property will not be able to be reconfigurated. None
-                        of descriptors attributes will be allowed to be changed. If set to false, this property will not be 
+                        `<code>configuralble</code>: if set to false, then this property will not be able to be re-configured. None
+                        of descriptor attributes will be allowed to be changed. If set to false, this property will not be 
                         allowed to be deleted,`,
                         `<code>get(){return...}<code> a getter function,`,
                         `<code>set(){}</code> a setter function,`
@@ -211,7 +212,7 @@ let objC = Object.create({a: 1, b:2, c:3},
                 {
                     elementType:'Paragraph',
                     content:`
-                        <code>Object.defineProperty()</code> is for setting a property optionaly with it 
+                        <code>Object.defineProperty()</code> is for setting a property optionally with it 
                         descriptor. It is also used to <strong>modify</code> a property or its descriptor.
                     `
                 },
@@ -219,7 +220,7 @@ let objC = Object.create({a: 1, b:2, c:3},
                     elementType:'NoteWarning',
                     content:`
                         A descriptor is not allowed to have both: (value or writable) and (getter or setter).
-                        A getter or setter do not have to be objects own properties, they may be inherited.
+                        A getter or setter does not have to be objects own properties, they may be inherited.
                     `
                 },
 
@@ -231,7 +232,7 @@ let objC = Object.create({a: 1, b:2, c:3},
                 {
                     elementType:'Paragraph',
                     content:`
-                        Does the same as <code>Object.defineProperty()</code> but for many properties at the smae time
+                        Does the same as <code>Object.defineProperty()</code> but for many properties at the same time
                     `
                 },
                 {
@@ -262,9 +263,9 @@ Object.defineProperties(obj,
                         are non-writable. <br>
                         <code>Object.freeze()</code>Makes an shallow object fixed. 
                         Attempt to change, add or delete frozen objects properties 
-                        will throw slient or not silent errors. Getters and setters will work, however they will
+                        will throw slient or not silent errors. Getters and setters will work, however, they will
                         not change a value that belongs to the frozen object. Nested objects
-                        will not be frozen, so to make them fixed they need to be frozen recursivly.
+                        will not be frozen, so to make them fixed they need to be frozen recursively.
                     `
                 },
                 {
@@ -330,8 +331,8 @@ console.log(out); // 1, as out is not a member of the obj.
                 {
                     elementType:'Paragraph',
                     content:`
-                        Object property values remain mutable, however there is no possibility to 
-                        add or remove properties form the object. Prototype chain is not affected by this method,
+                        Object property values remain mutable, however, there is no possibility to 
+                        add or remove properties from the object. Prototype chain is not affected by this method,
                         however <code>__proto__</code> is sealed as well.
                     `
                 },
@@ -365,10 +366,10 @@ console.log(out); // 1, as out is not a member of the obj.
                 {
                     elementType:'Paragraph',
                     content:`
-                    Object is extensible if it can have new properties added to it. <code>Object.preventExtensions()</code>
+                    A object is extensible if it can have new properties added to it. <code>Object.preventExtensions()</code>
                     makes it impossible to add new own properties to an object. It can still have properties added to the
                     [[Prototype]], however changing the [[Prototype]] itself causes a silent <code>TypeError</code>.
-                    In the <code>Strict mode</code> this error will not be silet. 
+                    In the <code>Strict mode</code> this error will not be silent. 
                     `
                 },
                 {
@@ -431,7 +432,7 @@ console.log(fixed.nested.g); // 9, as nested was not made not extensible togethe
                     content:`
                     Returns a descriptor of object own (not inherited with a prototype) property, or
                     undefined in case the property on this object does not exist. The descriptor is an object describing
-                    a property behaviour, and has attributes:
+                    a property behaviour, and has the attributes:
                     <code>value</code>, <code>writable</code>, <code>enumerable</code>, <code>configurable</code>,
                     <code>get</code> and <code>set</code>. Please see an <a href = "./object">object</a> article to learn more.
                     `
@@ -492,7 +493,7 @@ console.log(fixed.nested.g); // 9, as nested was not made not extensible togethe
                 {
                     elementType:'Paragraph',
                     content:`
-                    Sets a newPrototype as obj prototype.
+                    Sets a <code>newPrototype</code> as <code>obj</code> prototype.
                     `
                 },
                 {
@@ -566,7 +567,7 @@ Object.is({}, {}); //false as not the same place in memory
                 {
                     elementType:'Paragraph',
                     content:`
-                    Returns an array of objects <b>own</b>, <b>enumerable</b> proptery names (string keys)
+                    Returns an array of objects <b>own</b> and <b>enumerable</b> property names (string keys)
                     `
                 },
                 {
@@ -591,7 +592,7 @@ console.log(Object.keys(objA)) // ['a', 'b', 'c']
                 {
                     elementType:'Paragraph',
                     content:`
-                    Returns an array of objects <b>own</b>, <b>enumerable</b> proptery values that have keys as 
+                    Returns an array of objects <b>own</b> and <b>enumerable</b> property values that have keys as 
                     strings. Symbol keyed values are not included.
                     `
                 },
