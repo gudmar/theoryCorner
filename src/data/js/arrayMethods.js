@@ -17,6 +17,61 @@ let data =     {
                     content: `
                     `
                 },
+
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Method','Arguments','Returns','Mutating','Description'
+                    ],
+                    content: [
+                        {
+                            Method: 'push(item)',
+                            Arguments: 'item',
+                            Returns: 'added item',
+                            Mutating: 'Mutating',
+                            Description: 'Add a new item to the end of the array'
+                        },
+                        {
+                            Method: 'pop()',
+                            Arguments: '-',
+                            Returns: 'removed element',
+                            Mutating: 'Mutating',
+                            Description: 'Remove an element from the end of the array,'
+                        },
+                        {
+                            Method: 'shift())',
+                            Arguments: '-',
+                            Returns: 'removed element',
+                            Mutating: 'Mutating',
+                            Description: 'Remove the first element from the array',
+                        },
+                        {
+                            Method: 'unshift()',
+                            Arguments: 'item',
+                            Returns: 'added item',
+                            Mutating: 'Mutating',
+                            Description: 'Add a new item to the begining of the array'
+                        },
+                        {
+                            Method: 'splice(start, nrOfDel, item...)',
+                            Arguments: `
+                            <ul>
+                                <li><code>start</code> index of element to start mutation of the array</li>
+                                <li><code>nrOfDel</code> nr of elements to delete starting from <code>start</code> index</li>
+                                <li><code>item..</code> items to be added after <code>start</code></li>
+                            </ul>
+                            `,
+                            Returns: 'Array of deleted items',
+                            Mutating: 'Mutating',
+                            Description: 'Modify an array'
+
+                        }
+                    ]
+                },
+
+
+
                 {
                     elementType:'UnsignedList',
                     content:[
