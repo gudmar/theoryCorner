@@ -36,7 +36,6 @@ function TableRow(props){
     let orderArray = props.orderArray;
     let orderedTableData = getValuesFromObject(contentItem, orderArray)
     let codeExample = symbolFromKey(contentItem, 'code');
-    console.log(symbolFromKey(contentItem, 'code'))
     let customId = 'id'+Math.floor(Math.random() * 100000000);
 
     function getCodeComponent(index){
@@ -51,25 +50,14 @@ function TableRow(props){
         }
         return codeComponent;
     }
-    // <tr id = {customId} className="collapse show">
-    // let codeComponent = <></>;
-    // if (codeExample != null){
-    //     codeComponent = (
-    //         <tr>
-    //             <td colspan = {orderedTableData.length} dangerouslySetInnerHTML={getDangerousHTML(codeExample)}></td>
-    //         </tr>
-    //     )
-    // }
-    // <tr data-bs-toggle="collapse" data-bs-target={`#${customId}`}>
 
     return (
         <>
-        <tr data-bs-toggle="collapse" data-bs-target={`#${customId}`}>
+        <tr data-bs-toggle="collapse" data-bs-target={`#${customId}`} className="cursor-pointer">
             {orderedTableData.map((element, index) => {
                 return <td key={index} dangerouslySetInnerHTML={getDangerousHTML(element)}></td>
             })}
         </tr>
-        {/* {codeComponent} */}
         {getCodeComponent(customId)}
         </>
     )
