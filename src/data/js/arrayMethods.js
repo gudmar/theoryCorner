@@ -26,6 +26,14 @@ let data =     {
                     ],
                     content: [
                         {
+                            [Symbol('title')]:'push',
+                            [Symbol('code')]:`
+<pre>
+let arr = [1, 2, 3];
+arr.push(4);
+console.log(arr); //[1, 2, 3, 4]
+</pre>                            
+                            `,
                             Method: 'push(item)',
                             Arguments: 'item',
                             Returns: 'added item',
@@ -33,6 +41,7 @@ let data =     {
                             Description: 'Add a new item to the end of the array'
                         },
                         {
+                            [Symbol('title')]:'pop',
                             Method: 'pop()',
                             Arguments: '-',
                             Returns: 'removed element',
@@ -40,6 +49,7 @@ let data =     {
                             Description: 'Remove an element from the end of the array,'
                         },
                         {
+                            [Symbol('title')]:'shift',
                             Method: 'shift())',
                             Arguments: '-',
                             Returns: 'removed element',
@@ -47,6 +57,7 @@ let data =     {
                             Description: 'Remove the first element from the array',
                         },
                         {
+                            [Symbol('title')]:'unshift',
                             Method: 'unshift()',
                             Arguments: 'item',
                             Returns: 'added item',
@@ -54,6 +65,7 @@ let data =     {
                             Description: 'Add a new item to the begining of the array'
                         },
                         {
+                            [Symbol('title')]:'splice',
                             Method: 'splice(start, nrOfDel, item...)',
                             Arguments: `
                             <ul>
