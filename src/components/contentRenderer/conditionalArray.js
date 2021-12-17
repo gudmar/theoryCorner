@@ -35,13 +35,43 @@ function TableRow(props){
     let contentItem = props.contentItem;
     let orderArray = props.orderArray;
     let orderedTableData = getValuesFromObject(contentItem, orderArray)
+    let codeExample = symbolFromKey(contentItem, 'code');
+    console.log(symbolFromKey(contentItem, 'code'))
+    let customId = 'id'+Math.floor(Math.random() * 100000000);
+
+    function getCodeComponent(index){
+        let codeComponent = <></>;
+        if (codeExample != null){
+            codeComponent = (
+                
+                <tr id = {customId} className="collapse show">
+                    <td colspan = {orderedTableData.length} dangerouslySetInnerHTML={getDangerousHTML(codeExample)}></td>
+                </tr>
+            )
+        }
+        return codeComponent;
+    }
+    // <tr id = {customId} className="collapse show">
+    // let codeComponent = <></>;
+    // if (codeExample != null){
+    //     codeComponent = (
+    //         <tr>
+    //             <td colspan = {orderedTableData.length} dangerouslySetInnerHTML={getDangerousHTML(codeExample)}></td>
+    //         </tr>
+    //     )
+    // }
+    // <tr data-bs-toggle="collapse" data-bs-target={`#${customId}`}>
 
     return (
-        <tr >
+        <>
+        <tr data-bs-toggle="collapse" data-bs-target={`#${customId}`}>
             {orderedTableData.map((element, index) => {
                 return <td key={index} dangerouslySetInnerHTML={getDangerousHTML(element)}></td>
             })}
         </tr>
+        {/* {codeComponent} */}
+        {getCodeComponent(customId)}
+        </>
     )
 }
 
@@ -61,6 +91,7 @@ function NotATableEntry(props){
     let symbols = Object.getOwnPropertySymbols(contentItem);
     let title = symbolFromKey(contentItem, 'title');//contentItem[Object.getOwnPropertySymbols(contentItem)[0]];
     let code  = symbolFromKey(contentItem, 'code');
+    
     return (
         <div className="car my-3 px-2 py-2">
             <h4 dangerouslySetInnerHTML={getDangerousHTML(title)}></h4>
