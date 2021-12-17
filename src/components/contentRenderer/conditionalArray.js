@@ -45,21 +45,34 @@ function TableRow(props){
     )
 }
 
+function symbolFromKey(obj, key){
+    let symbolsArray = Object.getOwnPropertySymbols(obj);
+    let output = symbolsArray.find((item)=>{
+        return item.toString()===`Symbol(${key})`
+    });
+
+    return output===undefined?null:obj[output];
+}
+
 function NotATableEntry(props){
     let contentItem = props.contentItem;
     let orderArray = props.orderArray;
-    let orderedTableData = getObjectInOrder(contentItem, orderArray)
-
+    let orderedTableData = getObjectInOrder(contentItem, orderArray);
+    let symbols = Object.getOwnPropertySymbols(contentItem);
+    let title = symbolFromKey(contentItem, 'title');//contentItem[Object.getOwnPropertySymbols(contentItem)[0]];
+    let code  = symbolFromKey(contentItem, 'code');
     return (
-        <div className="card my-3">
+        <div className="car my-3 px-2 py-2">
+            <h4 dangerouslySetInnerHTML={getDangerousHTML(title)}></h4>
             {orderedTableData.map((element, index) => {
                 return (
                     <div key={index} className="card-body">
-                        <h4 dangerouslySetInnerHTML={getDangerousHTML(element.headline)}></h4>
+                        <h6 dangerouslySetInnerHTML={getDangerousHTML(element.headline)}></h6>
                         <p dangerouslySetInnerHTML={getDangerousHTML(element.content)}></p>
                     </div>
                 )
             })}
+            <div className = "alert alert-dark" dangerouslySetInnerHTML={getDangerousHTML(code)}></div>
         </div>
     )
 }
@@ -96,6 +109,7 @@ function Table(props){
 function NotATable(props){
     let headItems = props.headItems;
     let content = props.content;
+    
 
     return(
         <div className="container-fluid my-3">
@@ -117,7 +131,7 @@ function ConditionalArray(props){
         setCurrentWidth(evaluateWindowSize(windowSize));
     }
 
-    let [currentWidth, setCurrentWidth] = useState('');
+    let [currentWidth, setCurrentWidth] = useState(evaluateWindowSize(window.innerWidth));
 
     useEffect(() => {
 
