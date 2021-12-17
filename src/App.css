@@ -4,6 +4,10 @@
   overflow-y: auto;
 }
 
+.cursor-pointer{
+  cursor: pointer;
+}
+
 .App {
   text-align: center;
 }
