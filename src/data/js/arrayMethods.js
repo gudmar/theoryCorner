@@ -547,6 +547,95 @@ console.log(Array.isArray({a:1,b:2}));
                         },
 
 
+                        {
+                            [Symbol('title')]:'reduce',
+                            [Symbol('polifill')]:`
+<pre>
+
+</pre>
+                            `,
+                            [Symbol('code')]:`                    
+<pre>
+let arr = [3,2,5,7,3];
+let summ = arr.reduce((acc,element,index,arr)=>{
+    return acc + element;
+}, 0)
+console.log(summ / arr.length)
+
+let average = arr.reduce((acc,element,index,arr)=>{
+    if(index < arr.length - 1){
+        return acc + element;
+    }
+    return (acc + element) / arr.length
+}, 0);
+console.log(average)
+</pre>                            
+                    
+                            `,
+                            Method: '<code>arr.reduce(cb(acc, item, index, arr), acc0)</code>',
+                            Arguments: `
+                            <code>cb</code>: a callback taking:
+                            <ul>
+                            <li><code>acc</code>: accumulated value, that will be passed to next cb call</li>,
+                            <li><code>item</code>: currently processed array element</li>
+                            <li><code>index</code>: index of currently processed element</li>
+                            <li><code>arr</code>: whole array</li>
+                            </ul>
+                            and a <code>acc0</code> which is an accumulator initial value
+                            `,
+                            Returns: 'A single value',
+                            Mutating: 'Not mutating',
+                            Description: `
+                            Reduces an array to a single value, defined in a callback function
+                            `
+                        },
+                        
+
+                        {
+                            [Symbol('title')]:'flat',
+                            [Symbol('polifill')]:`
+<pre>
+let arr = [1, 2, 3, [4, 5],[[6, 7], 8], [[[9, 10]]]];
+Array.prototype.flat2 = function(deph){
+    let flattened = [];
+    let arr = this;
+    for (let item of this){
+        if (Array.isArray(item) && deph > 0){
+            let guts = item.flat2(deph - 1);
+            for(let gut of guts){flattened.push(gut)}
+        } else {
+            flattened.push(item)
+        }
+    }
+    return flattened
+}
+console.log(arr.flat2(2))
+
+</pre>
+                            `,
+                            [Symbol('code')]:`                    
+<pre>
+let arr = [1, 2, 3, [4, 5],[[6, 7], 8], [[[9, 10]]]];
+let flatten = arr.flat(2)
+console.log(flatten);
+//[1, 2, 3, 4, 5, 6, 7, 8, [9, 10]]
+
+</pre>                            
+                    
+                            `,
+                            Method: '<code>arr.flatt(depth)</code>',
+                            Arguments: `
+                            <code>depth<code>: a value indicating how deeply nested arrays will be flattened
+                            `,
+                            Returns: 'A flattened array',
+                            Mutating: 'Not mutating',
+                            Description: `
+                            Takes all nested arrays and concatenates them into a single flat array
+                            `
+                        },
+
+
+
             ]
         },
 
