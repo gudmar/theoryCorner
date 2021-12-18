@@ -51,7 +51,7 @@ function App(props) {
   let locationParams = useParams();
 
   return ( 
-    <div className="container">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-sm-12">
           <div className="text-center">Here navigation will be placed</div>

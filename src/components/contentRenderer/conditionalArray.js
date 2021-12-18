@@ -43,8 +43,8 @@ function TableRow(props){
         if (codeExample != null){
             codeComponent = (
                 
-                <tr id = {customId} className="collapse show">
-                    <td colspan = {orderedTableData.length} dangerouslySetInnerHTML={getDangerousHTML(codeExample)}></td>
+                <tr id = {customId} className="collapse show1">
+                    <td colSpan = {orderedTableData.length} dangerouslySetInnerHTML={getDangerousHTML(codeExample)}></td>
                 </tr>
             )
         }
