@@ -147,7 +147,7 @@ function iterator(){
         next: function(){
         current++;
         return {
-            next: current -1,
+            value: current -1,
             done: current > 4
         }
     }
@@ -158,9 +158,9 @@ let arrLike6 = {};
 arrLike6[Symbol.iterator]=iterator;
 let arr6 = Array.from(arrLike6);
 console.log(arr6); 
-// undefined,undefined,undefined,undefined,undefined,
-// so arrLike6 becomes an arrayLike object, and becomes iterable,
-// but values are not generated
+// [0, 1, 2, 3]
+// arrLike6 becomes an arrayLike object, and becomes iterable, 
+// is accessable with an Array.from and with for..of loop
 
 let arrLike7 = document.forms;
 let arrLike8 = document.querySelectorAll('div');
