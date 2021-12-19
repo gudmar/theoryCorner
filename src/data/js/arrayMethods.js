@@ -17,6 +17,26 @@ let data =     {
                     content: `
                     `
                 },
+                {
+                    elementType: 'Unsigned list',
+                    content: [
+                        `<code>array like</code> is an object not created with an <code>Array</code> constructor, 
+                        that has a non negative <code>lengtn</code> property, and some indexed properties. An
+                        array like object will be created from:
+                        <ul>
+                            <li><code>let al = {length:5}</code></li>
+                            <li><code>let al = {0: 'a', 1: 'b', 2: 'c', length:3}</code></li>
+                            <li>An object having an iterator placed under [Symbol.iterator]</li>
+                            <li>A string</li>
+                            <li>A Map object</li>
+                            <li>A Set object</li>
+                            <li>document.forms</li>
+                            <li>document.querySelectorAll('div')</li>
+                            <li>document.getElementsByTagName('body')[0].chidren</li>
+                        </ul>
+                        `
+                    ]
+                },
 
 
                 {
@@ -25,6 +45,148 @@ let data =     {
                         'Method','Arguments','Returns','Mutating','Description'
                     ],
                     content: [
+                        {
+                            [Symbol('title')]:'Array (constructor)',
+                            [Symbol('code')]:`
+                            
+<pre>
+let arr1 = [1, 'string', true];
+
+let arr2 = [];
+arr2[10] = 9;
+// [,,,,,,,,,9]
+
+let arr3 = Array(10);
+//[,,,,,,,,,,] so array with 10 empty elements
+
+let arr4 = Array(1, 2, 3);
+//[1, 2, 3];
+
+let arr5 = new Array(7);
+//[,,,,,,,]
+
+let arr6 = new Array(1, 2, 3);
+//[1, 2, 3]
+
+
+</pre>                            
+                            
+                            `,
+                            Method: '<code>Array(size | items)</code>',
+                            Arguments: `
+                                Counstructor, that is overloaded.
+                                <ul>
+                                <li>In case a single number is given <code>size</code>, an array of empty elements
+                                is returned</li>
+                                <li>In case a slist of elements is given, an array containing these elements is returned</li>
+                                </ul>
+                            `,
+                            Returns: 'A new array',
+                            Mutating: '-',
+                            Description: 'Constructor returning a new array, a list like element'
+                        },
+
+
+                        {
+                            [Symbol('title')]:'of',
+                            [Symbol('code')]:`
+                            
+<pre>
+
+let constructorExample1 = Array(5);
+// [,,,,,]
+let constructorExample2 = Array(1, 2, 3);
+//[1, 2, 3]
+let ofExample1 = Array.of(5);
+// [5]
+let ofExample2 = Array.of(1, 2, 3);
+// [1, 2, 3]
+
+</pre>                            
+                            
+                            `,
+                            Method: '<code>of(items)</code>',
+                            Arguments: `
+                            <code>items</code>: elements 
+                            `,
+                            Returns: 'A new array',
+                            Mutating: '-',
+                            Description: 'Creates a new instance of the Array object from the given items list'
+                        },
+
+
+                        {
+                            [Symbol('title')]:'from',
+                            [Symbol('code')]:`
+                            
+<pre>
+
+let arrLike1 = {length: 5};
+let arr1 = Array.from(arrLike1);
+console.log(arr1);
+//[undefined, undefined, undefined, undefined, undefined]
+
+let arrLike2 = {a: 'a', b: 'b', c: 'c', length: 3}
+let arr2 = Array.from(arrLike2);
+console.log(arr2);
+//[undefined, undefined, undefined]
+
+let arrLike3 = {0: 'a', 2: 'b', 1: 'c', length: 3}
+let arr3 = Array.from(arrLike3);
+// ['a', 'c', 'b']
+
+let arrLike4 = {0: 'a', 2: 'b', 1: 'c', length: 2}
+let arr4 = Array.from(arrLike4);
+// ['a', c']
+
+let arrLike5 = document.forms;
+
+function iterator(){
+    let current = 0;
+    return {
+        next: function(){
+        current++;
+        return {
+            next: current -1,
+            done: current > 4
+        }
+    }
+    }
+}
+
+let arrLike6 = {};
+arrLike6[Symbol.iterator]=iterator;
+let arr6 = Array.from(arrLike6);
+console.log(arr6); 
+// undefined,undefined,undefined,undefined,undefined,
+// so arrLike6 becomes an arrayLike object, and becomes iterable,
+// but values are not generated
+
+let arrLike7 = document.forms;
+let arrLike8 = document.querySelectorAll('div');
+let arrlike9 = document.getElementsByTagName('body')[0].children
+
+
+
+</pre>                            
+                            
+                            `,
+                            Method: '<code>from(arrayLikeObject[, mapFunction[, thisArg]])</code>',
+                            Arguments: `
+                            <ul>
+                            <li><code>arrayLikeObject</code>: elements </li>
+                            <li><code>mapFunction</code>: an <code>arrayLikeObject</code> elements 
+                            transforming function, taking:<code>item</code>, <code>index</code>, <code>arr</code>,
+                            this is similar to the <code>.map</code> method of the Array</li>
+                            <li><code>thisArg</code> is an argument indicating what will be the value of <code>this</code></li>
+                            </ul>
+                            `,
+                            Returns: 'A new array',
+                            Mutating: '-',
+                            Description: 'Creates a new instance of the Array object from the given array like object.'
+                        },
+
+
                         {
                             [Symbol('title')]:'push',
                             [Symbol('code')]:`
@@ -207,13 +369,17 @@ arr.forEach(()=>{console.log('dummy')})
 </pre>                            
                             
                             `,
-                            Method: '<code>arr.forEach((item, index, array))</code>',
+                            Method: '<code>arr.forEach(cb, thisArg)</code>',
                             Arguments: `
-                            Callback function taking:
+                            <ul>
+                            <li><code>cb</code> a callback function taking:
                             <ul>
                                 <li><code>item</code>: a current element</li>
                                 <li><code>index</code>: an index of current element</li>
                                 <li><code>array</code>: the whole array</li>
+                            </ul>
+                            </li>
+                            <li><code>thisArg</code>: what will be the value of <code>this</code></li>
                             </ul>
                             All arguments are optional
                             `,
@@ -317,15 +483,19 @@ console.log(found) //3;
 </pre>                            
                             
                             `,
-                            Method: '<code>arr.find((item, index, array))</code>',
+                            Method: '<code>arr.find(cb[, thisArg])</code>',
                             Arguments: `
-                            A callback function taking
+                            <ul>
+                            <li><code>cb</code>A callback function taking
                             <ul>
                                 <li><code>item</code>: currently processed array item</li>
                                 <li><code>index</code>: index of currently processed item</li>
                                 <li><code>array</code>: given array</li>
                             </ul>
                             and returning <code>true</code> if element is found or <code>false</code>
+                            </li>
+                            <li><code>thisArg</code>: what will be the value of <code>this</code></li>
+                            </ul>
                             `,
                             Returns: 'found element or <code>undefined</code> if nothing found',
                             Mutating: 'Not mutating',
@@ -353,15 +523,19 @@ console.log(found) // 2;
 </pre>                            
                             
                             `,
-                            Method: '<code>arr.findIndex((item, index, array))</code>',
+                            Method: '<code>arr.findIndex(cb[, thisArg])</code>',
                             Arguments: `
-                            A callback function taking
+                            <ul>
+                            <li>A callback function taking
                             <ul>
                                 <li><code>item</code>: currently processed array item</li>
                                 <li><code>index</code>: index of currently processed item</li>
                                 <li><code>array</code>: given array</li>
                             </ul>
                             and returning <code>true</code> if element is found or <code>false</code>
+                            </li>
+                            <li><code>thisArg</code>: what will be the value of <code>this</code></li>
+                            </ul>
                             `,
                             Returns: 'found element or -1 if nothing found',
                             Mutating: 'Not mutating',
@@ -391,15 +565,19 @@ console.log(found) // [2, 4, 6];
 </pre>                            
                             
                             `,
-                            Method: '<code>arr.filter((item, index, array))</code>',
+                            Method: '<code>arr.filter(cb[, thisArg])</code>',
                             Arguments: `
-                            A callback function taking
+                            <ul>
+                            <li>A callback function taking
                             <ul>
                                 <li><code>item</code>: currently processed array item</li>
                                 <li><code>index</code>: index of currently processed item</li>
                                 <li><code>array</code>: given array</li>
                             </ul>
                             and returning <code>true</code> if element matches or <code>false</code>
+                            </li>
+                            <li><code>thisArg</code>: what will be the value of <code>this</code></li>
+                            </ul>
                             `,
                             Returns: 'Array of found elements',
                             Mutating: 'Not mutating',
@@ -422,13 +600,17 @@ console.log(found)
 </pre>                            
                             
                             `,
-                            Method: '<code>arr.map((item, index, array))</code>',
+                            Method: '<code>arr.map(cb[, thisArg])</code>',
                             Arguments: `
-                            A callback function taking
+                            <ul>
+                            <li><code>cb</code> a callback function taking:
                             <ul>
                                 <li><code>item</code>: currently processed array item</li>
                                 <li><code>index</code>: index of currently processed item</li>
                                 <li><code>array</code>: given array</li>
+                            </ul>
+                            </li>
+                            <li><code>thisArg</code>: what will be the value of <code>this</code></li>
                             </ul>
                             and returning an item value for the new array
                             `,
@@ -572,7 +754,7 @@ console.log(average)
 </pre>                            
                     
                             `,
-                            Method: '<code>arr.reduce(cb(acc, item, index, arr), acc0)</code>',
+                            Method: '<code>arr.reduce(cb(acc, item[, index[, arr]])[, acc0])</code>',
                             Arguments: `
                             <code>cb</code>: a callback taking:
                             <ul>
@@ -596,20 +778,22 @@ console.log(average)
                             [Symbol('polifill')]:`
 <pre>
 let arr = [1, 2, 3, [4, 5],[[6, 7], 8], [[[9, 10]]]];
-Array.prototype.flat2 = function(deph){
-    let flattened = [];
-    let arr = this;
-    for (let item of this){
-        if (Array.isArray(item) && deph > 0){
-            let guts = item.flat2(deph - 1);
-            for(let gut of guts){flattened.push(gut)}
-        } else {
-            flattened.push(item)
+if (!Array.prototype.flat){
+    Array.prototype.flat = function(deph){
+        let flattened = [];
+        let arr = this;
+        for (let item of this){
+            if (Array.isArray(item) && deph > 0){
+                let guts = item.flat2(deph - 1);
+                for(let gut of guts){flattened.push(gut)}
+            } else {
+                flattened.push(item)
+            }
         }
+        return flattened
     }
-    return flattened
 }
-console.log(arr.flat2(2))
+console.log(arr.flat(2)) //to test
 
 </pre>
                             `,
@@ -623,7 +807,7 @@ console.log(flatten);
 </pre>                            
                     
                             `,
-                            Method: '<code>arr.flatt(depth)</code>',
+                            Method: '<code>arr.flat(depth)</code>',
                             Arguments: `
                             <code>depth<code>: a value indicating how deeply nested arrays will be flattened
                             `,
@@ -631,6 +815,36 @@ console.log(flatten);
                             Mutating: 'Not mutating',
                             Description: `
                             Takes all nested arrays and concatenates them into a single flat array
+                            `
+                        },
+
+
+
+                        {
+                            [Symbol('title')]:'every',
+//                             [Symbol('code')]:`                    
+// <pre>
+// </pre>                            
+                    
+//                             `,
+                            Method: '<code>arr.every(cb, thisArg)</code>',
+                            Arguments: `
+                            <ul>
+                            <li>
+                                <code>cb</code>is a callback taking:
+                                <ul>
+                                    <li><code>item</code> currently processed array item,</li>
+                                    <li><code>index</code> an index of the currently processed item</li>
+                                    <li><code>arr</code> array of processed elements</li>
+                                </ul>
+                            </li>
+                            <li><code>thisArg</code>: what will be the value of <code>this</code></li>
+                            </ul>
+                            `,
+                            Returns: 'Boolean',
+                            Mutating: 'Not mutating',
+                            Description: `
+                            A static method, true if <code>arr.constructor.name==="Array"</code>
                             `
                         },
 
