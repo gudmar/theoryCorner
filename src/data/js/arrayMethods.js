@@ -78,7 +78,7 @@ let arr6 = new Array(1, 2, 3);
                                 <ul>
                                 <li>In case a single number is given <code>size</code>, an array of empty elements
                                 is returned</li>
-                                <li>In case a slist of elements is given, an array containing these elements is returned</li>
+                                <li>In case a list of elements is given, an array containing these elements is returned</li>
                                 </ul>
                             `,
                             Returns: 'A new array',
@@ -809,7 +809,7 @@ console.log(flatten);
                             `,
                             Method: '<code>arr.flat(depth)</code>',
                             Arguments: `
-                            <code>depth<code>: a value indicating how deeply nested arrays will be flattened
+                            <code>depth</code>: a value indicating how deeply nested arrays will be flattened
                             `,
                             Returns: 'A flattened array',
                             Mutating: 'Not mutating',
@@ -822,11 +822,21 @@ console.log(flatten);
 
                         {
                             [Symbol('title')]:'every',
-//                             [Symbol('code')]:`                    
-// <pre>
-// </pre>                            
+                            [Symbol('code')]:`                    
+<pre>
+let arr = [2,4,6,8]
+let e1 = arr.every((item)=>{
+    return item%2==true
+});//ture
+let e2 = arr.every((item)=>{
+    if (item == 2) retrun true;
+    if (item == 4) return true;
+    if (item == 6) return true;
+    return false;
+}); //false, for 8 cb returns false
+</pre>                            
                     
-//                             `,
+                            `,
                             Method: '<code>arr.every(cb, thisArg)</code>',
                             Arguments: `
                             <ul>
@@ -844,9 +854,45 @@ console.log(flatten);
                             Returns: 'Boolean',
                             Mutating: 'Not mutating',
                             Description: `
-                            A static method, true if <code>arr.constructor.name==="Array"</code>
+                            True if callback for each given array element returns <code>true</code>
                             `
                         },
+
+                        {
+                            [Symbol('title')]:'some',
+                            [Symbol('code')]:`                    
+<pre>
+let arr = [2,4,6,8]
+let e1 = arr.some((item)=>{
+    return item%3==true
+});//ture
+let e2 = arr.some((item)=>{
+    return item%5 == true;
+}); //false, none of items in array evaluates to true;
+</pre>                            
+                    
+                            `,
+                            Method: '<code>arr.some(cb, thisArg)</code>',
+                            Arguments: `
+                            <ul>
+                            <li>
+                                <code>cb</code>is a callback taking:
+                                <ul>
+                                    <li><code>item</code> currently processed array item,</li>
+                                    <li><code>index</code> an index of the currently processed item</li>
+                                    <li><code>arr</code> array of processed elements</li>
+                                </ul>
+                            </li>
+                            <li><code>thisArg</code>: what will be the value of <code>this</code></li>
+                            </ul>
+                            `,
+                            Returns: 'Boolean',
+                            Mutating: 'Not mutating',
+                            Description: `
+                            True if callback for at least one given array element returns <code>true</code>
+                            `
+                        },
+
 
 
 
