@@ -7,6 +7,7 @@ import getJSOperatorsData from './js/operators';
 import getStringMethods from './js/stringMethods';
 import getJSObjectsData from './js/objects';
 import getObjectMethodsData from './js/objectMethods';
+import getReflectData from './js/reflect'
 import getJSThisData from './js/this';
 let theoryDataJs = [
 
@@ -134,6 +135,7 @@ let theoryDataJs = [
     getJSObjectsData(),
     getObjectMethodsData(),
     getJSThisData(),
+    getReflectData(),
 ]
 
 export function getTheoryDataJs(){

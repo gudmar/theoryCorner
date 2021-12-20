@@ -129,7 +129,7 @@ const data = [
             `<code>Object.getOwnPropertyNames()</code> does not search in prototypes`,
             `<code>__proto__</code> should be used to set and get an object prototype, it should be used for 
             inheritance,`,
-            `<code>Object.setPrototypeOf()</code> may be used for extending an object`,
+            `<code>Object.setPrototypeOf()</code> may be used for setting an objects prototype to some object`,
             `Thanks to prototype each object has access to its ancestors properties`
         ],
         points: 1,
@@ -149,7 +149,7 @@ const data = [
         category: 'js',
         level: 'medium',
         subcategory:'objects',
-        question: `Fill correct attributes to their object descriptor definitions. Pleas use only small letters`,
+        question: `Fill correct attributes to their object descriptor definitions. Please use only small letters`,
         answers: [
             `{{{}}}: indicates if the property value will be allowed to be changed with an assignment operator,`,
             `{{{}}}: indicates if the property will be allowed to be listed with a <code>for..in</code> or with a 
