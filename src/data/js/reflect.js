@@ -1,3 +1,5 @@
+// SPELL CHECKED, CORRECT!
+
 let data =     {
     summary: 'reflect',
     title: 'Reflect',
