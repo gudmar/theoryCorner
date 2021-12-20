@@ -243,7 +243,9 @@ let instance = new Extending();
                     content:`
                     Prototypes of existing objects (like <code>Array</code>) should never be modified as this 
                     practice breaks encapsulation. Instead a new class extending some class should be created, and
-                    needed properties should be added to newly created class.
+                    needed properties should be added to newly created class.<br>
+                    Only situation an existing object prototype should be modified is an implementation of the 
+                    <i>polyfill</i>
                     `
                 },
                 {
@@ -255,21 +257,133 @@ let instance = new Extending();
                     content:`
 <pre>
 function Person(name, familyName) {
-    this.firstName: name,
-    this.familyName: familyName
+    this.firstName = name,
+    this.familyName = familyName
+    Person.isPerson = function(arg){return arg.constructor.name === 'Person'}
 };
+Person.prototype.introduction = function(){
+    console.log('My name is ' + this.firstName + ' ' + this.familyName)
+}
+
 function PersonWithAge(name, familyName, age){
     Person.call(this, name, familyName);
     this.age = age;
+    PersonWithAge.isPersonWithAge = function(arg){
+        return arg.constructor.name === "PersonWithAge"
+    }
 }
+PersonWithAge.prototype = Object.create(Person.prototype);
+PersonWithAge.prototype.constructor = PersonWithAge;
+
+PersonWithAge.prototype.printAge = function(){
+    console.log('Age is ' + this.age);
+}
+
 function PersonWithGender(name, familyName, age, gender){
     PersonWithAge.call(this, name, familyName, age, gender);
     this.gender = gender;
+    PersonWithGender.isPersonWithGender = function(arg){
+        return arg.constructor.name === "PersonWithGender"
+    }
 }
+
+PersonWithGender.prototype = Object.create(PersonWithAge.prototype);
+PersonWithGender.prototype.constructor = PersonWithGender;
+
 let p = new PersonWithGender('Genowefa', 'Kowalska', 87, 'female');
-let gender = p.gender;
-let name = p.firstName;
-let hairColor = p.hairColor;
+
+console.log(Object.getOwnPropertyNames(p));
+// ["firstName", "familyName", "age", "gender"]
+
+console.log(Person.isPerson(p));
+// false;
+
+console.log(PersonWithAge.isPersonWithAge(p));
+// false;
+
+console.log(PersonWithGender.isPersonWithGender(p));
+// true;
+
+p.introduction();
+<pre>`
+
+                    },
+                    {
+                        elementType:'UnsignedList',
+                        content:[
+                            `<code>PersonWithGender</code> extends <code>PersonWithAge</code>, and <code>PersonWithAge</code>
+                            extends <code>Person</code>. Because of this fact, all properties of <code>Person</code>,
+                            <code>PersonWithAge</code> and <code>Person</code> are the own properties of the <code>p</code>
+                            instance. They may be accessed directly,`,
+                            `<code>Person.isPerson</code>, <code>PersonWithAge.isPersonWithAge</code>, 
+                            <code>PersonWithGender.isPersonWithGender</code> are static classes, that are not inherited,
+                            as they do not exist on the instance of the object. This is like defining a method with a 
+                            <code>static</code> keyword in a class,`,
+                            `<code>.introduction</code> method is assigned to the prototype of the <code>Person</code>
+                            class, and this means that it will be inherited with this prototype, and it will be available
+                            in <code>PersonWithAge</code>, and <code>PersonWithGender</code>`,
+                            `Above example is a little outdated, as there is a newer approach with a class syntax (see below)`
+                        ]
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`Below is exactly the same example usage of the ES6 class syntax.`
+                    },
+                    {
+                        elementType:'Code',
+                        content:`
+}<pre>
+
+
+//with classes:
+class Person{
+    constructor(name, familyName){
+        this.name = name;
+        this.familyName = familyName;
+    }
+    introduction(){
+        console.log('My name is ' + this.name + ' ' + this.familyName)
+    }
+    static isPerson(arg) {return arg.constructor.name == 'Person'}
+}
+class PersonWithAge extends Person{
+    constructor(name, familyName, age){
+        super( name, familyName);
+        this.age = age;
+    }
+    static isPersonWithAge(arg) {
+        return arg.constructor.name == "PersonWithAge"
+    }
+
+}
+class PersonWithGender extends PersonWithAge{
+    constructor(name, familyName, age, gender){
+        super(name, familyName, age);
+        this.gender = gender;
+    }
+    static isPersonWithGender(arg) {
+        return arg.constructor.name == "PersonWithGender"
+    }
+
+}
+
+
+let p = new PersonWithGender('Genowefa', 'Kowalska', 87, 'female');
+
+console.log(Object.getOwnPropertyNames(p));
+// ["firstName", "familyName", "age", "gender"]
+
+console.log(Person.isPerson(p));
+// false;
+
+console.log(PersonWithAge.isPersonWithAge(p));
+// false;
+
+console.log(PersonWithGender.isPersonWithGender(p));
+// true;
+
+p.introduction();
+
 // lets see what happens here
 </pre>                             
                     `
@@ -281,10 +395,13 @@ let hairColor = p.hairColor;
                         `<code>PersonWithAge</code> extends <code>Person</code>`,
                         `<code>PersonWithGender</code> inherits after <code>PersonWithAge</code>`,
                         `<code>let gender = p.gender</code>: here a gender property of <code>p</code> is referenced,
-                        so the JS engine seraches <code>p</code> own properties and finds a desired property, end of the search,`,
+                        so the JS engine seraches <code>p</code> own properties and finds a desired property, 
+                        end of the search,`,
                         `<code>let name = p.firstName</code>: JS engine searches <code>p</code> own properties for 
-                        a <code>firstName</code> property, and does not find it. So it searches its prototype for that 
-                        property. Prototype of <code>PersonWithGender</code> has only one property, and that is <code>age</code>,
+                        a <code>firstName</code> property, and does not find it. So it searches its constructors 
+                        (<code>PersonWithGender</code>) prototype for that property. 
+                        Prototype of <code>PersonWithGender</code> has only one defined property, 
+                        and that is <code>age</code>,
                         so the search is continued in prototypes prototype (<code>Person</code>). Here property is found, end of
                         the search,`,
                         `<code>let hairColor = p.hairColor</code>. Here a not existing property is enquired, so the JS
@@ -354,6 +471,12 @@ let hairColor = p.hairColor;
                     content:'Developer mozilla',
                     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/proto',
                     description:'__proto__'
+                },
+                {
+                    elementType:'Link',
+                    content:'medium.com',
+                    href: 'https://medium.com/beginners-guide-to-mobile-web-development/super-and-extends-in-javascript-es6-understanding-the-tough-parts-6120372d3420',
+                    description:'Super and Extends in JS ES6: an example of how inheritance worked before ES6'
                 },
             ]
         }
