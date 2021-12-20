@@ -9,6 +9,7 @@ import getJSObjectsData from './js/objects';
 import getObjectMethodsData from './js/objectMethods';
 import getReflectData from './js/reflect'
 import getJSThisData from './js/this';
+import getProxyData from './js/proxy'
 let theoryDataJs = [
 
     {
@@ -136,6 +137,7 @@ let theoryDataJs = [
     getObjectMethodsData(),
     getJSThisData(),
     getReflectData(),
+    getProxyData(),
 ]
 
 export function getTheoryDataJs(){
