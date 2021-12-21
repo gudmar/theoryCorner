@@ -1,3 +1,4 @@
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'proxy',
     title: 'Proxy',
