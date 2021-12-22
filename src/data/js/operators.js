@@ -304,6 +304,7 @@ n >> m is floor(n ** (0.5 * m));
                             Description: `
                             <code>a = a >>= f()</code> 
                             Moves the specified amount of bits to the right and asigns the result to the left operand;
+                            If a negative number is processed, then the literal negative value is taken
                             `
                         },
 
@@ -312,6 +313,13 @@ n >> m is floor(n ** (0.5 * m));
                             [Symbol('title')]:'>>>=',
                             [Symbol('code')]:`          
         <pre>
+See representation of negative numbers section for
+more details.
+let positive =  100;
+let negative = -100;
+positive >>>= 1; // 50;
+negative >>>= 1; // 2147483598
+-100 >> 1; // -50
 
         </pre>                                   
                             `,
@@ -323,6 +331,81 @@ n >> m is floor(n ** (0.5 * m));
                             Moves the specified amount of bits to the right and asigns the result to the left operand;
                             `
                         },
+
+
+                        {
+                            [Symbol('title')]:'&=',
+                            [Symbol('code')]:`          
+<pre>
+let a = 5; // 101;
+let b = 2; // 010;
+a &= b; // 0 & 1 is 0, so 000 is the result;
+console.log(a); // 0
+
+let c = 5;
+c &= 3; // 101 and 011, common bit is 001,
+console.log(c); // 1
+
+let d = -5; // 11111111111111111111111111111011
+// this is the negative number representatnion:
+// (a >>> 0).toString(2);
+d &= 5; // 00...00101
+//common bit of 1011 and 0101 is 0001
+console.log(d); // 1
+
+
+</pre>                                   
+                            `,
+                            Operator: '<code>&=</code>',
+                            Name: `Bitwise AND assignment`,
+                            Usage: 'a &= f()',
+                            Description: `
+                            <code>a = a &= f()</code> 
+                            Takes a binary representation of both operands, does a bitwise AND operation on them 
+                            and assigns the result to the left operator,
+                            `
+                        },
+
+
+                        {
+                            [Symbol('title')]:'^=',
+                            [Symbol('code')]:`          
+<pre>
+0 ^ 0 == 0;
+1 ^ 1 == 0;
+0 ^ 1 == 0;
+1 ^ 0 == 0;
+let a = 5;
+a ^= 3; // 110 is 6
+let b = -5;
+b ^= 3; 
+// 11111111111111111111111111111011 ^
+// 00000000000000000000000000000101 =
+// 11111111111111111111111111111000 
+// and that is -8
+
+</pre>                                   
+                            `,
+                            Operator: '<code>^=</code>',
+                            Name: `Bitwise XOR assignment`,
+                            Usage: 'a ^= f()',
+                            Description: `
+                            <code>a = a ^= f()</code> 
+                            Takes a binary representation of both operands, does a bitwise XOR on them and assigns the 
+                            result to the left operator,
+                            `
+                        },
+
+
+                        
+
+
+
+
+
+
+
+
 
 
 
