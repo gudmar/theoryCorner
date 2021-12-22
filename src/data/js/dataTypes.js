@@ -210,6 +210,15 @@ let data =     {
                         as this is not a primitive anymore and will cause problems.
                     `
                 },
+                {
+                    elementType: 'NoteWarning',
+                    content: `
+                        <code>Number.prototype.toString([redix])</code>, where radix is a number from 2 to 36.
+                        Shadows the <code>Object.prototype.toString</code> method. This method converts a number to the 
+                        string representation of the object in the specified radix:</br>
+                        <code>let a = 5; a.toString(2) == "101";</code>
+                    `
+                },
             ]
         },
         {

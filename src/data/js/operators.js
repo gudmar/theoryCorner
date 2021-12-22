@@ -1,7 +1,9 @@
 let data =     {
     summary: 'operators',
     title: 'operators',
-    searchKeywords:"+ - / * = % > < << >> == === void ",
+    searchKeywords:`+ - / * = % > < << >> == === void 
+    binary representation of a negative number
+    `,
     cathegory: 'js',
     content: [
         {
@@ -73,6 +75,8 @@ e = a = b = c = d;
                         },
 
 
+
+
                         {
                             [Symbol('title')]:'+=',
                             [Symbol('code')]:`          
@@ -101,7 +105,8 @@ b =+ a; // b is now 34, as there is no =+
                             Operator: '<code>+=</code>',
                             Name: `Addition assignment`,
                             Usage: 'a += f()',
-                            Description: 'Adds or concatenates the evaluated expression on the right to the left operand'
+                            Description: `Adds or concatenates the evaluated expression on the right to the left operand
+                            and assignes the result to the operand on the left,`
                         },
 
 
@@ -123,27 +128,316 @@ b -= 1; // 9;
                             Usage: 'a -= f()',
                             Description: `
                             <code>a = a - f()</code> 
-                            Substracts the evaluated expression on the right from the left operand
+                            Substracts the evaluated expression on the right from the left operand, and assignes the
+                            reusult to the operand on the left,
                             `
                         },
 
-                    ]
-                }
+
+
+
+                        {
+                            [Symbol('title')]:'*=',
+                            [Symbol('code')]:`          
+<pre>
+let a = 'Hello World';
+a *= 'World'; // NaN, no string multiplication
+let b = 10;
+b *= 7; // 70;
+</pre>                                   
+                            `,
+                            Operator: '<code>*=</code>',
+                            Name: `Multiplication assignment`,
+                            Usage: 'a *= f()',
+                            Description: `
+                            <code>a = a * f()</code> 
+                            Multiplicates the evaluated expression on the right with the left operand and assignes to the 
+                            variable on the left,
+                            `
+                        },
+
+
+
+                        {
+                            [Symbol('title')]:'/=',
+                            [Symbol('code')]:`          
+<pre>
+let a = 'Hello World';
+a /= 2; // NaN, no string division
+let b, c, d, e;
+b = c = d = e = 70;
+b /= 7; // 10;
+c /= -0; // -Infinity;
+d /= +0; // +Infinity;
+</pre>                                   
+                            `,
+                            Operator: '<code>/=</code>',
+                            Name: `Division assignment`,
+                            Usage: 'a /= f()',
+                            Description: `
+                            <code>a = a / f()</code> 
+                            Divides the left operand by the evaluated expression on the rigth, and assigns the result to the
+                            operand on the left,
+                            `
+                        },
+
+
+                        {
+                            [Symbol('title')]:'%=',
+                            [Symbol('code')]:`          
+<pre>
+let a = 'Hello World';
+a %= 2; // NaN, no string division
+let b, c, d, e;
+b = c = d = e = 10;
+b /= 7; // 3;
+c /= -0; // NaN;
+d /= 0; // NaN;
+</pre>                                   
+                            `,
+                            Operator: '<code>%=</code>',
+                            Name: `Remainder assignment`,
+                            Usage: 'a %= f()',
+                            Description: `
+                            <code>a = a % f()</code> 
+                            Divides the left operand by the evaluated expression on the rigth, and assigns the remainder to the
+                            operand on the left,
+                            `
+                        },
+
+
+
+                        {
+                            [Symbol('title')]:'**=',
+                            [Symbol('code')]:`          
+<pre>
+let a = 'Hello World';
+a **= 2; // NaN, no raising a string to any power
+let b, c, d;
+b = c = 5;
+d = Infinity;
+b **= 3; // 125;
+b **= +0; // 1;
+d **= -0; // 1;
+b **= Infinity; // 1 ** Infinity == NaN
+c **= Infinity; // Infinity;
+d **= Infinity; // Infinity;
+</pre>                                   
+                            `,
+                            Operator: '<code>**=</code>',
+                            Name: `Exponention assignment`,
+                            Usage: 'a **= f()',
+                            Description: `
+                            <code>a = a ** f()</code> 
+                            Raises the value of a variable to the power of the right operand and assigns the result to the
+                            left operand
+                            `
+                        },
+
+
+
+
+                        {
+                            [Symbol('title')]:'<<=',
+                            [Symbol('code')]:`          
+<pre>
+let a = 5;
+let str = 'string';
+let inf = Infinity;
+let boolT = true;
+let boolF = false;
+a << =2; //20;
+a.toString(20); //10100
+str <<= 4; // 0;
+inf <<= 3; // 0;
+boolT <<= 3; // 8
+boolT.toString(2); // 1000
+boolF <<= 5; // 0;
+
+let m = -5;
+m <<= 3; // -40
+
+In general:
+n << m is n ** (2*m)
+</pre>                                   
+                            `,
+                            Operator: '<code><<=</code>',
+                            Name: `Right shift assignment`,
+                            Usage: 'a <<= f()',
+                            Description: `
+                            <code>a = a <<= f()</code> 
+                            Moves the specified amount of bits to the left and asigns the result to the left operand;
+                            `
+                        },
+
+
+
+                        {
+                            [Symbol('title')]:'>>=',
+                            [Symbol('code')]:`          
+<pre>
+let a, b, c;
+a = b = c  = 100;
+let str = 'string';
+let inf = Infinity;
+let boolT = true;
+let boolF = false;
+a >>= 1; // 50;
+b >>= 2; // 25;
+c >>= 3; // 12;
+str >>= 4; // 0;
+inf >>= 3; // 0;
+boolT >>= 0; // 1;
+boolT >>= 1; // 0;
+boolF >>= 5; // 0;
+
+let m = -100;
+m >>= 1;//-50
+
+In general:
+n >> m is floor(n ** (0.5 * m));
+</pre>                                   
+                            `,
+                            Operator: '<code>>>=</code>',
+                            Name: `Left shift assignment`,
+                            Usage: 'a >>= f()',
+                            Description: `
+                            <code>a = a >>= f()</code> 
+                            Moves the specified amount of bits to the right and asigns the result to the left operand;
+                            `
+                        },
+
+
+                        {
+                            [Symbol('title')]:'>>>=',
+                            [Symbol('code')]:`          
+        <pre>
+
+        </pre>                                   
+                            `,
+                            Operator: '<code>>>>=</code>',
+                            Name: `Unsigned right shift assignment`,
+                            Usage: 'a >>>= f()',
+                            Description: `
+                            <code>a = a >>>= f()</code> 
+                            Moves the specified amount of bits to the right and asigns the result to the left operand;
+                            `
+                        },
+
 
 
             ]
+            },
+
+            ]
         },
+
+
         {
             elementType:'Article',
             content:[
                 {
                     elementType:'Headline-2',
-                    content:''
+                    content:'Binary representation of a negative number'
                 },
                 {
                     elementType:'Paragraph',
                     content:`
-
+                    There is a <code>Number.toString([redix])</code> method that converts a number to a string representation
+                    of this number in the specified redix. However as far as binary representation of a number is 
+                    concerned, there is no negative number representation, as there can be only <code>0</code> or <code>1</code>,
+                    no plus or minus bit is present. Moreover a sum of the positive and the negative number shuld always give a
+                    <code>0</code>, so if there would be the most significant bit devoted to representation of the sign, then
+                    sum of positive and negative representation of the number would not be 0:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+5 - 5 == 0; but
+   <span style="color: red">0</span>0000101
+ + <span style="color: red">1</span>0000101
+----------------
+   <span style="color: red">1</span>0001010   and this is <span style="color: red">-10</span> in representation, with most significant bit being <span style="color: red">0</span>;
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    To solve this provlem of non negative sum, there is a need to keep this most significant bit 
+                    indicating the negative number, and search for the other number, that if was added to a positive
+                    equivalent, would give 0. In this case number of bits that will represente the number is important.
+                    Lets suppose, that number of bits that will represent the number is 8. There is a pattern:
+                    <strong>2<sup>n</sup> + negativeNumber</strong>, where <strong>n</strong> is the number of bits 
+                    representing the number, and the <code>negativeNumber</code> is number that needs to be converted
+                    with its minus sign, so as an example conversion of <strong>-5</strong> on <strong>8</strong>
+                    bits would be:<br>
+                    <strong>2<sup>8</sup> + (-5) = 256 - 5 = 251</strong>, and 251 converted to binary is 
+                    <strong><span style="color:red">1</span>1111011</strong>. This red bit is the most significant bit 
+                    meaning that this number is negative if set to 1, and positive if set to 0. Now:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+   <span style="color: red">0</span>0000101
+ + <span style="color: red">1</span>1111011
+----------------
+   (<span style="color: red">1</span>)00000000
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    There is an overflow, one bit is out of this representatnion, as it becomes a 9-th
+                    bit, and number representatnion has only 8 bits, so it will be ignored. And if this bit is
+                    ignored, then the remaining bits are <code>00000000</code>, so equal to 0.
+                    `
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'What if someone would like to represent 255 then?'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Answer is simple. There is no 255 number in this representation. To have this number, there is a 
+                    need to take more bits into account, lets say 16 to represent a single number. 8 bits represent
+                    256 possibilities with a 0 included, so from 255 to 0 or from -128 to 127. With 16 bits this would 
+                    be 65536 possibilites, including 0, so 65535 to 0, or 32767 to -32768 with negative numbers. 
+                    An elephant will not fit into a backpack &#128578;<br>
+                    Even in JS there is a limit for the numbers. Each number larger then the 
+                    <code>Number.MAX_SAFE_INTEGER</code> or smaller then <code>-Number.MAX_SAFE_INTEGER</code> is
+                    approximated, and a number larger than <code>number.MAX_VALUE</code> or smaller then 
+                    <code>Number.MIN_VALUE</code> is <code>Infinity</code> or </code>-Infinity</code>
+                    `
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'What does this mean for a JS developer?'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        Not much. JS is a high level programming language, and low level stuff is transparent in 99.9999% cases.
+                        This may be noticed with usage of a <code>>>></code> or a <code>>>></code> operator, when for example 
+                        someone is transferring <code>a >>> 2</code>, then the result is <code>1073741823</code>. 
+                        The JS developer not knowin this would be similar to a driver not knowing much about car mechanics. 
+                        In most cases this knowledge is too low level for a driver, but may be useful when a car gives symptoms
+                        that it will break down. Even if someone does not remember details, it is at least good to know that 
+                        something like this exists, to search for this if needed.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                        This knowledge might be useful if when programming a micro controller, and playing with HW, robotics
+                        etc. This is time consuming, but it is fun, and kids may like it when they are growing up, so
+                        perhaps one day this may be handy &#128578;.
                     `
                 },
             ]
@@ -161,6 +455,12 @@ b -= 1; // 9;
                     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators',
                     description:'Tutorial'
                 },
+                // {
+                //     elementType:'Link',
+                //     content:'iii-lo.tarman.pl/',
+                //     href: 'http://www.iii-lo.tarman.pl/informatyka/ladustrone.php?p1=informatyka&p2=44',
+                //     description:'Negative number representation'
+                // },
             ]
         }
     ]
