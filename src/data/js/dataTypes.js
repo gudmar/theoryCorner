@@ -219,6 +219,14 @@ let data =     {
                         <code>let a = 5; a.toString(2) == "101";</code>
                     `
                 },
+                {
+                    elementType: 'NoteWarning',
+                    content: `
+                        Oposite to <code>Number.prototype.toString([redix])</code> would be 
+                        <code>Number.parseInt(str, radix)</code> converting a string to a number with
+                        given radix.
+                    `
+                },
             ]
         },
         {
