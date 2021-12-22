@@ -397,6 +397,33 @@ b ^= 3;
                         },
 
 
+
+
+                        {
+                            [Symbol('title')]:'|=',
+                            [Symbol('code')]:`          
+<pre>
+let a = 5;
+a |= 3; // 101 | 011 is 111 so 7
+let b = -8;
+b |= 8; // -8
+// -8 is  11111111111111111111111111111000
+// +8 is  00000000000000000000000000001000
+// result 11111111111111111111111111111000
+
+</pre>                                   
+                            `,
+                            Operator: '<code>|=</code>',
+                            Name: `Bitwise OR assignment`,
+                            Usage: 'a |= f()',
+                            Description: `
+                            <code>a = a |= f()</code> 
+                            Takes a binary representation of both operands, does a bitwise OR on them and assigns the 
+                            result to the left operator,
+                            `
+                        },
+
+
                         
 
 
@@ -466,10 +493,10 @@ b ^= 3;
                     elementType:'Code',
                     content:`
 <pre>
-   <span style="color: red">0</span>0000101
- + <span style="color: red">1</span>1111011
+    <span style="color: red">0</span>0000101
+ +  <span style="color: red">1</span>1111011
 ----------------
-   (<span style="color: red">1</span>)00000000
+ (<span style="color: red">1</span>)00000000
 </pre>                    
                     `
                 },
@@ -506,8 +533,8 @@ b ^= 3;
                 {
                     elementType:'Paragraph',
                     content:`
-                        Not much. JS is a high level programming language, and low level stuff is transparent in 99.9999% cases.
-                        This may be noticed with usage of a <code>>>></code> or a <code>>>></code> operator, when for example 
+                        Not much. JS is a high level programming language, and low level stuff is transparent in 99.9% cases.
+                        This may be noticed with usage of bitwise operations, when for example 
                         someone is transferring <code>a >>> 2</code>, then the result is <code>1073741823</code>. 
                         The JS developer not knowin this would be similar to a driver not knowing much about car mechanics. 
                         In most cases this knowledge is too low level for a driver, but may be useful when a car gives symptoms
@@ -538,12 +565,20 @@ b ^= 3;
                     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Expressions_and_Operators',
                     description:'Tutorial'
                 },
-                // {
-                //     elementType:'Link',
-                //     content:'iii-lo.tarman.pl/',
-                //     href: 'http://www.iii-lo.tarman.pl/informatyka/ladustrone.php?p1=informatyka&p2=44',
-                //     description:'Negative number representation'
-                // },
+                {
+                    elementType:'Link',
+                    content:'iii-lo.tarman.pl/',
+                    href: 'http://www.iii-lo.tarman.pl/informatyka/ladustrone.php?p1=informatyka&p2=44',
+                    description:'Negative number representation'
+                },
+                {
+                    elementType:'Link',
+                    content:'blog.logrocket.com',
+                    href: 'https://blog.logrocket.com/interesting-use-cases-for-javascript-bitwise-operators/',
+                    description:'Use cases of bitwise operations'
+                },
+
+
             ]
         }
     ]
