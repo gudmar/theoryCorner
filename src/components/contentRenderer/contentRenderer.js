@@ -31,8 +31,12 @@ function getSingleListElementType(type, content){
 
 function getSingleNonListElementType(type, content, otherProps){
     if (type === 'Paragraph') return <p dangerouslySetInnerHTML={getDangerousHTML(content)}></p>;
-    if (type === 'Headline')  return <h1 className="display-2">{content}</h1>
-    if (type === 'Headline-2')  return <h3 className="display-4">{content}</h3>
+    if (type === 'Headline')  {
+        return <h1 className="display-2" dangerouslySetInnerHTML={getDangerousHTML(content)}></h1>
+    }
+    if (type === 'Headline-2')  {
+        return <h3 className="display-4"  dangerouslySetInnerHTML={getDangerousHTML(content)}></h3>
+    }
     if (type === 'Headline-3')  return <h4 className="display-5">{content}</h4>
     if (type === 'SmallHeadline')  return <h4 dangerouslySetInnerHTML={getDangerousHTML(content)}></h4>
     if (type === 'NoteWarning') return <Note severity="warning" content={content} />
