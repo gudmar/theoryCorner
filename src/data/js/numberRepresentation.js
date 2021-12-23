@@ -11,14 +11,162 @@ let data =     {
             content:[
                 {
                     elementType:'Headline',
-                    content:'Bitwise use cases'
+                    content:'Number representation'
                 },
 
                 {
                     elementType: 'Paragraph',
                     content: `
+                    There are two primitive number types in JS, and these are: <code>Number</code> and <code>
+                    BigInt</code>. More common in usage is a <code>Number</code> type, as it is safely represents positive 
+                    integers,
+                    negative integers, and floating point positive and negative numbers in the range of -2<sup>52</sup> to
+                    2<sup>52</sup>. A <code>Number</code> type is capable of representing even bigger numbers (from
+                    <code>-Number.MAX_VALUE</code>, that is equal to -1.8<sup>308</sup>, to <code>Number.MAX_VALUE</code>, that
+                is equal to 1.8<sup>308</sup>, but these numbers are only an approximation of a precise value). BigInts are
+                capable of representing much bigger numbers than 2<sup>52</sup>, but they are less efficient and not fully 
+                compatible with a <code>Number</code> type, so in most usages should be avoided. In this article we will concentrate
+                on a <code>Number</code> type only.
                     `
                 },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    A <code>Number</code> type is always the <code>Number</code> type, but it may be represented internally
+                    in two different ways. The <code>Number</code> type should be represented as a double precision floating
+                    point, but if it is small enough (in range -2<sup>31</sup> to 2<sup>31</sup>) and is an
+                    integer, it will be represented only in 32 bites.
+                    `
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'Internal integer representation'
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `If a number is between -2<sup>31</sup> and 2<sup>31</sup>, and`,
+                        `If a number is an integer, then`,
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`it will be represented in a single precision (32 bit) plain binary format, where the most 
+                    significant bit will be a sign bit. 1 is for a negative number, and a 0 is for a positive one.
+                    The number will be represented as 32 bit plain integer as long as it is possible. And there is no 
+                    problem with that, as every primitive type in JS (including a <code>Number</code>) is not mutable.
+                    So if a new, bigger value is assigned under a variable, this bigger value is created from scratches
+                    anyway.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    32 bit sized numbers have some features, bigger numbers do not have:
+                    `
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `bitwise operations may be done on these numbers,`,
+                        `these numbers may be an index of an array. If there is an attempt to create a bigger
+                        array, an error will occur or added values will be indexed with a string, creating key-value
+                        pairs`,
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    But how are negative numbers represented in this plain binary notation? Simple sign will not be enough.
+                    Lets considere negative representation on a simpler - 8-bit representation example:
+                    `
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'<span id="negativeRepresentation">Negative number representation<span>'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    In computer science, there is no natural way to represent a negative number 
+                    , as there can be only <code>0</code> or <code>1</code>,
+                    no plus or minus sign is present. The sum of the positive and the negative numbers should always give a
+                    <code>0</code>, so even if there would be only a sign bit introduced, the solution would not be good enough:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+5 - 5 == 0; but
+   <span style="color: red">0</span>0000101
+ + <span style="color: red">1</span>0000101
+----------------
+   <span style="color: red">1</span>0001010   and this is <span style="color: red">-10</span> in representation, with most significant bit being <span style="color: red">0</span>;
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    To solve this problem of non negative sum, there is a need to keep this most significant bit 
+                    indicating the negative number, and search for the other number, that if was added to a positive
+                    equivalent, would give 0. In this case number of bits that will represent the number is important.
+                    Let us suppose, that the number of bits that will represent the number is 8. There is a pattern:
+                    <strong>2<sup>n</sup> + negativeNumber</strong>, where <strong>n</strong> is the number of bits 
+                    representing the number, and the <code>negativeNumber</code> is number that needs to be converted
+                    with its minus sign, so as an example conversion of <strong>-5</strong> represented with
+                    <strong>8</strong> bits
+                    bits would be:<br>
+                    <strong>2<sup>8</sup> + (-5) = 256 - 5 = 251</strong>, and 251 converted to binary is 
+                    <strong><span style="color:red">1</span>1111011</strong>. This red bit is the most significant bit 
+                    meaning that this number is negative if set to 1, and positive if set to 0. Now:
+                    `
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+    <span style="color: red">0</span>0000101
+ +  <span style="color: red">1</span>1111011
+----------------
+ (<span style="color: red">1</span>)00000000
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    There is an overflow, one bit is out of this representation, as it becomes a 9-th
+                    bit, and number representation has only 8 bits, so it will be ignored. And if this bit is
+                    ignored, then the remaining bits are <code>00000000</code>, so equal to 0.
+                    `
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'What if someone would like to represent 255 then?'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    The answer is simple. There is no 255 number in this representation. To have this number, there is a 
+                    need to take more bits into account, lets say 16 to represent a single number. 8 bits represent
+                    256 possibilities with a 0 included, so from 255 to 0 or from -128 to 127. With 16 bits this would 
+                    be 65536 possibilities, including 0, so 65535 to 0, or 32767 to -32768 with negative numbers. 
+                    An elephant will not fit into a backpack &#128578;<br>
+                    Even in JS there is a limit to the numbers. Each number larger than the 
+                    <code>Number.MAX_SAFE_INTEGER</code> or smaller than <code>-Number.MAX_SAFE_INTEGER</code> is
+                    approximated, and a number larger than <code>number.MAX_VALUE</code> or smaller then 
+                    <code>Number.MIN_VALUE</code> is <code>Infinity</code> or </code>-Infinity</code>
+                    `
+                },
+
+/// HERE SPELL CHECK ENDED
+
+
+
+
                 {
                     elementType:'UnsignedList',
                     content:[
@@ -148,86 +296,7 @@ let greaterThan32bit = greatest32bit + 1;
         {
             elementType:'Article',
             content:[
-                {
-                    elementType:'Headline-2',
-                    content:'<span id="negativeRepresentation">Negative number representation<span>'
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
-                    There is a <code>Number.toString([redix])</code> method that converts a number to a string representation
-                    of this number in the specified redix. However as far as binary representation of a number is 
-                    concerned, there is no negative number representation, as there can be only <code>0</code> or <code>1</code>,
-                    no plus or minus bit is present. Moreover a sum of the positive and the negative number shuld always give a
-                    <code>0</code>, so if there would be the most significant bit devoted to representation of the sign, then
-                    sum of positive and negative representation of the number would not be 0:
-                    `
-                },
-                {
-                    elementType:'Code',
-                    content:`
-<pre>
-5 - 5 == 0; but
-   <span style="color: red">0</span>0000101
- + <span style="color: red">1</span>0000101
-----------------
-   <span style="color: red">1</span>0001010   and this is <span style="color: red">-10</span> in representation, with most significant bit being <span style="color: red">0</span>;
-</pre>                    
-                    `
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
-                    To solve this provlem of non negative sum, there is a need to keep this most significant bit 
-                    indicating the negative number, and search for the other number, that if was added to a positive
-                    equivalent, would give 0. In this case number of bits that will represente the number is important.
-                    Lets suppose, that number of bits that will represent the number is 8. There is a pattern:
-                    <strong>2<sup>n</sup> + negativeNumber</strong>, where <strong>n</strong> is the number of bits 
-                    representing the number, and the <code>negativeNumber</code> is number that needs to be converted
-                    with its minus sign, so as an example conversion of <strong>-5</strong> on <strong>8</strong>
-                    bits would be:<br>
-                    <strong>2<sup>8</sup> + (-5) = 256 - 5 = 251</strong>, and 251 converted to binary is 
-                    <strong><span style="color:red">1</span>1111011</strong>. This red bit is the most significant bit 
-                    meaning that this number is negative if set to 1, and positive if set to 0. Now:
-                    `
-                },
-                {
-                    elementType:'Code',
-                    content:`
-<pre>
-    <span style="color: red">0</span>0000101
- +  <span style="color: red">1</span>1111011
-----------------
- (<span style="color: red">1</span>)00000000
-</pre>                    
-                    `
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
-                    There is an overflow, one bit is out of this representatnion, as it becomes a 9-th
-                    bit, and number representatnion has only 8 bits, so it will be ignored. And if this bit is
-                    ignored, then the remaining bits are <code>00000000</code>, so equal to 0.
-                    `
-                },
-                {
-                    elementType:'SmallHeadline',
-                    content:'What if someone would like to represent 255 then?'
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
-                    Answer is simple. There is no 255 number in this representation. To have this number, there is a 
-                    need to take more bits into account, lets say 16 to represent a single number. 8 bits represent
-                    256 possibilities with a 0 included, so from 255 to 0 or from -128 to 127. With 16 bits this would 
-                    be 65536 possibilites, including 0, so 65535 to 0, or 32767 to -32768 with negative numbers. 
-                    An elephant will not fit into a backpack &#128578;<br>
-                    Even in JS there is a limit for the numbers. Each number larger then the 
-                    <code>Number.MAX_SAFE_INTEGER</code> or smaller then <code>-Number.MAX_SAFE_INTEGER</code> is
-                    approximated, and a number larger than <code>number.MAX_VALUE</code> or smaller then 
-                    <code>Number.MIN_VALUE</code> is <code>Infinity</code> or </code>-Infinity</code>
-                    `
-                },
+
             ]
         },
 
