@@ -533,22 +533,36 @@ b |= 8; // -8
                 {
                     elementType:'Paragraph',
                     content:`
-                        Not much. JS is a high level programming language, and low level stuff is transparent in 99.9% cases.
-                        This may be noticed with usage of bitwise operations, when for example 
-                        someone is transferring <code>a >>> 2</code>, then the result is <code>1073741823</code>. 
-                        The JS developer not knowin this would be similar to a driver not knowing much about car mechanics. 
-                        In most cases this knowledge is too low level for a driver, but may be useful when a car gives symptoms
-                        that it will break down. Even if someone does not remember details, it is at least good to know that 
-                        something like this exists, to search for this if needed.
+                        Negative number conversion may be useful, if someone wants to perfoerm bitwise operations, and
+                        here is a set of use cases:
                     `
                 },
                 {
-                    elementType:'Paragraph',
-                    content:`
-                        This knowledge might be useful if when programming a micro controller, and playing with HW, robotics
-                        etc. This is time consuming, but it is fun, and kids may like it when they are growing up, so
-                        perhaps one day this may be handy &#128578;.
-                    `
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>~0 == -1</code> and <code>~-1 == 0</code>, so <code>Boolean(~-1) == false</code> and
+                        conversion to boolean of any non -1 value is true. So 
+                        <code>Boolean(~arr.findIndex(cb(item, index)))</code> is conversion of findIndex array method
+                        to boolean`,
+                        `
+                        <code>(val >>> 0).toString(2)</code> gives a number bit representation. This conversion is 
+                        useful if a negative number exact converion is needed.
+                        `,
+                        `
+                        Masking
+                        <code>
+<pre>
+function isOdd(int) {
+    return (int & 1) === 1;
+}
+function isEven(int) {
+    return (int & 1) === 0;
+}
+</pre>                        
+                        </code>
+                        `
+                    ]
+                    
                 },
             ]
         },

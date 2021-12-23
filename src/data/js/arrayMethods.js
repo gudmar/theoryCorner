@@ -18,6 +18,13 @@ let data =     {
                     `
                 },
                 {
+                    elementType: 'NoteWarning',
+                    content: `
+                    Array indexes cannot be larger, than a number represented in 32 bit integer. If an array 
+                    gets bigger, then indexes start becomming keys represented as a string
+                    `
+                },
+                {
                     elementType: 'Unsigned list',
                     content: [
                         `<code>array like</code> is an object not created with an <code>Array</code> constructor, 
