@@ -20,11 +20,11 @@ let data =     {
                     There are two primitive number types in JS, and these are: <code>Number</code> and <code>
                     BigInt</code>. More common in usage is a <code>Number</code> type, as it is safely represents positive 
                     integers,
-                    negative integers, and floating point positive and negative numbers in the range of -2<sup>52</sup> to
-                    2<sup>52</sup>. A <code>Number</code> type is capable of representing even bigger numbers (from
+                    negative integers, and floating point positive and negative numbers in the range of -(2<sup>53</sup>-1) to
+                    2<sup>53</sup>-1. A <code>Number</code> type is capable of representing even bigger numbers (from
                     <code>-Number.MAX_VALUE</code>, that is equal to -1.8<sup>308</sup>, to <code>Number.MAX_VALUE</code>, that
                 is equal to 1.8<sup>308</sup>, but these numbers are only an approximation of a precise value). BigInts are
-                capable of representing much bigger numbers than 2<sup>52</sup>, but they are less efficient and not fully 
+                capable of representing much bigger numbers than 2<sup>53</sup>-1, but they are less efficient and not fully 
                 compatible with a <code>Number</code> type, so in most usages should be avoided. In this article we will concentrate
                 on a <code>Number</code> type only.
                     `
@@ -39,7 +39,7 @@ let data =     {
                     `
                 },
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-2',
                     content:'Internal integer representation'
                 },
                 {
@@ -83,7 +83,7 @@ let data =     {
                 },
 
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-3',
                     content:'<span id="negativeRepresentation">Negative number representation<span>'
                 },
                 {
@@ -164,50 +164,289 @@ let data =     {
 
 /// HERE SPELL CHECK ENDED
 
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="fractionRepresentation">Fractions in binary codding<span>'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <table class = "table">
+                    <thead>
+                        <tr>
+                            <th>number:</th>
+                            <th>0.1 (2<sup>-1</sup>) 0.5</th>
+                            <th>0.01 (2<sup>-2</sup>) 0.25(</th>
+                            <th>0.001 (2<sup>-3</sup>) 0.125</th>
+                            <th>0.0001 (2<sup>-4</sup>) 0.0625</th>
+                            <th>Equals 0.0625</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0.6875</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>0.1011</td>
+                        </tr>
+                        <tr>
+                            <td>0.375</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0.0101</td>
+                        </tr>
+                        <tr>
+                            <td>0.5625</td>
+                            <td>1</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>0.1001</td>
+                        </tr>
+                    </tbody>
+                </table>
+                    `
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'The problem with the binary fractions'
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`If we take a decimal fraction into concideration, it always has some power of 
+                    10 in the denomitaror. 1/10 is 0.1, 1/5 = 2/10 is 0.2, 1/100 is 0.01. If we want to represent a
+                    fraction that's denominator is not the power of 10, then there is a problem: 1/3 = 0.333(3)
+                    This fraction will never be a precise number, it will always be an approximation with an error.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    In case of binary fractions the same phenomenon appears. In this case however it is not possible to
+                    represent a fraction, that has in denominator a number that is not a power of 2, so:
+                    1/2 = 0b0.1, 1/4 = 0b0.01, 1/8 = 0b.001, but 1/10 will be 0b0.00011(0011), so only an approximation.
+                    There is no possiblity to represent some binary fractions precisely. <br>
+                    <code>0.1 + 0.2 == 0.30000000000000004</code><br>
+                    `
+                },
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    Fractions should not be compared. They should be rounded in some way for safety reasons
+                    `
+                },          
+                {
+                    elementType:'Code',
+                    content:`
+<pre>                    
+function compareFractions(a, b){
+    let ep = 2**-53;
+    return Math.abs(a - b) < ep;
+}
+
+// This function should solve fraction comparation in JS
+</pre>
+                    `
+                },
+
+
 
 
 
                 {
+                    elementType:'Headline-2',
+                    content:`Double precision floating point representation`
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    Number cannot be represented as a 32 bit integer if
+                    `
+                },
+                {
                     elementType:'UnsignedList',
                     content:[
-                        `Numbers in JS are double precission, meaning that a single number is represented with 
-                        2 x 32 = 64 bits,`,
-
-                        `Only 52 of 64 bits are used for actual fraction of number representation, that is why a safe integer is 
-                        in range <code> -(2<sup>53</sup> - 1)</code> to <code>2<sup>53</sup> + 1</code>`,
-
-                        `11 of 64 bits are used for the expotent representation. Exponent can be from <code>-1023</code> to 
-                        <code>1024</code>, that is from <code>-2<sup>10</sup> + 1</code> to <code>2<sup>10</sup></code>, and
-                        the remainig 1 bit is a sign bit`,
-
-                        `Remaining 1 bit is a sign bit`,
-
-                        `Numbers are stored in a simpler way (single precision, 32 bit) as long as possible, double precision
-                        is turned on only if numbers are greater than 32 bits. Below example shows how adding 1 to the 
-                        greatest possible number represented with 32 bits changes internal number representation
-                        <pre>
-let greatest32bit = 4294967295;
-(greatest32bit >>> 0).toString(2).length == 32;//true
-(greatest32bit >>> 0).toString(2).match(/1/g) == 32;//true
-let greaterThan32bit = greatest32bit + 1;
-(greaterThan32bit >>> 0).toString(2); // "0"
-                        </pre>
-                            `,
-
-                        `Only numbers represented on up to 32 bits can be operands of the bitwise operations,`,
-
-                        `Only numbers represented on up to 32 bits can be indexes of the arrays. Arrays bigger than that
-                        will become string indexed, <code>let tooBigArray  = Array(4294967296)</code> gives an error.`,
-                        
-                        
+                        'If is not an integer, so if it has a fraction part',
+                        `If it is out of range -(2<sup>31</sup>) to 2<sup>31</sup> (31 because one bit is reserved for 
+                        a sign),`
                     ]
                 },
                 {
                     elementType: 'Paragraph',
                     content: `
-                    General pattern for calculating a number is:
+                    In case a number cannot be internally represented in 32 bits, it will be stored as a <strong>
+                    double precision floating point</strong> number. It will take 2 x 32 bits (double precision) = 64 bits.
+                    In most situations a developer will not notice the difference, as this is still the same <code>Number</code>
+                    type. The difference will be noticable when someone tries to make bitwise operations on these numbers.
+                    But how are these numbers stored in the memory?
                     `
                 },
+                {
+                    elementType:'SmallHeadline',
+                    content:'Scientific notation'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:'A number in decimal format may be represented as a:'
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+mantissa * 10<sup>exponent</sup>
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>mantissa</code> is a significant integer. Significant means that it has no zeros on
+                        either left of right side. Only zeros in the midde are allowed. Other zeros may be cut off, and
+                        represented in the exponential part,`,
+                        `<code>exponent</code> is an integer exponent. If negative it will move the point to the left
+                        creating a fraction part of the number, and if positive it will add zeros to the end`
+                        
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <table class="table">
+                        <thead>
+                        <tr><th>Decimal notation</th><th>Scientific decimal notation</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0.234</td><td>234 * 10<sup>-3</sup></td></tr>
+                            <tr><td>234000</td><td>234 * 10<sup>3</sup></td></tr>
+                            <tr><td>234.567</td><td>234567 * 10<sup>3</sup></td></tr>
+                        </tbody>
+                    </table>
+                    `
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'Normalized notation'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:'A number in decimal format may be represented as a:'
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+mantissa * 10<sup>exponent</sup>
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>mantissa</code> is a number with a fraction part, in this notation there is only a 
+                        <strong>single digit</strong> on the left side of the point. The rest of the number is the 
+                        fraction part.,`,
+                        `<code>exponent</code> is an integer exponent. If negative it will move the point to the left
+                        creating a fraction part of the number, and if positive it will add zeros to the end`
+                    ]
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <table class="table">
+                        <thead>
+                        <tr><th>Decimal notation</th><th>Normalized decimal notation</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0.234</td><td>2.34 * 10<sup>-1</sup></td></tr>
+                            <tr><td>234000</td><td>2.34 * 10<sup>5</sup></td></tr>
+                            <tr><td>234.567</td><td>2.34567 * 10<sup>2</sup></td></tr>
+                        </tbody>
+                    </table>
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`Of course this notation is more generic, as it may be applied not only to the 
+                    decimal format:`
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+mantissa * base<sup>exponent</sup>
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>mantissa</code> is a number with a fraction part, in this notation there is only a 
+                        <strong>single digit</strong> on the left side of the point. The rest of the number is the 
+                        fraction part.,`,
+                        `
+                        <code>base</code> is a base of the calculation system. In binary it will be 2, in hexadecimal
+                        it will be 16 (f)
+                        `,
+                        `<code>exponent</code> is an integer exponent. If negative it will move the point to the left
+                        , and if positive it will move the point to the right, and finally it will add zeros to the 
+                        right of the created number,`
+                    ]
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`In case of binary numbers this will look like the below example`
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+(-1)<sup>sign</sup> * 1.fraction * 2<sup>exponent</sup>
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>fraction</code> in binary numbers mantissa will always start with 1, so there is only
+                        a fraction element that will change,
+                        `,
+                        `<code>sign</code> is a 0 or 1 value indicating if the result will be positive or negative,
+                        `,
+                        `<code>exponent</code>  is an integer exponent. If negative it will move the point to the left
+                        , and if positive it will move the point to the right, and finally it will add zeros to the 
+                        right of the created number,`
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <table class="table">
+                        <thead>
+                        <tr><th>Decimal notation</th><th>Binary</th><th>Normalized binary notation</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>0</td><td>0</td><td>(-1)<sup>0</sup>*1.0 * 2<sup>0</sup></td></tr>
+                            <tr><td>1</td><td>1</td><td>(-1)<sup>0</sup>*1.0 * 2<sup>1</sup></td></tr>
+                            <tr><td>5</td><td>101</td><td>(-1)<sup>0</sup>*1.01 * 2<sup>2</sup></td></tr>
+                            <tr><td>100.75</td><td>1100100.11</td><td>(-1)*<sup>0</sup> 1.10010011 * 2<sup>6</sup></td></tr>
+                            <tr><td>-5.25</td><td>-101.01</td><td>(-1)<sup>1</sup>*1.0101 * 2<sup>2</sup></td></tr>
+                        </tbody>
+                    </table>
+                    `
+                },
+
+
+
+
                 {
                     elementType: 'Code',
                     content: `
@@ -219,12 +458,8 @@ let greaterThan32bit = greatest32bit + 1;
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>sign</code> is a sign bit, if it is 0 then number is positive, as -1<sup>0</sup> becomes
-                        1, when bit is 1 then the number is a negative one,`,
-                        `<code>%1.</code> is just a prefix, meaning that number after i will be in a binary format`,
-                        `<code>fraction</code> is a number represented in a binary format, this is the 53 bit part`,
-                        `<code>exponent</code> is a 11 bit part, that is the exponent of 2, exponent is in range
-                        -1023 to 1024. If a number is too small (fraction part is shorter than `
+                        `<code>sign</code> is a single bit indicating if the number is a positive or a negative value,`,
+                        `<code>%</code> is just a prefix indicating that the number will be in binary</code>`
                     ]
                 },
                 {
@@ -234,26 +469,7 @@ let greaterThan32bit = greatest32bit + 1;
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>(100).toString(2) === "1100100"</code>: 
-                        <code>(-1)<sup>0</sup> x %1.1100100 x 2<sup>7</sup></code> is the notation for this example. but
-                        in practice this fits in less then 32 bit, so will be stored as 1100100`,
-                        `<code>(-100).toString(2) === "-1100100"</code>, however: <code>(-100 >>> 0).toString(2)</code>
-                        becomes <code>"11111111111111111111111110011100"</code> 
-                        (see <a href="#negativeRepresentation"> negative number representation</a>)
-                        <code>(-1)<sup>1</sup> x %1.1100100 x 2<sup>7</sup></code> is the notation for this example. but
-                        in practice this fits in less then 32 bit, so will be stored as 11111111111111111111111110011100`,
-                        `,
-                        <code>(0.6875).toString(2) === "0"</code>: this is because 32 bits are not enough to represent this
-                        value, as it is:
-                        <code>(-1)<sup>0</sup> x %1.1011 x 2<sup>-4</sup></code>, so expotential part needs to be used
-                        `,
                         `
-                        <code>(100.6875).toString(2) === "1100100"</code>:
-                        This is because this number consists of 2 numbers: an integer one and the floating point one, so
-                        <code>toString</code> convers the ingeter part, and the fractional part is not represented in 32
-                        bits
-                        <code>(-1)<sup>0</sup> x %1.1100100 x 2<sup>7</sup></code> + 
-                        <code>(-1)<sup>0</sup> x %1.1011 x 2<sup>-4</sup></code>
                         `
                     ]
                 },
@@ -304,49 +520,6 @@ let greaterThan32bit = greatest32bit + 1;
         {
             elementType:'Article',
             content:[
-                {
-                    elementType:'Headline-2',
-                    content:'<span id="fractionRepresentation">Fraction representation<span>'
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
-                    <table class = "table">
-                    <thead>
-                        <tr>
-                            <th>number:</th>
-                            <th>0.1 (2<sup>-1</sup>) 0.5</th>
-                            <th>0.01 (2<sup>-2</sup>) 0.25(</th>
-                            <th>0.001 (2<sup>-3</sup>) 0.125</th>
-                            <th>0.0001 (2<sup>-4</sup>) 0.0625</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>0.6875</td>
-                            <td>1</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                        <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                        </tr>
-                    </tbody>
-                </table>
-                    `
-                },
 
             ]
         },
