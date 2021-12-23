@@ -9,7 +9,9 @@ import getJSObjectsData from './js/objects';
 import getObjectMethodsData from './js/objectMethods';
 import getReflectData from './js/reflect'
 import getJSThisData from './js/this';
-import getProxyData from './js/proxy'
+import getProxyData from './js/proxy';
+import getBitWiseData from './js/bitWiseUseCases';
+import getNumberRepresentationData from './js/numberRepresentation'
 let theoryDataJs = [
 
     {
@@ -138,6 +140,8 @@ let theoryDataJs = [
     getJSThisData(),
     getReflectData(),
     getProxyData(),
+    getBitWiseData(),
+    getNumberRepresentationData()
 ]
 
 export function getTheoryDataJs(){
