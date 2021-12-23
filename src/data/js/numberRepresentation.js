@@ -40,7 +40,7 @@ let data =     {
                 },
                 {
                     elementType:'Headline-2',
-                    content:'Internal integer representation'
+                    content:'<span className = "internalIntegerRepresentation">Internal integer representation</span>'
                 },
                 {
                     elementType: 'UnsignedList',
@@ -272,7 +272,7 @@ function compareFractions(a, b){
                 {
                     elementType:'UnsignedList',
                     content:[
-                        'If is not an integer, so if it has a fraction part',
+                        'If is not an integer value, so if it has a fraction part',
                         `If it is out of range -(2<sup>31</sup>) to 2<sup>31</sup> (31 because one bit is reserved for 
                         a sign),`
                     ]
@@ -444,6 +444,29 @@ mantissa * base<sup>exponent</sup>
                     `
                 },
 
+                {
+                    elementType:'SmallHeadline',
+                    content:'Back to JS and double precision floating point representation'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`The number is represented with 64 bits, but only 52 of them are used for the <code>
+                    fraction</code>part:`
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>1 bit</code> is for the sign encoding. 0 is a positive number, 1 is for the negative number,`,
+                        `<code>52 bits</code> are for the fraction part of the mantissa</code>,`,
+                        `<code>11 bits</code> are for the exponent encoding. Exponent has one of its 11 bits reserved for the
+                        sigh notation (1 == -, 0 == +) and the rest is for encoding the exponent it self. Exponent is 
+                        stored in the similar way to the <a href="#internalIntegerRepresentation>internal integer representation
+                        </a>, and negative exponent representation is similar to the <a href="#id="negativeRepresentation">
+                        negative number representation`,
+                        `Exponent has special values: 1024 is used for an error such as NaN or Infinity, and -1023 is used for a zero
+                        (0).`
+                    ]
+                },
 
 
 
@@ -459,7 +482,10 @@ mantissa * base<sup>exponent</sup>
                     elementType:'UnsignedList',
                     content:[
                         `<code>sign</code> is a single bit indicating if the number is a positive or a negative value,`,
-                        `<code>%</code> is just a prefix indicating that the number will be in binary</code>`
+                        `<code>%</code> is just a prefix indicating that the number will be in binary</code>`,
+                        `<code>1.</code> is an untachable value. All binary values in normalized notation will start with 1.`,
+                        `<code>exponent</code> is for indicating how many places a point will have to be moved to
+                        the left (if exponent is negative) or to the right (if it is a positive value)`
                     ]
                 },
                 {
@@ -537,6 +563,12 @@ mantissa * base<sup>exponent</sup>
                     content:'speakingjs.com',
                     href: 'http://speakingjs.com/es5/ch11.html',
                     description:'Great detailed article explaining how numbers are represented in JS'
+                },
+                {
+                    elementType:'Link',
+                    content:'indepth.dev.com',
+                    href: 'https://indepth.dev/posts/1139/here-is-what-you-need-to-know-about-javascripts-number-type',
+                    description:'Representation of numbers in JS explained'
                 },
                 {
                     elementType:'Link',
