@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'number representation',
     title: 'Number representation',
@@ -219,8 +219,8 @@ let data =     {
 
                 {
                     elementType:'Paragraph',
-                    content:`If we take a decimal fraction into concideration, it always has some power of 
-                    10 in the denomitaror. 1/10 is 0.1, 1/5 = 2/10 is 0.2, 1/100 is 0.01. If we want to represent a
+                    content:`If we take a decimal fraction into consideration, it always has some power of 
+                    10 in the denominaror. 1/10 is 0.1, 1/5 = 2/10 is 0.2, 1/100 is 0.01. If we want to represent a
                     fraction that's denominator is not the power of 10, then there is a problem: 1/3 = 0.333(3)
                     This fraction will never be a precise number, it will always be an approximation with an error.
                     `
@@ -228,10 +228,10 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                    In case of binary fractions the same phenomenon appears. In this case however it is not possible to
+                    In case of binary fractions the same phenomenon appears. In this case however, it is not possible to
                     represent a fraction, that has in denominator a number that is not a power of 2, so:
                     1/2 = 0b0.1, 1/4 = 0b0.01, 1/8 = 0b.001, but 1/10 will be 0b0.00011(0011), so only an approximation.
-                    There is no possiblity to represent some binary fractions precisely. <br>
+                    There is no possibility to represent some binary fractions precisely. <br>
                     <code>0.1 + 0.2 == 0.30000000000000004</code><br>
                     `
                 },
@@ -283,7 +283,7 @@ function compareFractions(a, b){
                     In case a number cannot be internally represented in 32 bits, it will be stored as a <strong>
                     double precision floating point</strong> number. It will take 2 x 32 bits (double precision) = 64 bits.
                     In most situations a developer will not notice the difference, as this is still the same <code>Number</code>
-                    type. The difference will be noticable when someone tries to make bitwise operations on these numbers.
+                    type. The difference will be noticeable when someone tries to do bitwise operations on these numbers.
                     But how are these numbers stored in the memory?
                     `
                 },
@@ -306,10 +306,10 @@ mantissa * 10<sup>exponent</sup>
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>mantissa</code> is a significant integer. Significant means that it has no zeros on
-                        either left of right side. Only zeros in the midde are allowed. Other zeros may be cut off, and
-                        represented in the exponential part,`,
-                        `<code>exponent</code> is an integer exponent. If negative it will move the point to the left
+                        `The <code>mantissa</code> is a significant integer. Significant means that it has no zeros on
+                        either left of right side. Only zeros in the middle are allowed. Other zeros may be cut off, and
+                        represented in the exponent part,`,
+                        `The <code>exponent</code> is an integer exponent. If negative, it will move the point to the left
                         creating a fraction part of the number, and if positive it will add zeros to the end`
                         
                     ]
@@ -349,10 +349,10 @@ mantissa * 10<sup>exponent</sup>
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>mantissa</code> is a number with a fraction part, in this notation there is only a 
+                        `The <code>mantissa</code> is a number with a fraction part, in this notation there is only a 
                         <strong>single digit</strong> on the left side of the point. The rest of the number is the 
-                        fraction part.,`,
-                        `<code>exponent</code> is an integer exponent. If negative it will move the point to the left
+                        fraction part,`,
+                        `The <code>exponent</code> is an integer exponent. If negative, it will move the point to the left
                         creating a fraction part of the number, and if positive it will add zeros to the end`
                     ]
                 },
@@ -374,7 +374,7 @@ mantissa * 10<sup>exponent</sup>
                 },
                 {
                     elementType:'Paragraph',
-                    content:`Of course this notation is more generic, as it may be applied not only to the 
+                    content:`Of course, this notation is more generic, as it may be applied not only to the 
                     decimal format:`
                 },
                 {
@@ -388,11 +388,11 @@ mantissa * base<sup>exponent</sup>
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>mantissa</code> is a number with a fraction part, in this notation there is only a 
+                        `The <code>mantissa</code> is a number with a fraction part, in this notation there is only a 
                         <strong>single digit</strong> on the left side of the point. The rest of the number is the 
                         fraction part.,`,
                         `
-                        <code>base</code> is a base of the calculation system. In binary it will be 2, in hexadecimal
+                        <code>base</code> is a base of the calculation system. In binary it will be 2, in the hexadecimal
                         it will be 16 (f)
                         `,
                         `<code>exponent</code> is an integer exponent. If negative it will move the point to the left
@@ -416,12 +416,12 @@ mantissa * base<sup>exponent</sup>
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>fraction</code> in binary numbers mantissa will always start with 1, so there is only
+                        `<code>fraction</code> in binary number's mantissa will always start with 1, so there is only
                         a fraction element that will change,
                         `,
                         `<code>sign</code> is a 0 or 1 value indicating if the result will be positive or negative,
                         `,
-                        `<code>exponent</code>  is an integer exponent. If negative it will move the point to the left
+                        `The <code>exponent</code>  is an integer exponent. If negative, it will move the point to the left
                         , and if positive it will move the point to the right, and finally it will add zeros to the 
                         right of the created number,`
                     ]
@@ -483,9 +483,9 @@ mantissa * base<sup>exponent</sup>
                     content:[
                         `<code>sign</code> is a single bit indicating if the number is a positive or a negative value,`,
                         `<code>%</code> is just a prefix indicating that the number will be in binary</code>`,
-                        `<code>1.</code> is an untachable value. All binary values in normalized notation will start with 1.`,
-                        `<code>exponent</code> is for indicating how many places a point will have to be moved to
-                        the left (if exponent is negative) or to the right (if it is a positive value)`
+                        `<code>1.</code> is an untouchable value. All binary values in normalized notation will start with 1.`,
+                        `The <code>exponent</code> is indicating how many places a point will have to be moved to
+                        the left (if the exponent is negative) or to the right (if it is a positive value)`
                     ]
                 },
                 {
