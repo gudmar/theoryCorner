@@ -99,6 +99,32 @@ let data =     {
                             Outcome: `<code>0</code>`,
                             [Symbol('code')]:` 
                             If converted to a boolean value, this will become true.
+<pre>
+    let finder = function(itemToSearch){
+        return function(item, index){
+            if (item == itemToSearch) return true;
+            return false    
+        }
+    }
+    let arr = [0, 1, 2, 3];
+    let find3 = finder(3);
+    let find4 = finder(4);
+
+    findIndex returns -1 if does not find an element 
+    meeting criteria from a callback function, and returns
+    a found element index in other cases
+
+    let isElementFound_true = ~arr.findIndex(find3);
+    // (~3 >>> 0).toString(2) == "11111111111111111111111111111100"
+    // and this is true, every  value that is != -1 
+    // after negation with bitwise NOT will be true
+
+    let isElementFound_false  = ~arr.findIndex(find4);
+    // (~-1 >>> 0).toString(2) == "00000000000000000000000000000000"
+    // NOT is perfect for converting array seach index function
+    // outcome to a boolean value
+
+</pre>                            
                                                         `,
                             'Binary expression': '1',
                             'Binary outcome': '-1',
@@ -152,28 +178,302 @@ that is why left most bits are discarded.
                     content:[
                         `<code>~</code> should not be mistaken with a <code>!</code> operator, the second one 
                         negates boolean expressions, and the first one converts to binary,`,
-                        `<code>~array.findIndex(cb())</code> will return true or false instead of -1 or an index,`,
+                        `<code>~array.findIndex(cb())</code> will return true or false instead of -1 or an index.
+                        Click above table <code>~-1</code> row to see more,`,
                         `<code>~~val</code> could be an equivalent to <code>Math.floor(val)</code> in case the
                         <code>val</code> is not greater than <code>2**31-1</code>`
                     ]
                 },
 
-
+                {
+                    elementType:'Headline-3',
+                    content:'&: AND'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `<code>0 & 0 == 0;</code>,`,
+                       `<code>0 & 1 == 0;</code>,`,
+                       `<code>1 & 0 == 0;</code>,`,
+                       `<code>1 & 1 == 1;</code>,`,
+                    ]
+                },
                 {
                     elementType:'SmallHeadline',
-                    content:'Traps'
+                    content:'Useful properties'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `<code>A & 0 == 0;</code>,`,
+                       `<code>A & ~A == 0;</code>,`,
+                       `<code>A & A == A;</code>,`,
+                       `<code>A & -1 == A;</code>,`,
+                    ]
+                },
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Expression','Outcome','Binary expression','Binary outcome','>>> expression','>>> outcome'
+                    ],
+                    content: [
+                        {
+                            [Symbol('title')]:'&',
+                            Expression: '<code>192.168.255.10 & 255.255.255.0</code>',
+                            [Symbol('code')]:` 
+                            If converted to a boolean value, this will become true.
+<pre>
+This example is related to computer networks, a bitwise AND is used for IP masking
+192.168.255.10 == C0.A8.FF.00 ==
+11000000.10101000.11111111.00001010 &
+11111111.11111111.11111111.00000000
+-------------------------------------
+11000000.10101000.11111111.00000000
+
+and this is an address of the network,
+this network can have hosts from 
+192.168.255.1 to 192.168.255.254,
+192.168.255.255 is reserved for the broadcast address,
+192.168.255.0 is a network address.
+
+</pre>                            
+                                                        `,                           
+                            Outcome: `<code>192.168.255.0</code>`,
+                            'Binary expression': 'C0.A8.FF.00 & FF.FF.FF.00',
+                            'Binary outcome': 'Click to see',
+                            '>>> expression': 'Click to see',
+                            '>>> outcome':    'Click to see'
+                        },
+                        {
+                            [Symbol('title')]:'&',
+                            Expression: '<code>#FFABCD & BLUE_FLAG</code>',
+                            Outcome: `<code>CD</code>`,
+                            [Symbol('code')]:` 
+                            If converted to a boolean value, this will become true.
+<pre>
+AND operator is perfect for extracting red, green, blue
+ingrediance from some hexadecimal format:
+let RED_FLAG = (255 << 16);
+let GREEN_FLAG = (255 << 8);
+let BLUE_FLAG = (255);
+
+function prefixWith0(hexColorAsStr){
+    if(hexColorAsStr.length == 3){
+        let slicedStr = hexColorAsStr.split('');
+        slicedStr.unshift('');
+        return slicedStr.join('0');
+    }
+    return hexColorAsStr;
+}
+
+function getRed(hexColor){
+    
+    return (parseInt(hexColor,16) & RED_FLAG) >> 16
+}
+function getGreen(hexColor){
+    return (parseInt(hexColor,16) & GREEN_FLAG) >> 8
+}
+function getBlue(hexColor){
+    return parseInt(hexColor,16) & BLUE_FLAG
+}
+
+function hex2RGB(hexString){
+    if (hexString[1]=="#") hexString = hexString.substring(1);
+    hexString = prefixWith0(hexString)
+    let r = getRed(hexString);
+    let g = getGreen(hexString);
+    let b = getBlue(hexString);
+    
+    return \`rgb(\${r}, \${g}, \${b})\`
+}
+
+</pre>                            
+                                                        `,
+                            'Binary expression': 'Click to see',
+                            'Binary outcome': 'Click to see',
+                            '>>> expression': 'Click to see',
+                            '>>> outcome':    'Click to see'
+                        },
+                        {
+                            [Symbol('title')]:'&',
+                            [Symbol('code')]:`
+<pre>
+00000000000000000000000011001000 &
+00000000000000000000000001100100 
+----------------------------------
+00000000000000000000000001000000 
+</pre>                            
+                            `,
+                            Expression: '<code>200 & 100</code>',
+                            Outcome: `<code>64</code>`,
+                            'Binary expression': '11001000 & 1100100',
+                            'Binary outcome': '1000000',
+                            '>>> expression': '11001000',
+                            '>>> outcome':    '1100100'
+                        },
+                        {
+                            [Symbol('title')]:'&',
+                            [Symbol('code')]:`
+<pre>
+function isEvent(int){
+    return int & 1 == 0
+}
+function isOdd(int){
+    return int & 0 == 1
+}
+00000000000000000000000001100101 &
+00000000000000000000000000000001 
+----------------------------------
+00000000000000000000000000000001 
+//false
+</pre>                            
+                            `,
+                            Expression: '<code>isEven(101)</code>',
+                            Outcome: `<code>false</code>`,
+                            'Binary expression': '1100101 & 1 == 0',
+                            'Binary outcome': '1',
+                            '>>> expression': '1100101',
+                            '>>> outcome':    '1'
+                        },
+
+                    ]
                 },
 
                 {
                     elementType:'UnsignedList',
                     content:[
-                       
+                       `IP masking`,
+                       `Flags, making sure bits are turned off`,
+                       `Getting RGB ingredients from a hex number`,
+                       `Checking if a number is even or odd`
                     ]
                 },
 
                 {
+                    elementType:'Headline-3',
+                    content:'|: OR'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `<code>0 | 0 == 0;</code>,`,
+                       `<code>0 | 1 == 1;</code>,`,
+                       `<code>1 | 0 == 1;</code>,`,
+                       `<code>1 | 1 == 1;</code>,`,
+                    ]
+                },
+                {
                     elementType:'SmallHeadline',
-                    content:'Example'
+                    content:'Useful properties'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `<code>A | 0 == A;</code>,`,
+                       `<code>A | ~A == -1;</code>,`,
+                       `<code>A | A == A;</code>,`,
+                       `<code>A | -1 == -1;</code>,`,
+                    ]
+                },
+
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `Turning on bits when calling a function with a flag`,
+                       `Converting RGB to Hex`,
+                    ]
+                }, 
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'RGB to Hex'
+                },
+
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+    function getRed(int){
+        return (int << 16)
+    }
+    function getGreen(int){
+        return (int << 8)
+    }
+    function getBlue(int){
+        return (int << 0)
+    }
+    function rgb2Hex(str){
+        let ingredients = str.split('(')[1].split(',');
+        let r = getRed(parseInt(ingredients[0]));
+        let g = getGreen(parseInt(ingredients[1]));
+        let b = getBlue(parseInt(ingredients[2]));
+        return '#'+ (r | g | b).toString(16);
+    }
+</pre>                    
+                    `
+                },
+
+
+                {
+                    elementType:'Headline-3',
+                    content:'^: XOR'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `<code>0 ^ 0 == 0;</code>,`,
+                       `<code>0 ^ 1 == 1;</code>,`,
+                       `<code>1 ^ 0 == 1;</code>,`,
+                       `<code>1 ^ 1 == 0;</code>,`,
+                    ]
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'Useful properties'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `<code>A ^ 0 == A;</code>,`,
+                       `<code>A ^ ~A == -1;</code>,`,
+                       `<code>A ^ A == 0;</code>,`,
+                       `<code>A ^ -1 == ~A;</code>,`,
+                    ]
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                       `Toggling bits`,
+                       `Color inversion`,
+                    ]
+                }, 
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+    function invertSingle(int){
+        return (int ^ 255)
+    }
+    function invert(str){
+        let ingredients = str.split('(')[1].split(',');
+        let r = invertSingle(parseInt(ingredients[0]));
+        let g = invertSingle(parseInt(ingredients[1]));
+        let b = invertSingle(parseInt(ingredients[2]));
+        return \`rgb(\${r},\${g},\${b})\`
+    }
+    //white -> black;
+    //green -> magenta;
+    //red -> cyan;
+    //blue -> yellow;
+</pre>                    
+                    `
+                },
+
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'Color inversion'
                 },
                 {
                     elementType:'UnsignedList',
@@ -190,7 +490,114 @@ that is why left most bits are discarded.
 
 
 
+                {
+                    elementType:'Headline-3',
+                    content:'Masking example'
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+    let ODD_FLAG = 1;
+    let EVEN_FLAG = 2;
+    let DIV_3_FLAG = 4;
+    let SORT_FLAG = 8;
+    let NOT_REPEAT_FLAG = 16;
 
+    // lets create a test array;
+    let items = Array(100);
+    items.fill(0);
+    items = items.map(
+        (item,index)=>{
+            if (index > 49) return index - 49
+            //let elements repeat
+            return index
+        }
+    );
+
+    function getFromArray(array, flags){
+        let filterFlags = (item, index, array) => {
+            if ((flags & NOT_REPEAT_FLAG) && (index > 0)){
+                let wasItemBefore = ~array.slice(0,index).indexOf(item);
+                if (wasItemBefore) return false;
+            }
+            if ((flags & ODD_FLAG) && (item & 1 === 1)) return true;
+            if ((flags & EVEN_FLAG) && (item & 1 === 0)) return true;
+            if ((flags & DIV_3_FLAG) && (item % 3 === 0)) return true;
+            
+        }
+        let outcome = array.filter(filterFlags);
+        if (flags & SORT_FLAG) return outcome.sort(
+            (a, b)=>{
+                if (a < b) return -1;
+                if (a === b) return 0;
+                return 1;
+            }
+        )
+        return outcome
+    }
+
+    console.log(getFromArray(items, EVEN_FLAG | DIV_3_FLAG));
+    console.log(getFromArray(items, EVEN_FLAG | DIV_3_FLAG | SORT_FLAG));
+    console.log(getFromArray(items, EVEN_FLAG | DIV_3_FLAG | NOT_REPEAT_FLAG));
+
+    //Now lets activate all features, except for odd numbers:
+    let FLAG_NO_ODD = 65536 & (65536 ^ ODD_FLAG);
+    console.log(getFromArray(items, FLAG_NO_ODD));
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Above example implements a function, that accepts an <code>array</code>, and a 
+                    <code>flags</code> argument. Flags argument gives options to activate or disactivate
+                    different features:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `return odd elements of the given array,`,
+                        `return even elements of the given array,`
+                        `return elements of the array that can be divided by 3 with no reminder,`,
+                        `return elements only once, even if they repeat,`,
+                        `sort returned array`
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Due to the clean code, this should be a set of functions, each doing only one thing, but
+                    sometimes when implementing a public function, that will be an interface of some kind
+                    it is better to aggregate some functionalities in one method. The function from the example
+                    would take 6 arguments alltogether if not for the flag usage. We could make an array and 
+                    an options argument, that would be an object, but this object would still have 5 properties,
+                    and setting these arguments would not be convenient. In this case the flag pattern comes 
+                    handy. Solution is readable, and thanks to usage of bitwise OR passing flags argument
+                    is also readable. Bitwise operations make it clean to introduce an additional flags, like
+                    <code>FLAG_NO_ODD</code>.
+
+                    `
+                },
+
+                {
+                    elementType:'Headline-3',
+                    content:'Microcontrollers'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Perhaps not very JS oriented example, but bitwise operations are very useful when 
+                    programming a microcontroller. A uC has ports, each port consists of a few legs (pins),
+                    that are physically connected, soldered to some HW. This may be lets say a LED digit 
+                    display, or a H-Bridge for DC motor control. Then telling uC to run a motor in a forward
+                    direction would be like this <code>portA = portA & MOTOR_A_FORWARD</code>. Thanks to this
+                    approach we do not accidently toggle any of pins not related to the motor A, and we do not
+                    set a dangerous state, where H-bridge would be damaged.
+                    `
+                },
             ]
         },
         {
