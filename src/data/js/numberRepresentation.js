@@ -2,7 +2,7 @@
 let data =     {
     summary: 'number representation',
     title: 'Number representation',
-    searchKeywords:`float double floating point 32 53 64 number integer
+    searchKeywords:`float double floating point 32 53 64 number integer fraction negative number
     `,
     cathegory: 'js',
     content: [
@@ -40,7 +40,7 @@ let data =     {
                 },
                 {
                     elementType:'Headline-2',
-                    content:'<span className = "internalIntegerRepresentation">Internal integer representation</span>'
+                    content:'<span id = "internalIntegerRepresentation">Internal integer representation</span>'
                 },
                 {
                     elementType: 'UnsignedList',
@@ -145,12 +145,12 @@ let data =     {
                 },
                 {
                     elementType:'SmallHeadline',
-                    content:'What if someone would like to represent 255 then?'
+                    content:'What if someone would like to represent 257 on 8 bits then?'
                 },
                 {
                     elementType:'Paragraph',
                     content:`
-                    The answer is simple. There is no 255 number in this representation. To have this number, there is a 
+                    The answer is simple. There is no 257 number in this representation. To have this number, there is a 
                     need to take more bits into account, lets say 16 to represent a single number. 8 bits represent
                     256 possibilities with a 0 included, so from 255 to 0 or from -128 to 127. With 16 bits this would 
                     be 65536 possibilities, including 0, so 65535 to 0, or 32767 to -32768 with negative numbers. 
@@ -460,8 +460,8 @@ mantissa * base<sup>exponent</sup>
                         `<code>52 bits</code> are for the fraction part of the mantissa</code>,`,
                         `<code>11 bits</code> are for the exponent encoding. Exponent has one of its 11 bits reserved for the
                         sigh notation (1 == -, 0 == +) and the rest is for encoding the exponent it self. Exponent is 
-                        stored in the similar way to the <a href="#internalIntegerRepresentation>internal integer representation
-                        </a>, and negative exponent representation is similar to the <a href="#id="negativeRepresentation">
+                        stored in the similar way to the <a href="#internalIntegerRepresentation">internal integer representation
+                        </a>, and negative exponent representation is similar to the <a href="#negativeRepresentation">
                         negative number representation`,
                         `Exponent has special values: 1024 is used for an error such as NaN or Infinity, and -1023 is used for a zero
                         (0).`
@@ -488,64 +488,9 @@ mantissa * base<sup>exponent</sup>
                         the left (if the exponent is negative) or to the right (if it is a positive value)`
                     ]
                 },
-                {
-                    elementType:'SmallHeadline',
-                    content:'Examples'
-                },
-                {
-                    elementType:'UnsignedList',
-                    content:[
-                        `
-                        `
-                    ]
-                },
-
-
-                {
-                    elementType:'SmallHeadline',
-                    content:''
-                },
-
-                {
-                    elementType:'UnsignedList',
-                    content:[
-
-                    ]
-                },
-
-                {
-                    elementType:'SmallHeadline',
-                    content:'Example'
-                },
-                {
-                    elementType:'UnsignedList',
-                    content:[
-
-                    ]
-                },
-                {
-                    elementType:'Code',
-                    content:`
-                           
-                    `
-                },
 
 
 
-
-            ]
-        },
-        {
-            elementType:'Article',
-            content:[
-
-            ]
-        },
-
-
-        {
-            elementType:'Article',
-            content:[
 
             ]
         },
