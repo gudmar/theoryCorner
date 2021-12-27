@@ -449,6 +449,10 @@ function isOdd(int){
                     ]
                 }, 
                 {
+                    elementType:'SmallHeadline',
+                    content:'Color inversion'
+                },
+                {
                     elementType:'Code',
                     content:`
 <pre>
@@ -473,21 +477,283 @@ function isOdd(int){
 
                 {
                     elementType:'SmallHeadline',
-                    content:'Color inversion'
+                    content:'<code><<</code>: a Left shift operator'
                 },
                 {
-                    elementType:'UnsignedList',
-                    content:[
-                        
-                    ]
-                },
-                {
-                    elementType:'Code',
+                    elementType:'Paragraph',
                     content:`
-
+                    This operator takes 2 operands, left operand is a 32 bit integer Number type value,
+                    and right is an expression, that will be evaluated. <code>numb << a</code>. <code>numb</code>
+                    bits will be <code>a</code> positions left shifted. Most significant bits should be forgotten,
+                    but in reality they may behave in a slightly different way. So <strong> do not use this operator
+                    with numbers that may be greater than 31 bits</stron>
+                    Left shift operator is similar to below expression, but is different in a way, that it 
+                    does not handle bits greater than 31 gracefully:
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <code>a << b + c === 2**(b + c)</code>
                     `
                 },
 
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Expression','Outcome','Binary expression','Binary outcome','>>> expression','>>> outcome'
+                    ],
+                    content: [
+                        {
+                            [Symbol('title')]:'<<',
+                            Expression: '<code>1 << 10</code>',
+                            Outcome: `<code>1024</code>`,
+                            'Binary expression': '1',
+                            'Binary outcome': '10000000000',
+                            '>>> expression': '1',
+                            '>>> outcome':    '10000000000'
+                        },
+                        {
+                            [Symbol('title')]:'<<',
+                            Expression: '<code>5 << 10</code>',
+                            Outcome: `<code>5120</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '1010000000000',
+                            '>>> expression': '101',
+                            '>>> outcome':    '1010000000000'
+                        },
+                        {
+                            [Symbol('title')]:'1 << 31',
+                            Expression: '<code>~-1</code>',
+                            Outcome: `<code>-2147483648</code>`,
+                            'Binary expression': '1',
+                            'Binary outcome': '-10000000000000000000000000000000',
+                            '>>> expression': '00000000000000000000000000000001',
+                            '>>> outcome':    '10000000000000000000000000000000'
+                        },
+
+                        {
+                            [Symbol('title')]:'1 << 32',
+                            Expression: '<code>1</code>',
+                            Outcome: `<code>1</code>`,
+                            [Symbol('code')]:` 
+                            Here is an example that, for example, in Chromium 90.0.4430.72 or Firefox 88.0 
+                            firt bit is not forgotten. 5 << 32 === 5, so bits are moved back to their 
+                            initial position                           
+                                                        `,
+                            'Binary expression': '1',
+                            'Binary outcome': '1',
+                            '>>> expression': '1',
+                            '>>> outcome':    '1'
+                        },
+
+                        {
+                            [Symbol('title')]:'5 << 30',
+                            Expression: '<code>5</code>',
+                            Outcome: `<code>1073741824</code>`,
+                            [Symbol('code')]:` 
+                            Here behaviour is different from 1 << 32. One bit is forgotten, and one is moved.
+                            The conclusion is, that if there is chance that a number will fall out of the given 
+                            boundaries, it is better not to use this operator, as behaviour may be 
+                            hard to predict and will not be readable
+                                                        `,
+                            'Binary expression': '101',
+                            'Binary outcome': '1000000000000000000000000000000',
+                            '>>> expression': '101',
+                            '>>> outcome':    '1000000000000000000000000000000'
+                        },
+
+                        {
+                            [Symbol('title')]:'123456789 << 32',
+                            Expression: '<code>123456789</code>',
+                            Outcome: `<code>123456789</code>`,
+                            [Symbol('code')]:` 
+                            In this example, all bits are rewinded, as we move whole number exactly 32 bits, but 
+                            please see the next example.
+                                                        `,
+                            'Binary expression': '111010110111100110100010101',
+                            'Binary outcome': '111010110111100110100010101',
+                            '>>> expression': '111010110111100110100010101',
+                            '>>> outcome':    '111010110111100110100010101'
+                        },
+
+                        {
+                            [Symbol('title')]:'123456789 << 39',
+                            Expression: '<code>123456789</code>',
+                            Outcome: `<code>-1377400192</code>`,
+                            [Symbol('code')]:` 
+                            Here it is visable, that some bits are rewinded (due to 32 bit shift), and some are
+                            discarted (due to the fact, that this shift is greater than 32). This example 
+                            ilustrates a hard to predict not readable case
+                                                        `,
+                            'Binary expression': '111010110111100110100010101',
+                            'Binary outcome': '10101101111001101000101010000000',
+                            '>>> expression': '111010110111100110100010101',
+                            '>>> outcome':    '10101101111001101000101010000000'
+                        },
+                    ]
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'<code>>></code>: a right shift sign-propagating operator'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    This operator takes 2 operands, left operand is a 32 bit integer Number type value,
+                    and right is an expression, that will be evaluated. <code>numb >> a</code>. <code>numb</code>
+                    bits will be <code>a</code> positions right shifted. Less significant bits should be forgotten,
+                    but in reality they may behave in a slightly different way. For example <code>5 >> 32</code> is 
+                    5, and <code>5 >> 33</code> is 2. This operator preserves its sign, so in case a negative number
+                    is shifted, most significant bits will be filled with 1, and in case a positive number is shifted,
+                    most significant bits will be filled with 0.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <code>a >> b + c === Math.floor(A / (2 ** (b + c))</code>
+                    `
+                },
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Expression','Outcome','Binary expression','Binary outcome','>>> expression','>>> outcome'
+                    ],
+                    content: [
+                        {
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>1024 >> 10</code>',
+                            Outcome: `<code>1</code>`,
+                            'Binary expression': '10000000000',
+                            'Binary outcome': '1',
+                            '>>> expression': '10000000000',
+                            '>>> outcome':    '1'
+                        },
+                        {
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>5120 >> 11</code>',
+                            Outcome: `<code>2</code>`,
+                            'Binary expression': '1010000000000',
+                            'Binary outcome': '10',
+                            '>>> expression': '1010000000000',
+                            '>>> outcome':    '10'
+                        },
+                        {
+                            [Symbol('title')]:'-5 >> 2',
+                            Expression: '<code>-5</code>',
+                            Outcome: `<code>-2</code>`,
+                            'Binary expression': '-101',
+                            'Binary outcome': '-10',
+                            '>>> expression': '11111111111111111111111111111011',
+                            '>>> outcome':    '11111111111111111111111111111110'
+                        },
+
+                        {
+                            [Symbol('title')]:'5 >> 32',
+                            Expression: '<code>5</code>',
+                            Outcome: `<code>5</code>`,
+                            [Symbol('code')]:` 
+                            When moving the number n*32 bits, where n is a positive integer, 
+                            the outcome is the same number
+                                                        `,
+                            'Binary expression': '101',
+                            'Binary outcome': '101',
+                            '>>> expression': '101',
+                            '>>> outcome':    '101'
+                        },
+                        {
+                            [Symbol('title')]:'5 >> 31',
+                            Expression: '<code>5</code>',
+                            Outcome: `<code>0</code>`,
+                            [Symbol('code')]:` 
+                            All bits are discarted, none is rewinded as there is a sign bit
+                                                        `,
+                            'Binary expression': '101',
+                            'Binary outcome': '0',
+                            '>>> expression': '101',
+                            '>>> outcome':    '0'
+                        },
+                        {
+                            [Symbol('title')]:'5 >> 33',
+                            Expression: '<code>5</code>',
+                            Outcome: `<code>2</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '10',
+                            '>>> expression': '101',
+                            '>>> outcome':    '10'
+                        },
+                    ]
+                },
+
+
+
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'<code>>>></code>: a right shift zero-fill operator'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    This operator takes 2 operands, left operand is a 32 bit integer Number type value,
+                    and right is an expression, that will be evaluated. <code>numb >>> a</code>. <code>numb</code>
+                    bits will be <code>a</code> positions right shifted. Less significant bits should be forgotten,
+                    but in reality they may behave in a slightly different way. For example <code>5 >>> 32</code> is 
+                    5, and <code>5 >>> 33</code> is 2. This operator fills all most significant bits with 0, no matter 
+                    the sign is. That is why it is <strong>the only operator enabling us to see how negative numbers are
+                    really stored</code> in memory: <code>(-5 >>> 0).toString(2)</code>
+                    `
+                },
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Expression','Outcome','Binary expression','Binary outcome','>>> expression','>>> outcome'
+                    ],
+                    content: [
+                        {
+                            [Symbol('title')]:'>>>',
+                            Expression: '<code>1024 >>> 10</code>',
+                            Outcome: `<code>1</code>`,
+                            'Binary expression': '10000000000',
+                            'Binary outcome': '1',
+                            '>>> expression': '10000000000',
+                            '>>> outcome':    '1'
+                        },
+                        {
+                            [Symbol('title')]:'-5 >> 2',
+                            Expression: '<code>-5</code>',
+                            Outcome: `<code>1073741822</code>`,
+                            'Binary expression': '-101',
+                            'Binary outcome': '111111111111111111111111111110',
+                            '>>> expression': '11111111111111111111111111111011',
+                            '>>> outcome':    '111111111111111111111111111110'
+                        },
+
+                        {
+                            [Symbol('title')]:'5 >>> 32',
+                            Expression: '<code>5</code>',
+                            Outcome: `<code>5</code>`,
+                            [Symbol('code')]:` 
+                            When moving the number n*32 bits, where n is a positive integer, 
+                            the outcome is the same number
+                                                        `,
+                            'Binary expression': '101',
+                            'Binary outcome': '101',
+                            '>>> expression': '101',
+                            '>>> outcome':    '101'
+                        },
+                    ]
+                },
+
+                {
+                    elementType:'NoteWarning',
+                    content:`In practice operators <<, >>, >>> accept negative right side operand values, but
+                    it is better to avoid them, as they behaviour is not readable.`
+                },
 
 
                 {
@@ -560,7 +826,7 @@ function isOdd(int){
                     elementType:'UnsignedList',
                     content:[
                         `return odd elements of the given array,`,
-                        `return even elements of the given array,`
+                        `return even elements of the given array,`,
                         `return elements of the array that can be divided by 3 with no reminder,`,
                         `return elements only once, even if they repeat,`,
                         `sort returned array`
@@ -569,9 +835,13 @@ function isOdd(int){
                 {
                     elementType:'Paragraph',
                     content:`
-                    Due to the clean code, this should be a set of functions, each doing only one thing, but
-                    sometimes when implementing a public function, that will be an interface of some kind
-                    it is better to aggregate some functionalities in one method. The function from the example
+                    Due to the clean code principlies, this should be a set of functions, each doing only one thing, but
+                    here we would have 5 separate functions. To accomplish a set of tasks an array sholud have been
+                    declaired, and 5 functions should have been called on it. A lot more code, less readable,
+                    less encapsulation and more CPU operations.
+                    That is why implementation of a single high level public function
+                    doing a set of things an alread aggregating a few lower level functions is a better 
+                    solution in this case. The function from the example
                     would take 6 arguments alltogether if not for the flag usage. We could make an array and 
                     an options argument, that would be an object, but this object would still have 5 properties,
                     and setting these arguments would not be convenient. In this case the flag pattern comes 
