@@ -37,6 +37,9 @@ function TableRow(props){
     let orderedTableData = getValuesFromObject(contentItem, orderArray)
     let codeExample = symbolFromKey(contentItem, 'code');
     let customId = 'id'+Math.floor(Math.random() * 100000000);
+    function isCursorPointer(){
+        return isRowHoverable(contentItem)?'cursor-pointer':'';
+    }
 
     function getCodeComponent(index){
         let codeComponent = <></>;
@@ -53,7 +56,7 @@ function TableRow(props){
 
     return (
         <>
-        <tr data-bs-toggle="collapse" data-bs-target={`#${customId}`} className="cursor-pointer">
+        <tr data-bs-toggle="collapse" data-bs-target={`#${customId}`} className={isCursorPointer(props)}>
             {orderedTableData.map((element, index) => {
                 return <td key={index} dangerouslySetInnerHTML={getDangerousHTML(element)}></td>
             })}
@@ -69,7 +72,7 @@ function symbolFromKey(obj, key){
         return item.toString()===`Symbol(${key})`
     });
 
-    return output===undefined?null:obj[output];
+    return output===undefined?undefined:obj[output];
 }
 
 function NotATableEntry(props){
@@ -96,12 +99,17 @@ function NotATableEntry(props){
     )
 }
 
+function isRowHoverable(props){
+    console.log(symbolFromKey(props, 'code'))
+    return symbolFromKey(props, 'code') == undefined ? false : true;
+}
+
 function Table(props){
     let headItems = props.headItems;
     let content = props.content;
 
     return (
-        <table className="table table-hover">
+        <table className='table table-hover'>
             <thead>
                 <tr>
                     {
