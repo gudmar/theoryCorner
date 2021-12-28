@@ -11,7 +11,8 @@ import getReflectData from './js/reflect'
 import getJSThisData from './js/this';
 import getProxyData from './js/proxy';
 import getBitWiseData from './js/bitWiseUseCases';
-import getNumberRepresentationData from './js/numberRepresentation'
+import getNumberRepresentationData from './js/numberRepresentation';
+import getDestructionAssignmentData from './js/descructiveAssignments';
 let theoryDataJs = [
 
     {
@@ -141,7 +142,8 @@ let theoryDataJs = [
     getReflectData(),
     getProxyData(),
     getBitWiseData(),
-    getNumberRepresentationData()
+    getNumberRepresentationData(),
+    getDestructionAssignmentData(),
 ]
 
 export function getTheoryDataJs(){
