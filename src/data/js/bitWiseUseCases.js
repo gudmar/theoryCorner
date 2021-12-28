@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'bitwise use cases',
     title: 'Bitwise use cases',
@@ -352,7 +352,7 @@ function isOdd(int){
 
                 {
                     elementType:'Headline-3',
-                    content:'|: OR'
+                    content:'<code>|</code>: OR'
                 },
                 {
                     elementType:'UnsignedList',
@@ -417,7 +417,7 @@ function isOdd(int){
 
                 {
                     elementType:'Headline-3',
-                    content:'^: XOR'
+                    content:'<code>^</code>: XOR'
                 },
                 {
                     elementType:'UnsignedList',
@@ -476,7 +476,7 @@ function isOdd(int){
 
 
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-3',
                     content:'<code><<</code>: a Left shift operator'
                 },
                 {
@@ -524,7 +524,7 @@ function isOdd(int){
                         },
                         {
                             [Symbol('title')]:'1 << 31',
-                            Expression: '<code>~-1</code>',
+                            Expression: '<code>1 << 31</code>',
                             Outcome: `<code>-2147483648</code>`,
                             'Binary expression': '1',
                             'Binary outcome': '-10000000000000000000000000000000',
@@ -534,7 +534,7 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'1 << 32',
-                            Expression: '<code>1</code>',
+                            Expression: '<code>1 << 32</code>',
                             Outcome: `<code>1</code>`,
                             [Symbol('code')]:` 
                             Here is an example that, for example, in Chromium 90.0.4430.72 or Firefox 88.0 
@@ -549,7 +549,7 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'5 << 30',
-                            Expression: '<code>5</code>',
+                            Expression: '<code>5 << 30</code>',
                             Outcome: `<code>1073741824</code>`,
                             [Symbol('code')]:` 
                             Here behaviour is different from 1 << 32. One bit is forgotten, and one is moved.
@@ -565,7 +565,7 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'123456789 << 32',
-                            Expression: '<code>123456789</code>',
+                            Expression: '<code>123456789 << 32</code>',
                             Outcome: `<code>123456789</code>`,
                             [Symbol('code')]:` 
                             In this example, all bits are rewound, as we move whole number exactly 32 bits, but 
@@ -579,7 +579,7 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'123456789 << 39',
-                            Expression: '<code>123456789</code>',
+                            Expression: '<code>123456789 << 39</code>',
                             Outcome: `<code>-1377400192</code>`,
                             [Symbol('code')]:` 
                             Here it is visable, that some bits are rewound (due to 32 bit shift), and some are
@@ -595,7 +595,7 @@ function isOdd(int){
                 },
 
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-3',
                     content:'<code>>></code>: a right shift sign-propagating operator'
                 },
                 {
@@ -642,8 +642,8 @@ function isOdd(int){
                             '>>> outcome':    '10'
                         },
                         {
-                            [Symbol('title')]:'-5 >> 2',
-                            Expression: '<code>-5</code>',
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>-5 >> 2</code>',
                             Outcome: `<code>-2</code>`,
                             'Binary expression': '-101',
                             'Binary outcome': '-10',
@@ -652,8 +652,8 @@ function isOdd(int){
                         },
 
                         {
-                            [Symbol('title')]:'5 >> 32',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> 32</code>',
                             Outcome: `<code>5</code>`,
                             [Symbol('code')]:` 
                             When moving the number n*32 bits, where n is a positive integer, 
@@ -665,8 +665,8 @@ function isOdd(int){
                             '>>> outcome':    '101'
                         },
                         {
-                            [Symbol('title')]:'5 >> 31',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> 31</code>',
                             Outcome: `<code>0</code>`,
                             [Symbol('code')]:` 
                             All bits are discarded, none is rewound as there is a sign bit
@@ -677,8 +677,8 @@ function isOdd(int){
                             '>>> outcome':    '0'
                         },
                         {
-                            [Symbol('title')]:'5 >> 33',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> 33</code>',
                             Outcome: `<code>2</code>`,
                             'Binary expression': '101',
                             'Binary outcome': '10',
@@ -692,7 +692,7 @@ function isOdd(int){
 
 
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-3',
                     content:'<code>>>></code>: a right shift zero-fill operator'
                 },
                 {
@@ -724,8 +724,8 @@ function isOdd(int){
                             '>>> outcome':    '1'
                         },
                         {
-                            [Symbol('title')]:'-5 >> 2',
-                            Expression: '<code>-5</code>',
+                            [Symbol('title')]:'>>>',
+                            Expression: '<code>-5 >>> 2</code>',
                             Outcome: `<code>1073741822</code>`,
                             'Binary expression': '-101',
                             'Binary outcome': '111111111111111111111111111110',
@@ -734,8 +734,8 @@ function isOdd(int){
                         },
 
                         {
-                            [Symbol('title')]:'5 >>> 32',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >>> 32</code>',
                             Outcome: `<code>5</code>`,
                             [Symbol('code')]:` 
                             When moving the number n*32 bits, where n is a positive integer, 
@@ -883,6 +883,12 @@ function isOdd(int){
                     content:'blog.logrocket.com',
                     href: 'https://blog.logrocket.com/interesting-use-cases-for-javascript-bitwise-operators/',
                     description:'Some interesting bitwise operations by Glad Chinda'
+                },
+                {
+                    elementType:'Link',
+                    content:'stackoverflow.com',
+                    href: 'https://stackoverflow.com/questions/654057/where-would-i-use-a-bitwise-operator-in-javascript',
+                    description:'Examples'
                 },
             ]
         }
