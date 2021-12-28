@@ -558,10 +558,10 @@ let f = () => {
     notChanged = 5;
     return true;
 }
-let d = null;
+let d = '';
 d ??= f();
 // notChanged is still 0,
-// as there was no need to evaluate it
+// as there was no need to evaluate it, d was != undefined or null
 
 </pre>                                   
                             `,
