@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'bitwise use cases',
     title: 'Bitwise use cases',
@@ -35,7 +35,7 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                    Lets see some use cases of these operators. To learn more please refer to the articel from
+                    Lets see some use cases of these operators. To learn more, please refer to the article from
                     the reference section.
                     `
                 },
@@ -55,8 +55,8 @@ let data =     {
                 {
                     elementType: 'NoteWarning',
                     content: `
-                    These bits work only on <code>Number</code> type, that are integers small enough to be 
-                    as a 31 bit binary (sign not incluede, the most significant bit of 32 bit representation is a 
+                    These bits work only in <code>Number</code> type, that are integers small enough to be 
+                    as a 31 bit binary (sign not included, the most significant bit of the 32 bit representation is a 
                     sign bit)
                     `
                 },
@@ -162,7 +162,7 @@ let data =     {
                             [Symbol('title')]:'~',
                             Expression: '<code>~14147483690</code>',
                             [Symbol('code')]:` 
-Note that 14147483690 > 2147483647, so is greater than the gratest number that can be represented with in 31 bits,
+Note that 14147483690 > 2147483647, so is greater than the greatest number that can be represented within 31 bits,
 that is why left most bits are discarded.
                             `,
                             Outcome: `<code>-1262581803</code>`,
@@ -352,7 +352,7 @@ function isOdd(int){
 
                 {
                     elementType:'Headline-3',
-                    content:'|: OR'
+                    content:'<code>|</code>: OR'
                 },
                 {
                     elementType:'UnsignedList',
@@ -417,7 +417,7 @@ function isOdd(int){
 
                 {
                     elementType:'Headline-3',
-                    content:'^: XOR'
+                    content:'<code>^</code>: XOR'
                 },
                 {
                     elementType:'UnsignedList',
@@ -476,7 +476,7 @@ function isOdd(int){
 
 
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-3',
                     content:'<code><<</code>: a Left shift operator'
                 },
                 {
@@ -487,7 +487,7 @@ function isOdd(int){
                     bits will be <code>a</code> positions left shifted. Most significant bits should be forgotten,
                     but in reality they may behave in a slightly different way. So <strong> do not use this operator
                     with numbers that may be greater than 31 bits</stron>
-                    Left shift operator is similar to below expression, but is different in a way, that it 
+                    The left shift operator is similar to below expression, but is different in a way, that it 
                     does not handle bits greater than 31 gracefully:
                     `
                 },
@@ -524,7 +524,7 @@ function isOdd(int){
                         },
                         {
                             [Symbol('title')]:'1 << 31',
-                            Expression: '<code>~-1</code>',
+                            Expression: '<code>1 << 31</code>',
                             Outcome: `<code>-2147483648</code>`,
                             'Binary expression': '1',
                             'Binary outcome': '-10000000000000000000000000000000',
@@ -534,11 +534,11 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'1 << 32',
-                            Expression: '<code>1</code>',
+                            Expression: '<code>1 << 32</code>',
                             Outcome: `<code>1</code>`,
                             [Symbol('code')]:` 
                             Here is an example that, for example, in Chromium 90.0.4430.72 or Firefox 88.0 
-                            firt bit is not forgotten. 5 << 32 === 5, so bits are moved back to their 
+                            first bit is not forgotten. 5 << 32 === 5, so bits are moved back to their 
                             initial position                           
                                                         `,
                             'Binary expression': '1',
@@ -549,7 +549,7 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'5 << 30',
-                            Expression: '<code>5</code>',
+                            Expression: '<code>5 << 30</code>',
                             Outcome: `<code>1073741824</code>`,
                             [Symbol('code')]:` 
                             Here behaviour is different from 1 << 32. One bit is forgotten, and one is moved.
@@ -565,10 +565,10 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'123456789 << 32',
-                            Expression: '<code>123456789</code>',
+                            Expression: '<code>123456789 << 32</code>',
                             Outcome: `<code>123456789</code>`,
                             [Symbol('code')]:` 
-                            In this example, all bits are rewinded, as we move whole number exactly 32 bits, but 
+                            In this example, all bits are rewound, as we move whole number exactly 32 bits, but 
                             please see the next example.
                                                         `,
                             'Binary expression': '111010110111100110100010101',
@@ -579,12 +579,12 @@ function isOdd(int){
 
                         {
                             [Symbol('title')]:'123456789 << 39',
-                            Expression: '<code>123456789</code>',
+                            Expression: '<code>123456789 << 39</code>',
                             Outcome: `<code>-1377400192</code>`,
                             [Symbol('code')]:` 
-                            Here it is visable, that some bits are rewinded (due to 32 bit shift), and some are
-                            discarted (due to the fact, that this shift is greater than 32). This example 
-                            ilustrates a hard to predict not readable case
+                            Here it is visable, that some bits are rewound (due to 32 bit shift), and some are
+                            discarded (due to the fact, that this shift is greater than 32). This example 
+                            illustrates a hard to predict not readable case
                                                         `,
                             'Binary expression': '111010110111100110100010101',
                             'Binary outcome': '10101101111001101000101010000000',
@@ -595,7 +595,7 @@ function isOdd(int){
                 },
 
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-3',
                     content:'<code>>></code>: a right shift sign-propagating operator'
                 },
                 {
@@ -642,8 +642,8 @@ function isOdd(int){
                             '>>> outcome':    '10'
                         },
                         {
-                            [Symbol('title')]:'-5 >> 2',
-                            Expression: '<code>-5</code>',
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>-5 >> 2</code>',
                             Outcome: `<code>-2</code>`,
                             'Binary expression': '-101',
                             'Binary outcome': '-10',
@@ -652,8 +652,8 @@ function isOdd(int){
                         },
 
                         {
-                            [Symbol('title')]:'5 >> 32',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> 32</code>',
                             Outcome: `<code>5</code>`,
                             [Symbol('code')]:` 
                             When moving the number n*32 bits, where n is a positive integer, 
@@ -665,11 +665,11 @@ function isOdd(int){
                             '>>> outcome':    '101'
                         },
                         {
-                            [Symbol('title')]:'5 >> 31',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> 31</code>',
                             Outcome: `<code>0</code>`,
                             [Symbol('code')]:` 
-                            All bits are discarted, none is rewinded as there is a sign bit
+                            All bits are discarded, none is rewound as there is a sign bit
                                                         `,
                             'Binary expression': '101',
                             'Binary outcome': '0',
@@ -677,8 +677,8 @@ function isOdd(int){
                             '>>> outcome':    '0'
                         },
                         {
-                            [Symbol('title')]:'5 >> 33',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> 33</code>',
                             Outcome: `<code>2</code>`,
                             'Binary expression': '101',
                             'Binary outcome': '10',
@@ -692,7 +692,7 @@ function isOdd(int){
 
 
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Headline-3',
                     content:'<code>>>></code>: a right shift zero-fill operator'
                 },
                 {
@@ -724,8 +724,8 @@ function isOdd(int){
                             '>>> outcome':    '1'
                         },
                         {
-                            [Symbol('title')]:'-5 >> 2',
-                            Expression: '<code>-5</code>',
+                            [Symbol('title')]:'>>>',
+                            Expression: '<code>-5 >>> 2</code>',
                             Outcome: `<code>1073741822</code>`,
                             'Binary expression': '-101',
                             'Binary outcome': '111111111111111111111111111110',
@@ -734,8 +734,8 @@ function isOdd(int){
                         },
 
                         {
-                            [Symbol('title')]:'5 >>> 32',
-                            Expression: '<code>5</code>',
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >>> 32</code>',
                             Outcome: `<code>5</code>`,
                             [Symbol('code')]:` 
                             When moving the number n*32 bits, where n is a positive integer, 
@@ -818,7 +818,7 @@ function isOdd(int){
                     elementType:'Paragraph',
                     content:`
                     Above example implements a function, that accepts an <code>array</code>, and a 
-                    <code>flags</code> argument. Flags argument gives options to activate or disactivate
+                    <code>flags</code> argument. The flags argument gives options to activate or deactivate
                     different features:
                     `
                 },
@@ -827,7 +827,7 @@ function isOdd(int){
                     content:[
                         `return odd elements of the given array,`,
                         `return even elements of the given array,`,
-                        `return elements of the array that can be divided by 3 with no reminder,`,
+                        `return the elements of the array that can be divided by 3 with no remainder,`,
                         `return elements only once, even if they repeat,`,
                         `sort returned array`
                     ]
@@ -835,17 +835,17 @@ function isOdd(int){
                 {
                     elementType:'Paragraph',
                     content:`
-                    Due to the clean code principlies, this should be a set of functions, each doing only one thing, but
-                    here we would have 5 separate functions. To accomplish a set of tasks an array sholud have been
-                    declaired, and 5 functions should have been called on it. A lot more code, less readable,
+                    Due to the clean code principles, this should be a set of functions, each doing only one thing, but
+                    here we would have 5 separate functions. To accomplish a set of tasks an array should have been
+                    declared, and 5 functions should have been called on it. A lot more code, less readable,
                     less encapsulation and more CPU operations.
-                    That is why implementation of a single high level public function
-                    doing a set of things an alread aggregating a few lower level functions is a better 
+                    That is why the implementation of a single high level public function
+                    doing a set of things an already aggregating a few lower level functions is a better 
                     solution in this case. The function from the example
-                    would take 6 arguments alltogether if not for the flag usage. We could make an array and 
+                    would take 6 arguments altogether if not for the flag usage. We could make an array and 
                     an options argument, that would be an object, but this object would still have 5 properties,
                     and setting these arguments would not be convenient. In this case the flag pattern comes 
-                    handy. Solution is readable, and thanks to usage of bitwise OR passing flags argument
+                    handy. The solution is readable, and thanks to usage of bitwise OR passing flags argument
                     is also readable. Bitwise operations make it clean to introduce an additional flags, like
                     <code>FLAG_NO_ODD</code>.
 
@@ -861,30 +861,16 @@ function isOdd(int){
                     content:`
                     Perhaps not very JS oriented example, but bitwise operations are very useful when 
                     programming a microcontroller. A uC has ports, each port consists of a few legs (pins),
-                    that are physically connected, soldered to some HW. This may be lets say a LED digit 
-                    display, or a H-Bridge for DC motor control. Then telling uC to run a motor in a forward
+                    that are physically connected, soldered to some HW. This may be lets say an LED digit 
+                    display, or an H-Bridge for DC motor control. Then telling uC to run a motor in a forward
                     direction would be like this <code>portA = portA & MOTOR_A_FORWARD</code>. Thanks to this
-                    approach we do not accidently toggle any of pins not related to the motor A, and we do not
-                    set a dangerous state, where H-bridge would be damaged.
+                    approach we do not accidentally toggle any of pins not related to the motor A, and we do not
+                    set a dangerous state, where an H-bridge would be damaged.
                     `
                 },
             ]
         },
-        {
-            elementType:'Article',
-            content:[
-                {
-                    elementType:'Headline-2',
-                    content:''
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
 
-                    `
-                },
-            ]
-        },
         {
             elementType:'Article',
             content:[
@@ -897,6 +883,12 @@ function isOdd(int){
                     content:'blog.logrocket.com',
                     href: 'https://blog.logrocket.com/interesting-use-cases-for-javascript-bitwise-operators/',
                     description:'Some interesting bitwise operations by Glad Chinda'
+                },
+                {
+                    elementType:'Link',
+                    content:'stackoverflow.com',
+                    href: 'https://stackoverflow.com/questions/654057/where-would-i-use-a-bitwise-operator-in-javascript',
+                    description:'Examples'
                 },
             ]
         }
