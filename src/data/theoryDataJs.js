@@ -12,7 +12,8 @@ import getJSThisData from './js/this';
 import getProxyData from './js/proxy';
 import getBitWiseData from './js/bitWiseUseCases';
 import getNumberRepresentationData from './js/numberRepresentation';
-import getDestructionAssignmentData from './js/descructiveAssignments';
+// import getDestructionAssignmentData from './js/descructiveAssignments';
+import getDestructionAssignmentData2 from './js/destructiveAssignments_2';
 let theoryDataJs = [
 
     {
@@ -143,7 +144,8 @@ let theoryDataJs = [
     getProxyData(),
     getBitWiseData(),
     getNumberRepresentationData(),
-    getDestructionAssignmentData(),
+    // getDestructionAssignmentData(),
+    getDestructionAssignmentData2(),
 ]
 
 export function getTheoryDataJs(){
