@@ -1,20 +1,22 @@
 
+// SPELL CHECKED, CORRECT!
+
 let comparisionOperatorsData =     [
     {
         elementType:'Headline-3',
-        content:'Comparasion operators'
+        content:'comparison operators'
     },
     {
         elementType: 'Paragraph',
         content: `
-            Comparation operators evaluate the left and the right operand expression, compares them and 
-            returns the result. Operands of the non strict comparasions (<code>==</code>, <code>!=</code>) 
+            comparison operators evaluate the left and the right operand expression, compares them and 
+            returns the result. The operands of the non strict comparisons (<code>==</code>, <code>!=</code>) 
             that are not of the same type are converted to the same type, usually numeric. 
         `
     },
     {
         elementType:'SmallHeadline',
-        content:'Avoid non strict comparations: <code>==</code>, <code>!=</code>'
+        content:'Avoid non strict comparisons: <code>==</code>, <code>!=</code>'
     },
     {
         elementType: 'Paragraph',
@@ -26,13 +28,13 @@ let comparisionOperatorsData =     [
         elementType: 'UnsignedList',
         content: [
             `If both operands are of the same type, compare with strict algorithm`,
-            `Undefined and null are considerated equal,`,
-            `If string and number, convert to string,`,
-            `If nonboolean and boolean, convert boolean to number and start again,`,
-            `Id an object is compared with a number or a string, convert the object to a primitive`,
+            `Undefined and null are considered equal,`,
+            `If string and a number, convert to string,`,
+            `If non-boolean and boolean, convert the boolean to a number and start the procedure again,`,
+            `If an object is compared with a number or a string, convert the object to a primitive`,
             `If both are strings, then this is already covered, operands are of the same type and 
             are compared with a strict algorithm`,
-            `If none of above then operands are not equal`
+            `If none of above, then operands are not equal`
         ]
     },
 
@@ -58,7 +60,7 @@ let comparisionOperatorsData =     [
     {
         elementType: 'Paragraph',
         content: `
-            Instead of non strict comparations use:
+            Instead of a non strict comparison use:
         `
     },
     {
@@ -97,7 +99,6 @@ let comparisionOperatorsData =     [
 <pre>
 null == undefined; // true
 3 == true; // false; as boolean is converted to a number,
-// true is 1
 1 == true; // true;
 0 == false; // true;
 
@@ -113,9 +114,9 @@ null == undefined; // true
                 Operator: '<code>==</code>',
                 Name: `Equal`,
                 Usage: 'g() == f()',
-                Description: `true if both opernads are equal, if operands are of a different type try to
+                Description: `true if both operands are equal, if the operands are of a different type try to
                 convert them to the same type: the number type is preferred, objects are converted to 
-                primitives. <strong>Use strict operator in stead</strict>`
+                primitives. <strong>Use strict operator instead</strong>`
             },
 
 
@@ -129,7 +130,6 @@ null == undefined; // true
 <pre>
 null != undefined; // false
 3 != true; // true; as boolean is converted to a number,
-// true is 1
 1 != true; // false;
 0 != false; // false;
 
@@ -145,9 +145,9 @@ null != undefined; // false
                 Operator: '<code>!=</code>',
                 Name: `Equal`,
                 Usage: 'g() == f()',
-                Description: `true if both opernads are not equal, if operands are of a different type try to
+                Description: `true if both operands are not equal, if the operands are of a different type try to
                 convert them to the same type: the number type is preferred, objects are converted to 
-                primitives. <strong>Use strict operator in stead</strict>`
+                primitives. <strong>Use strict operator instead</strict>`
             },
 
 
@@ -173,7 +173,7 @@ let obj1 = {a:1, b:2};
 let obj2 = {a:1, b:2};
 let obj3 = obj1;
 obj1 === obj2; // false; the keys and values are the same,
-// the type is the same, but obj1 and obj2 refere to different
+// the type is the same, but obj1 and obj2 refer to different
 // places in memory, these objects are not the same
 obj1 === obj3; // true; as obj3 was assigned the value obj1 is pointing to
 // so obj1 and obj3 are the same objects
@@ -227,9 +227,9 @@ obj1 !== obj3; // false; as obj3 was assigned the value obj1 is pointing to
                 [Symbol('code')]:`
             <ul>
                 <li>Convert objects to primitives</li>
-                <li>Strings should be compared with the lexicography comparation of 16-bit code units</li>
+                <li>Strings should be compared with the lexicographical comparison of 16-bit code units</li>
                 <li>Try to convert both operands to numbers</li>
-                <li>Symbols cannot be compared, as they are not convertable to a number</li>
+                <li>Symbols cannot be compared, as they are not convertible to a number</li>
             </ul>
                                         
 <pre>
@@ -244,8 +244,8 @@ obj1 !== obj3; // false; as obj3 was assigned the value obj1 is pointing to
 'b' > 'a'; // true;
 'bcd' > 'abc'; // true;
 'b' > '1'; // true;
-'b' > 1; // false as b is not convertable to a number
-'b' < 1; // false as b is not convertable to a number
+'b' > 1; // false as b is not convertible to a number
+'b' < 1; // false as b is not convertible to a number
 
 BigInts
 3n > 2n; // true;
@@ -267,7 +267,7 @@ true > false; // true
 true > 0; // true
 true > '0'; // true
 true > 'a'; // false
-true < 'a'; // false
+true < 'a'; // false, as 'a' cannot be converted to a number
 
 NaN
 NaN > 3; // false
@@ -289,9 +289,9 @@ NaN > 3; // false
                 [Symbol('code')]:`
             <ul>
                 <li>Convert objects to primitives</li>
-                <li>Strings should be compared with the lexicography comparation of 16-bit code units</li>
+                <li>Strings should be compared with the lexicographical comparison of 16-bit code units</li>
                 <li>Try to convert both operands to numbers</li>
-                <li>Symbols cannot be compared, as they are not convertable to a number</li>
+                <li>Symbols cannot be compared, as they are not convertible to a number</li>
             </ul>
                                         
 <pre>
@@ -305,8 +305,8 @@ NaN > 3; // false
 'b' < 'a'; // true;
 'bcd' < 'xyz'; // true;
 '2' < 'd'; // true;
-'b' < 1; // false as b is not convertable to a number
-'b' > 1; // false as b is not convertable to a number
+'b' < 1; // false as b is not convertible to a number
+'b' > 1; // false as b is not convertible to a number
 
 BigInts
 1n < 2n; // true;
@@ -320,7 +320,7 @@ undefined < 3; // false;
 Null
 null < 3; // true
 null < true; // true;
-null < 'some str'; // false as not comparable
+null < 'some str'; // false as a string cannot be converted to a number
 null > 'some str'; // false
 
 Boolean
@@ -349,9 +349,9 @@ NaN < 3; // false
                 [Symbol('code')]:`
             <ul>
                 <li>Convert objects to primitives</li>
-                <li>Strings should be compared with the lexicography comparation of 16-bit code units</li>
+                <li>Strings should be compared with the lexicographical comparison of 16-bit code units</li>
                 <li>Try to convert both operands to numbers</li>
-                <li>Symbols cannot be compared, as they are not convertable to a number</li>
+                <li>Symbols cannot be compared, as they are not convertible to a number</li>
             </ul>
                                         
 <pre>
@@ -378,12 +378,12 @@ Symbols
 let s1 = Symbol();
 let s2 = Symbol();
 s1 <= s2; //Error, symbols cannot be converted to a number,
-// moreover symbols are unique, but there is no possiblity to get a symbol
+// moreover symbols are unique, but there is no possibility to get a symbol
 // real value, so no point to compare them
 
 undefined and null
 null >= undefined; // false;
-null <= undefined; // false;
+null <= undefined; // false; undefined cannot be converted to a number
 null <= true; // true;
 true <= null; // false
 null <= 0; // true
@@ -452,8 +452,7 @@ Arrays
 },
 ];
 
-// };
 
-export default function getComparationOperatorsData(){
+export default function getcomparisonOperatorsData(){
     return comparisionOperatorsData;
 }

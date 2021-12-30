@@ -6,11 +6,11 @@ let arithmeticOperatorsData = [
 {
     elementType: 'Paragraph',
     content: `
-        Arithmetic operators take left and right operand, perform an opperation and return the result. 
-        In case types of operands do not match, an attempt to convert operands to a number is being performed.
+        Arithmetic operators take left and right operand, perform an operation and return the result. 
+        In case types of the operands do not match, an attempt to convert operands to a number is being performed.
         BigInt type will not be converted to a number by default, though <code>Number(2n)</code> works.
-        In general if there is no possiblity to convert not matching type to a number, there will be an error.
-        There is an exception, the addition operator <code>+</code> is capable of joining strings. Moreover
+        In general, if there is no possibility to convert not matching type to a number, there will be an error.
+        There is an exception, the addition operator <code>+</code> is capable of joining strings. Moreover,
         this operator will convert numbers to strings, so <code>5 + '5' === '55'</code>
     `
 },
@@ -26,13 +26,14 @@ let arithmeticOperatorsData = [
             [Symbol('code')]:`
             <ul>
                 <li>Both numeric operands: returns a sum</li>
-                <li>At least one operand is a string: converts second operand to string and reutrns a string</li>
+                <li>At least one operand is a string: converts the second operand to string and returns a string</li>
                 <li>undefined + number is NaN</li>
                 <li>undefined + null is NaN</li>
+                <li>undefined + string is a string</li>
                 <li>null + number is the number</li>
                 <li>In case of an object (and Array) and any other operand converts to a string, where 
                 object conversion is '[object Object]'</li>
-                <li>A BigInt will not be automaticly converted into a number, but will be converted to 
+                <li>A BigInt will not be automatically converted into a number, but will be converted to 
                 a string if the second operand is a string</li>
             </ul>                   
 <pre>
@@ -42,6 +43,7 @@ let arithmeticOperatorsData = [
 <b>undefined and null</b>
 undefined + 5 // NaN
 undefined + null // NaN
+undefined + '5' // 'undefined5';
 null + 5 // 5
 
 <b>Object</b>
@@ -54,7 +56,7 @@ null + 5 // 5
 <b>BigInt</b>
 2n + 5; // Error, bigint will not be converted
 Number(2n) + 5; // 7
-4n + '5'; // '45
+4n + '5'; // '45'
 
 <b>String</b>
 'abc' + 'cde' = 'abccde'
@@ -66,8 +68,8 @@ Number(2n) + 5; // 7
             Name: `Addition`,
             Usage: 'g() + f()',
             Description: `
-            In case of two number type operands returns a sum in case of two string operands returnes a 
-            concatenated string. In case of other types performes a conversion. See code section for more 
+            In case of two number type operands returns a sum in case of two string operands returns a 
+            concatenated string. In case of two different types, performes a conversion. See code section for more 
             (in case of a non mobile device click this row)
             `
         },
@@ -130,7 +132,7 @@ Number(2n) * 1; // 2
             Name: `Multiplication`,
             Usage: 'g() * f()',
             Description: `
-            Evaluates operands and returns their multiplicated value. There will be an attempt to 
+            Evaluates operands and returns their product value. There will be an attempt to 
             convert operands to a number if they are not a number and conversion is 
             possible. 
             `
@@ -165,11 +167,15 @@ Number(2n) / 1; // 2
             Name: `Division`,
             Usage: 'g() / f()',
             Description: `
-            Evaluates operands and returns their divided value. There will be an attempt to 
+            Evaluates operands and returns their quotient value. There will be an attempt to 
             convert operands to a number if they are not a number and conversion is 
             possible
             `
         },
+// Spelling checked to this point
+
+
+
 
 
 
