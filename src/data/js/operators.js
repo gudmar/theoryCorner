@@ -571,6 +571,52 @@ Number(2n) + 5; // 7
                     (in case of a non mobile device click this row)
                     `
                 },
+
+
+
+
+
+                {
+                    [Symbol('title')]:'-',
+                    [Symbol('code')]:`
+                    <ul>
+                     
+                    </ul>                   
+<pre>
+5 - 6.5; // -1.5
+'5' - '4'// 1
+'5' - true; // 4
+4 - null; // 4
+
+'2n' - 1 // NaN conversion not possible
+3 - 's' // NaN conversion not possible
+undefined - null; // NaN, conversion not possible
+
+2n - 1; // Error, BigInt will not be converted by default
+Number(2n) - 1; // 1
+
+</pre>                            
+                    
+                    `,
+                    Operator: '<code>-</code>',
+                    Name: `Substraction`,
+                    Usage: 'g() - f()',
+                    Description: `
+                    Evaluates operands and returns their difference. There will be an attempt to 
+                    convert operands to a number if they are not a number and conversion is 
+                    possible
+                    `
+                },
+
+
+
+
+
+
+
+
+
+
             ]
         },
 
