@@ -260,9 +260,11 @@ obj1 !== obj3; // false; as obj3 was assigned the value obj1 is pointing to
                             <li>Convert objects to primitives</li>
                             <li>Strings should be compared with the lexicography comparation of 16-bit code units</li>
                             <li>Try to convert both operands to numbers</li>
+                            <li>Symbols cannot be compared, as they are not convertable to a number</li>
                         </ul>
                                                     
 <pre>
+
 3 > 2; //true;
 [3] > [2]; // true;
 ({a:2}>{a:1}); // false
@@ -306,7 +308,7 @@ NaN > 3; // false
                             `,
                             Operator: '<code>></code>',
                             Name: `Greater than`,
-                            Usage: 'g() >f()',
+                            Usage: 'g() > f()',
                             Description: `Returns true, left operand is greater than the right one.`
                         },
 
@@ -320,6 +322,7 @@ NaN > 3; // false
                             <li>Convert objects to primitives</li>
                             <li>Strings should be compared with the lexicography comparation of 16-bit code units</li>
                             <li>Try to convert both operands to numbers</li>
+                            <li>Symbols cannot be compared, as they are not convertable to a number</li>
                         </ul>
                                                     
 <pre>
@@ -364,18 +367,124 @@ NaN < 3; // false
 </pre>                            
                     
                             `,
-                            Operator: '<code>></code>',
+                            Operator: '<code><</code>',
                             Name: `Less than`,
-                            Usage: 'g() >f()',
+                            Usage: 'g() < f()',
                             Description: `Returns true, left operand is smaller than the right one.`
                         },
 
 
 
+                        {
+                            [Symbol('title')]:'<=',
+                            [Symbol('code')]:`
+                        <ul>
+                            <li>Convert objects to primitives</li>
+                            <li>Strings should be compared with the lexicography comparation of 16-bit code units</li>
+                            <li>Try to convert both operands to numbers</li>
+                            <li>Symbols cannot be compared, as they are not convertable to a number</li>
+                        </ul>
+                                                    
+<pre>
+Numbers
+1 <= 2; // true;
+3 <= 3; // true;
+
+BigInt
+1n <= 2n; // true;
+3n <= 3n; // true;
+1n <= 2; // true;
+3n <= 3; // true;
+
+Strings
+'abc' <= 'cde'; // true;
+'abc' <= 'abc'; // true;
+'abc' <= '0bc'; // false;
+'4' <= 4; // true;
+'a' <= 4; // false, not comparable
+'a' >= 4; // false;
+
+Symbols
+let s1 = Symbol();
+let s2 = Symbol();
+s1 <= s2; //Error, symbols cannot be converted to a number,
+// moreover symbols are unique, but there is no possiblity to get a symbol
+// real value, so no point to compare them
+
+undefined and null
+null >= undefined; // false;
+null <= undefined; // false;
+null <= true; // true;
+true <= null; // false
+null <= 0; // true
+0 <= null; // true
+undefined <= 0; // false
+0 <= undefined; // false
+
+Booleans
+true <= false; // false;
+false <= true; // true;
+true <= 1; // true;
+true <= 4; // true;
+true <= 's'; // false
+'s' <= true; // false
+null <= false; // true;
+1n <= true; // true;
+0n <= true; // true;
+0n <= false; // true;
+1n <= false; // false;
+
+
+Objects
+({} <= {}); // TRUE
+({a:2}<={a:1}); // TRUE
+({a:1, b:2, c:3} <= {a:0}) // TRUE
+({a:1, b:2, c:3} >= {a:0}) // TRUE
+({a:1, b:2, c:3} <= []); // false
+({a:1, b:2, c:3} >= []); // true
+({a:1, b:2, c:3} <= [1, 2, 3, 4, 5]); // false
+({a:1, b:2, c:3} >= [1, 2, 3, 4, 5]); // true
+
+Arrays
+[2,3] <= [1,2,3]; // false
+[2,3] >= [1,2,3]; // true
+[5] <= [5,6]; // true
+[5] >= [5,6]; // true
+// seems the first value is compared
+</pre>                            
+                    
+                            `,
+                            Operator: '<code><=</code>',
+                            Name: `Less than`,
+                            Usage: 'g() <= f()',
+                            Description: `Returns true, left operand is smaller than or equal to the right one.`
+                        },
+
+
+
+                        {
+                            [Symbol('title')]:'>=',
+                            [Symbol('code')]:`
+                       Please refer to the less or equal than <code><=</code> operator examples
+                                                    
+<pre>
+</pre>                            
+                    
+                            `,
+                            Operator: '<code>>=</code>',
+                            Name: `Less than`,
+                            Usage: 'g() >= f()',
+                            Description: `Returns true, left operand is greater than or equal to the right one.`
+                        },
+
+
+
+
+
+
+
             ]
         },
-
-
 
                 {
                     elementType:'Headline-3',
