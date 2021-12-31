@@ -160,6 +160,9 @@ undefined / null; // NaN, conversion not possible
 2n / 1; // Error, BigInt will not be converted by default
 Number(2n) / 1; // 2
 
+'5' / [4]; // 1.25 as both may be converted to numbers
+'4' / [2, 33]; // NaN, as array with 2 elements will not be converted to a number
+
 </pre>                            
             
             `,
@@ -175,7 +178,62 @@ Number(2n) / 1; // 2
 // Spelling checked to this point
 
 
+{
+    [Symbol('title')]:'%',
+    [Symbol('code')]:`   
+    This is not a modulo operator known from, for example Python, or Microsoft C++ (in C++ % operator may be
+    modulo or remainder, depending on the implementation).
+    <table class="table">
+    <thead><tr><th>expression</th><th>Remainder</th><th>Modulo</th></tr></thead>
+    <tbody>
+        <tr><td>10 % 3</td><td>1</td><td>1</td></tr>
+        <tr><td>-10 % 3</td><td>-1</td><td>1</td></tr>
+        <tr><td>10 % -3</td><td>1</td><td>-1</td></tr>
+        <tr><td>-10 % -3</td><td>-1</td><td>-1</td></tr>
+    </tbody>
+    </table>
+    So in the <u>reminder case, the sign of the result will always be the same as the sign of the first operand</u>, 
+    where in the case of the modulo the sign of the result will always be the same as the sign of the second operand.
+    The result should always be an integer, however, refer to the number representation article to learn why this 
+    does not happen in all cases.
+<pre>
+ 10 %  3; //  1
+-10 %  3; // -1
+ 10 % -3; //  1
+-10 % -3; // -1
 
+0.2 % 0.5; // 0.2
+// But
+0.5 % 0.1; // 0.09999999999999998 :o
+// This is because it is not possible to 
+// represent 0.1 in binary format without an error
+
+[-4] % [6]; // -4 - conversion to numbers
+'[-4]' % [6]; // NaN - this cannot be converted anymore
+
+Infinity % 5; // NaN
+5 % Infinity; // 5
+
+-0 % 5; // -0 - there are 2 zeros in JS
+// see number representation section to learn more
+5 % 0; // NaN
+
+1 % Number.MIN_VALUE; // 0
+// But
+1 % 0; // NaN
+
+</pre>                            
+    
+    `,
+    Operator: '<code>%</code>',
+    Name: `Remainder`,
+    Usage: 'g() % f()',
+    Description: `
+    Evaluates operands and returns the remainder of their division operation. There will be an attempt to 
+    convert operands to a number if they are not a number and the conversion is possible. <b>This is not
+    a modulo</b> operator, see code section (in not mobile devices click on a row) to learn more
+    `
+},
 
 
 
