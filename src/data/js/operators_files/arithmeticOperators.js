@@ -415,7 +415,8 @@ let a = +++1; // Error, should be +(++a);
 
 (-2)**1.345; // NaN; In reality, this is a complex number: (-1.18868303 - 2.24503157 i)
 // Would be calculated by Python, but not by JS
-// Is JS worst? Not at all :)
+// Is JS worst? It has not a build in mechanism, but can be done with a library:
+// https://mathjs.org/
 math.pow(-2, 1.345); // u {re: -1.1886830266845214, im: -2.2450315667823326}
 // This is math.pow, not Math.pow!!
 
@@ -428,7 +429,7 @@ math.pow(-2, 1.345); // u {re: -1.1886830266845214, im: -2.2450315667823326}
     Name: `Exponentiation`,
     Usage: 'a ** b',
     Description: `
-    <code>Math.pow(a, b)</code> except <code>**</code> accepts BitInts. Returns a power of b. 
+    <code>Math.pow(a, b)</code> except <code>**</code> accepts BigInts. Returns a power of b. 
     Left side operand may not have an unary operator directly applied.
     `
 },
