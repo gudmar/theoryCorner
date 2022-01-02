@@ -676,6 +676,24 @@ function isOdd(int){
                     content: [
                         {
                             [Symbol('title')]:'>>',
+                            Expression: '<code>10 >> 1</code>',
+                            Outcome: `<code>5</code>`,
+                            'Binary expression': '1010',
+                            'Binary outcome': '101',
+                            '>>> expression': '1010',
+                            '>>> outcome':    '101'
+                        },
+                        {
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>10.5 >> 1.5</code>',
+                            Outcome: `<code>5</code>`,
+                            'Binary expression': '1010',
+                            'Binary outcome': '101',
+                            '>>> expression': '1010',
+                            '>>> outcome':    '101'
+                        },
+                        {
+                            [Symbol('title')]:'>>',
                             Expression: '<code>1024 >> 10</code>',
                             Outcome: `<code>1</code>`,
                             'Binary expression': '10000000000',
@@ -703,7 +721,7 @@ function isOdd(int){
                         },
 
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> 32</code>',
                             Outcome: `<code>5</code>`,
                             [Symbol('code')]:` 
@@ -716,7 +734,7 @@ function isOdd(int){
                             '>>> outcome':    '101'
                         },
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> 31</code>',
                             Outcome: `<code>0</code>`,
                             [Symbol('code')]:` 
@@ -728,7 +746,7 @@ function isOdd(int){
                             '>>> outcome':    '0'
                         },
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> 33</code>',
                             Outcome: `<code>2</code>`,
                             'Binary expression': '101',
@@ -737,7 +755,7 @@ function isOdd(int){
                             '>>> outcome':    '10'
                         },
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> -1</code>',
                             Outcome: `<code>0</code>`,
                             'Binary expression': '101',
@@ -746,7 +764,7 @@ function isOdd(int){
                             '>>> outcome':    '0'
                         },
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> -2</code>',
                             Outcome: `<code>0</code>`,
                             'Binary expression': '101',
@@ -755,7 +773,7 @@ function isOdd(int){
                             '>>> outcome':    '0'
                         },
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> -29</code>',
                             Outcome: `<code>0</code>`,
                             'Binary expression': '101',
@@ -764,7 +782,7 @@ function isOdd(int){
                             '>>> outcome':    '0'
                         },
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> -30</code>',
                             Outcome: `<code>1</code>`,
                             'Binary expression': '101',
@@ -773,7 +791,7 @@ function isOdd(int){
                             '>>> outcome':    '1'
                         },
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >> -31</code>',
                             Outcome: `<code>2</code>`,
                             'Binary expression': '101',
@@ -781,6 +799,34 @@ function isOdd(int){
                             '>>> expression': '101',
                             '>>> outcome':    '10'
                         },
+                        {
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>-5 >> -1</code>',
+                            Outcome: `<code>-1</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '-1',
+                            '>>> expression': '101',
+                            '>>> outcome':    '11111111111111111111111111111111'
+                        },
+                        {
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>-5 >> -3</code>',
+                            Outcome: `<code>-1</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '-1',
+                            '>>> expression': '101',
+                            '>>> outcome':    '11111111111111111111111111111111'
+                        },
+                        {
+                            [Symbol('title')]:'>>',
+                            Expression: '<code>-5 >> -31</code>',
+                            Outcome: `<code>2</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '10',
+                            '>>> expression': '101',
+                            '>>> outcome':    '10'
+                        },
+                    
                     ]
                 },
 
@@ -830,7 +876,7 @@ function isOdd(int){
                         },
 
                         {
-                            [Symbol('title')]:'5',
+                            [Symbol('title')]:'>>',
                             Expression: '<code>5 >>> 32</code>',
                             Outcome: `<code>5</code>`,
                             [Symbol('code')]:` 

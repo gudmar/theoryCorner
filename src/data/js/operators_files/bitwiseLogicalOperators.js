@@ -227,9 +227,14 @@ console.log(right(5, 0) === rightBit(5, 0)); // true
 //  5 = 0000101 
 
 (5.5 >> 2.5) === (5 >> 2); //true;
+-5 >> 2; // -2
+-5.5 >> 2.5; // 1
+// -5 is 11111111111111111111111111111011
+// -2 is 11111111111111111111111111111110
 
 5 >> 1; // 2
 5 >> 2; // 1
+
 
 5 >> -1; // 0;
 5 >> - 2; // 0;
@@ -242,17 +247,22 @@ console.log(right(5, 0) === rightBit(5, 0)); // true
 // 101 >> -31 is 00000000000000000000000000000010
 // 101 >> -32 is 00000000000000000000000000000101
 
+5 >> -1; // -1;
+5 >> -3; // -1;
+...
+5 >> -30; // -2;
+
 
 </pre>                            
                 `,
                 Operator: '<code>>></code>',
-                Name: `Right shift`,
+                Name: `Sign-propagating Right shift`,
                 Usage: 'a >> b',
                 Description: `
                 In general:
                 <code>a >> b is Math.floor(a / (2 ** b)) </code>, in reality: <br>
                 <code>Math.floor(a) * (2 / (Math.floor(b>>>0) % 32))) & -1</code>,<br>
-                Changes the left and right operand to the 32 integer representation, and shifts the left operand 
+                Changes the left and right operand to the 32 bit integer representation, and shifts the left operand 
                 bits the number of positions indicated by the right operand modulo 32 to the right.
                 
                 `
