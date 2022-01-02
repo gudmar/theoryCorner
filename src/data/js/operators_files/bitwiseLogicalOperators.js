@@ -1,8 +1,15 @@
-
+// SPELL CHECKED, CORRECT!
 let bitwiseOperatorsData =     [
     {
         elementType:'Headline-3',
         content:'Bitwise operators'
+    },
+    {
+        elementType: 'NoteWarning',
+        content: `
+        Bitwise operators make take both: BitInts and numbers as operands. Exception is ther right shift zero-fill
+        operator. The condition is that both operands are of the same type.
+        `
     },
     {
         elementType: 'Paragraph',
@@ -80,6 +87,8 @@ let bitwiseOperatorsData =     [
 // 21 = 10101 
 // 20 = 10100
 
+22n & 21n; // 20n;
+
 22.34 & 21.32; //20
 
 </pre>                            
@@ -109,6 +118,8 @@ let bitwiseOperatorsData =     [
 // 22 = 10110 |
 // 21 = 10101 
 // 20 = 10111
+
+22n | 21n; //23n
 
 22.34 | 21.32; //20
 
@@ -141,6 +152,8 @@ let bitwiseOperatorsData =     [
 // 22 = 10110 ^
 // 21 = 10101 
 // 20 = 00011
+
+22n ^ 21n; // 3n;
 
 22.34 ^ 21.32; //3
 
@@ -176,6 +189,8 @@ console.log(left(5, 0) === leftBit(5, 0)); // true
 22 << 2; // 88
 // 22 = 0010110 << 2
 // 28 = 1010100 
+
+22n << 2n; // 88n
 
 (5.5 << 2.5) === (5 << 2); //true;
 
@@ -238,8 +253,10 @@ console.log(right(52, -31) === rightBit(52, -31)); // true
 console.log(right(5, 0) === rightBit(5, 0)); // true
 
 22 >> 2; // 5
-// 22 = 0010110 << 2
+// 22 = 0010110 >> 2
 //  5 = 0000101 
+
+22n >> 2n; // 5n;
 
 (5.5 >> 2.5) === (5 >> 2); //true;
 -5 >> 2; // -2
@@ -314,49 +331,39 @@ console.log(right(52, -2) === rightBit(52, -2)); // true
 console.log(right(52, -31) === rightBit(52, -31)); // true
 console.log(right(5, 0) === rightBit(5, 0)); // true
 
-22 >> 2; // 5
-// 22 = 0010110 << 2
+22 >>> 2; // 5
+// 22 = 0010110 >>> 2
 //  5 = 0000101 
 
 (5.5 >> 2.5) === (5 >> 2); //true;
--5 >> 2; // -2
--5.5 >> 2.5; // 1
-// -5 is 11111111111111111111111111111011
-// -2 is 11111111111111111111111111111110
+-5 >> 2; // 1073741822
+-5.5 >> 2.5; // 1073741822
+// -5         is 11111111111111111111111111111011
+// 1073741822 is 00111111111111111111111111111110
 
-5 >> 1; // 2
-5 >> 2; // 1
-
-
-5 >> -1; // 0;
-5 >> - 2; // 0;
-5 >> - 3; // 0;
+5 >>> -1; // 0;
+5 >>> -2; // 0;
+5 >>> -3; // 0;
 ...
-5 >> -30; // 1
-5 >> -31; // 2
-5 >> -32; // 5
+5 >>> -30; // 1
+5 >>> -31; // 2
+5 >>> -32; // 5
 // 101 >> -30 is 00000000000000000000000000000001
 // 101 >> -31 is 00000000000000000000000000000010
 // 101 >> -32 is 00000000000000000000000000000101
 
-5 >> -1; // -1;
-5 >> -3; // -1;
-...
-5 >> -30; // -2;
-
-
 </pre>                            
                 `,
-                Operator: '<code>>></code>',
-                Name: `Sign-propagating Right shift`,
-                Usage: 'a >> b',
+                Operator: '<code>>>></code>',
+                Name: `Zero-fill right shift`,
+                Usage: 'a >>> b',
                 Description: `
-                In general:
-                <code>a >> b is Math.floor(a / (2 ** b)) </code>, in reality: <br>
-                <code>Math.floor(a) * (2 / (Math.floor(b>>>0) % 32))) & -1</code>,<br>
-                Changes the left and right operand to the 32 bit integer representation, and shifts the left operand 
-                bits the number of positions indicated by the right operand modulo 32 to the right.
-                
+                This operator takes two arguments, and converts the left one to 32-bit integer if possible. 
+                    The bits of the left operand will be shifted the number of positions indicated by the right 
+                    operand % 32 to the right. Left most bits will be filled with zeros. <br>
+                    This is currently the only operator in JS allowing to see how the real bit representation of a 
+                    negative number looks like: <code>(-5 >>> 0).toString(2)</code> will show all bits, including the
+                    sign bit. The bits that do not fit (are moved to the right of the bit with index 0) will be lost.
                 `
             },
 

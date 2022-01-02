@@ -2,6 +2,7 @@ import getComparationOperatorsData from './operators_files/comparasionOperators'
 import getAssignmentOperatorsData from './operators_files/assignmentOperators';
 import getArithmeticsOperatorsData from './operators_files/arithmeticOperators';
 import getBitwiseOperatorsData from './operators_files/bitwiseLogicalOperators';
+import getLogicalOperatorsData from './operators_files/logicalOperators';
 
 
 let data =     {
@@ -47,6 +48,8 @@ let data =     {
 
 
                 ...getBitwiseOperatorsData(),
+
+                ...getLogicalOperatorsData(),
 
 
                 ...getAssignmentOperatorsData(),

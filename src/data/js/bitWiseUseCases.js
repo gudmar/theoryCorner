@@ -40,6 +40,13 @@ let data =     {
                     `
                 },
                 {
+                    elementType: 'NoteWarning',
+                    content: `
+                    Bitwise operators make take both: BitInts and numbers as operands. Exception is ther right shift zero-fill
+                    operator. The condition is that both operands are of the same type.
+                    `
+                },
+                {
                     elementType:'SmallHeadline',
                     content:'How are values in examples calculated?'
                 },
@@ -851,15 +858,31 @@ let right = (a, b) => {
                 {
                     elementType:'Paragraph',
                     content:`
-                    This operator takes 2 operands, left operand is a 32 bit integer Number type value,
-                    and right is an expression, that will be evaluated. <code>numb >>> a</code>. <code>numb</code>
-                    bits will be <code>a</code> positions right shifted. Less significant bits should be forgotten,
-                    but in reality they may behave in a slightly different way. For example <code>5 >>> 32</code> is 
-                    5, and <code>5 >>> 33</code> is 2. This operator fills all most significant bits with 0, no matter 
-                    the sign is. That is why it is <strong>the only operator enabling us to see how negative numbers are
-                    really stored</code> in memory: <code>(-5 >>> 0).toString(2)</code>
+                    This operator takes two arguments, and converts the left one to 32-bit integer if possible. 
+                    The bits of the left operand will be shifted the number of positions indicated by the right 
+                    operand % 32 to the right. Left most bits will be filled with zeros. <br>
+                    This is currently the only operator in JS allowing to see how the real bit representation of a 
+                    negative number looks like: <code>(-5 >>> 0).toString(2)</code> will show all bits, including the
+                    sign bit. The bits that do not fit (are moved to the right of the bit with index 0) will be lost.
                     `
                 },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Conversion to the 32 bit integer (of course there is not such a primitive type in JS, but 
+                    small enough integer numbers are stored in the memory in a slightly different way than other
+                    numbers)
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `A number not small enough to be represented in 32 bits has its last 32 bits taken, the rest is
+                        lost`,
+                        `A fraction part is lost`
+                    ]
+                },
+
                 {
                     elementType:'Paragraph',
                     content:`
