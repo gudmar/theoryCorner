@@ -114,11 +114,45 @@ let bitwiseOperatorsData =     [
 
 </pre>                            
                 `,
+                Operator: '<code>|</code>',
+                Name: `Bitwise OR`,
+                Usage: 'a | b',
+                Description: 'Performs a logical OR operation for each bit position of operands'
+            },
+
+
+
+            {
+                [Symbol('title')]:'^',
+                [Symbol('code')]:`
+                <ul>
+                    <li><code>0 ^ 0</code>: 0</li>
+                    <li><code>0 ^ 1</code>: 1</li>
+                    <li><code>1 ^ 0</code>: 1</li>
+                    <li><code>1 ^ 1</code>: 0</li>
+                    <li><code>A ^ 0</code>: A</li>
+                    <li><code>A ^ ~A</code>: -1</li>
+                    <li><code>A ^ A</code>: 0</li>
+                    <li><code>A ^ -1</code>: ~A</li>
+                </ul>
+
+<pre>
+22 ^ 21; // 3
+// 22 = 10110 ^
+// 21 = 10101 
+// 20 = 00011
+
+22.34 ^ 21.32; //3
+
+</pre>                            
+                `,
                 Operator: '<code>^</code>',
                 Name: `Bitwise ^`,
                 Usage: 'a ^ b',
                 Description: 'Performs a logical XOR operation for each bit position of operands'
             },
+
+
 
             
             {
@@ -162,42 +196,71 @@ console.log(left(5, 0) === leftBit(5, 0)); // true
                 <code>a << b is a * (2 ** b) </code>, in reality: <br>
                 <code>Math.floor(a) * (2 ** (Math.floor(b>>>0) % 32))) & -1</code>,<br>
                 Changes the left and right operand to the 32 integer representation, and shifts the left operand 
-                bits the number of positions indicated by the right operand modulo 32.
+                bits the number of positions indicated by the right operand modulo 32 to the left.
                 
                 `
             },
 
 
 
+
+
             {
-                [Symbol('title')]:'^',
+                [Symbol('title')]:'>>',
                 [Symbol('code')]:`
-                <ul>
-                    <li><code>0 ^ 0</code>: 0</li>
-                    <li><code>0 ^ 1</code>: 1</li>
-                    <li><code>1 ^ 0</code>: 1</li>
-                    <li><code>1 ^ 1</code>: 0</li>
-                    <li><code>A ^ 0</code>: A</li>
-                    <li><code>A ^ ~A</code>: -1</li>
-                    <li><code>A ^ A</code>: 0</li>
-                    <li><code>A ^ -1</code>: ~A</li>
-                </ul>
+                
 
 <pre>
-22 ^ 21; // 3
-// 22 = 10110 ^
-// 21 = 10101 
-// 20 = 00011
+// tests the replacement function
+let right = (a, b) => {return (Math.floor(a) / (2 ** (Math.floor(b>>>0) % 32))) & -1}
+let rightBit = (a, b) => {return a >> b}
+console.log(right(5, 32) === rightBit(5, 32)); // true
+console.log(right(5, 33) === rightBit(5, 33)); // true
+console.log(right(5, 2) === rightBit(5, 2)); // true
+console.log(right(5.3, 2.3) === rightBit(5.3, 2.3)); // true
+console.log(right(5, -1) === rightBit(5, -1)); // true
+console.log(right(52, -2) === rightBit(52, -2)); // true
+console.log(right(5, 0) === rightBit(5, 0)); // true
 
-22.34 ^ 21.32; //3
+22 >> 2; // 5
+// 22 = 0010110 << 2
+//  5 = 0000101 
+
+(5.5 >> 2.5) === (5 >> 2); //true;
+
+5 >> 1; // 2
+5 >> 2; // 1
+
+5 >> -1; // 0;
+5 >> - 2; // 0;
+5 >> - 3; // 0;
+...
+5 >> -30; // 1
+5 >> -31; // 2
+5 >> -32; // 5
+// 101 >> -30 is 00000000000000000000000000000001
+// 101 >> -31 is 00000000000000000000000000000010
+// 101 >> -32 is 00000000000000000000000000000101
+
 
 </pre>                            
                 `,
-                Operator: '<code>^</code>',
-                Name: `Bitwise ^`,
-                Usage: 'a ^ b',
-                Description: 'Performs a logical XOR operation for each bit position of operands'
+                Operator: '<code>>></code>',
+                Name: `Right shift`,
+                Usage: 'a >> b',
+                Description: `
+                In general:
+                <code>a >> b is Math.floor(a / (2 ** b)) </code>, in reality: <br>
+                <code>Math.floor(a) * (2 / (Math.floor(b>>>0) % 32))) & -1</code>,<br>
+                Changes the left and right operand to the 32 integer representation, and shifts the left operand 
+                bits the number of positions indicated by the right operand modulo 32 to the right.
+                
+                `
             },
+
+
+
+
 
 
 
