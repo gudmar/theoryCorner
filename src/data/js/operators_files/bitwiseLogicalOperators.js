@@ -167,6 +167,7 @@ let leftBit = (a, b) => {return a << b}
 console.log(left(5, 32) === leftBit(5, 32)); // true
 console.log(left(5, 33) === leftBit(5, 33)); // true
 console.log(left(5, 2) === leftBit(5, 2)); // true
+console.log(left(-5, 2) === leftBit(-5, 2)); // true
 console.log(left(5.3, 2.3) === leftBit(5.3, 2.3)); // true
 console.log(left(5, -1) === leftBit(5, -1)); // true
 console.log(left(52, -2) === leftBit(52, -2)); // true
@@ -212,8 +213,87 @@ console.log(left(5, 0) === leftBit(5, 0)); // true
 
 <pre>
 // tests the replacement function
+let right = (a, b) => {
+    let output = (Math.floor(a >> 0) / (2 ** (Math.floor(b>>>0) % 32))) & -1
+    if (a < 0) output = Math.floor(a / (2 ** b))
+    return output
+}
+let rightBit = (a, b) => {
+    return a >> b}
+console.log(right(5, 32) === rightBit(5, 32)); // true
+console.log(right(5, 33) === rightBit(5, 33)); // true
+console.log(right(5, 2) === rightBit(5, 2)); // true
+console.log(right(-5, 2) === rightBit(-5, 2)); // true
+console.log(right(-5, 1) === rightBit(-5, 1)); // true
+console.log(right(-5, 3) === rightBit(-5, 3)); // true
+console.log(right(-5, 4) === rightBit(-5, 4)); // true
+console.log(right(-5, 5) === rightBit(-5, 5)); // true
+console.log(right(-52, 5) === rightBit(-52, 5)); // true
+console.log(right(-52, 4) === rightBit(-52, 4)); // true
+console.log(right(-52, 3) === rightBit(-52, 3)); // true
+console.log(right(5.3, 2.3) === rightBit(5.3, 2.3)); // true
+console.log(right(5, -1) === rightBit(5, -1)); // true
+console.log(right(52, -2) === rightBit(52, -2)); // true
+console.log(right(52, -31) === rightBit(52, -31)); // true
+console.log(right(5, 0) === rightBit(5, 0)); // true
+
+22 >> 2; // 5
+// 22 = 0010110 << 2
+//  5 = 0000101 
+
+(5.5 >> 2.5) === (5 >> 2); //true;
+-5 >> 2; // -2
+-5.5 >> 2.5; // 1
+// -5 is 11111111111111111111111111111011
+// -2 is 11111111111111111111111111111110
+
+5 >> 1; // 2
+5 >> 2; // 1
+
+
+5 >> -1; // 0;
+5 >> - 2; // 0;
+5 >> - 3; // 0;
+...
+5 >> -30; // 1
+5 >> -31; // 2
+5 >> -32; // 5
+// 101 >> -30 is 00000000000000000000000000000001
+// 101 >> -31 is 00000000000000000000000000000010
+// 101 >> -32 is 00000000000000000000000000000101
+
+5 >> -1; // -1;
+5 >> -3; // -1;
+...
+5 >> -30; // -2;
+
+
+</pre>                            
+                `,
+                Operator: '<code>>></code>',
+                Name: `Sign-propagating Right shift`,
+                Usage: 'a >> b',
+                Description: `
+                In general:
+                <code>a >> b is Math.floor(a / (2 ** b)) </code>, in reality a bit more comples.
+                Changes the left and right operand to the 32 bit integer representation, and shifts the left operand 
+                bits the number of positions indicated by the right operand modulo 32 to the right.
+                
+                `
+            },
+
+
+
+
+
+            {
+                [Symbol('title')]:'>>>',
+                
+                [Symbol('code')]:`
+<pre>
+// tests the replacement function
 let right = (a, b) => {return (Math.floor(a) / (2 ** (Math.floor(b>>>0) % 32))) & -1}
-let rightBit = (a, b) => {return a >> b}
+let rightBit = (a, b) => {return a >>> b}
 console.log(right(5, 32) === rightBit(5, 32)); // true
 console.log(right(5, 33) === rightBit(5, 33)); // true
 console.log(right(5, 2) === rightBit(5, 2)); // true
@@ -267,8 +347,6 @@ console.log(right(5, 0) === rightBit(5, 0)); // true
                 
                 `
             },
-
-
 
 
 
