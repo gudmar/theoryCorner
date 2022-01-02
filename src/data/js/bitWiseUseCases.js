@@ -654,11 +654,9 @@ function isOdd(int){
                 {
                     elementType:'Paragraph',
                     content:`
-                    This operator takes 2 operands, left operand is a 32 bit integer Number type value,
-                    and right is an expression, that will be evaluated. <code>numb >> a</code>. <code>numb</code>
-                    bits will be <code>a</code> positions right shifted. Less significant bits should be forgotten,
-                    but in reality they may behave in a slightly different way. For example <code>5 >> 32</code> is 
-                    5, and <code>5 >> 33</code> is 2. This operator preserves its sign, so in case a negative number
+                    Changes the left and right operand to the 32 bit integer representation, and shifts the left operand 
+                    bits the number of positions indicated by the right operand modulo 32 to the right. 
+                    This operator preserves its sign, so in case a negative number
                     is shifted, most significant bits will be filled with 1, and in case a positive number is shifted,
                     most significant bits will be filled with 0.
                     `
@@ -732,6 +730,51 @@ function isOdd(int){
                         {
                             [Symbol('title')]:'5',
                             Expression: '<code>5 >> 33</code>',
+                            Outcome: `<code>2</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '10',
+                            '>>> expression': '101',
+                            '>>> outcome':    '10'
+                        },
+                        {
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> -1</code>',
+                            Outcome: `<code>0</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '0',
+                            '>>> expression': '101',
+                            '>>> outcome':    '0'
+                        },
+                        {
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> -2</code>',
+                            Outcome: `<code>0</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '0',
+                            '>>> expression': '101',
+                            '>>> outcome':    '0'
+                        },
+                        {
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> -29</code>',
+                            Outcome: `<code>0</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '0',
+                            '>>> expression': '101',
+                            '>>> outcome':    '0'
+                        },
+                        {
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> -30</code>',
+                            Outcome: `<code>1</code>`,
+                            'Binary expression': '101',
+                            'Binary outcome': '1',
+                            '>>> expression': '101',
+                            '>>> outcome':    '1'
+                        },
+                        {
+                            [Symbol('title')]:'5',
+                            Expression: '<code>5 >> -31</code>',
                             Outcome: `<code>2</code>`,
                             'Binary expression': '101',
                             'Binary outcome': '10',
