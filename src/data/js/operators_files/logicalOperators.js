@@ -115,8 +115,45 @@ console.log(a); // 4; now f was executed
                 Description: `
                 <ul>
                 <li>If expression1 evaluates to true, returns first expression, does not evaluate expression2 at all</li>
-                <li>If expression1 evaluates to false, returns the second expression, in this case the second expression
-                is evaluated</li>
+                <li>If expression1 evaluates to false, returns the second expression, in this case both expressions
+                are evaluated</li>
+                </ul>
+                `
+            },
+
+
+
+            {
+                [Symbol('title')]:'&&',
+                [Symbol('code')]:`
+                <ul>
+                <li><code>(ex1 === false) && (ex2)</code>: ex1</li>
+                <li><code>(ex1 === true) && (ex2)</code>: ex2</li>
+                <ul>
+<pre>
+"text1" && "text2"; // "text2"
+"" && "text1"; // ""
+
+null && 0; // null;
+0 && null; // 0;
+
+let a = 3;
+let f = ()=>{a+=1}
+0 && f(); // 0
+console.log(a); // 3; f not executed, as left operand already determined the result;
+1 && f(); // undefined, as f does not return anything;
+console.log(a); // 4; now f was executed
+
+</pre>                    
+                `,
+                Operator: '<code>&&</code>',
+                Name: `Logical AND`,
+                Usage: 'expression1 && expression2',
+                Description: `
+                <ul>
+                <li>If expression1 evaluates to false, returns first expression, does not evaluate expression2 at all</li>
+                <li>If expression1 evaluates to true, returns the second expression, in this case both expressions
+                are evaluated</li>
                 </ul>
                 `
             },
