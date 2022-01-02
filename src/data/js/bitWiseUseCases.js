@@ -482,19 +482,22 @@ function isOdd(int){
                 {
                     elementType:'Paragraph',
                     content:`
-                    This operator takes 2 operands, left operand is a 32 bit integer Number type value,
-                    and right is an expression, that will be evaluated. <code>numb << a</code>. <code>numb</code>
-                    bits will be <code>a</code> positions left shifted. Most significant bits should be forgotten,
-                    but in reality they may behave in a slightly different way. So <strong> do not use this operator
-                    with numbers that may be greater than 31 bits</stron>
-                    The left shift operator is similar to below expression, but is different in a way, that it 
-                    does not handle bits greater than 31 gracefully:
+                    Changes the left and right operand to the 32 integer representation, and shifts the left operand 
+                    bits the number of positions indicated by the right operand modulo 32.
                     `
                 },
                 {
                     elementType:'Paragraph',
                     content:`
-                    <code>a << b + c === 2**(b + c)</code>
+                    The behaviour of this operator may be complicated in some cases, that is why it is needed to be 
+                    careful when the result would not fit into 31 bits
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    For simplicity: <code>a << b === a * (2 ** b)</code> but the real replacement would be:<br> 
+                    Math.floor(a) * (2 ** (Math.floor(b>>>0) % 32))) & -1
                     `
                 },
 
@@ -590,6 +593,56 @@ function isOdd(int){
                             'Binary outcome': '10101101111001101000101010000000',
                             '>>> expression': '111010110111100110100010101',
                             '>>> outcome':    '10101101111001101000101010000000'
+                        },
+                        {
+                            [Symbol('title')]:'5.5 << 2.5',
+                            Expression: '<code>5.5 << 2.5</code>',
+                            Outcome: `<code>20</code>`,
+                            [Symbol('code')]:` 
+                            Here it is visable, that some bits are rewound (due to 32 bit shift), and some are
+                            discarded (due to the fact, that this shift is greater than 32). This example 
+                            illustrates a hard to predict not readable case
+                                                        `,
+                            'Binary expression': '101.1',
+                            'Binary outcome': '10100',
+                            '>>> expression': '101',
+                            '>>> outcome':    '10100'
+                        },
+                        {
+                            [Symbol('title')]:'5 << -1',
+                            Expression: '<code>5 << -1</code>',
+                            Outcome: `<code>-2147483648</code>`,
+                            [Symbol('code')]:` 
+                            
+                                                        `,
+                            'Binary expression': '101',
+                            'Binary outcome': '10000000000000000000000000000000',
+                            '>>> expression': '00000000000000000000000000000101',
+                            '>>> outcome':    '10000000000000000000000000000000'
+                        },
+                        {
+                            [Symbol('title')]:'5 << -2',
+                            Expression: '<code>5 << -2</code>',
+                            Outcome: `<code>1073741824</code>`,
+                            [Symbol('code')]:` 
+                            
+                                                        `,
+                            'Binary expression': '101',
+                            'Binary outcome': '01000000000000000000000000000000',
+                            '>>> expression': '00000000000000000000000000000101',
+                            '>>> outcome':    '01000000000000000000000000000000'
+                        },
+                        {
+                            [Symbol('title')]:'5 << -3',
+                            Expression: '<code>5 << -3</code>',
+                            Outcome: `<code>-1610612736</code>`,
+                            [Symbol('code')]:` 
+                            
+                                                        `,
+                            'Binary expression': '101',
+                            'Binary outcome': '10100000000000000000000000000000',
+                            '>>> expression': '00000000000000000000000000000101',
+                            '>>> outcome':    '10100000000000000000000000000000'
                         },
                     ]
                 },
@@ -877,6 +930,12 @@ function isOdd(int){
                 {
                     elementType:'Headline-2',
                     content:'References'
+                },
+                {
+                    elementType:'Link',
+                    content:'ECMAScript',
+                    href: 'https://tc39.es/ecma262/multipage/ecmascript-language-expressions.html#sec-bitwise-shift-operators',
+                    description:'Root documentation'
                 },
                 {
                     elementType:'Link',
