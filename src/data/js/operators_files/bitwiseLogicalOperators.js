@@ -60,6 +60,69 @@ let bitwiseOperatorsData =     [
             },
 
 
+            {
+                [Symbol('title')]:'&',
+                [Symbol('code')]:`
+                <ul>
+                    <li><code>0 & 0</code>: 0</li>
+                    <li><code>0 & 1</code>: 0</li>
+                    <li><code>1 & 0</code>: 0</li>
+                    <li><code>1 & 1</code>: 1</li>
+                    <li><code>A & 0</code>: 0</li>
+                    <li><code>A & ~A</code>: 0</li>
+                    <li><code>A & A</code>: A</li>
+                    <li><code>A & -1</code>: A</li>
+                </ul>
+
+<pre>
+22 & 21; // 20
+// 22 = 10110 &
+// 21 = 10101 
+// 20 = 10100
+
+22.34 & 21.32; //20
+
+</pre>                            
+                `,
+                Operator: '<code>|</code>',
+                Name: `Bitwise OR`,
+                Usage: 'a | b',
+                Description: 'Performs a logical OR operation for each bit position of operands'
+            },
+
+            {
+                [Symbol('title')]:'|',
+                [Symbol('code')]:`
+                <ul>
+                    <li><code>0 | 0</code>: 0</li>
+                    <li><code>0 | 1</code>: 1</li>
+                    <li><code>1 | 0</code>: 1</li>
+                    <li><code>1 | 1</code>: 1</li>
+                    <li><code>A | 0</code>: A</li>
+                    <li><code>A | ~A</code>: -1</li>
+                    <li><code>A | A</code>: A</li>
+                    <li><code>A | -1</code>: -1</li>
+                </ul>
+
+<pre>
+22 | 21; // 23
+// 22 = 10110 &
+// 21 = 10101 
+// 20 = 10111
+
+22.34 | 21.32; //20
+
+</pre>                            
+                `,
+                Operator: '<code>|</code>',
+                Name: `Bitwise |`,
+                Usage: 'a | b',
+                Description: 'Performs a logical OR operation for each bit position of operands'
+            },
+
+            
+
+
 
 
 ]
