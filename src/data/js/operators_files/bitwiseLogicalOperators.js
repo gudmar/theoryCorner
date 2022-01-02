@@ -214,12 +214,12 @@ console.log(left(5, 0) === leftBit(5, 0)); // true
 <pre>
 // tests the replacement function
 let right = (a, b) => {
-    let output = (Math.floor(a >> 0) / (2 ** (Math.floor(b>>>0) % 32))) & -1
-    if (a < 0) output = Math.floor(a / (2 ** b))
-    return output
+    maskOfLeftMostZeros = b === 0?-1:2**(32-b%32)-1;
+    if (a < 0) {return (Math.floor(a / (2 ** b)) & maskOfLeftMostZeros)}
+    return (Math.floor(a >>> 0) / (2 ** (Math.floor(b>>>0) % 32))) & -1
 }
 let rightBit = (a, b) => {
-    return a >> b}
+    return a >>> b}
 console.log(right(5, 32) === rightBit(5, 32)); // true
 console.log(right(5, 33) === rightBit(5, 33)); // true
 console.log(right(5, 2) === rightBit(5, 2)); // true
@@ -288,18 +288,30 @@ console.log(right(5, 0) === rightBit(5, 0)); // true
 
             {
                 [Symbol('title')]:'>>>',
-                
                 [Symbol('code')]:`
 <pre>
 // tests the replacement function
-let right = (a, b) => {return (Math.floor(a) / (2 ** (Math.floor(b>>>0) % 32))) & -1}
+// let right = (a, b) => {return (Math.floor(a) / (2 ** (Math.floor(b>>>0) % 32))) & -1}
+let right = (a, b) => {
+    if (a < 0) return Math.floor(a / (2 ** b))
+    return (Math.floor(a >> 0) / (2 ** (Math.floor(b>>>0) % 32))) & -1
+}
 let rightBit = (a, b) => {return a >>> b}
 console.log(right(5, 32) === rightBit(5, 32)); // true
 console.log(right(5, 33) === rightBit(5, 33)); // true
 console.log(right(5, 2) === rightBit(5, 2)); // true
+console.log(right(-5, 2) === rightBit(-5, 2)); // true
+console.log(right(-5, 1) === rightBit(-5, 1)); // true
+console.log(right(-5, 3) === rightBit(-5, 3)); // true
+console.log(right(-5, 4) === rightBit(-5, 4)); // true
+console.log(right(-5, 5) === rightBit(-5, 5)); // true
+console.log(right(-52, 5) === rightBit(-52, 5)); // true
+console.log(right(-52, 4) === rightBit(-52, 4)); // true
+console.log(right(-52, 3) === rightBit(-52, 3)); // true
 console.log(right(5.3, 2.3) === rightBit(5.3, 2.3)); // true
 console.log(right(5, -1) === rightBit(5, -1)); // true
 console.log(right(52, -2) === rightBit(52, -2)); // true
+console.log(right(52, -31) === rightBit(52, -31)); // true
 console.log(right(5, 0) === rightBit(5, 0)); // true
 
 22 >> 2; // 5

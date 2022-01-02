@@ -664,7 +664,18 @@ function isOdd(int){
                 {
                     elementType:'Paragraph',
                     content:`
-                    <code>a >> b + c === Math.floor(A / (2 ** (b + c))</code>
+                    The idea of this operand can be represented by below pattern<br>
+                    <code>a >> b === Math.floor(A / (2 ** b)</code>
+                    In reality, however behaviour of this operator is slightly more complicated:
+<pre>
+<code>
+let right = (a, b) => {
+    if (a < 0) return Math.floor(a / (2 ** b))
+    return (Math.floor(a >>> 0) / (2 ** (Math.floor(b>>>0) % 32))) & -1
+}
+// tests proving this works are in the operators article
+</code>
+</pre>
                     `
                 },
 
@@ -847,6 +858,22 @@ function isOdd(int){
                     5, and <code>5 >>> 33</code> is 2. This operator fills all most significant bits with 0, no matter 
                     the sign is. That is why it is <strong>the only operator enabling us to see how negative numbers are
                     really stored</code> in memory: <code>(-5 >>> 0).toString(2)</code>
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    This operator may be described with the following function:
+<pre>
+<code>
+let right = (a, b) => {
+    maskOfLeftMostZeros = b === 0?-1:2**(32-b%32)-1;
+    if (a < 0) {return (Math.floor(a / (2 ** b)) & maskOfLeftMostZeros)}
+    return (Math.floor(a >>> 0) / (2 ** (Math.floor(b>>>0) % 32))) & -1
+}
+</code>
+</pre>                    
+                Please find tests proving this function works in the operators article.
                     `
                 },
 
