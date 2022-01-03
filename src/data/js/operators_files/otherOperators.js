@@ -156,10 +156,67 @@ let z = (a = 3, b = 4, c = 6); // z is 6, a is 3, b is 4, c is 6;
                     <li>it is not an own object property (for example it belongs somewhere to a prototype chain)</li>
                     <li>is created with a var, let or const keyword (these properties are non-configurable)</li>
                     <li>is a non-configurable property set in objects descriptor</li>
+                    <li>is a non-writable property set in objects descriptor</li>
+                    <li>if object is sealed or frozen its properties may not be deleted</li>
                     <li>is an array element. In this case a value of the array index will be set to <i>empty</i>
                     and will not be removed with the delete operator</li>
                 </ul>
 <pre>
+let obj = {
+    a: 5,
+    b: {c: 6}
+}
+
+console.log(delete obj); // false, obj is set with the let keyword
+// in case of a strict mode Error
+
+console.log(delete b); // true, b object is garbage collected
+// no need to worry about memory releasing
+console.log(obj); // {a: 5}
+
+let nonConfig = {
+    configurable: false,
+    value: 3
+}
+Object.defineProperty(obj, 'x', nonConfig);
+delete obj.x; // false, or an error, obj.x is not configurable;
+
+let nonWritable = {
+    writable: false,
+    value: 3
+}
+
+Object.defineProperty(obj, 'y', nonWritable);
+console.log(delete obj.y); // false
+
+delete obj; // false of Error, created with let
+
+
+o2 = {a: 3}
+Object.defineProperty(o2, 'x', nonConfig);
+delete o2; // true
+
+let s = Symbol('test');
+let o3 = {
+    a: 3,
+    [s]: 4
+}
+delete o3[s];
+
+o2 = {a:3};
+Object.seal(o2);
+delete o2.a; // false or error, object is sealed
+
+let a = [1,2,3,4,5];
+delete a[0]; // true;
+// a is [empty, 2, 3, 4, 5]
+// use a.splice(0,1) instead or arr.shift();
+
+function f(){};
+delete f; // true
+
+
+
 
 </pre>                    
                 `,
