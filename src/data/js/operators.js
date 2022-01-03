@@ -3,6 +3,7 @@ import getAssignmentOperatorsData from './operators_files/assignmentOperators';
 import getArithmeticsOperatorsData from './operators_files/arithmeticOperators';
 import getBitwiseOperatorsData from './operators_files/bitwiseLogicalOperators';
 import getLogicalOperatorsData from './operators_files/logicalOperators';
+import getOtherOperatorsData from './operators_files/otherOperators';
 
 
 let data =     {
@@ -53,6 +54,8 @@ let data =     {
 
 
                 ...getAssignmentOperatorsData(),
+
+                ...getOtherOperatorsData(),
 
 
 
