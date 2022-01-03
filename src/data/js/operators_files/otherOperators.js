@@ -12,6 +12,67 @@ let otherOperatorsData = [
         operator, a <i>typeof</i> operator, a <i>void</i> operator, an <i>instanceof</i> operator and an <i>in</i> operator, , 
         `
     },
+
+    {
+        elementType:'SmallHeadline',
+        content:'Releasing memory in JS'
+    },
+    {
+        elementType: 'Paragraph',
+        content: `
+        Memory management in JS is done automatically. There is no possiblity to tirgger manual memory release.
+        Memory may be alocated by creating a new property, variable or with a <code>new</code> operator.
+        There are two algorithms for releasing the allocated memory (garbage collection):
+        `
+    },
+    {
+        elementType: 'Paragraph',
+        content: `
+        <strong>A reference counting garbage collection</strong>: if the property has any reference pointing to it
+         it will not be garbage collected. There is a problem with the circural references. If an object points 
+         somehow to itsself, it will not be garbage collected with this algorithm
+        `
+    },
+    {
+        elementType: 'Code',
+        content: `
+<pre>
+let obj = {
+    a: {
+        b: 3
+    }
+} // obj.a is a reference to the a property
+// obj.a.b is a reference to an b property
+
+let x = obj.a; //now a property has two references, so
+delete obj.a; // will make a property unavailable from the obj, 
+// but it may not be garbage collected, as it is still referenced by the x variable
+
+let obj = {
+    a: {
+        x: {val: 3},
+        y: {val: 4}
+    }
+}
+obj.a.x[ref] = obj.a.y;
+obj.a.y[ref] = obj.a.x;
+delete obj.a
+// now a is unreachable from anywhere, as the only reference was deleted,
+// but it may not be garbage collected, as there is a cycle reference
+// This would cause a memory leak if this algorithm is applied
+
+</pre>        
+        `
+    },
+
+    {
+        elementType: 'Paragraph',
+        content: `
+        <strong>Mark-and-sweep</strong>: a property may be garbage collected if it is not reachable from the 
+        global object in any way. This approach is used since 2012, and prevents memory leaks.
+        `
+    },
+
     
     {
         elementType: 'ConditionalArray',
@@ -81,6 +142,35 @@ let z = (a = 3, b = 4, c = 6); // z is 6, a is 3, b is 4, c is 6;
                 Usage: 'expr1, expr2',
                 Description: `
                 Evaluates each of the given expressions, and returns the last in the chain. May be chained.                `
+            },
+
+
+
+
+
+            {
+                [Symbol('title')]:'delete',
+                [Symbol('code')]:`
+                Object property cannot be deleted if: 
+                <ul>
+                    <li>it is not an own object property (for example it belongs somewhere to a prototype chain)</li>
+                    <li>is created with a var, let or const keyword (these properties are non-configurable)</li>
+                    <li>is a non-configurable property set in objects descriptor</li>
+                    <li>is an array element. In this case a value of the array index will be set to <i>empty</i>
+                    and will not be removed with the delete operator</li>
+                </ul>
+<pre>
+
+</pre>                    
+                `,
+                Operator: '<code>delete</code>',
+                Name: `delete`,
+                Usage: 'delete obj.prop',
+                Description: `
+                Removes a property from an object if this property is allowed to be removed. 
+                Does not free alocated memory. Returns <code>true</code> if the operation was successfull,
+                and false in other cases. If in strict mode, if operation is nusuccessfull will throw an error.
+                `
             },
 
 
