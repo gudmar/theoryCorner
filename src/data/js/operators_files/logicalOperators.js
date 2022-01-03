@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 
 let logicalOperatorsData = [
     {
@@ -8,7 +8,7 @@ let logicalOperatorsData = [
     {
         elementType: 'Paragraph',
         content: `
-           Expressions being operands of the logical operators evaluate from the left to the right, but only if the first
+           The expressions being operands of the logical operators evaluate from the left to the right, but only if the first
            opearand does not determine the result. In case the first operand determines the result, it is returned, and 
            the second one is not evaluated, meaning, that side effects related to evaluation of the second operand will not 
            take place.
@@ -35,7 +35,7 @@ let logicalOperatorsData = [
     {
         elementType: 'NoteWarning',
         content: `
-        <code>new Boolean(false)</code> evaluates to <strong>true</code>, as it is a non empty object, not a 
+        <code>new Boolean(false)</code> evaluates to <strong>true</code>, as it is an object, not a 
         primitive
         `
     },
@@ -196,6 +196,11 @@ console.log(a); // 2; as left operand was null, and right had to be evaluated;
                 </ul>
                 `
             },
+
+
+
+
+
     
 
     
