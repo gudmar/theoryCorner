@@ -157,6 +157,45 @@ console.log(a); // 4; now f was executed
                 </ul>
                 `
             },
+
+
+            {
+                [Symbol('title')]:'??',
+                [Symbol('code')]:`
+                <ul>
+                <li><code>(ex1 === (null || undefined)) ?? (ex2)</code>: ex2</li>
+                <li><code>(ex1 !== (null || undefined)) ?? (ex2 === (null || undefined))</code>: ex1</li>
+                <ul>
+<pre>
+'text1' ?? null; // 'text1'
+undefined ?? 'text1'; // 'text1'
+
+null ?? undefined; // undefined;
+undefined ?? null; // null;
+
+false ?? null; // false;
+'' ?? 'text'; // 'text';
+let a = 1;
+let f = ()=> {a += 1};
+true ?? f(); // true;
+console.log(a); // 1, as f was not evaluated, because left side operand 
+// already determined the result;
+null ?? f(); // undefined, as f() returns nothing;
+console.log(a); // 2; as left operand was null, and right had to be evaluated;
+
+</pre>                    
+                `,
+                Operator: '<code>??</code>',
+                Name: `Logical nullish coalescing`,
+                Usage: 'expression1 ?? expression2',
+                Description: `
+                <ul>
+                <li>If the left expression evaluates to something other than null or undefined, returns the 
+                result of the first expression</li>
+                <li>If left expression evaluates to null or undefined, returns the result of the second expression</li>
+                </ul>
+                `
+            },
     
 
     
