@@ -232,6 +232,61 @@ delete f; // true
 
 
 
+
+            {
+                [Symbol('title')]:'typeof',
+                [Symbol('code')]:`
+                <table class="table">
+                    <thead><tr><th>Type</th><th>Result</th></tr></thead>
+                    <tbody>
+                        <tr><td>Undefined</td><td>"undefined"</td></tr>
+                        <tr><td>Null</td><td>"object"</td></tr>
+                        <tr><td>Boolean</td><td>"boolean"</td></tr>
+                        <tr><td>Number</td><td>"number"</td></tr>
+                        <tr><td>BigInt</td><td>"bigint"</td></tr>
+                        <tr><td>String</td><td>"string"</td></tr>
+                        <tr><td>Symbol</td><td>"symbol"</td></tr>
+                        <tr><td>Function</td><td>"function"</td></tr>
+                        <tr><td>Others</td><td>"object"</td></tr>
+                    </tbody>
+                </table>
+                Exceptions:
+                <ul>
+                    <li><code>typeof document.all</code> is "undefined"</li>
+                    <li><code>typeof null</code> is "object"</li>
+                </ul>
+<pre>
+let a = new Boolean(false);
+typeof a; // "object", the same with new Number() ...
+
+typeof 3; // "number"
+
+let date = Date.now();
+typeof date; // number
+let date2 = new Date;
+date2.now;
+typeof date2; // object
+
+function() {
+    typeof a; // ReferenceError
+    // a is in TDZ - temporal dead zone
+    // not declared with a var keyword, not hoisted
+    let a = 3;
+}
+
+typeof /s/; // should be 'object' but in some browsers may be 'function'
+
+</pre>                    
+                `,
+                Operator: '<code>typeof</code>',
+                Name: `typeof`,
+                Usage: 'typeof someProp',
+                Description: `
+                Returns a string indicating a type of the object
+                `
+            },
+
+
     
     
         ]
