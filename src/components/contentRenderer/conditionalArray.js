@@ -100,7 +100,6 @@ function NotATableEntry(props){
 }
 
 function isRowHoverable(props){
-    console.log(symbolFromKey(props, 'code'))
     return symbolFromKey(props, 'code') == undefined ? false : true;
 }
 
@@ -154,7 +153,6 @@ function ConditionalArray(props){
     function onResize(e){
         
         let windowSize = window.innerWidth;
-        console.log(evaluateWindowSize(windowSize));
         setCurrentWidth(evaluateWindowSize(windowSize));
     }
 

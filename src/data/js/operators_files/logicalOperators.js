@@ -72,9 +72,9 @@ let logicalOperatorsData = [
     !a === false; // a is an object
 </pre>                    
                 `,
-                Operator: '<code>|</code>',
+                Operator: '<code>!</code>',
                 Name: `Logical NOT`,
-                Usage: '~expression',
+                Usage: '!expression',
                 Description: `
                 <ul>
                 <li>If expression is true, returns false</li>

@@ -204,7 +204,7 @@ d **= Infinity; // Infinity;
 </pre>                                   
                 `,
                 Operator: '<code>**=</code>',
-                Name: `Exponention assignment`,
+                Name: `Exponential assignment`,
                 Usage: 'a **= f()',
                 Description: `
                 <code>a = a ** f()</code> 
@@ -241,7 +241,7 @@ n << m is n ** (2*m)
 </pre>                                   
                 `,
                 Operator: '<code><<=</code>',
-                Name: `Right shift assignment`,
+                Name: `Left shift assignment`,
                 Usage: 'a <<= f()',
                 Description: `
                 <code>a = a <<= f()</code> 
@@ -278,7 +278,7 @@ n >> m is floor(n ** (0.5 * m));
 </pre>                                   
                 `,
                 Operator: '<code>>>=</code>',
-                Name: `Left shift assignment`,
+                Name: `Sign propagating right shift assignment`,
                 Usage: 'a >>= f()',
                 Description: `
                 <code>a = a >>= f()</code> 
@@ -303,7 +303,7 @@ negative >>>= 1; // 2147483598
 </pre>                                   
                 `,
                 Operator: '<code>>>>=</code>',
-                Name: `Unsigned right shift assignment`,
+                Name: `Zero-fill right shift assignment`,
                 Usage: 'a >>>= f()',
                 Description: `
                 <code>a = a >>>= f()</code> 
