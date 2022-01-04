@@ -93,10 +93,10 @@ let bitwiseOperatorsData =     [
 
 </pre>                            
                 `,
-                Operator: '<code>|</code>',
-                Name: `Bitwise OR`,
-                Usage: 'a | b',
-                Description: 'Performs a logical OR operation for each bit position of operands'
+                Operator: '<code>&</code>',
+                Name: `Bitwise AND`,
+                Usage: 'a & b',
+                Description: 'Performs a logical AND operation for each bit position of operands'
             },
 
             {
