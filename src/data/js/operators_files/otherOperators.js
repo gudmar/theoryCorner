@@ -287,6 +287,79 @@ typeof /s/; // should be 'object' but in some browsers may be 'function'
             },
 
 
+
+
+            {
+                [Symbol('title')]:'void',
+                [Symbol('code')]:`
+                Brackets should be used to mark correct precedence of the void expression:
+                <code>let a = void (expression)</code>
+
+<pre>
+void function iife(){}()
+// without void there would be a syntax error, 
+// other method to call this is 
+(function iife(){})()
+
+&lt;a href="javascript:void(0);">Clicking does nothing&lt;/a>
+&lt;a href="javascript:void(document.body.style.color='blue');">change background&lt;/a>
+
+button.onclick = () => void someArray.pop();
+// normally this expression would return a removed element, 
+// in this case returns undefined
+
+let a = void 5 + 5; // a is nudefined
+let b = void 5**3; // SyntaxError, 
+let b = void (3**5); // b is undefined
+
+</pre>                    
+                `,
+                Operator: '<code>void</code>',
+                Name: `void`,
+                Usage: 'void expression',
+                Description: `
+                Evaluates the expression and returns undefined
+                `
+            },
+
+
+
+
+            {
+                [Symbol('title')]:'in',
+                [Symbol('code')]:`
+                
+
+<pre>
+let arr = [1,2,3,4];
+8 in arr; // false;
+3 in arr; // true;
+'length' in arr; // true;
+Symbol.iterator in arr; // true;
+
+let obj = {a: 2, b: 3, c: 4}
+for (let key of obj) { console.log(key)};
+// a, b, c
+
+function SomeObj(){this.a = 3}
+SomeObj.prototype.b = 4;
+SomeObj.constructor = SomeObj;
+let instance = new SomeObj();
+for (let key in instance) {console.log(key)}
+// a, b
+
+</pre>                    
+                `,
+                Operator: '<code>in</code>',
+                Name: `in`,
+                Usage: 'prop in obj',
+                Description: `
+                Returns true if the property is in the specified object or its prototype chain or if <code>index in arr</code>
+                index is in the arr.
+                `
+            },
+
+
     
     
         ]
