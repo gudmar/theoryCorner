@@ -426,6 +426,87 @@ cir.__prototype__ = Number.prototype;
             },
 
 
+
+            {
+                [Symbol('title')]:'Grouping operator (...)',
+                [Symbol('code')]:`
+<pre>
+2 * 3 + 4 = 10;
+2 * (3 + 4) = 14;
+
+let o = {a:2, b:4};
+{a, b} = o; // SyntaxError
+
+let o = {a:2, b:4};
+({a, b} = o); // now it works
+
+function ifee(){}(); // SyntaxError
+(function ifee(){})(); // now it works
+
+let a = 0; let b = 0;
+let c = a+=1 + b+=1;
+// SyntaxError
+
+let a = 0; let b = 0;
+let c = (a+=1) + (b+=1);
+// now it works
+//a is 1, b is 1, c is 2;
+
+let a = 0;
+a++++; // SyntaxError
+(a++)++; // now works, but this is a bad code anyway
+
+</pre>                    
+                `,
+                Operator: '<code>(...)</code>',
+                Name: `Grouping operator`,
+                Usage: 'a * (b + c)',
+                Description: `
+                This operator controls the precedence of evaluation in expressions. May be used to change an non
+                expression to an expression (like in the ifee call or with the object descructive operaotrs)
+                `
+            },
+
+
+
+
+
+            {
+                [Symbol('title')]:'new',
+                [Symbol('code')]:`
+<pre>
+let b = new Boolean(false); // Should not be used, primitives should not be constructed
+// with the new operator, as they are not primitives anymore
+
+function Car(make, model){
+    this.make = make;
+    this.model = model;
+}
+
+let myCar = new Car('Subaru', 'Legacy')
+myCar instanceof Car; // true;
+
+</pre>                    
+                `,
+                Operator: '<code>new</code>',
+                Name: `new`,
+                Usage: 'new ConstructorFunction(..)',
+                Description: `
+                Creates a new instance of an object described by the constructor function that is delivered as an 
+                operand. This operator:
+                <ul>
+                <li>Creates a new JS object</li>
+                <li>Adds a property that will link newly created object to the prototype of the constructor function,
+                that property is often named <code>__proto__</code></li>
+                <li>Binds newly created object to the <code>this</code> property in the creator function</li>
+                <li>Retruns <code>this</code> if the creator function does not return anything</li>
+                <li>If the constructor function returnes something this returned object becomes the newly created
+                object instead</li>
+                </ul>
+                `
+            },
+
+
     
     
         ]
