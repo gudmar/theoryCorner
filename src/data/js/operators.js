@@ -228,6 +228,12 @@ let data =     {
                     href: 'https://blog.logrocket.com/interesting-use-cases-for-javascript-bitwise-operators/',
                     description:'Use cases of bitwise operations'
                 },
+                {
+                    elementType:'Link',
+                    content:'ebhor.com',
+                    href: 'https://www.ebhor.com/operator-precedence-and-associativity-in-javascript/',
+                    description:'Precedences source'
+                },
 
 
             ]
