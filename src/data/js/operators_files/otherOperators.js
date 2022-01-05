@@ -468,6 +468,45 @@ a++++; // SyntaxError
             },
 
 
+
+
+
+            {
+                [Symbol('title')]:'new',
+                [Symbol('code')]:`
+<pre>
+let b = new Boolean(false); // Should not be used, primitives should not be constructed
+// with the new operator, as they are not primitives anymore
+
+function Car(make, model){
+    this.make = make;
+    this.model = model;
+}
+
+let myCar = new Car('Subaru', 'Legacy')
+myCar instanceof Car; // true;
+
+</pre>                    
+                `,
+                Operator: '<code>new</code>',
+                Name: `new`,
+                Usage: 'new ConstructorFunction(..)',
+                Description: `
+                Creates a new instance of an object described by the constructor function that is delivered as an 
+                operand. This operator:
+                <ul>
+                <li>Creates a new JS object</li>
+                <li>Adds a property that will link newly created object to the prototype of the constructor function,
+                that property is often named <code>__proto__</code></li>
+                <li>Binds newly created object to the <code>this</code> property in the creator function</li>
+                <li>Retruns <code>this</code> if the creator function does not return anything</li>
+                <li>If the constructor function returnes something this returned object becomes the newly created
+                object instead</li>
+                </ul>
+                `
+            },
+
+
     
     
         ]
