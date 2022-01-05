@@ -426,6 +426,48 @@ cir.__prototype__ = Number.prototype;
             },
 
 
+
+            {
+                [Symbol('title')]:'Grouping operator (...)',
+                [Symbol('code')]:`
+<pre>
+2 * 3 + 4 = 10;
+2 * (3 + 4) = 14;
+
+let o = {a:2, b:4};
+{a, b} = o; // SyntaxError
+
+let o = {a:2, b:4};
+({a, b} = o); // now it works
+
+function ifee(){}(); // SyntaxError
+(function ifee(){})(); // now it works
+
+let a = 0; let b = 0;
+let c = a+=1 + b+=1;
+// SyntaxError
+
+let a = 0; let b = 0;
+let c = (a+=1) + (b+=1);
+// now it works
+//a is 1, b is 1, c is 2;
+
+let a = 0;
+a++++; // SyntaxError
+(a++)++; // now works, but this is a bad code anyway
+
+</pre>                    
+                `,
+                Operator: '<code>(...)</code>',
+                Name: `Grouping operator`,
+                Usage: 'a * (b + c)',
+                Description: `
+                This operator controls the precedence of evaluation in expressions. May be used to change an non
+                expression to an expression (like in the ifee call or with the object descructive operaotrs)
+                `
+            },
+
+
     
     
         ]
