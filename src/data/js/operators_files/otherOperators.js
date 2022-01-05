@@ -360,6 +360,72 @@ for (let key in instance) {console.log(key)}
             },
 
 
+
+            {
+                [Symbol('title')]:'instanceof',
+                [Symbol('code')]:`
+                <ul>
+                <li>Primitives do not have a prototype, so a number 3 is not an instance of the <code>new Numbsee(3)</code></li>
+                <li>If an objects instances prototype is changed, then instanceof result may change</li>
+                </ul>
+<pre>
+let s = 'someString';
+let so = new String('someStringObject');
+s instanceof String; // false, as s is a primitive and has no constructor
+so instanceof String; // true, so is already an object having a constructor
+
+function SomeConstructor(){};
+function Child(){
+    SomeConstructor.call(this);
+}
+Child.prototype = Object.create(SomeConstructor.prototype);
+Child.prototype.constructor = Child;
+// equals to :
+// class SomeConstructor{};
+// class Child extends SomeConstructor{constructor(){super();}}
+
+let sc = new SomeConstructor();
+let c = new Child();
+sc instanceof SomeConstructor; // true;
+c instanceof SomeConstructor; // true;
+c instanceof Object; // true
+c instanceof String; // false
+
+class Shape{}
+
+class Circle extends Shape{
+    constructor(){
+        super();
+    }
+}
+
+let s = new Shape();
+let cir = new Circle();
+
+cir instanceof Circle; // true
+cir instanceof Shape; // true
+cir instanceof Object; // true
+s instanceof Circle; // false
+
+Object.setPrototypeOf(cir, Object.create(String.prototype))
+
+cir instanceof Shape; // false
+cir instanceof String; // true
+
+cir.__prototype__ = Number.prototype;
+
+</pre>                    
+                `,
+                Operator: '<code>instanceof</code>',
+                Name: `instanceof`,
+                Usage: 'o instanceof SomeConstructor',
+                Description: `
+                Returns true if the prototype of the left side operand is the same as the prototype of the right side operand.
+                The left side operand has to be a type of a "function" or an error will occure.
+                `
+            },
+
+
     
     
         ]

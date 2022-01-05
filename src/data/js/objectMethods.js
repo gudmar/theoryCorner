@@ -416,7 +416,7 @@ console.log(fixed.nested.g); // 9, as nested was not made not extensible togethe
                     elementType:'Paragraph',
                     content:`
                     Returns <code>true</code> if an <code>obj</code> can have new properties added to it, and false if not.
-                    Argument of <code>Object.isSealed()</code> should <b>not</b> be a primitive value, as a 
+                    Argument of <code>Object.isExtensible()</code> should <b>not</b> be a primitive value, as a 
                     <code>TypeError</code> will be thrown.
                     `
                 },
