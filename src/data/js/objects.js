@@ -78,8 +78,10 @@ let data =     {
                     content:[
                         `<code>let keys = Object.keys(person)</code> is a way to get an Array of object keys,`,
                         `<code>for(let key in person)</code> loop,`,
-                        `<code>someObject.getOwnPropertyNames()</code>,`,
-                        `<code>someObject.getOwnPropertySymbols()</code>`,
+                        `<code>Object.getOwnPropertyNames(someObject)</code>,`,
+                        `<code>Object.getOwnPropertySymbols(someObject)</code>`,
+                        `<code>Reflect.getOwnPropertySymbols(somObject)</code>: this gets both: symbol and string
+                        keys`,
                         `There is no guarantee that keys will come up in some repetable order`,
                     ]
                 },
@@ -90,9 +92,10 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:
-                        `There is a way to hide a property from being listed with an <code>Object.keys()</code> or
-                        <code>for..in</code> loop. This can be done by setting object descriptors enumerable to
-                        false. Each object property besides its value has more attributes:`
+                        `There is a way to hide object properties from some key listing methods, and there is a way to 
+                        block object properties from being modified. There are methods like <code>Object.freeze()</code> or
+                        <code>Object.seal()</code> or <code>Object.preventExtentions()</code>, but these are described in the
+                        <a href="./object%20methods">object methods</a> section. Here an object descriptor will be covered.`
                 },
                 {
                     elementType:'UnsignedList',
@@ -172,6 +175,8 @@ function Person(firstName, familyName, age){
     this.familyName = familyName;
     this.age = age;
 }
+
+let newPerson = new Person('John', 'Doe', '45');
 </pre>                    
                     `
                 },
@@ -218,8 +223,8 @@ let instance = new Extending();
                 {
                     elementType:'Paragraph',
                     content:[
-                        `Object has some methods allowing its manipulation. To learn more please visit 
-                        <a href="./object%20methods>object methods</a> section.`
+                        `Object has some methods allowing its manipulation. To learn more please visit the 
+                        <a href="./object%20methods">object methods</a> section.`
                     ]
                 },
             ]
