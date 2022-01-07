@@ -43,7 +43,7 @@ let propertyChainingData = [
                 speaking of objects in general, it is assumed, that each object has its own type, and this type is 
                 related to this objects interface. An interface is a set of public methods and properties. So an 
                 object communicates with the outside world with its interface. Two objects are said to be equal if they have 
-                the same interface (due to "Design Patterns by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides").
+                the same interface (due to "Design Patterns" by Erich Gamma, Richard Helm, Ralph Johnson, John Vlissides).
                 JS does not recognize different types of objects, but in Type Script this imperfection is fixed.
                 In this article it will be assumed, that two objects are of the same type if they are created with the same
                 constructor. 
@@ -76,10 +76,13 @@ let propertyChainingData = [
                     `There is a single instance of the prototype for each type of objects (for all instances 
                         created with the same constructor). Thanks to this a property added to the prototype is 
                         available in all instances,`,
-                    `Each object in JS has its hidden property [[Prototype]] that references an object protytype`,
+                    `Each object in JS has its hidden property [[Prototype]] that references that object constructor 
+                    protytype`,
                     `<code>__proto__</code> (not an ECMA script solution) is a property allowing to access the objects
-                    prototype. It holds, for example a setter and getter to the prototype,`,
-                    `<code>__proto__</code> should not be used, as it is depracated. <code>Object.getPrototypeOf(o)</code>
+                    prototype. It holds, for example a setter and getter to the prototype. <code>__proto__</code> gives
+                    access to the hidden property [[Prototype]],`,
+                    `<code>__proto__</code> is available, but should not be used, as it is depracated. 
+                    <code>Object.getPrototypeOf(o)</code>
                     and <code>Object.setPrototypeOf(o)</code> should be used instead.`
                 ]
             },
@@ -91,7 +94,7 @@ let propertyChainingData = [
                 elementType:'Paragraph',
                 content:`
                 In general, a prototype is an object, that allows inheritance in JS. Each function in JS has 
-                a prototype object. Each object in JS has access to its creator prototype, so each instance of the 
+                a prototype object. Each object in JS has access to its constructor prototype, so each instance of the 
                 certain object type has access to the same prototype. Adding a method to an object's prototype 
                 makes this method accessible in each instance of this object type. Prototypes in JS are linked together,
                 forming a chain. This chain ends with the Object's prototype followed by a null. If there is a request 
@@ -129,7 +132,8 @@ let propertyChainingData = [
                     `Because the vehicles constructor is a function, it has a <code>__proto__</code> property pointing to 
                     the prototype of the function. And prototype of the function constructor points to the prototype of
                     the object, and the prototype of the object is null,`,
-                    `Vehicle's <code>__proto__</code> points to the object's prototype`,
+                    `Vehicle's <code>__proto__</code> points to the object's prototype, as Vehicle inherits by default after Object`,
+                    `Every object in JS finally has the prototype of the <code>Object</code> in its chain`,
                     `Objects prototype points to null`
                 ]
             },
@@ -227,7 +231,7 @@ peugeot206.__proto__.__proto__.__proto__.__proto__.__proto__ === null; // true;
             {
                 elementType:'UnsignedList',
                 content:[
-                    `Each object in JS has a reference to its prototype (property <code>__proto__</code> that should not
+                    `Each object in JS has a reference to its constructors prototype (property <code>__proto__</code> that should not
                         be used anymore, or <code>Object.getPrototypeOf(o)</code>)`,
                     `Each prototype has a reference to the prototype it inherits from, until the Object is reached with its 
                     prototype reference pointing to null`,
@@ -236,12 +240,73 @@ peugeot206.__proto__.__proto__.__proto__.__proto__.__proto__ === null; // true;
                     `Each constructor has a prototype property that all instances created with the construcotr will refer to,`,
                     `Each constructor has its <code>__proto__</code> pointing to the function prototype, as each constructor is 
                     a function,`,
-                    `The prototype property can be overridden,`,
+                    `The prototype property can be overridden (<code>Object.setPrototypeOf(o, pr)</code>, 
+                    or depraciated <code>o.__proto__ = pr</code>,`,
                     `New elements may be added to the existing prototype, but this is discouraged,`,
                     `Each function in JS has a direct prototype property. This is not common, as most objects have only a 
                     reference like <code>__proto__</code>`
 
                 ]
+            },
+
+            {
+                elementType:'SmallHeadline',
+                content:`
+                The same example written with classes
+                `
+            },
+
+            {
+                elementType:'Code',
+                content:`
+<pre>
+class Vehicle{
+    static whatSortOf = function(nrOfWheels){
+        if (nrOfWheels === 4) return 'Probably a car';
+        if (nrOfWheels === 2) return 'Probably a motorcycle or a bicycle';
+        if (nrOfWheels >= 8 && nrOfWheels % 2 === 0) return 'Could be a train';
+        
+        return \`I don't know\`
+    }
+
+    constructor(nrOfWheels, poweredBy){
+        this.nrOfWheels = nrOfWheels;
+        this.poweredBy = poweredBy;
+        this.constructor.prototype.examples = ['bicycle', 'motorcycle', 'car', 'train'];
+        this.constructor.prototype.giveExamples = function(){
+            console.log(this.examples)
+        }.bind(this);
+    }
+}
+
+class CombustionEngineVehicle extends Vehicle{
+    constructor(nrOfWheels){
+        super(nrOfWheels, 'combustion engine');
+        this.constructor.prototype.examples = ['car', 'motorcycle'];
+    }
+    
+}
+
+class Car extends CombustionEngineVehicle{
+    constructor(make, model, year){
+        super(4);
+        this.make = make;
+        this.model = model;
+        this.year = year;
+        this.constructor.prototype.examples = ['subaru impreza', 'maserati biturbo', 'ford mustang'];
+        this.constructor.prototype.introduction = function(){
+            console.log(\`I am \${this.make} \${this.model} from \${this.year}\`);
+        }.bind(this);
+    }
+}
+
+
+let subaruLegacy = new Car('subaru', 'legacy', '2005');
+// subaruLegacy.examples = ['2.0 H4 SOHC', '2.0 H4 DOHC', '2.5 H4 DOHC Turbo', '3.0 H6']
+let peugeot206 = new Car('peugeot', '206', '2004');
+peugeot206.examples = ['2.0 HDI', '2.0GTI', '1.1 SOHC'];
+</pre>                
+                `
             },
 
 
