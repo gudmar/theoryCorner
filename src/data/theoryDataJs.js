@@ -14,6 +14,9 @@ import getBitWiseData from './js/bitWiseUseCases';
 import getNumberRepresentationData from './js/numberRepresentation';
 // import getDestructionAssignmentData from './js/descructiveAssignments';
 import getDestructionAssignmentData2 from './js/destructiveAssignments_2';
+import getIteratorsGeneratorsData from './js/iteratorsGenerators';
+
+
 let theoryDataJs = [
 
     {
@@ -146,6 +149,7 @@ let theoryDataJs = [
     getNumberRepresentationData(),
     // getDestructionAssignmentData(),
     getDestructionAssignmentData2(),
+    getIteratorsGeneratorsData(),
 ]
 
 export function getTheoryDataJs(){
