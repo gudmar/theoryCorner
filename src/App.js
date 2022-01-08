@@ -52,9 +52,16 @@ function App(props) {
 
   return ( 
     <div className="container-fluid">
+      <nav className="navbar, navbar-expand-sm bg-danger navbar-danger text-center text-white sticky-top p-1">
+        This page is still under developement.
+      </nav>
       <div className="row">
         <div className="col-sm-12">
-          <div className="text-center">Here navigation will be placed</div>
+          <div className="container-fluid mb-3">
+            <div className="text-center">
+            <h1 className="display-1">Theory corner: web bulding</h1>
+            </div>
+          </div>
           <Link to="../quiz">
             <button type="button" className="btn btn-primary">Quiz</button>
           </Link>

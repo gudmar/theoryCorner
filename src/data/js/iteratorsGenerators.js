@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'Iterators and generators',
     title: 'Iterators and generators',
@@ -30,13 +30,13 @@ let data =     {
                     elementType:'Paragraph',
                     content:
                     `
-                    An iterator is a object, that:
+                    An iterator is an object, that:
                     `    
                 },
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `has a <code>next</code> property, thats value is a function`,
+                        `has a <code>next</code> property, that's value is a function`,
                         `<code>next(singleArg)</code> takes no arguments, or a single argument, 
                         and returns an object with properties <code>done</code>
                         and <code>value</code>`,
@@ -136,11 +136,33 @@ console.log(it.next(2)); // {value: 3, done: false}
 // this works only thanks to the startValue definition
 console.log(it.next(20)); // {done:true}
 console.log([...it]); // [], as iterator was already used in
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-// But with primary numbers example this works
-// the for loop
+// The second console.log(([...it]) would not be empty if the function
+under [Symbol.iterator] was wrapped in additional function) like below:
+
+let iterableWrapped = {
+    current: 0,
+    iterator: function() {
+        let current = 0;
+        return {
+            next: function(startFrom){
+            if(startFrom) current = startFrom;
+            current += 1;
+            let isDone = current>5?true:false
+            if(isDone) {
+                return {done: isDone}
+            }
+            return {
+                value: current,
+                done: isDone
+            }
+        }
+    }
+    },
+    [Symbol.iterator]: function(){
+        return this.iterator()
+    }
+}
+
 </pre>                    
                     `
                 },
@@ -245,7 +267,7 @@ console.log(primaryIterable[Symbol.iterator]().next(300));
                     elementType:'Paragraph',
                     content:`
                     An iterable may be created with the class syntax. <code>[Symbol.iterator]</code> property is
-                    inherited, so a class extending a iterable class is also iterable
+                    inherited, so a class extending an iterable class is also iterable
                     `
                 },
                 {
@@ -298,16 +320,16 @@ console.log([...extendedIterInstance]);
                     elementType:'UnsignedList',
                     content:[
                     `A generator is a function is marked with a <code>*</code>. For example: <code>function* f()</code>`,    
-                    `A generator is a function, but its prototype.name is Generator, so inherits after a function.`,
-                    `A generator is not the constructor, so cannot be used with the <code>new</code> operator`,
+                    `A generator is a function, but its prototype.name is Generator, so inherits a function prototype.`,
+                    `A generator is not the constructor, so cannot be used by the <code>new</code> operator`,
                     `A generators body is not executed instantly. When it encounters a <code>yield</code> operator,
                     it returns the right hand value and pauses,`,
                     `In case a return statement is encountered, the generator is finalized, the right hand value of the 
-                    return is returneda and the generator will not produce any new values,`,
-                    `A generator returnes an iterable and iterator at the same time, so the next method may be called 
+                    return is returned and the generator will not produce any new values,`,
+                    `A generator returns an iterable and iterator at the same time, so the next method may be called 
                     and the <code>for..of</code> statement may be used,`,
                     `<code>function* generator([par[, par...]])</code>, parameters may be passed to a generator 
-                    in case to parametrize returned iterator/iterable`
+                    in purpose to parameterize returned iterator/iterable`
                 ]
                     
                 },
@@ -524,6 +546,12 @@ console.log([...primGenClass]); // primary numbers from 311 to 967
                     content:'Developer mozilla',
                     href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Iteration_protocols#the_iterator_protocol',
                     description:'Tutorial'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/function*',
+                    description:'A generator function'
                 },
             ]
         }
