@@ -617,6 +617,5 @@ with (a){
 })();
 
 export default function getDataTypes(){
-    console.error('!!! Finish reading about well-konwn-symbols, what they are, and about Symbol.keyFor')
     return data;
 }
