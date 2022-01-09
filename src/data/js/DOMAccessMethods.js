@@ -82,6 +82,38 @@ let data =     {
                     `<code>someElement.removeElement()</code>: removes element.`
                     ]
                 },
+
+                {
+                    elementType:'Headline-2',
+                    content:'Classes'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`<code>class</code> is a html attribute, that may be added to any web page element.
+                    It holds a list of classes, that may be used as css selectors and used for styling purposes.
+                    There is a comfortable api for accessing and modyfing a class list: <code>classList</code>`
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                    `
+                    <code>element.classList</code>: a read only DOMTokenList, a list of classes attached to the element,
+                    `,
+                    `<code>element.classList.add(someClass)</code>: adds a new element to element class list, if the
+                    someClass already exists, then does nothing,`,
+                    `<code>element.classList.remove(someClass)</code>: removes the someClass from elements class list. If
+                    class is not present, then does nothing,`,
+                    `<code>element.classList.toggle(someClass[, force])</code>: In case force flag is not defined,
+                    adds someClass in case the class is not present in the class list, or removes the class if it 
+                    was present in class list. In case force is set to true, then adds class to the element if it is 
+                    not present and does not remove it in case it is present, in case force is set to false, removes 
+                    the element in case it is present, but does nothing if element is already absent`,
+                    `<code>element.classList.item(index)</code> returns the class under the target index`,
+                    `<code>element.classList.contains(someClass)</code> returns true if element has target class, and 
+                    false in other case.`
+                    ]
+                },
+
                 {
                     elementType:'Headline-2',
                     content:'Node - abstract class'
