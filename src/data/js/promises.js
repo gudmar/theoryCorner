@@ -383,8 +383,62 @@ executor is a function taking the resolve(someValue), and reject(reason) functio
                 },
 
 
-                
 
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Method','Arguments', 'Returns', 'Description'
+                    ],
+                    content: [
+                        {
+                            [Symbol('title')]:'then',
+                            [Symbol('code')]:`
+                         <ul>
+                            <li>The callback functions have to returns something, especially in the promise chain. If a funcition
+                            returns nothing it returns <code>undefined</code>, so in case of chaining and function not returning 
+                            the promise, <code>undefined</code> is returned, and the next <code>then</code> onFulfilled is ]
+                            executed</li>
+                         </ul>
+            <pre>
+function fulfill(){
+    return new Promise((resolve)=>{
+        console.log('fulfilled');
+        resolve();
+    })
+}
+function reject(){
+    return new Promise((reject) => {
+        console.log('falied');
+        reject();
+    })
+}
+fullfill()
+    .then(fulfill(),reject()) // fullfill executed, as previous promise was fulfilled
+    .then(reject(), fulfill()) // now reject is executed, as the previous promise was 
+    //successful, the first callback has to be execured
+            </pre>                    
+                            `,
+                            Method: '<code>Promise.prototype.then(onFulfilled[, onRejected])</code>',
+                            Arguments: `
+                                <ul>
+                                    <li><code>onFulfilled(value)</code>: callback function to be run if the promise succeeded</li>
+                                    <li><code>onRejected(reason)</code>: callback function to be run if the promise failed</li>
+                                </ul>
+                            `,
+                            Returns: `
+                            Returns the value that the launched callback passed as an argument returns. In particular if 
+                            the funcion does not return a thing, the undefined is returned, if the function returns a pending 
+                            promise, then the pending promise is returned
+                            `,
+                            Description: `
+                             The function runs a <code>onFulfilled</code> or <code>onRejected</code> callback, depending on the 
+                             outcome of the preceding promise. The returned value is the outcome of the executed callback.
+                            `
+                        },
+                    ]
+                },
+                
 
 
 
