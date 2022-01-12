@@ -1,4 +1,4 @@
-// 
+// spelling and content check in progress
 
 
 let data =     {
@@ -25,10 +25,10 @@ let data =     {
                  downloaded from the server, the whole page and the browser should not be blocked by the fact that 
                  the application is waiting for the data, especially, that it is not guaranteed that data will be 
                  delivered at all. That is why asynchronous
-                 functions are useful. Such a function runs in the same thread the rest of code does (as JS
+                 functions are useful. Such a function runs in the same thread the rest of the code does (as JS
                 is mainly a single thread language, one exception is for the web workers) and returns a promise 
                 immediately, but the promise is in pending state. After it is known that the promise will be resolved
-                or rejected, the promise state is changed to settled: fulfilled or rejected.
+                or rejected, the promise state is changed to settled: resolved or rejected.
                     `
                 },
                 {
@@ -38,13 +38,21 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                    The promise is an object, that may be returned instatnly, when some assignment with a asynchronous
-                    value takes place. However this object holds no value at the time it is returned. Instead it is in
-                    <strong>pending</strong> state. Finally it will change its state to <strong>fulfilled</strong>
-                    or <strong>rejected</strong>. Meanwhile the whole application code is not blocked, so user may scroll, interact
+                    The promise is an object, that may be returned instantly, when some assignment with an asynchronous
+                    value takes place. However, this object holds no value at the time it is returned. Instead, it is in
+                    <strong>pending</strong> state. Finally, it will <strong>settle</strong> 
+                    changing its state to <strong>fulfilled</strong>
+                    or <strong>rejected</strong>. Meanwhile the whole application code is not blocked, so the user may scroll, interact
                     with the page until the promise is finalized. A promise may depend on other asynchronous functions,
-                    so it may not be <strong>settled</code> untill other promises are finalized. In this case there is a promise
+                    so it may not be <strong>settled</code> until other promises are finalized. In this case there is a promise
                     chain.
+                    `
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    When an asynchronus function is run, and its promises are in the pending state, 
+                    the non asynchronus functions are not blocked and will execute.
                     `
                 },
                 {
@@ -55,12 +63,17 @@ let data =     {
                     elementType: 'UnsignedList',
                     content: [
                         'Asynchronous functions cannot be constructors',
-                        `Async functions always return a promise. Even if someone tries to return a concrete value,
+                        `Asynchronous functions always return a promise. Even if someone attempts to return a concrete value,
                         or there is no return statement, always a promise is returned`,
-                        `The <code>await</code> keyword may be used to pause the function untill some promise is resolved,
+                        `The <code>await</code> keyword may be used to pause the function until some promise is resolved,
                         and the concrete value is returned, or the promise is rejected,`,
-                        'The <code>await</code> keyword may be used only in the async function,',
-                        `Async functions may be run in paralel, sequence,`
+                        'The <code>await</code> keyword may be used only in the asynchronous function,',
+                        `Asynchronous functions may be run in parallel, sequence,`,
+                        `In case in an <code>async</code> function nothing is returned, the function will return a
+                        pending promise, that will resolve with undefined. In case there is a value returned in the 
+                        <code>async function</code>, the function will return a promise resolving to that value. In case
+                        there is a promise returned by a <code>async function</code>, this promise will be returned by
+                        the function.`
                     ]
                 },
 
@@ -72,7 +85,7 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                       Lets define a simple class for time measurements
+                       Let's define a simple class for time measurements
                     `
                 },
                 {
@@ -193,8 +206,15 @@ async function sequentialStartRace(){
     let f2 = await resolve150(' [started] ', ' [ended] ', ' [resolved] ')
     console.log(timer.getCurrentTime());
     timer.stopTimer();
+    return f2;
+    return 'someValue'; // in this case the promise, that after awaiting f2 
+    // would resolve to f2;
 }
-sequentialStartRace();
+(async function wrapSequentialStart(){
+    let outcome = await sequentialStartRace();
+    console.log(outcome); // the resolved outcome of f2
+})();
+
 </pre>                       
                     `
                 },
@@ -209,6 +229,8 @@ sequentialStartRace();
                        `The time is logged after 250 from the function start,`
                     ]
                 },
+
+//                // SPELL and content CHECKED, CORRECT!  untill this point 
 
                 {
                     elementType:'Paragraph',
@@ -372,7 +394,8 @@ executor is a function taking the resolve(someValue), and reject(reason) functio
                         this function may be named in any way`,
                         `<code>reject(reason);</code>: a callback that will be called in case promise is not resolved and
                         is rejected, this function does not have to be named in this way`,
-                        `If the executor throws an error, then the promise is called to be undefined,`
+                        `If the executor throws an error, then the function that awaits this promise will not be interrupted, and
+                        will not execute till the end. That is why it is important to handle errors.`
 
                     ]
                 },
@@ -395,44 +418,90 @@ executor is a function taking the resolve(someValue), and reject(reason) functio
                             [Symbol('title')]:'then',
                             [Symbol('code')]:`
                          <ul>
-                            <li>The callback functions have to returns something, especially in the promise chain. If a funcition
-                            returns nothing it returns <code>undefined</code>, so in case of chaining and function not returning 
-                            the promise, <code>undefined</code> is returned, and the next <code>then</code> onFulfilled is ]
-                            executed</li>
+                            <li>It is important to remember, that a function that has no return, returns undefined, so in case
+                            callbacks do not return a promise, that would take time to resolve, it is imediately resolved with the 
+                            <code>undefined</code> value, causing the next <code>then</code> in chain to be launched imediatley</li>
                          </ul>
+                         <b>Execution order: in case of resolving, first callback is executed,
+in case of rejection of the preceding function, the second callback will be executed,</b>
+
             <pre>
-function fulfill(){
-    return new Promise((resolve)=>{
-        console.log('fulfilled');
-        resolve();
-    })
-}
-function reject(){
-    return new Promise((reject) => {
-        console.log('falied');
-        reject();
-    })
-}
-fullfill()
-    .then(fulfill(),reject()) // fullfill executed, as previous promise was fulfilled
-    .then(reject(), fulfill()) // now reject is executed, as the previous promise was 
-    //successful, the first callback has to be execured
+(async function executionOrder(){
+    let pOK = () => { return new Promise((resolve)=>{resolve('Resolved')}) };
+    let pNOK = () => { return new Promise((reject)=>{reject('Rejected')}) };
+
+    let resolved = pOK().then(pOK, pNOK); // resolved, as pOK is the first arg
+    let rejected = pOK().then(pNOK, pOK); // rejected, as pNOK is the first arg
+})()
+</pre>
+<b>when with values instead of functions</b>
+<pre>
+(async function valuesInsteadOfFunctions(){
+    let pOK = () => { return new Promise((resolve)=>{resolve('Resolved')}) };
+    let pNOK = () => { return new Promise((reject)=>{reject('Rejected')}) };
+
+    let resolved = pOK().then('val1', 'val2'); // 
+    //will return a promise resolving to 'Resolved', as pOK returns such a promise
+    // 'val1' is not a function so will be replaced with and identity function
+    console.log(resolved)
+    let rejected = pNOK().then('val1', 'val2'); // 
+    console.log(rejected)
+    //will return a promise that result will fulfill to 'Rejected', as pNOK 
+    // fulfills to this value
+})()
+</pre>
+<b>Can resolve after rejection</b>
+<pre>
+(async function canResolveAfterRejection(){
+
+    let pOK = () => { 
+        console.log('%cresolved', 'color:green')
+        return new Promise((resolve)=>{resolve('Resolved')}) 
+    };
+    let pNOK = () => { 
+        console.log('%crejected', 'color:red')
+        return new Promise((reject)=>{reject('Rejected')}) 
+    };
+
+    canResolve = pOK().then(pOK,pNOK).then(pNOK,pOK).then(pOK, pNOK)
+    newLogRow(SECTION_7);
+    console.log(canResolve);
+})();
+// resolved | resolved | rejected | resolved | and the outcome is 'Resolved'
+// YES, then may be resolved event if previous outcomes were rejected.
+
+
+
+
+
+
+
+
+
             </pre>                    
                             `,
-                            Method: '<code>Promise.prototype.then(onFulfilled[, onRejected])</code>',
+                            Method: '<code>Promise.prototype.then(onResolved[, onRejected])</code>',
                             Arguments: `
                                 <ul>
-                                    <li><code>onFulfilled(value)</code>: callback function to be run if the promise succeeded</li>
+                                    <li><code>onResolved(value)</code>: callback function to be run if the promise succeeded</li>
                                     <li><code>onRejected(reason)</code>: callback function to be run if the promise failed</li>
+                                    <li>If <code>onResolved</code> function is replaced with a value,
+                                    then this value is replaced with an <i>identity</i> function, returning
+                                    the value that the promise that <code>then</code> was attached to resolved to</li>
+                                    <li>If <code>onRejected</code> function is replaced with a value,
+                                    then this value is replaced with an <i>thrower</i> function, throwing an error it
+                                    received as an argument</li>
+                                    
                                 </ul>
                             `,
                             Returns: `
-                            Returns the value that the launched callback passed as an argument returns. In particular if 
-                            the funcion does not return a thing, the undefined is returned, if the function returns a pending 
-                            promise, then the pending promise is returned
+                            Returns a <b>promise</b> resolving to the value that the <code>onResolved</code>, 
+                            or to the <code>onReject</code> callback returns
+                             In particular if 
+                            the funcion does not return a thing, the promise resolving to undefined is returned.
                             `,
                             Description: `
-                             The function runs a <code>onFulfilled</code> or <code>onRejected</code> callback, depending on the 
+                             The function runs a <code>onResolved</code> or <code>onRejected</code> callback, depending on the 
                              outcome of the preceding promise. The returned value is the outcome of the executed callback.
                             `
                         },
@@ -484,5 +553,7 @@ fullfill()
 };
 
 export default function getPromiseData(){
+    console.error(`fulfilled is the promise state. State may be fulfilled or pending, where is RESULT is rejected or 
+    resolved, no fulfilled result!!`)
     return data;
 }
