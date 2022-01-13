@@ -355,7 +355,7 @@ promiseRaceRace();
                        `(2) will be logged after 150ms from the functions start, promise race will already be 
                        resolved by this time, so this will have no effect, but despite this, all promises given
                        to the promise.race function are evaluated,`,
-                       `(3) will be logged after the first of promisses finishes execution, so after 100ms
+                       `(3) will be logged after the first of promises finishes execution, so after 100ms
                         from the function start`,
                     ]
                 },
@@ -431,7 +431,7 @@ executor is a function taking the resolve(someValue), and reject(reason) functio
                 },
                 {
                     elementType:'Paragraph',
-                    content:`The promisses may be chained thanks to the <code>then</code>, <code>catch</code> and <code>finally</code>
+                    content:`The promises may be chained thanks to the <code>then</code>, <code>catch</code> and <code>finally</code>
                     methods. Each of those methods returns a promise, so even <code>finally</code> does not have to be at the 
                     end of the promisse chain. The important thing is, that if the last chain link rejects, or throws an error, 
                     there will be an uncaught error. Please examine promise methods for more details.`
@@ -766,30 +766,133 @@ in case of rejection of the preceding function, the second callback will be exec
                              <code>finally</code> will not prevent an error.
                             `
                         },
-                        // Spelling of array checked so far
-                    ]
-                },
-                
+                        
 
 
 
-            ]
-        },
-        {
-            elementType:'Article',
-            content:[
+
+                        {
+                            [Symbol('title')]:'allSettled',
+                            [Symbol('code')]:`
+    <b>An error thrown by one of promise callbacks</b> rejection
+            <pre>
+(async function allSettled(){
+    let pOK = function(val){ return function() {console.log('Resolved'+val);return Promise.resolve(val)}}
+    let pNOK = function(val){ return function(){console.log('Rejected'+val);return Promise.reject(val)}}
+    let err = function(val){return function(){throw new Error(val); return Promise.resolve(val)}}
+        let iterable = function*(){
+            yield pOK(1)(); yield pNOK(2)(); yield err(3)(); yield pOK(4)();
+        }
+        console.log(Promise.allSettled(iterable()));
+    })(); // This returns a rejected promise, as there is an error thrown
+</pre>
+
+<b>Resolved</b>
+<pre>
+(async function allSettled(){
+    let pOK = function(val){ return function() {console.log('Resolved'+val);return Promise.resolve(val)}}
+    let pNOK = function(val){ return function(){console.log('Rejected'+val);return Promise.reject(val)}}
+        let iterable = [pOK(1)(), pNOK(2)(), pOK(3)()]
+    console.log(Promise.allSettled(iterable);
+})(); 
+// [[PromiseResult]]: Array(3): 
+// [{status: 'fulfilled', value:1}, {status:'rejection', reason: 2}, {status: 'fulfilled', value: 3}]
+
+            </pre>
+                            `,
+                            Method: '<code>Promise.allSettled(iterable))</code>',
+                            Arguments: `
+                            An iterable is an object having its [Symbol.iterable] well known symbol set to an iterator.
+                            For example an array, or Map object.
+                            `,
+                            Returns: `
+                            The promise with its value settled to the array of results of promises included in the iterable
+                            given as an argument.
+                            `,
+                            Description: `
+                             The method returns a promise, that resolves with an array of promise results of promises
+                             given in the iterable function argument.
+                            `
+                        },
+
+                // Spelling of array checked so far
+
+
+
                 {
-                    elementType:'Headline-2',
-                    content:''
-                },
-                {
-                    elementType:'Paragraph',
-                    content:`
+                    [Symbol('title')]:'all',
+                    [Symbol('code')]:`
+<b>An error thrown by one of promise callbacks</b> rejection
+    <pre>
+(async function allReject(){
+    let pOK = function(val){ return function() {console.log('Resolved'+val);return Promise.resolve(val)}}
+    let err = function(val){return function(){throw new Error(val); return Promise.resolve(val)}}
+        let iterable = function*(){
+            yield pOK(1)(); yield err(2)(); yield pOK(3)();
+        }
+        console.log(Promise.all(iterable()));
+})(); // Rejected due to the err; result: error..
+</pre>
 
+<b>Rejection</b> due to promise rejection
+<pre>
+(async function allReject(){
+    let pOK = function(val){ return function() {console.log('Resolved'+val);return Promise.resolve(val)}}
+    let pNOK = function(val){ return function(){console.log('Rejected'+val);return Promise.reject(val)}}
+        let iterable = function*(){
+            yield pOK(1)(); yield pNOK(2)(); yield pOK(3)();
+        }
+        console.log(Promise.all(iterable()));
+})(); // Rejected due to the pNOK, promise result 2
+</pre>
+
+<b>Resolved</b>
+<pre>
+(async function allResolve(){
+    let pOK = function(val){ return function() {console.log('Resolved'+val);return Promise.resolve(val)}}
+    let pNOK = function(val){ return function(){console.log('Rejected'+val);return Promise.reject(val)}}
+        let iterable = function*(){
+            yield pOK(1)(); yield pOK(2)(); yield pOK(3)();
+        }
+        console.log(Promise.all(iterable()));
+    })(); //  Resolved; [1,2,3]
+</pre>
+<b>All passed values are not promisses</b>
+<pre>
+(async function allResolve(){
+    console.log(Promise.all([1,2,3]));
+})(); //  Resolved; [1,2,3]
+</pre>
+                    `,
+                    Method: '<code>Promise.all(iterable))</code>',
+                    Arguments: `
+                    An iterable is an object having its [Symbol.iterable] well known symbol set to an iterator.
+                    For example an array, or Map object.
+                    `,
+                    Returns: `
+                    A promise that:
+                    <ul>
+                    <li>In case all promisses given in the input iterable resolve: returns the promise with its value 
+                    settled 
+                    to the array of results of promises included in the iterable given as an argument.</li>
+                    <li>In case <b>at least one promise from the input iterable rejects</b> the returned promise will 
+                    reject <b>not wainig for other promisses to resolve</b></li>
+                    <li>In case of error in one of promisses passed as an argument, the returned promise will
+                    reject with the error description as the value</li>
+                    <li>A resolved promise if the itarable pssed as an argument is empty</li>
+                    <li>An asynchronously resolved Promise if the iterable passed as an argument has no promises</li>
+                    </ul>
+                    `,
+                    Description: `
+                     Takes an iterable of promisses, and returns a promise, that will resolve to an array of 
+                     results if each promise from the iterable resolves, or reject in case at least one 
+                     promise from the iterable rejects.
                     `
                 },
-            ]
-        },
+            
+                ]
+            },
+            
         {
             elementType:'Article',
             content:[
@@ -812,6 +915,7 @@ in case of rejection of the preceding function, the second callback will be exec
             ]
         }
     ]
+        }]
 };
 
 export default function getPromiseData(){
