@@ -1213,11 +1213,11 @@ function errorFactory(){
     Returns: `
     A promise that:
     <ul>
-        <li>A pending promise that yields to the first promise forom the given iterable, that gets 
+        <li>A pending promise that yields to the first promise from the given iterable, that gets 
         settled (resolves or rejects)</li>
         <li>In case there is a non promise value in the iterable, then the result would yield to 
         the first non promise value in the iterable</li>
-        <li>In case of an empty arrya, the promise will be pending forever</li>
+        <li>In case of an empty array, the promise will be pending forever</li>
     </ul>
     `,
     Description: `
