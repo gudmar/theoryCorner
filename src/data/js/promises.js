@@ -1229,6 +1229,60 @@ function errorFactory(){
 // Spelling of array checked so far
 
 
+
+
+
+
+{
+    [Symbol('title')]:'resolve',
+    [Symbol('code')]:`
+    (async function(){
+        let res = Promise.resolve('someVal');
+        console.log(res);
+        let awaited = await res;
+        console.log(awaited)
+        // Both awaited and res turn out after 0ms, but res is 
+        // not settled, while awaited promise is resolved
+    })()
+    `,
+    Method: '<code>Promise.resolve(value))</code>',
+    Arguments: `
+    A <code>value</code> of any type
+    `,
+    Returns: `
+    A promise that is resolved with the given value
+    `,
+    Description: `
+    Returns a promise resolved with the given value
+    `
+},
+
+
+{
+    [Symbol('title')]:'reject',
+    [Symbol('code')]:`
+    (async function(){
+        let res = Promise.reject('someReason');
+        console.log(res);
+        let awaited = await res;
+        console.log(awaited)
+        // Both awaited and res turn out after 0ms, but res is 
+        // not settled, while awaited promise is rejected
+    })()
+    `,
+    Method: '<code>Promise.reject(reason))</code>',
+    Arguments: `
+    A <code>reason</code> of any type
+    `,
+    Returns: `
+    A promise that is rejected with the given reason
+    `,
+    Description: `
+    Returns a rejected promise with the given reason
+    `
+},
+
+
             
                 ]
             },
