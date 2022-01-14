@@ -815,7 +815,7 @@ in case of rejection of the preceding function, the second callback will be exec
                             `
                         },
 
-                // Spelling of array checked so far
+                
 
 
 
@@ -872,19 +872,19 @@ in case of rejection of the preceding function, the second callback will be exec
                     Returns: `
                     A promise that:
                     <ul>
-                    <li>In case all promisses given in the input iterable resolve: returns the promise with its value 
+                    <li>In case all promises given in the input iterable resolve: returns the promise with its value 
                     settled 
                     to the array of results of promises included in the iterable given as an argument.</li>
                     <li>In case <b>at least one promise from the input iterable rejects</b> the returned promise will 
-                    reject <b>not wainig for other promisses to resolve</b></li>
-                    <li>In case of error in one of promisses passed as an argument, the returned promise will
+                    reject <b>not waiting for other promisses to resolve</b></li>
+                    <li>In case of error in one of promises passed as an argument, the returned promise will
                     reject with the error description as the value</li>
-                    <li>A resolved promise if the itarable pssed as an argument is empty</li>
+                    <li>A resolved promise if the iterable passed as an argument is empty</li>
                     <li>An asynchronously resolved Promise if the iterable passed as an argument has no promises</li>
                     </ul>
                     `,
                     Description: `
-                     Takes an iterable of promisses, and returns a promise, that will resolve to an array of 
+                     Takes an iterable of promises, and returns a promise, that will resolve to an array of 
                      results if each promise from the iterable resolves, or reject in case at least one 
                      promise from the iterable rejects.
                     `
@@ -895,17 +895,8 @@ in case of rejection of the preceding function, the second callback will be exec
                 {
                     [Symbol('title')]:'any',
                     [Symbol('code')]:`
-<b>An empty iterable given</b> rejection synchronously
-<pre>
-(async function emptyArrayAny(){
-    let result = await Promise.any([]).catch((reason)=>{
-        return Promise.resolve(reason);
-    });
-    console.log(result);
-    // AggregateError, all promises were rejected
-})();
-</pre>
-<b>rejectFunctionFactory and resolveFunctionFactory</b>
+
+<b>rejectFunctionFactory, resolveFunctionFactory, errorFactory, asyncErrorFacotry</b>
 <pre>
 function rejectFunctionFactory(timeout){
     return function(reason){
@@ -941,6 +932,17 @@ function asyncErrorFactory(timeout){
         })
     }
 }
+</pre>
+
+<b>An empty iterable given</b> rejection synchronously
+<pre>
+(async function emptyArrayAny(){
+    let result = await Promise.any([]).catch((reason)=>{
+        return Promise.resolve(reason);
+    });
+    console.log(result);
+    // AggregateError, all promises were rejected
+})();
 </pre>
 
 <b>An iterable containing some no promise values</b>
@@ -1044,7 +1046,7 @@ function asyncErrorFactory(timeout){
                     Method: '<code>Promise.any(iterable))</code>',
                     Arguments: `
                     An <code>iterable</code>: an object having its well known symbol <code>@@Iterator</code>
-                    set to the iteratro function.
+                    set to the iterator function.
                     `,
                     Returns: `
                     A promise that:
@@ -1059,11 +1061,171 @@ function asyncErrorFactory(timeout){
                     Description: `
                     Returns a pending promise, that resolves to the value of the first promise from the given iterable, 
                     that resolves. In case none promise resolve (all are rejected), the returned promise rejcets to the
-                    aggregated error. In case an emplty array is given as an argument, returns already rejected promise
+                    aggregated error. In case an empty array is given as an argument, returns already rejected promise.
                     `
                 },
+// Spelling of array checked so far
 
 
+{
+    [Symbol('title')]:'race',
+    [Symbol('code')]:`
+
+    <b>rejectFunctionFactory, resolveFunctionFactory, errorFactory, asyncErrorFacotry</b>
+<pre>
+function rejectFunctionFactory(timeout){
+    return function(reason){
+        let rejectedPromise = new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                reject(reason)
+            }, timeout)
+        })
+        return rejectedPromise;
+    }
+}
+function resolveFunctionFactory2(timeout){
+    return function(value){
+        let resolvedPromise = new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                resolve(value);
+            },timeout)
+        })
+        return resolvedPromise;
+    }
+}
+function errorFactory(){
+    return function(errorAsString){
+        throw new Error(errorAsString);
+    }
+}
+
+
+    <b>Mixed resolves and rejectes</b>
+<pre>
+(async function promiseRaceMixed(){ 
+    let failPromise100 = rejectFunctionFactory(100);
+    let resolvePromise150 = resolveFunctionFactory2(150);
+    let resolvePromise170 = resolveFunctionFactory2(170);
+    let failPromise200 = rejectFunctionFactory(200);
+    let promises = function* (){
+        yield failPromise100(100); yield resolvePromise150(150); 
+        yield failPromise200(200); yield resolvePromise170(170);
+    }
+    let result = await Promise.race(promises())
+        .then(
+            (value)=>{return Promise.resolve('resolved '+value)},
+            (reason)=>{return Promise.resolve('rejected'+reason)}
+        );
+    console.log(result);
+    // rejects with value 100 in 100ms
+    // Handing the promise rejection is importante, as if an error is thrown, 
+    // there may be no value passed
+})();
+</pre>
+
+<b>Mixed promises with no promise values</b>
+<pre>
+(async function promiseRaceMixed(){ 
+    let failPromise100 = rejectFunctionFactory(100);
+    let resolvePromise150 = resolveFunctionFactory2(150);
+    let resolvePromise170 = resolveFunctionFactory2(170);
+    let failPromise200 = rejectFunctionFactory(200);
+    let promises = function* (){
+        yield failPromise100(100); yield resolvePromise150(150); 
+        yield failPromise200(200); yield resolvePromise170(170);
+        yield 9;
+    }
+    let result = await Promise.race(promises())
+        .then(
+            (value)=>{return Promise.resolve('resolved '+value)},
+            (reason)=>{return Promise.resolve('rejected'+reason)}
+        );
+    console.log(result);
+    // resolves with the value 9, as this is not a promise and this value
+    // is available instantly
+})();
+</pre>
+
+<b>An error thrown before the promise is returned</b>
+<pre>
+(async function syncErrorWithRace(){
+    let asyncErr = asyncErrorFactory(120);
+    let syncErr = errorFactory()
+    let failPromise100 = rejectFunctionFactory(100);
+    let resolvePromise150 = resolveFunctionFactory2(150);
+    let resolvePromise170 = resolveFunctionFactory2(170);
+    let failPromise200 = rejectFunctionFactory(200);
+    let promises = function* (){
+        yield failPromise100(100); yield syncErr('syncErrFailing'); 
+        yield resolvePromise150(150); yield failPromise200(200);
+        yield resolvePromise170(170); yield asyncErr('asyncErrFailing')
+    }
+    let result = await Promise.race(promises()).then(
+        (value)=>{return Promise.resolve('resolved '+value)},
+        (reason)=>{return Promise.resolve('rejected'+reason)}
+    );
+    console.log(result);
+    // rejecting with the syncErrFailing after 0ms
+    // as the error thrown before the promise is returned, 
+    // is an instantly available value
+})();
+</pre>
+
+<b>An error that is the result of the promise</b>
+<pre>
+(async function asyncErrorWithRace(){
+    let asyncErr = asyncErrorFactory(20);
+    let failPromise100 = rejectFunctionFactory(100);
+    let resolvePromise150 = resolveFunctionFactory2(150);
+    let resolvePromise170 = resolveFunctionFactory2(170);
+    let failPromise200 = rejectFunctionFactory(200);
+    let promises = function* (){
+        yield failPromise100(100);
+        yield resolvePromise150(150); yield failPromise200(200);
+        yield resolvePromise170(170); yield asyncErr('asyncErrFailing')
+    }
+    let result = await Promise.race(promises()).then(
+        (value)=>{return Promise.resolve('resolved '+value)},
+        (reason)=>{return Promise.resolve('rejected'+reason)}
+    );
+    console.log(result);
+    // rejecting with the asyncErrFailing after 20ms
+    // This is important to handle errors
+})();
+</pre>
+
+<b>An empty array as an argument</b>
+<pre>
+(async function foreverPending(){
+    let pending = await Promise.race([]);
+    console.log('This should not be written')
+})()
+</pre>
+
+
+
+
+    `,
+    Method: '<code>Promise.race(iterable))</code>',
+    Arguments: `
+    An <code>iterable</code>.
+    `,
+    Returns: `
+    A promise that:
+    <ul>
+        <li>A pending promise that yields to the first promise forom the given iterable, that gets 
+        settled (resolves or rejects)</li>
+        <li>In case there is a non promise value in the iterable, then the result would yield to 
+        the first non promise value in the iterable</li>
+        <li>In case of an empty arrya, the promise will be pending forever</li>
+    </ul>
+    `,
+    Description: `
+    Returns a pending promise, that yields to the value of the first promise from the given iterable, 
+    that settles (gets either resolved or rejected). In case there is a non promise value in the iterable, 
+    then the promise will resolve to the first non promise value encountered in the interable
+    `
+},
 
 
             
