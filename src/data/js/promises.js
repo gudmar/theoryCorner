@@ -1064,7 +1064,6 @@ function asyncErrorFactory(timeout){
                     aggregated error. In case an empty array is given as an argument, returns already rejected promise.
                     `
                 },
-// Spelling of array checked so far
 
 
 {
@@ -1226,6 +1225,8 @@ function errorFactory(){
     then the promise will resolve to the first non promise value encountered in the interable
     `
 },
+
+// Spelling of array checked so far
 
 
             
