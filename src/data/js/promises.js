@@ -502,7 +502,7 @@ in case of rejection of the preceding function, the second callback will be exec
 // YES, then may be resolved event if previous outcomes were rejected.
             </pre>                    
                             `,
-                            Method: '<code>Promise.prototype.then(onResolved[, onRejected])</code>',
+                            Method: '<code><span>Promise.prototype</span><span>.then(onResolved[, onRejected])</span></code>',
                             Arguments: `
                                 <ul>
                                     <li><code>onResolved(value)</code>: callback function to be run if the promise succeeded</li>
@@ -657,7 +657,7 @@ in case of rejection of the preceding function, the second callback will be exec
 
             </pre>    
                             `,
-                            Method: '<code>Promise.prototype.catch(onRejected)</code>',
+                            Method: '<code><span>Promise.prototype</span><span>.catch(onRejected)</span></code>',
                             Arguments: `
                             <code>onRejected(reason)</code> is a callback returning a promise. If this promise 
                             fulfilles to the resolved value, then whole catch is concidered resolved, if the 
@@ -749,7 +749,7 @@ in case of rejection of the preceding function, the second callback will be exec
     })();
 </pre>
                             `,
-                            Method: '<code>Promise.prototype.finally(onFinally)</code>',
+                            Method: '<code><span>Promise.prototype</span><span>.finally(onFinally)</span></code>',
                             Arguments: `
                             <code>onFinally()</code> will be run no matter the predecessor rejects or resolves. The 
                             only condition for this callback to be executed is the predecessor promise finalization.
@@ -889,6 +889,183 @@ in case of rejection of the preceding function, the second callback will be exec
                      promise from the iterable rejects.
                     `
                 },
+
+
+
+                {
+                    [Symbol('title')]:'any',
+                    [Symbol('code')]:`
+<b>An empty iterable given</b> rejection synchronously
+<pre>
+(async function emptyArrayAny(){
+    let result = await Promise.any([]).catch((reason)=>{
+        return Promise.resolve(reason);
+    });
+    console.log(result);
+    // AggregateError, all promises were rejected
+})();
+</pre>
+<b>rejectFunctionFactory and resolveFunctionFactory</b>
+<pre>
+function rejectFunctionFactory(timeout){
+    return function(reason){
+        let rejectedPromise = new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                reject(reason)
+            }, timeout)
+        })
+        return rejectedPromise;
+    }
+}
+function resolveFunctionFactory2(timeout){
+    return function(value){
+        let resolvedPromise = new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                resolve(value);
+            },timeout)
+        })
+        return resolvedPromise;
+    }
+}
+function errorFactory(){
+    return function(errorAsString){
+        throw new Error(errorAsString);
+    }
+}
+function asyncErrorFactory(timeout){
+    return function(reason){
+        return new Promise((resolve, reject)=>{
+            setTimeout(() => {
+                throw new Error(timeout);
+            }, timeout);
+        })
+    }
+}
+</pre>
+
+<b>An iterable containing some no promise values</b>
+<pre>
+(async function someNoPromisesAny(){
+    let failPromise50 = rejectFunctionFactory(50, SECTION_8_4);
+    let failPromise100 = rejectFunctionFactory(100, SECTION_8_4);
+    let resolvePromise150 = resolveFunctionFactory2(150, SECTION_8_4);
+    let resolvePromise170 = resolveFunctionFactory2(170, SECTION_8_4);
+    let failPromise200 = rejectFunctionFactory(200, SECTION_8_4);
+    let promises = function* (){
+        yield failPromise100(100); yield failPromise50(50); 
+        yield resolvePromise150(150); yield failPromise200(200);
+        yield resolvePromise170(170); yield 5;
+    }
+    let result = await Promise.any(promises());
+    console.log(result);
+    // resolves: with '5' value after 0ms, as this is not a promise and its value was available immediately
+})();
+</pre>
+
+<b>An iterable containing only promise values</b> resolves as soon as the first promise resolve
+<pre>
+(async function allResolveAny(){
+    let failPromise50 = rejectFunctionFactory(50, SECTION_8_3);
+    let failPromise100 = rejectFunctionFactory(100, SECTION_8_3);
+    let resolvePromise150 = resolveFunctionFactory2(150, SECTION_8_3);
+    let resolvePromise170 = resolveFunctionFactory2(170, SECTION_8_3);
+    let failPromise200 = rejectFunctionFactory(200, SECTION_8_3);
+    let promises = function* (){
+        yield failPromise100(100); yield failPromise50(50); 
+        yield resolvePromise150(150); yield failPromise200(200);
+        yield resolvePromise170(170)
+    }
+    let result = await Promise.any(promises());
+    console.log(result);
+    // resolves: with resolvePromise150 value that is 150 after 150ms
+})();
+</pre>
+
+<b>An iterable containing only rejecting promises</b> an aggregated error is returned
+<pre>
+(async function allRejectAny(){
+    let failPromise50 = rejectFunctionFactory(50, SECTION_8_3);
+    let failPromise100 = rejectFunctionFactory(100, SECTION_8_3);
+    let failPromise150 = rejectFunctionFactory(150, SECTION_8_3);
+    let failPromise200 = rejectFunctionFactory(200, SECTION_8_3);
+    let promises = function* (){
+        yield failPromise100(100); yield failPromise50(50); 
+        yield failPromise150(150); yield failPromise200(200)
+    }
+    let result = await Promise.any(promises()).catch((reason)=>{
+        return Promise.resolve(reason);
+    });
+    console.log(result);
+})();
+</pre>
+
+<b>An error is thrown instantly</b>, before the promise is returned
+<pre>
+(async function errorWithAny(){  
+    let asyncErr = asyncErrorFactory(120);
+    let syncErr = errorFactory()
+    let failPromise100 = rejectFunctionFactory(100);
+    let resolvePromise150 = resolveFunctionFactory2(150);
+    let resolvePromise170 = resolveFunctionFactory2(170);
+    let failPromise200 = rejectFunctionFactory(200);
+    let promises = function* (){
+        yield failPromise100(100); yield asyncErr('FailingAsyncErr'); 
+        yield resolvePromise150(150); yield failPromise200(200);
+        yield resolvePromise170(170); yield syncErr('FailingSyncErr')
+    }
+    let result = await Promise.any(promises());
+    console.log(result);
+    // rejects: the sync error, as it is not a promise, it is a value and is available instatnly
+})();
+</pre>
+
+<b>An error is thrown in the promise callback</b>,
+<pre>
+(async function errorWithAny(){  
+    let asyncErr = asyncErrorFactory(120);
+    let failPromise100 = rejectFunctionFactory(100);
+    let resolvePromise150 = resolveFunctionFactory2(150);
+    let resolvePromise170 = resolveFunctionFactory2(170);
+    let failPromise200 = rejectFunctionFactory(200);
+    let promises = function* (){
+        yield failPromise100(100); yield asyncErr('FailingAsyncErr'); 
+        yield resolvePromise150(150); yield failPromise200(200);
+        yield resolvePromise170(170);
+    }
+    let result = await Promise.any(promises());
+    console.log(result);
+    // resolves: resolvePromise150. The error is thrown earlier (after 120ms)
+    // but this is an error, that rejects, not resolves, so it is treated as 
+    // the promise rejection.
+})();
+</pre>
+
+                    `,
+                    Method: '<code>Promise.any(iterable))</code>',
+                    Arguments: `
+                    An <code>iterable</code>: an object having its well known symbol <code>@@Iterator</code>
+                    set to the iteratro function.
+                    `,
+                    Returns: `
+                    A promise that:
+                    <ul>
+                        <li>Is rejected synchronously to rejected in case an empty array is the argument</li>
+                        <li>Is pending, but gets resolved to the value of the first resolved promise, if at least one promise from the
+                        iterable is resolved
+                        </li>
+                        <li>Asynchronously resolved promise if the iterable passed as an argument has no promises</li>
+                    </ul>
+                    `,
+                    Description: `
+                    Returns a pending promise, that resolves to the value of the first promise from the given iterable, 
+                    that resolves. In case none promise resolve (all are rejected), the returned promise rejcets to the
+                    aggregated error. In case an emplty array is given as an argument, returns already rejected promise
+                    `
+                },
+
+
+
+
             
                 ]
             },
