@@ -310,7 +310,7 @@ promiseAllRace();
                        `Both functions will be started at the same time,`,
                        `(1) will be logged after 100ms from the functions start,`,
                        `(2) will be logged after 150ms from the functions start,`,
-                       `(3) will be logged after both funcions finis, so after 150ms
+                       `(3) will be logged after both functions execute, so after 150ms
                         from the function start`,
                     ]
                 },
@@ -417,7 +417,6 @@ executor is a function taking the resolve(someValue), and reject(reason) functio
                     and result changes to <code>resolved</code>. If the promise is rejected, its state changes to <i>fulfilled</i>, and
                     result to <code>rejected</code>. The promise in fulfilled state is said to be settled. A fulfilled promise can be
                     either resolved or rejected. Once settled (fulfilled) promise cannot change its state or result.`
-                    // This paragraph SPELL CORRECT
                 },
                 {
                     elementType: 'Image',
@@ -433,7 +432,7 @@ executor is a function taking the resolve(someValue), and reject(reason) functio
                     elementType:'Paragraph',
                     content:`The promises may be chained thanks to the <code>then</code>, <code>catch</code> and <code>finally</code>
                     methods. Each of those methods returns a promise, so even <code>finally</code> does not have to be at the 
-                    end of the promisse chain. The important thing is, that if the last chain link rejects, or throws an error, 
+                    end of the promise chain. The important thing is, that if the last chain link rejects, or throws an error, 
                     there will be an uncaught error. Please examine promise methods for more details.`
                 },
 
@@ -1238,11 +1237,10 @@ function errorFactory(){
     [Symbol('code')]:`
     (async function(){
         let res = Promise.resolve('someVal');
-        console.log(res);
+        console.log(res); // still not settled
         let awaited = await res;
         console.log(awaited)
-        // Both awaited and res turn out after 0ms, but res is 
-        // not settled, while awaited promise is resolved
+        // Both awaited and res turn out after 0ms
     })()
     `,
     Method: '<code>Promise.resolve(value))</code>',
@@ -1263,11 +1261,10 @@ function errorFactory(){
     [Symbol('code')]:`
     (async function(){
         let res = Promise.reject('someReason');
-        console.log(res);
+        console.log(res); // not settled without an await
         let awaited = await res;
         console.log(awaited)
-        // Both awaited and res turn out after 0ms, but res is 
-        // not settled, while awaited promise is rejected
+        // Both awaited and res turn out after 0ms,
     })()
     `,
     Method: '<code>Promise.reject(reason))</code>',
@@ -1313,7 +1310,5 @@ function errorFactory(){
 };
 
 export default function getPromiseData(){
-    console.error(`fulfilled is the promise state. State may be fulfilled or pending, where is RESULT is rejected or 
-    resolved, no fulfilled result!!`)
     return data;
 }
