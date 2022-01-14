@@ -1,4 +1,4 @@
-// spelling and content check in progress
+// SPELL CHECKED, CORRECT!
 
 
 let data =     {
@@ -1280,9 +1280,202 @@ function errorFactory(){
 },
 
 
+
+
+
+
             
                 ]
             },
+
+
+
+            {
+                elementType:'Article',
+                content:[
+                    {
+                        elementType:'Headline-3',
+                        content:'Use cases'
+                    },
+                    {
+                        elementType:'UnsignedList',
+                        content:[
+                            `Server side communication,`,
+                            `JS chained animations`,
+                            `Actions on timer expire`,
+                            `Could be used to control the stea\ering of a state based game like implementation of 
+                            Magic the Gathering or Monopoly. In this case turns would be devided to phases, and
+                            phases to subphases, and subphases can be represented with an iterable of functions,
+                            each of those functions may be asynchronous, and awaited in the loop. In this design pattern
+                            the next function (phase) would not start before the previous ended, promises could await
+                            user interaction with some elements on the page (here mediator pattern could be useful). 
+                            This concept needs prove. But if it works, then the solution would be extendable, what
+                            is important in games like MTG. This framework would allow to change the whole implementation
+                            to some other similar game.`,
+                            `Workaround in Angular. There is an error <i>Expression has changed after it was checked</i>.
+                            If the expression is put into <code>setTimeout(()=>{expression})</code>, without the 
+                            actual time delay value, then this expression is evaluated asynchronously and the change
+                            check is forced one more time,`,
+                            `Excellent for communication with web-workers (see the article)`
+                        ]
+
+                        
+                    },
+                    {
+                        elementType:'SmallHeadline',
+                        content:'Animation with promise chain example'
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`This code selects an absolutely positioned element and moves it to specified points 
+                        on the screen, waits for some time, and moves it again. This pattern is good for 
+                        making sequence animations in case pure CSS or even SCSS cannot be used.`
+                    },
+                    {
+                        elementType:'NoteWarning',
+                        content:`If only pure CSS or some precompiler can be used instead of JS, they should be 
+                        used. JS is the last resource.`
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`CSS and HTML for the example:`
+                    },
+
+                    {
+                        elementType: 'Code',
+                        content: `
+<pre>
+&lt;style>
+body{background-color: #444;color:#ddd;font-family: Arial, Helvetica, sans-serif;}
+#animationTarget{
+    position: absolute;
+    width:50px;height: 50px;border-radius: 50%;background-color:red;
+    top: 100px;left:100px;}
+&lt;/style>
+&lt;div id="animationTarget">&lt;/div>
+</pre>                        
+                        `
+                    },
+
+                    {
+                        elementType:'Paragraph',
+                        content:`Functions for moving the object`
+                    },
+
+                    {
+                        elementType: 'Code',
+                        content: `
+<pre>
+function move(animationTargetId, destination, timeInMiliseconds){
+    let framesPerSecond = 24;
+    let msInSecond = 1000;
+    let framesInterval = Math.floor(framesPerSecond / msInSecond);
+    let nrOfFrames = timeInMiliseconds * framesPerSecond / msInSecond;
+    let animationTarget = document.getElementById(animationTargetId);
+    let {x:xEnd, y:yEnd} = destination;
+    let {left: xStart, top: yStart} = animationTarget.getBoundingClientRect();
+    let xMovePerFrame = (xEnd - xStart)/nrOfFrames;
+    let yMovePerFrame = (yEnd - yStart)/nrOfFrames;
+    let {currentX, currentY} = {currentX: xStart, currentY: yStart};
+    let currentFrame = 0;
+    console.log('move Started')
+    let moveEnded = new Promise((resolve) => {
+            let interval = setInterval(()=>{
+            currentX += xMovePerFrame;
+            currentY += yMovePerFrame;
+            currentFrame += 1;
+            animationTarget.style.left = currentX + 'px';
+            animationTarget.style.top = currentY + 'px';
+            if (currentFrame >= nrOfFrames) {
+                clearInterval(interval);
+                console.log('move resolved')
+                resolve();
+            }
+        },framesInterval);
+    })
+    return moveEnded;
+}
+
+function wait(timeInMiliseconds){
+let waitingEnded = new Promise((resolve) => {
+    let timeout = setTimeout(()=>{
+        console.log('waiting ended')
+        resolve();
+    }, timeInMiliseconds)
+})
+console.log('waiting')
+return waitingEnded;
+}
+</pre>                        
+                        `
+                    },
+
+                    {
+                        elementType:'Paragraph',
+                        content:`Now for the implementation with the await operator`
+                    },
+
+                    {
+                        elementType: 'Code',
+                        content: `
+<pre>
+async function animateAwait(){
+    await move('animationTarget', {x: 500, y:500}, 2000)
+    await wait(1000)
+    await move('animationTarget', {x: 500, y: 100}, 1000);
+    await move('animationTarget', {x: 550, y: 1000}, 1000);
+    await wait(1000);
+    await move('animationTarget', {x: 100, y: 100}, 3000);
+
+}
+</pre>                        
+                        `
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`Implementation with the <code>then</code> method. <strong>Note, that all callbacks
+                        have to return a promise</strong>, or undefined will be returned, and all promises will resolve 
+                        instatnly causing animation times to mix.`
+                    },
+
+                    {
+                        elementType: 'Code',
+                        content: `
+<pre>
+async function animateThen(){
+    // Here it is important to wrap handlers, so they return functions not taking any arguments:
+    move('animationTarget', {x:1000, y: 1000}, 3000)
+        .then(()=>{return wait(1000)})
+        .then(()=>{return move('animationTarget', {x:500,y:500}, 2000)})
+        .then(()=>{return wait(3000)})
+        .then(()=>{return move('animationTarget', {x:-500,y:-500}, 5000)})
+}
+</pre>                        
+                        `
+                    }
+
+                    ,
+                    {
+                        elementType:'Paragraph',
+                        content:`Lets launch one animation after another`
+                    },
+
+                    {
+                        elementType: 'Code',
+                        content: `
+<pre>
+(async function animateAll(){
+    await animateAwait();
+    await animateThen();
+})();
+</pre>                        
+                        `
+                    }
+
+                ]
+            },
+
+
             
         {
             elementType:'Article',
