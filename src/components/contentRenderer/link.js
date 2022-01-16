@@ -4,7 +4,7 @@ function Link(props){
     console.log(props)
     return (
         <div>
-            <a href={link} target="_blank">
+            <a href={link} target="_blank" rel="noreferrer">
                 {content}
             </a>
         </div>

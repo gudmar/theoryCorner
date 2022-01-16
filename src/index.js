@@ -7,6 +7,7 @@ import quizTestMode from './components/quiz/quizTestMode';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
+import TestDedicatedWorker from './testComponents/dedicatedWorker';
 import { getTheoryData } from './data/theoryData';
 import {
   BrowserRouter,
@@ -38,6 +39,7 @@ ReactDOM.render(
       <Route path="/theory/:topic" element={<App/>} />
       <Route path="quiz" element={<QuizMain />} />
       <Route path="quizTestMode" element={<QuizTestMode />} />
+      <Route path="dedicatedWobWorker" element={<TestDedicatedWorker />} />
     </Routes>
 
   </BrowserRouter>

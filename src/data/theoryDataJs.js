@@ -16,6 +16,7 @@ import getNumberRepresentationData from './js/numberRepresentation';
 import getDestructionAssignmentData2 from './js/destructiveAssignments_2';
 import getIteratorsGeneratorsData from './js/iteratorsGenerators';
 import getPromiseData from './js/promises';
+import getWebWorkerData from './js/webWorker';
 
 
 let theoryDataJs = [
@@ -152,6 +153,7 @@ let theoryDataJs = [
     getDestructionAssignmentData2(),
     getIteratorsGeneratorsData(),
     getPromiseData(),
+    getWebWorkerData(),
 ]
 
 export function getTheoryDataJs(){

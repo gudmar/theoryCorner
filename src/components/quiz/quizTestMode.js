@@ -25,7 +25,7 @@ function QuizTestMode(props){
     useEffect(()=>{console.log(answers)})
 
     function StartTestPageIfApplicable(){
-        if (currentQuestionNr == -1) return (
+        if (currentQuestionNr === -1) return (
             <QuizTestStartPage categoriesHandel={[categories, setCategories]}
             // hardnessLevelHandel={[hardnessLevel, setHardnessLevel]}
             // nrOfQuestionsHandel={[nrOfQuestions, setNrOfQuestions]}
