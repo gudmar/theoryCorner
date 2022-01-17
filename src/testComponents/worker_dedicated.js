@@ -38,6 +38,7 @@ export default ()=>{
         }
 
         const {request, operation, data, expectedResult} = e.data.request;
+        let inputs = []
         let result = getResult(operation, data);
         let message = procesRequest(request, result, expectedResult)
         postMessage(message);

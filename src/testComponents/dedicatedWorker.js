@@ -1,39 +1,48 @@
 import  getTheoryData  from './worker_dedicated';
 import WorkerBuilder from './worker-builder';
-import { useEffect, useState } from 'react';
-// {request, operation, data, expectedResult}
+import { useEffect, useState, useLayoutEffect, useRef } from 'react';
 function getTestDataDedicated(){
     return [
         {request: 'test', operation:'strong', data: [6], expectedResult: [720]},
+        {request: 'test', operation:'strong', data: [8], expectedResult: [40320]},
         {request: 'test', operation:'strong', data: [10], expectedResult: [3628800]},
     ]
 }
-var dedicatedWorker = new WorkerBuilder(getTheoryData);
-// var dedicatedWorker = new Worker(getTheoryData);
 
 function TestDedicatedWorker (props){
-    let [data, setData] = useState([]);
-    useEffect(()=>{
-        async function getData(){
-            let webWorkerResult = await getAllResulsFromWorker()
-           setData(webWorkerResult);
-        //    console.log(data)
-        };
-        getData();
-    }, [])
+    const [data, setData] = useState(getTestDataDedicated());
+    const [results, setResults] = useState([])
     function getAllLines(){
-        return data.map((val, index, arr)=>{
-            const {request, result, expectedResult} = val;
+        return data.map((tuple, index, arr)=>{
+            console.log(tuple)
+            const {request, result, expectedResult} = arr[index];
             return (
-                <div key={index} className="nextLine">
-                    <span>{request}</span>
-                    <span>{result} </span>
-                    <span>{expectedResult}</span>
-                </div>
+                <SingleLine key={index} data = {tuple} />
+
             )
         })
     }
-    return (<>{getAllLines()}</>)
+    return (<>{getAllLines()}<span>{JSON.stringify(results[0])}</span></>)
+}
+
+function SingleLine(props){
+    const [data,setData] = useState(props.data);
+    const [results, setResults] = useState([]);
+    const [req, setReq] = useState(data.request);
+    const [res, setRes] = useState(data.response);
+    const [exp, setExp] = useState(data.expectedResult);
+    const [isLoaded, setIsLoaded] = useState(false);
+    useEffect(()=>{
+        getResultFromWorker(data).then((r)=>{console.log('RESOLVED '+r);setRes(r + ''); return Promise.resolve()}).catch((e)=>{console.log(e);});
+    }, [res])
+
+    return (
+        <div  className="nextLine container mt-3">
+        <span className="badge bg-primary m-1">{req}</span>
+        <span className="badge bg-success m-1">{res} </span>
+        <span className="badge bg-warning m-1">{exp}</span>
+    </div>
+    )
 }
 
 async function getAllResulsFromWorker(){
@@ -48,6 +57,7 @@ async function getAllResulsFromWorker(){
 }
 
 async function getResultFromWorker(request, operation, data, expectedResult){
+    var dedicatedWorker = new WorkerBuilder(getTheoryData);
     dedicatedWorker.postMessage({request:request, operation:operation, data: data, expectedResult:expectedResult});
     return new Promise((resolve)=>{
         dedicatedWorker.onmessage = (message) => {

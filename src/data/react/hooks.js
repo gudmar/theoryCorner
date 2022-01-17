@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 // https://reactjs.org/docs/hooks-reference.html#useeffect
 
@@ -28,4 +28,37 @@ useEffect(didUpdate);
 
 useLayoutEffect(didUpdate);
     `Thre only difference between <code>useLayoutEffect</code> and <code>useEffect</code> is time the callback is triggered.
-    In case of the <code>useLayoutEffect</code> the callback will be triggered before content is displayed on the screen.`
+    In case of the <code>useLayoutEffect</code> the callback will be triggered before content is displayed on the screen.`,
+    `The useLayoutEffect function takes only synchronous callbacks!, effecte are visible on screen, so bettern not to
+    make user wait.`
+
+
+useRef(initialValue);
+    `Retunrs an object called a reference. Than object has a property 'current' thats initial value is set to the 
+    useRef <code>initialValue</code> argument.`,
+    `The value hold in the current property is mutable and may be user by the developer as a normal variable would be.`,
+    `The change in the reference object <b>does not cause component to renrender</b>, and state would. This is one of 
+    differences between the object state and the reference,`,
+    `The change to the reference object is synchronous, and this makes it different from the state object, as 
+    state change is asynchronous. New value of the state is not available imediately after setting it.`,
+    `useRef may be used to access DOM elements:
+        <pre>
+            function SomeComponent(){
+                let customRef = useRef();
+                useEffect(()=>{customRef.current.fosuc()})
+                // using customRef object to set focus on it
+                ...
+                return (
+                    <div ref={customRef}></div>
+                )
+            }
+        </pre>
+    `
+    `Changes to the reference value should not be made in the body of the component function. The same rules apply as
+    with the component state. All changes made to those objects should be done in hooks. `,
+    `https://dmitripavlutin.com/react-useref-guide/`
+
+
+
+
+
