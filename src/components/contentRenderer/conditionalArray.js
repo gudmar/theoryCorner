@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 function getValuesFromObject(obj, orderArray){
     let output = [];
-    if (orderArray != undefined){
+    if (orderArray !== undefined){
         for(let key of orderArray) {
             output.push(obj[key])
         }
@@ -25,11 +25,11 @@ function getObjectInOrder(obj, orderArray){
     return output;
 }
 
-function concatArray(arr){
-    return arr.reduce((acc, item, index, array)=>{
-        return acc + item;
-    })
-}
+// function concatArray(arr){
+//     return arr.reduce((acc, item, index, array)=>{
+//         return acc + item;
+//     })
+// }
 
 function TableRow(props){
     let contentItem = props.contentItem;
@@ -43,7 +43,7 @@ function TableRow(props){
 
     function getCodeComponent(index){
         let codeComponent = <></>;
-        if (codeExample != null){
+        if (codeExample !== null){
             codeComponent = (
                 
                 <tr id = {customId} className="collapse show1">
@@ -79,7 +79,7 @@ function NotATableEntry(props){
     let contentItem = props.contentItem;
     let orderArray = props.orderArray;
     let orderedTableData = getObjectInOrder(contentItem, orderArray);
-    let symbols = Object.getOwnPropertySymbols(contentItem);
+    // let symbols = Object.getOwnPropertySymbols(contentItem);
     let title = symbolFromKey(contentItem, 'title');//contentItem[Object.getOwnPropertySymbols(contentItem)[0]];
     let code  = symbolFromKey(contentItem, 'code');
     
@@ -100,7 +100,7 @@ function NotATableEntry(props){
 }
 
 function isRowHoverable(props){
-    return symbolFromKey(props, 'code') == undefined ? false : true;
+    return symbolFromKey(props, 'code') === undefined ? false : true;
 }
 
 function Table(props){
@@ -171,7 +171,7 @@ function ConditionalArray(props){
     let headItems = props.headlines;
     let content = props.contentItems;
 
-    if (currentWidth == 'small'){
+    if (currentWidth === 'small'){
         return (
             <NotATable headItems={headItems} content = {content} />
         )

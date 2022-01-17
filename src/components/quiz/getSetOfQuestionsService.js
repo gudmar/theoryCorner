@@ -19,7 +19,7 @@ function getSetOfQuestions(nrOfQuestions, hardnessLevel, categories){
     let setOfQuestions = getQuestionDataBase(hardnessLevel, categories);
     let nrOfQuestionsFromDB = setOfQuestions.length;
     if (nrOfQuestionsFromDB < nrOfQuestions) return [];
-    if (nrOfQuestionsFromDB == nrOfQuestions) return setOfQuestions;
+    if (nrOfQuestionsFromDB === nrOfQuestions) return setOfQuestions;
     let newSetOfQuestions = [];
     for (let i = 0; i < nrOfQuestions; i++){
         let randomQuestionId = randomNumber(nrOfQuestionsFromDB);
@@ -54,7 +54,7 @@ function getQuestionDataBase(hardnessLevel, categories){
     // if (categories.includes('css')) concatenatedDB = concatenatedDB.concat(...getCssQuestions());
     // if (categories.includes('html')) concatenatedDB = concatenatedDB.concat(...getHtmlQuestions());
     function isQuestionDifficultEnough(element){
-        return element.level == hardnessLevel
+        return element.level === hardnessLevel
     }
     console.log(concatenatedDB)
     return concatenatedDB.filter(isQuestionDifficultEnough);
