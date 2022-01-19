@@ -17,13 +17,16 @@ function TestDedicatedWorker (props){
             console.log(tuple)
             const {request, result, expectedResult} = arr[index];
             return (
-                <SingleLine key={index} data = {tuple} />
-
+                    <SingleLine key={index} data = {tuple} />
             )
         })
     }
-    return (<>{getAllLines()}<span>{JSON.stringify(results[0])}</span></>)
+    return (<>
+             {getAllLines()}<span>{JSON.stringify(results[0])}</span>
+            </>)
 }
+
+
 
 function SingleLine(props){
     const [data,setData] = useState(props.data);
@@ -37,11 +40,14 @@ function SingleLine(props){
     }, [res])
 
     return (
-        <div  className="nextLine container mt-3">
+        <>
+    <div  className="nextLine container mt-3">
         <span className="badge bg-primary m-1">{req}</span>
         <span className="badge bg-success m-1">{res} </span>
         <span className="badge bg-warning m-1">{exp}</span>
     </div>
+    
+    </>
     )
 }
 
