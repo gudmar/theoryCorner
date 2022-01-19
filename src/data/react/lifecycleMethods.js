@@ -20,10 +20,26 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                    The react lifecycle methods were places, where some sideeffects that should take place on precise
-                    moments should be placed in react classes. For example 
+                    Each component in react has its lifecycle, and its phases. Firlsty it is constructed, then rendered,
+                    then it lives, so may be modified, and at the end it is demolished. There is a necessity to 
+                    do some operations like component modifications during this proces. Some events should be directly
+                    timed: for example server communication should take place after the elemnet is renedered, but
+                    before its view is changed. To support making some operations in direct moments of the components 
+                    lifecycle, the <code>lifecycle methods</code> are introduced. Lifecycle methods are available only
+                    in the react class components. In case functions are used to implement components, react hooks shold 
+                    be used instead.
                     `
                 },
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Call order`
+                },
+                {
+                    elementType: 'Image',
+                    name: 'reactLifecycle.png',
+                    alt: 'lifecycle methods call order'
+                },
+
                 {
                     elementType: 'Headline-3',
                     content: `render()`
@@ -184,18 +200,109 @@ let data =     {
                     Invoked just after render, and just before the element will be updated in the DOM, to be sure
                     nothing need to be adjusted. The value returned by this method will be send to the <code>
                     componentDidUpdate</code>. If this method returns null, then noting will be passed to the 
-                    <code>componentDidUpdate</code> and this method will have no effect. May be used with the
+                    <code>componentDidUpdate</code> and this method will have no effect. In case this 
+                    method returns something additional render will take place, but this will not be
+                    visible on the screen. May be used with the
                     <code>React.createRef()</code>. Can be used to handle for example scrollbars positions 
                     in case it is needed. <b>Rare usage</b>
                     `
                 },
                 {
-                    elementType: 'UnsignedList',
-                    content: [
-                        
-                    ]
+                    elementType: 'Code',
+                    content: 
+`
+<pre>
+class MovableElement extends React.Component {
+    constructor(props){
+        super(props);
+        this.movableElRef = React.createRef();
+    }
+
+    getShapshotBeforeUpdate(prevProps, prevState){
+        if (prevProps.positionX &lt; props.positionX) {return 1}
+        if (prevProps.positionX === props.positionX) {return null}
+        return -1
+    }
+
+    componentDidUpdate(prevProps, prevState, snapshot){
+        if (snapshot === 1) {...}
+        if (snapshot === -1) {...}
+        ...
+    }
+
+    render(){
+        return(
+            &lt;div ref={this.movableElRef}>..&lt;/div>
+        )
+    }
+}
+</pre>
+`                        
+                    
                 },
 
+
+
+                {
+                    elementType: 'Headline-3',
+                    content: `getDerivedStateFromError(error)`
+                },                
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    Invoked <b>in the render</b> phase, so should never have any side effects. Good for 
+                    rendering an alternative component in case of an error. Not good for catching actula errors.
+                    Errors will make their way up to the window object if not catched by the <code>componentDidCatch()</code>
+                    method in the production environment. 
+                    `
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+class ErrorHandler extends React.component {
+    constructor(props){
+        super(props);
+        this.state = {hasError: false};
+    }
+    static getDerivedStateFromError(error){
+        return {hasError: true};
+    }
+
+    componentDidCatch(error, info){
+        // will catch error in the production environment
+        // can cause side effects like state change
+        // in commit phase
+        // error is the error tha was thrown,
+        // info is the component that thrown the error
+        log(info.componentStack)
+    }
+
+    render(){
+        if (this.state.hasError) {
+            ....  // NOK case
+        } 
+        return ... // OK case
+    }
+}
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType: 'Headline-3',
+                    content: `componentDidCatch(error, info)`
+                },                
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    Invoked in the commit phase, so may be used with side effects. Good for logging errors.
+                    Catches an error not letting it travel up the tree (only in case of the production environment,
+                    as in the developement all errors will make their way up to the <code>window</code> object
+                    anyway). <code>error</code> is the error that was thrown, and <code>info</code> is the
+                    object that thrown the error.
+                    `
+                },
 
             ]
         },
@@ -205,16 +312,73 @@ let data =     {
             content:[
                 {
                     elementType:'Headline-2',
-                    content:''
+                    content:'Depraciated methods'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>componentWillMount()</code>: now changed to <code>UNSAFE_componentWillMount()</code>`,
+                        `<code>componentWillReceiveProps()</code>: now <code>UNSAFE_componentWillReceiveProps()</code>`,
+                        `<code>componentWillUpdate()</code>: now <code>UNSAFE_componentWillUpdate()</code>`,
+                    ]
+                },
+            ]
+        },
+
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline-2',
+                    content:'Other methods'
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:`
+                    <code>setState(updater[, callback])</code>
+                    `
                 },
                 {
                     elementType:'Paragraph',
                     content:`
-
+                    The only place the state may be assigned directly is the constructor of the component. In any other 
+                    place the <code>setState</code> method should be used, or bugs may ocure. The <code>setState</code>
+                    method is asynchronous, and many calls of this method may be combined so that state is updated
+                    only once in the cycle. Each change to the state causes the component to update if <code>
+                    componentShouldUpdate()</code> lifecycle method does not return false.
+                    It should be avoided to use nested state, as in this case components will not update, as 
+                    only the flat sturcture of the state object is compared.
                     `
                 },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    The optional callback function is invoked after the state is changed. As there is a 
+                    <code>componentDidUpdate</code> method it is better to avoid setting this callback argument.
+                    `
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:`
+                    <code>forceUpdate(callback)</code>
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    This method foreces the render method invocation, and component update, not taking into account the
+                    <code>shouldComponentUpdate()</code> method. This method just forces an additional render.
+                    It is better to avoid it and use natural state and props changes.
+                    `
+                },
+
+
+
             ]
         },
+
+
         {
             elementType:'Article',
             content:[
@@ -227,6 +391,13 @@ let data =     {
                     elementType:'Link',
                     content:'projects.wojtekmaj.pl',
                     href: 'https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/',
+                    description:'Lifecycle in react'
+                },
+
+                {
+                    elementType:'Link',
+                    content:'https://pl.reactjs.org',
+                    href: 'https://pl.reactjs.org/docs/react-component.html#constructor',
                     description:'Lifecycle in react'
                 },
             ]
