@@ -8,6 +8,7 @@ import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import TestDedicatedWorker from './testComponents/dedicatedWorker';
+import TestSharedWorker from './testComponents/sharedWorker';
 import { getTheoryData } from './data/theoryData';
 import {
   BrowserRouter,
@@ -40,6 +41,7 @@ ReactDOM.render(
       <Route path="quiz" element={<QuizMain />} />
       <Route path="quizTestMode" element={<QuizTestMode />} />
       <Route path="dedicatedWobWorker" element={<TestDedicatedWorker />} />
+      <Route path="sharedWebWorker" element={<TestSharedWorker />} />
     </Routes>
 
   </BrowserRouter>
