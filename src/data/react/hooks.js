@@ -1,8 +1,8 @@
 
 
 let data =     {
-    summary: 'react lifecycle methods',
-    title: 'React lifecycle methods',
+    summary: 'react hooks',
+    title: 'React hooks',
     searchKeywords:`React lifecycle methods render 
     `,
     cathegory: 'js',
@@ -18,8 +18,14 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                    The react lifecycle methods were places, where some sideeffects that should take place on precise
-                    moments should be placed in react classes. For example 
+                    Each component in react has its lifecycle, and its phases. Firlsty it is constructed, then rendered,
+                    then it lives, so may be modified, and at the end it is demolished. There is a necessity to 
+                    do some operations like component modifications during this proces. Some events should be directly
+                    timed: for example server communication should take place after the elemnet is renedered, but
+                    before its view is changed. To support making some operations in direct moments of the components 
+                    lifecycle, the <code>lifecycle methods</code> are introduced. Lifecycle methods are available only
+                    in the react class components. In case functions are used to implement components, react hooks shold 
+                    be used instead.
                     `
                 },
                 {
