@@ -61,12 +61,14 @@ let data =     {
                     `<code>document.cookie</code>: perhaps not related to DOM, but useful, all cookies related to this page,`,
                     `<code>document.referrer</code>: also not DOM related, but returns a page that linked to current page, or null
                     if page was accessed directly.`,
+                    `<code>document.querySelecotr('iframe').dontentDocument.querySelector()</code> for accessing an 
+                    iframe method,`
                     
                     ]
                 },
                 {
                     elementType:'Headline-2',
-                    content:'Creating, removing, adding DOM elements'
+                    content:'Creating, removing, adding DOM elements, moving elements to another pareng'
                 },
                 {
                     elementType:'UnsignedList',
@@ -79,7 +81,11 @@ let data =     {
                     child of someElement`,
                     `<code>someElement.prepent(setOfNodeObjects)</code>: inserts a set of Node objects before first child
                     of <i>someElement</i>`,
-                    `<code>someElement.removeElement()</code>: removes element.`
+                    `<span class="bg-warning"><code>newParent.appendChild(oldParent.childNodes[0])</code> moves an <code>child.Nodes[0]</code>
+                    element to the new parent,</span>`,
+                    `<code>someElement.removeElement()</code>: removes element.`,
+                    `<code>element.appendChild.document.adoptNode(targetNodeFromIframe)</code> is for 
+                    moving a node to the different document.`
                     ]
                 },
 
