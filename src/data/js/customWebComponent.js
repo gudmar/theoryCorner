@@ -44,6 +44,24 @@ let data =     {
                 },
 
                 {
+                    elementType: 'SmallHeadline',
+                    content: `A glosary
+                    `
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `<code>CWC</code>: a Custom Web Component, technolodgy allowint the definition of such a component,`,
+                        `<code>host</code> or <code>CWC host</code>: an element that is registered with 
+                        the <code>window.customElements.define</code> method, and is the host of the shadow-DOM,`,
+                        `<code>shadow-DOM</code> the part of the DOM that is separated from the <q>light</q> DOM
+                        and cannot be easly accessed with the document.getElementById or document.querySelector methods.
+                        CSS inside shadow root does not impact outside world, and ths CSS from the outside world does
+                        not infuance the shadow DOM css,`
+                    ]
+                },
+
+                {
                     elementType:'Headline-2',
                     content:'Structure'
                 },
