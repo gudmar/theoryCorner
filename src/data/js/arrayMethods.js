@@ -467,7 +467,7 @@ console.log(arr1.includes(6, 3)); // true;
                                 <li><code>from</code>: index to start search from counting from the end of the array</li>
                             </ul>
                             `,
-                            Returns: 'index of found element or -1 if nothing found',
+                            Returns: '<code>true</code> if found, <code>false</code> if not.',
                             Mutating: 'Not mutating',
                             Description: `Searches an array starting from the end for a given element and returns 
                             -1 if nothing found or found element index. Uses a '===' operator.`
@@ -493,7 +493,7 @@ console.log(found) //3;
                             Method: '<code>arr.find(cb[, thisArg])</code>',
                             Arguments: `
                             <ul>
-                            <li><code>cb</code>A callback function taking
+                            <li><code>cb</code>: a callback function taking
                             <ul>
                                 <li><code>item</code>: currently processed array item</li>
                                 <li><code>index</code>: index of currently processed item</li>
@@ -765,7 +765,7 @@ console.log(average)
                             Arguments: `
                             <code>cb</code>: a callback taking:
                             <ul>
-                            <li><code>acc</code>: accumulated value, that will be passed to next cb call</li>,
+                            <li><code>acc</code>: accumulated value, that will be passed to next cb call</li>
                             <li><code>item</code>: currently processed array element</li>
                             <li><code>index</code>: index of currently processed element</li>
                             <li><code>arr</code>: whole array</li>
@@ -848,7 +848,7 @@ let e2 = arr.every((item)=>{
                             Arguments: `
                             <ul>
                             <li>
-                                <code>cb</code>is a callback taking:
+                                <code>cb</code>: is a callback taking:
                                 <ul>
                                     <li><code>item</code> currently processed array item,</li>
                                     <li><code>index</code> an index of the currently processed item</li>
@@ -911,15 +911,6 @@ let e2 = arr.some((item)=>{
         //     ]
         // },
 
-
-
-                {
-                    elementType:'UnsignedList',
-                    content:[
-                    `
-                    `
-                    ]
-                },
                 {
                     elementType:'Paragraph',
                     content:`

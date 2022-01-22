@@ -342,6 +342,13 @@ const data =         {
                             `
                         },
                         {
+                            headline:':host-context(selector)',
+                            content: `
+                            In shadow DOM matches the host of a <code>shadow-root</code> only if any ancessor of the host
+                            matches the given selector. May be used to implement a dark theme,
+                            `
+                        },
+                        {
                             headline:':is(selector, selector)',
                             content: `Takes a selector list, and matches each element in this list. This element counts to
                             <a href="./specifity">specifity</a> as a class, so multiplication 10:
@@ -371,6 +378,14 @@ const data =         {
                             content: `Selects the first line.
                             `
                         },
+                        {
+                            headline:':defined',
+                            content: `For the CWC: custom web components. If the component is defined with the 
+                            <code>window.customElements.define()</code>, this will be selected. In case of 
+                            <code>:not(:defined)</code> all not registered elements may be made to be transparent,
+                            `
+                        },
+
                     ]
                 },
                 {

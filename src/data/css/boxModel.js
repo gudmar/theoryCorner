@@ -35,16 +35,7 @@ let data =     {
                         '<b>content:</b> This is space elements content takes'
                     ]
                 },
-                {
-                    elementType: 'NoteWarning',
-                    content: `
-                    This is theory. In practice <code>padding-box</code> is not supported in all browsers I have. In
-                    <a href="https://css-tricks.com/almanac/properties/b/box-sizing/">one source</a> I found that 
-                    this value is supported only in firefox, however in my case even this browser, with -moz and -webkit
-                    prefixes failed. However observed default behaviour (content-box) was in all cases the same as 
-                    described padding-box
-                    `
-                },   
+
                 {
                     elementType: 'Paragraph',
                     content: `
@@ -93,6 +84,16 @@ let data =     {
                         are left outside.`
                     ]
                 },
+                {
+                    elementType: 'NoteWarning',
+                    content: `
+                    This is theory. In practice <code>padding-box</code> is not supported in all browsers I have. In
+                    <a href="https://css-tricks.com/almanac/properties/b/box-sizing/">one source</a> I found that 
+                    this value is supported only in firefox, however in my case even this browser, with -moz and -webkit
+                    prefixes failed. Observed default behaviour (content-box) was in all cases the same as 
+                    described padding-box
+                    `
+                },   
             ]
         },
         {
@@ -133,11 +134,11 @@ let data =     {
                     elementType:'Code',
                     content:`
 <pre>
-<style>
+&lt;style>
     p{margin:25px;}
-</style>
-<p>Paragraph 1</p>
-<p>Paragraph 2</p>
+&lt;/style>
+&lt;p>Paragraph 1&lt;/p>
+&lt;p>Paragraph 2&lt;/p>
 </pre>                        
                     `,
                 },
