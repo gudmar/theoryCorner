@@ -94,7 +94,7 @@ let data =     {
                     content:[
                         `Invoced every time the component is added to the DOM,`,
                         `It is called if an element is moved to another parent with an <code>element.appendChild(newParent)</code>
-                        method,`
+                        method,`,
                         `Communication with server or web workers here,`,
                         `Computations and work here,`, 
                         `Rendering,`,
@@ -130,7 +130,7 @@ let data =     {
                     elementType:'UnsignedList',
                     content:[
                         `Will be invoked each time a registered attribute (for example passed in the HTML) changes,`,
-                        `Uses a <code>static get observed attributes<code> method to learn what attributes will be 
+                        `Uses a <code>static get observed attributes</code> method to learn what attributes will be 
                         observed. This method returns an array of attribs: <code>return ['prop1, 'prop2']</code>`,
                         `BEWARE :). This should not be used together with a proxy or a mutation observer 
                         APIS, as a reaction to the same change will appear multiple times,`
@@ -172,19 +172,19 @@ document.querySelector('#newParent').appendChild(document.adoptNode(elementToBeM
                     content:
                     `
                     The content should be set in the <code>connectedCallback</code>. The best way is to use a 
-                    template element. This element is rendered only once and is not visible when placed in the 
+                    <code>template</code> element. This element is rendered only once and is not visible when placed in the 
                     main HTML file. It may be a good practice to create a separate HTML file for the template,
                     and separate for the logic, and place them in one (separate) folder, just like Angular does.
                     The template may have a <code>style</code> element with the CSS.
                     It is possible to add the template content inside a <code>shadowRoot</code> element.
-                    The shoadow root should be attached in the constructor.
+                    The shadow root should be attached in the constructor.
                     `
                 },
                 {
                     elementType:'Paragraph',
                     content:
                     `
-                    Usage of the custom web elements inner HTML for setting content can be done with <code>&lt;slot></code>
+                    Usage of the custom web elements host inner HTML for setting content can be done with <code>&lt;slot></code>
                     elements. 
                     `
                 },
@@ -192,7 +192,7 @@ document.querySelector('#newParent').appendChild(document.adoptNode(elementToBeM
                     elementType:'Paragraph',
                     content:
                     `
-                    Using the innerHTML of the registered custom element tag (like li elements inside ul) is not 
+                    Using the innerHTML of the custom web component host (like li elements inside ul) is not 
                     encouraged, because the custom web component API was not designed for that, but it is possible.
                     To do this:
                     `
@@ -280,6 +280,29 @@ customElements.define('section-element', SectionElement)
                     `
                 },
 
+                {
+                    elementType:'Headline-3',
+                    content:'Styling'
+                }, 
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>:host</code> for selecting the CWC host,`,
+                        `<code>:host:hover</code> for selecting a hovered CWC host`,
+                        `<code>:host([disabled])</code> for selecting a hovered CWC host with the disabled attribute set to true`,
+                        `<code>:host-context(.dark-theme)</code> the <code>:host-context</code> makes it possible to select a 
+                        host element of the shadow DOM only, if it is the descendant of the element matching a selector given in brackets,
+                        in this case if the ancestor of the host has class <code>dark-theme</code>. This is the right way to apply dark 
+                        themes to the shadow DOM.`,
+                        `The shadow-DOM host elements may be styled from the outside (but no influence on the interiors of the shadow DOM),
+                        with a normal class or tag selectors: <code>my-custom-web-component{position...}</code>`,
+                        `<code>custom-web-component:defined<code> will select a custom-web-component element if it is registered with the
+                        <code>customElements.define</code> method. This element may appear in the HTML, but may be defined later with CSS,`,
+                        `<code>custom-web-component:not(:defined)</code> this selects a custom-web-component if it is not defined. This is 
+                        a good solution for hiding elements until they are registered with the <code>customElements.define</code>`
+                    ]
+                },             
+
             ]
         },
         {
@@ -287,13 +310,38 @@ customElements.define('section-element', SectionElement)
             content:[
                 {
                     elementType:'Headline-2',
-                    content:''
+                    content:'Clean code'
                 },
                 {
                     elementType:'Paragraph',
                     content:`
-
+                        There are some antipattens and patterns. Here the proper usage of the lifecycle methods
+                        will not be repeted, but just some general rules regarding clean code will be reminded.
                     `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `CWC should not touch elements that are outside it, no DOM modifications outside the host, 
+                        no CSS modifications to elements outside the host,`,
+                        `CWC should accept inputs <b>only<b> with the attributes, or optionaly with a mediator pattern, 
+                        no other modifications to the CWC from the outside world,`,
+                        `A component shuld never modify its attributes, so CWC should not modify its attributes,`,
+                        `The proper way to communicate from CWC to the outside world is with the events dispatched on
+                        the host element. Optionaly the mediator pattern may be used,`,
+                        `The CWC host CSS should not be manipulated from the outside, as it kills the encapsulation.
+                        Thie execptions could be to hide the CWC,`,
+                        `Before using an attribute, check if it does not already exist, do not override,`,
+                        `Before using a method name check if a property with the same name does not exist, do not override,`,
+                        `A comopnent should never apply classes to its self, so do not apply classes to a CWC element 
+                        from the inside,`,
+                        `Methods and variable names should be descriptive,`,
+                        `Comments in the code should be newer used, code should speak of its self, commens get outdated and it
+                        is difficult to track if they are still up to date,`,
+                        `Methods short, doing one thing,`,
+                        `No <i>if</i> or <i>or</i> or <i>and</i> used in method naming, as those tell that a method does more 
+                        than one thing,`
+                    ]
                 },
             ]
         },
