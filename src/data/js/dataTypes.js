@@ -195,7 +195,7 @@ let data =     {
                         </div>`,
                         `
                         <code>string</code> is a type for representing textual data in a set of 16-bit unsigned integer values.
-                        Please refer to the <a href="./string%20methods">string</a> section for more information.
+                        Please refer to the <a href="./#/theory/string%20methods">string</a> section for more information.
                         `,
                         `
                         <code>symbol</code> is a type a specially designed to serve as a key for the object, as objects keys in JS

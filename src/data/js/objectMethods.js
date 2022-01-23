@@ -434,7 +434,7 @@ console.log(fixed.nested.g); // 9, as nested was not made not extensible togethe
                     undefined in case the property on this object does not exist. The descriptor is an object describing
                     a property behaviour, and has the attributes:
                     <code>value</code>, <code>writable</code>, <code>enumerable</code>, <code>configurable</code>,
-                    <code>get</code> and <code>set</code>. Please see an <a href = "./object">object</a> article to learn more.
+                    <code>get</code> and <code>set</code>. Please see an <a href = "./#/theory/object">object</a> article to learn more.
                     `
                 },
 

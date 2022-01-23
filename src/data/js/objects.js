@@ -66,7 +66,7 @@ let data =     {
                     content: `
                         If a symbol has to be used as a key, then the bracket notation is the right one:
                         <code>person[Symbol('height')]</code>. To learn more about symbols please visit a 
-                        <a href="./data%20types">data types</a> section.
+                        <a href="./#/theory/data%20types">data types</a> section.
                     `
                 },
                 {
@@ -95,7 +95,7 @@ let data =     {
                         `There is a way to hide object properties from some key listing methods, and there is a way to 
                         block object properties from being modified. There are methods like <code>Object.freeze()</code> or
                         <code>Object.seal()</code> or <code>Object.preventExtentions()</code>, but these are described in the
-                        <a href="./object%20methods">object methods</a> section. Here an object descriptor will be covered.`
+                        <a href="./#/theory/object%20methods">object methods</a> section. Here an object descriptor will be covered.`
                 },
                 {
                     elementType:'UnsignedList',
@@ -224,7 +224,7 @@ let instance = new Extending();
                     elementType:'Paragraph',
                     content:[
                         `Object has some methods allowing its manipulation. To learn more please visit the 
-                        <a href="./object%20methods">object methods</a> section.`
+                        <a href="./#/theory/object%20methods">object methods</a> section.`
                     ]
                 },
             ]

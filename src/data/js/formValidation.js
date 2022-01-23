@@ -14,7 +14,7 @@ let data =     {
                 {
                     elementType: 'NoteWarning',
                     content: `
-                        This article is an extention of a <a href="./validation" target="_blank">HTML form validation article</a>,
+                        This article is an extention of a <a href="./#/theory/validation" target="_blank">HTML form validation article</a>,
                         where HTML input elements, validation related CSS pseudoclasses and HTML validation realted
                         attributes are introduced. If you did not get familiar with that topics please start reading from there.
                     `

@@ -12,6 +12,7 @@ import TestSharedWorker from './testComponents/sharedWorker';
 import { getTheoryData } from './data/theoryData';
 import {
   BrowserRouter,
+  HashRouter,
   Routes,
   Route
 } from "react-router-dom";
@@ -33,7 +34,8 @@ function getRoutesFromTheoryData(){
 
 ReactDOM.render(
   <React.StrictMode>
-  <BrowserRouter>
+  {/* <BrowserRouter> */}
+  <HashRouter>
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="about" element={<App />} />
@@ -43,8 +45,8 @@ ReactDOM.render(
       <Route path="dedicatedWobWorker" element={<TestDedicatedWorker />} />
       <Route path="sharedWebWorker" element={<TestSharedWorker />} />
     </Routes>
-
-  </BrowserRouter>
+  </HashRouter>
+  {/* </BrowserRouter> */}
   </React.StrictMode>
   ,
   document.getElementById('root')

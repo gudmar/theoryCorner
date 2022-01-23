@@ -23,7 +23,7 @@ const data =     {
                     content:`
                     Selector defines element or set of elements that a set of css rules should apply to. Selectors may
                     be joined with combinators. Which rule is chosen in case more selectors apply to some elements is 
-                    determined by <a href="./specifity">specifity</a>.
+                    determined by <a href="./#/theory/specifity">specifity</a>.
                     `
                 },
                 {
@@ -71,7 +71,7 @@ const data =     {
 
                         `<code>:before</code>, <code>:after</code>: pseudo-element selectrs select pseudo-elements. Those
                         elements do not exist in HTML, however they are present in DOM and they are defined in CSS. To learn 
-                        more read the <a href="./pseudo%20elements">pseudo elements</a> article.`,
+                        more read the <a href="./#/theory/pseudo%20elements">pseudo elements</a> article.`,
 
                         `<code>#myId</code>: is an Id selector. Id should be an unique value in the whole, so this should 
                         select only one element if not combined with selectors comming after it`,

@@ -11,7 +11,7 @@ let theoryDataHtml = [
                         elementType: 'NoteWarning',
                         content: `
                         Server side validations should not be ommited, due to front-end hacking possiblities.<br>
-                        There is an <a href='./form%20validation%20api' target="_blank"><span> JS
+                        There is an <a href='./#/theory/form%20validation%20api' target="_blank"><span> JS
                          api</span></a> that can be used for validation purposes.
                         `
                     },   
