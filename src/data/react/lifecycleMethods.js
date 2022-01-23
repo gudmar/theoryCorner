@@ -187,7 +187,44 @@ let data =     {
                     `
                 },
 
+                {
+                    elementType: 'Headline-3',
+                    content: `static getDerivedStateFromProps(props, state)`
+                },                
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    Called before <b>every</b> initial render and update renders. Should return an object updating the state, or
+                    null if no update needed. <b>Rare usage</b>. It should be considered to use:
+                    `
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        '<code>componentDidUpdate</code>,',
+                        `memoization techniques,`, `fully controlled component, or fully uncontrolled component with
+                        the key`
+                    ]
+                },
+                {
+                    elementType: 'Code',
+                    content: 
+                    `
+<pre>
+class SomeComponent extends Component {
+    state = ...
 
+    static getDerivedStateFromProps(props, state){
+        if (props.val !== state.prevPropsVal || state.prevOtherVal !== state.otherVal){
+            return {prevPropsVal ....}
+        }
+        return null;
+    }
+    render ....
+}
+</pre>                    
+                    `
+                },
 
 
 

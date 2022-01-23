@@ -384,6 +384,12 @@ customElements.define('section-element', SectionElement)
                 },
                 {
                     elementType:'Link',
+                    content:'developers.google',
+                    href: 'https://developers.google.com/web/fundamentals/web-components/customelements',
+                    description:'Like a home web page'
+                },
+                {
+                    elementType:'Link',
                     content:'custom-web-component.net',
                     href: 'https://custom-web-component.net/',
                     description:'Like a home web page'
