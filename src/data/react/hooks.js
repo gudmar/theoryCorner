@@ -66,6 +66,7 @@ let data =     {
                 {
                     elementType:'Code',
                     content:`
+                    <pre>
 import {useState, useEffect} from "react";
 
 export default function useFetch(url){
@@ -79,6 +80,7 @@ export default function useFetch(url){
 
     return [data]; // data is a promisse 
 }
+</pre>
                     `
                 },
 
@@ -142,36 +144,122 @@ export default function useFetch(url){
                     elementType:'SmallHeadline',
                     content:'useEffect(didUpdate)'
                 },
-                {
-                    elementType: 'useEffect(didUpdate)',
-                        NOTE:
-    `Mutations, subscriptions, timers, logging and other side effects are not allowed in the main body of a function component!
-    Or this will lead to bugs`,
-                },
+ 
                 {
                     elementType:'Paragraph',
-                    content:'const [state, setState] = useState(initialState);'
+                    content:`Concatenates both: <code>componentDidMount</code> and <code>componentDidUpdate</code>
+                    lifecycle methods.`
                 },
-                {
-                    elementType:'Paragraph',
-                    content:`Could be compared to the <code>setState(updater[, callback])</code> from the class components,`
-                },
-
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `Returns a stateful value and a function to update it`,
-                        `During initial render the state becomes the same as <code>initialState</code>`,
-                        `setState is a setter that should be used to set new state values`,
-                        `Callbacks may be used as the arg of setState as 
-                        <code>setState(prevState => prevState + 2)</code>`,
-                        `If a function is passed to the setState setter, 
-                        then the states value will be set to the value this function returns.`,
-                        `In case the state is set to the same value, react will not update children of affected component.`
+                        `All side effects should be used in the useEffect callback.`,
+                        `Callback of <code>useEffect</code> will run every time, after render is commited to the screen.`,
+                        `<code>useEffect(()=>{})</code> launches <strong>after every completed render</strong> by default`,
+                        `<code>useEffect(()=>{}, [args])</code> now useEffect will trigger <strong>only</strong> when any of values in 
+                        the <code>args</code> changes. Can be used for conditional rendering.`
+                        `If the <code>useEffect</code> callback returns a function, this function will be treated as a <code>
+                        componentDidUmount</code> hook, so will be run on umount of the component.`,
+                        `<code>useEffect</code> is used after screen painting. If there is a need to run something before content is 
+                        displayed, it would be better to use <code>useLayoutEffect</code> instead`,
+                        
                     ]
                 },
 
 
+                {
+                    elementType:'SmallHeadline',
+                    content:'useContext( )'
+                },
+ 
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    The context is an object holding some data that needs to be passed to the components that are 
+                    deeply nested inside the component passing the context. Normally there would be props passed 
+                    from the component to the child component. But the problem known as the <q>props drilling</q>
+                    occures, when the props has to be passed deep.
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Possible usages are passing the:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `global scope`,'application configurations,','user settings','preferred language','...'
+                        
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    How to use it?
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `Create the context`, `Provide the context: every nested component has access to the context`, 
+                        `Consume the context`,
+                        `When the context changes, all components using context will be rerendered,`
+                        `<code>useContext</code> returns the context, that was set in the other place,`
+                        
+                    ]
+                },
+                {
+                    elementType:'Code',
+                    content:
+                    `
+<b>Creating the context:</b>
+<pre>
+import { createContext } from 'react';
+cons Context = createContext('some value');
+</pre>              
+
+<b>Providing the context</b>
+Can be done with the &lt;Context.Provider value={val}> wrapping component.
+Every component nested in the &lt;Context.Provider> will have access to the context
+<pre>
+function Compon() {
+    cont val = 'initial context';
+    return (
+        &lt;Context.Provider value={val}>
+            <SomeComponent/>
+        &lt;Context.Provider>
+    )
+}
+
+<b>Consumint the contest</b>
+A):
+import {useContext} from 'react';
+
+function SomeComponent(){
+    const val = useContext(Context);
+
+    return (
+        &lt;>
+            <span>first usage: {val}</span>
+            <span>Second usage: {val}</span>
+        &lt;/>
+    )
+}
+
+B):
+function SomeComponent(){
+    return (
+        &lt;Context.Consumer>
+            {value => &lt;span>{value}&lt;span>}
+        &lt;Context.Consumer>
+    )
+}
+
+</pre>
+                    `
+                },
 
             ]
         },
@@ -208,6 +296,12 @@ export default function useFetch(url){
                     content:'projects.wojtekmaj.pl',
                     href: 'https://projects.wojtekmaj.pl/react-lifecycle-methods-diagram/',
                     description:'Lifecycle in react'
+                },
+                {
+                    elementType:'Link',
+                    content:'dmitripavlutin.com',
+                    href: 'https://dmitripavlutin.com/react-context-and-usecontext/',
+                    description:'useContext'
                 },
             ]
         }
