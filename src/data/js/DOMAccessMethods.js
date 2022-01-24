@@ -44,9 +44,9 @@ let data =     {
                     elements that are nested in element with id equal to 'someId'. So if we have <code>document.getElementById('someId')
                     </code> stored in some variable already, we may start from already fonund element <code>someElement.document.getElementsByTagName...</code>`,
                     `<code>querySelector('.css-selector')</code>: this method allows user to find a NodeList with
-                     <b>first element</b> matching specified <a href="./selectors">css selector</a>.`,
+                     <b>first element</b> matching specified <a href="./#/theory/selectors">css selector</a>.`,
                     `<code>querySelectorAll('.css-selector')</code>: this method returns a NodeList of elements matching
-                    specified <a href="./selectors">css selector</a> in whole subtree.`,
+                    specified <a href="./#/theory/selectors">css selector</a> in whole subtree.`,
                     `<code>getElementsByClassName('class-name')</code>: will return a NodeList of all elements having 
                     specified class`,
                     `<code>getElementsByName('name')</code>: will return a NodeList of all elements having name attribute

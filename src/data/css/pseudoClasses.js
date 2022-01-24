@@ -351,7 +351,7 @@ const data =         {
                         {
                             headline:':is(selector, selector)',
                             content: `Takes a selector list, and matches each element in this list. This element counts to
-                            <a href="./specifity">specifity</a> as a class, so multiplication 10:
+                            <a href="./#/theory/specifity">specifity</a> as a class, so multiplication 10:
                             <ul>
                                 <li><code>:is(.danger, .warning, .info) p</code> will match all of <code>.danger p</code>,
                                 <code>.warning p</code>, <code>.info p</code>.</li>

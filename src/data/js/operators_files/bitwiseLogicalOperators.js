@@ -14,7 +14,7 @@ let bitwiseOperatorsData =     [
     {
         elementType: 'Paragraph',
         content: `
-            Bitwise operators are covered in more details in the <a href="./theory/bitwise%20use%20cases">bitwise use cases</a>
+            Bitwise operators are covered in more details in the <a href="./#/theory/bitwise%20use%20cases">bitwise use cases</a>
             article. This is just a summary.
         `
     },
@@ -22,7 +22,7 @@ let bitwiseOperatorsData =     [
         elementType: 'UnsignedList',
         content: [
             `Numbers in JS are represented in a 
-            <a href = "./theory/number%20representation">double precision floating point representation</a>
+            <a href = "./#/theory/number%20representation">double precision floating point representation</a>
             However the longest it is possible they are represented on 32 bits, as an integer. Double precision
             is applied only if the number does not fit into range -2<sup>31</sup> to 2<sup>31</sup> or becomes a 
             fraction. 
