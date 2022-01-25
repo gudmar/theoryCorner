@@ -379,6 +379,79 @@ function SomeComponent(){
                 },
                 {
                     elementType:'SmallHeadline',
+                    content:'useReducer'
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+import {useReducer} from 'react';
+
+function SomeComponent(){
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    const action = {type: 'ActionType'};
+    function redurcer(state, action){
+        let newState;
+        switch (action.type) {
+            case 'type1': 
+                newState = {...state, someProp: 'newValue'};
+                <span class="bg-danger text-white p-1">// Create a new state, do not mute</span>
+                break;
+            case 'type2':
+                newState = {...state, someProp: 'newValue'};
+                <span class="bg-danger text-white p-1">// Create a new state, do not mute</span>
+                break;
+            default:
+                throw new Error('Action not defined');
+        }
+        return newState
+    }
+    return (
+        &lt;button onClick={()=>dispatch(action)}>Button&lt;/button>
+    )
+}
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <code>useReducer</code> is the <b>rare usaged</b> competition for the <code>useState</code>.
+                    The similar <code>useReducer</code> idea is used in the <b>Redux</b> state management library.
+                    This hook will not be often used, but might come handy in case of the components with complicated 
+                    states.
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>initialState</code> is the initial state value,`,
+                        `<code>reducer</code> is a function, that returns the new value of the state. It is important, that
+                        the new value of the state is the <b>copy</b> of the previous state. In case the mutated previous 
+                        state is passed, react will not be able to detect changes and will not update the view,`,
+                        `<code>state</code> is the state object reference. In case the <code>dispatch</code> function
+                        is triggered, this reference will hold the new value of the object,`,
+                        `<code>dispatch</code> is the function that is created for the current usage of the <code>useReducer</code>.
+                        Calling this function will trigger the state update. Everything before this function call was just 
+                        loading the gun, aiming at the target, but this function is like pulling the trigger,`,
+                        `<code>action</code> is the object that tells the reducer how to create a new state object.`
+                    ]
+                },
+                {
+                    // THIS PARAGRAPH spelling checked
+                    elementType:'Paragraph',
+                    content:`
+                    As mentioned before: this hook usage is similar to the Redux use cases. As there may be a problem with 
+                    passing the state down and pulling events up to the common source of the truth, there is a library
+                    holding the state globally, and make it possible to access this state from any part of the application.
+                    This library is the Redux. It may be used not only for the React. It may be also used in pure JS for instance.
+                    `
+                },
+
+
+                {
+                    elementType:'SmallHeadline',
                     content:'useImperativeHandle'
                 },
                 {
@@ -429,6 +502,12 @@ function SomeComponent(){
                     content:'dmitripavlutin.com',
                     href: 'https://dmitripavlutin.com/react-context-and-usecontext/',
                     description:'useContext'
+                },
+                {
+                    elementType:'Link',
+                    content:'dmitripavlutin.com',
+                    href: 'https://dmitripavlutin.com/react-usereducer/',
+                    description:'useReducer'
                 },
             ]
         }

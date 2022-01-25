@@ -42,9 +42,9 @@ function StopWatchState(){
         <div className="col-sm-12 col-lg-6 col-xl-3 col-xxl-4 bg-secondary text-white">
             <div className="container">{convertTime(stopState.currentTime)}</div>
             <div className="container">
-                <button type="button" onClick={start} className="btn btn-outline-primary">Start</button>
-                <button type="button" onClick={stop} className="btn btn-outline-primary">Stop</button>
-                <button type="button" onClick={restart} className="btn btn-outline-primary">Reset</button>
+                <button type="button" onClick={start} className="btn  btn-light m-1">Start</button>
+                <button type="button" onClick={stop} className="btn  btn-light m-1">Stop</button>
+                <button type="button" onClick={restart} className="btn  btn-light m-1">Reset</button>
             </div>
         </div>
     )
