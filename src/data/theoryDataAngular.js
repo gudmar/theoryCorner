@@ -1,23 +1,31 @@
-import getReactLifecycleData from "./react/lifecycleMethods";
-import getHooksData from "./react/hooks";
+// import getReactLifecycleData from "./react/lifecycleMethods";
+// import getHooksData from "./react/hooks";
 
-// Component communication - pulling states, redux, mediator, useContext
-// Routes
-// Components: JSX, conditional rendering, not modyfying props, handling events, keys of lists
-// lazy
-// https://pl.reactjs.org/docs/render-props.html
-// kontrolowane i nie kontrolowane
-// testowanie w react
+// Inatalation, basic CLI commands
+// Filesystem
+// Binding data
+// Lifecycle hooks
+// Change detection
+// Services and dependency injection
+// Modules
+// Components
+// Referencing the component from its self
+// DIrectives
+// Pipes
+// Communication between components
+// Routing
+// Lazy loading
+// Tests
 
-let theoryDataReact = [
+let theoryDataAngular = [
 
     getHooksData(),
     getReactLifecycleData(),
     {
         summary: 'position',
         title: 'position',
-        searchKeywords: 'react hooks lifecycle',
-        cathegory: 'React',
+        searchKeywords: 'angular',
+        cathegory: 'Angular',
         content: [
             {
                 elementType:'Article',
@@ -29,7 +37,7 @@ let theoryDataReact = [
                     {
                         elementType: 'Paragraph',
                         content: `
-                            React is ...          
+                            Angular is ...          
                         `
                     }
                 ]
@@ -66,6 +74,6 @@ let theoryDataReact = [
     },
 ]
 
-export function getTheoryDataReact(){
-    return theoryDataReact;
+export function getTheoryDataAngular(){
+    return theoryDataAngular;
 }
