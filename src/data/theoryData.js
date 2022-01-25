@@ -3,6 +3,7 @@ import { getTheoryDataHtml } from './theoryDataHtml';
 import { getTheoryDataJs } from './theoryDataJs';
 import { getTheoryDataTs } from './theoryDataTs';
 import { getTheoryDataReact } from './theoryDataReact';
+import { getPracticeComponents } from './practiceComponents';
 
 export function getTheoryData(){
     // let allData = [].concat(getTheoryDataCss(), getTheoryDataHtml(), getTheoryDataJs(), getTheoryDataTs())
@@ -27,7 +28,10 @@ export function getTheoryData(){
             category: 'React',
             content: getTheoryDataReact()
         },
-
+        {
+            category: 'Practice',
+            content: getPracticeComponents()
+        },
     ]
     return allData;
 }

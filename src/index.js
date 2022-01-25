@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import TestDedicatedWorker from './testComponents/dedicatedWorker';
 import TestSharedWorker from './testComponents/sharedWorker';
+import StopWatchState from './testComponents/stopWatchState';
 import { getTheoryData } from './data/theoryData';
 import {
   BrowserRouter,
@@ -44,6 +45,7 @@ ReactDOM.render(
       <Route path="quizTestMode" element={<QuizTestMode />} />
       <Route path="dedicatedWobWorker" element={<TestDedicatedWorker />} />
       <Route path="sharedWebWorker" element={<TestSharedWorker />} />
+      <Route path="stopWatchState" element={<StopWatchState />} />
     </Routes>
   </HashRouter>
   {/* </BrowserRouter> */}

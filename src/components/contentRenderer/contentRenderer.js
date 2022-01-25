@@ -6,6 +6,7 @@ import ConditionalArray from './conditionalArray.js';
 import Image from './image.js'
 import Note from './note.js'
 import Code from './code.js'
+import StopWatchState from '../../testComponents/stopWatchState.js';
 
 
 function getSingleElement(type, content, otherProps){
@@ -51,6 +52,9 @@ function getSingleNonListElementType(type, content, otherProps){
 
     if (type === 'ConditionalArray') 
         return <ConditionalArray headlines={otherProps.headItems} contentItems={content} />
+
+
+    if (type === 'StopWatchState') return <StopWatchState />
 }
 
 function isListElementType(elementType){
@@ -61,7 +65,8 @@ function isListElementType(elementType){
 function isNonListElementType(elementType){
     let nonListElementTypes = [
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
-        'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray'
+        'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
+        `StopWatchState`
     ];
     return nonListElementTypes.includes(elementType)
 }
