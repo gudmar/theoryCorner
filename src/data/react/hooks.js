@@ -115,8 +115,40 @@ export default function useFetch(url){
                          <code>setState(prevState => prevState + 2)</code>`,
                         `If a function is passed to the setState setter, 
                         then the states value will be set to the value this function returns.`,
-                        `In case the state is set to the same value, react will not update children of affected component.`
+                        `In case the state is set to the same value, react will not update children of affected component,`,
+                        `It is possible to set an object as a value of the state, however when using the object setter
+                        the whole object must be set, not the a single property, as the whole object would be overwritten`
                     ]
+                },
+                {
+                    elementType:'Code',
+                    content:`
+                    <b class="text-danger">Overwritting the whole state</b>
+<pre>
+    function Car() {
+        const [car, setCar] = useState({
+            brand: "Skoda",
+            model: "Favorit",
+            year: "1992",
+            color: "Claret"
+        })
+        useEffect(){
+            <span class="bg-danger text-white p-1">setCar({model: "Forman"})</span>; 
+            // !! ACHTUNG: This will set the whole object to {model: "Forman"}
+            // No 'brand', 'year', or 'color' properties will be defined anymore
+            <span class="bg-success text-white p-1">setCar({...car, model: 'Forman'})</span>; 
+            // This is the right approach
+        }
+        return (
+            &lt;React.Fragment>
+                &lt;div>car.brand&lt;/div>
+                &lt;div>car.model&lt;/div>
+                &lt;div>car.year &lt;/div>
+                &lt;div>car.color&lt;/div>
+        )
+    }
+</pre>                    
+                    `
                 },
 
 
@@ -312,10 +344,120 @@ function SomeComponent(){
                             with the component state. All changes made to those objects should be done in hooks. `,
                             `https://dmitripavlutin.com/react-useref-guide/`
                     ]
-                }
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'useMemo(()=>computeExpensiveValue(a,b), arrOfDep)'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `All arguments taken by the callback passed to the <code>useMemo</code> should be provided in the 
+                        <code>arrOfDep</code>,`,
+                        `Computes the expensive value only if one of values given in <code>arrOfDep</code> changes,`,
+                        `If none of values given inside the <code>arrOfDep</code> changes, the memorized value given by the
+                        callback function is returned,`,
+                        `Code should be written without the <code>useMemo</code> function, and this function should be added
+                        at the end, as the performance boost, as it may be chosen to change <code>useMemo</code> functionality
+                        in the future,`,
+                        `If the <code>arrOfDep</code> is empty, the the value of the callback will be recomputed every time`
+                    ]
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'useCallback(computeExpensiveValueFunction, arrOfDep)'
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `All arguments taken by the <code>computeExpensiveValueFunction</code> passed to the 
+                        <code>useCallback</code>, should be provided in the <code>arrOfDep</code>,`,
+                        `This function works the similar way that the <code>useMemo</code> does:
+                        <code>useCallback(fn, deps)</code> is the same as <code>useMemeo(()=> fn, deps)</code>`
+                    ]
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'useReducer'
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+import {useReducer} from 'react';
+
+function SomeComponent(){
+    const [state, dispatch] = useReducer(reducer, initialState);
+
+    const action = {type: 'ActionType'};
+    function redurcer(state, action){
+        let newState;
+        switch (action.type) {
+            case 'type1': 
+                newState = {...state, someProp: 'newValue'};
+                <span class="bg-danger text-white p-1">// Create a new state, do not mute</span>
+                break;
+            case 'type2':
+                newState = {...state, someProp: 'newValue'};
+                <span class="bg-danger text-white p-1">// Create a new state, do not mute</span>
+                break;
+            default:
+                throw new Error('Action not defined');
+        }
+        return newState
+    }
+    return (
+        &lt;button onClick={()=>dispatch(action)}>Button&lt;/button>
+    )
+}
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <code>useReducer</code> is the <b>rare usaged</b> competition for the <code>useState</code>.
+                    The similar <code>useReducer</code> idea is used in the <b>Redux</b> state management library.
+                    This hook will not be often used, but might come handy in case of the components with complicated 
+                    states.
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>initialState</code> is the initial state value,`,
+                        `<code>reducer</code> is a function, that returns the new value of the state. It is important, that
+                        the new value of the state is the <b>copy</b> of the previous state. In case the mutated previous 
+                        state is passed, react will not be able to detect changes and will not update the view,`,
+                        `<code>state</code> is the state object reference. In case the <code>dispatch</code> function
+                        is triggered, this reference will hold the new value of the object,`,
+                        `<code>dispatch</code> is the function that is created for the current usage of the <code>useReducer</code>.
+                        Calling this function will trigger the state update. Everything before this function call was just 
+                        loading the gun, aiming at the target, but this function is like pulling the trigger,`,
+                        `<code>action</code> is the object that tells the reducer how to create a new state object.`
+                    ]
+                },
+                {
+                    // THIS PARAGRAPH spelling checked
+                    elementType:'Paragraph',
+                    content:`
+                    As mentioned before: this hook usage is similar to the Redux use cases. As there may be a problem with 
+                    passing the state down and pulling events up to the common source of the truth, there is a library
+                    holding the state globally, and make it possible to access this state from any part of the application.
+                    This library is the Redux. It may be used not only for the React. It may be also used in pure JS for instance.
+                    `
+                },
 
 
-
+                {
+                    elementType:'SmallHeadline',
+                    content:'useImperativeHandle'
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'useDebugValue'
+                },
 
 
 
@@ -360,6 +502,12 @@ function SomeComponent(){
                     content:'dmitripavlutin.com',
                     href: 'https://dmitripavlutin.com/react-context-and-usecontext/',
                     description:'useContext'
+                },
+                {
+                    elementType:'Link',
+                    content:'dmitripavlutin.com',
+                    href: 'https://dmitripavlutin.com/react-usereducer/',
+                    description:'useReducer'
                 },
             ]
         }

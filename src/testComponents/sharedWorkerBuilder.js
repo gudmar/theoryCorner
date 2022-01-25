@@ -1,5 +1,5 @@
 //woker-builder.js
-class SharedWorkerBuilder extends SharedWorker {
+class SharedWorkerBuilder extends Worker {
     constructor(worker) {
       const code = worker.toString();
       const blob = new Blob([`(${code})()`]);
