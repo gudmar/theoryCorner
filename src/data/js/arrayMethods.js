@@ -25,7 +25,7 @@ let data =     {
                     `
                 },
                 {
-                    elementType: 'Unsigned list',
+                    elementType: 'UnsignedList',
                     content: [
                         `<code>array like</code> is an object not created with an <code>Array</code> constructor, 
                         that has a non negative <code>lengtn</code> property, and some indexed properties. An

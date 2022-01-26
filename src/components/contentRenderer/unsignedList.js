@@ -1,5 +1,4 @@
 function UnsignedList(props){
-    console.log(props)
     let items = props.items
     
     return (
