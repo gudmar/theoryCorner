@@ -52,10 +52,32 @@ function App(props) {
 
   return ( 
     <div className="container-fluid">
-      <nav className="navbar, navbar-expand-sm bg-danger navbar-danger text-center text-white sticky-top p-1">
-        This page is still under developement.
+    <nav className="navbar, navbar-expand-sm bg-danger navbar-danger text-center text-white sticky-top p-1">
+    This page is still under developement.
       </nav>
+
+    <div className="container-fluid">
+      
       <div className="row">
+
+        <button className="btn btn-primary d-sm-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#hiddenMenu">
+          &#9776;Content&#9776;
+        </button>
+
+        <div className="offcanvas offcanvas-start d-md-none d-sm-block" id="hiddenMenu">
+          <div className="offcanvas-header">
+            <h1 className="offcanvas-title">Topics</h1>
+            <button type="button" className="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+          </div>
+          <div className="offcanvas-body">
+            <div className="col-12 scrollable">
+              <Menu menuData={theoryData}/>
+            </div>
+          </div>
+        </div>
+
+
+
         <div className="col-sm-12">
           <div className="container-fluid mb-3">
             <div className="text-center">
@@ -67,9 +89,13 @@ function App(props) {
           </Link>
         </div>
       </div>
+
       <div className="row">
-        <div className="col-sm-4 scrollable"><Menu menuData={theoryData}/></div>
-        <div className="col-sm-8 scrollable">
+
+          
+
+        <div className="col-md-3 col-lg-3 col-xl-2 scrollable d-sm-none d-xs-none d-md-block"><Menu menuData={theoryData}/></div>
+        <div className="col-md-9 col-lg-9 col-xl-10 scrollable col-sm-12 col-12">
           {(location.pathname==='/')?<ContentSection content={aboutData} />:''}
           {isPathNotNestedAndContains(location, 'about')?<ContentSection content={aboutData} />:''}
           {doLocationParamsMatch(locationParams, 'topic')?<ContentSection content={getTopicFromTheory(locationParams.topic)} />:''}
@@ -77,6 +103,7 @@ function App(props) {
           {/* <div className="col-sm-8"><ContentSection content={aboutData}/></div> */}
 
       </div>
+    </div>
     </div>
   );
 }
