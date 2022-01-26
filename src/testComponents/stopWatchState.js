@@ -40,7 +40,7 @@ function StopWatchState(){
 
     return (
         <div className="col-12 text-center m-5">
-            <div className="col-md-6 col-sm-8 col-12 bg-secondary text-white text-center p-2 d-inline-block">
+            <div className="col-md-6 col-sm-8 col-12 alert alert-dark bg-secondary text-white text-center p-2 d-inline-block">
                 <div className="container h1">{convertTime(stopState.currentTime)}</div>
                 <div className="container">
                     <button type="button" onClick={start} className="btn  btn-light m-1">Start</button>
