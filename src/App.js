@@ -84,9 +84,6 @@ function App(props) {
             <h1 className="display-1">Theory corner: web bulding</h1>
             </div>
           </div>
-          <Link to="../quiz">
-            <button type="button" className="btn btn-primary">Quiz</button>
-          </Link>
         </div>
       </div>
 

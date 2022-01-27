@@ -16,6 +16,11 @@ function Menu(props){
     return (
         <>
             <form>
+            <div className="row">
+            <Link to="../quiz">
+              <button type="button" className="btn btn-danger my-1 text-muted col-12">Quiz</button>
+            </Link>
+          </div>
                 <div className="input-group">
                     <span className="input-group-text">&#128269;</span>
                     <input className="form-control" ref={searchBox} placeholder="search..." 
