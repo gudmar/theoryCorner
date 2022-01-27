@@ -84,9 +84,6 @@ function App(props) {
             <h1 className="display-1">Theory corner: web bulding</h1>
             </div>
           </div>
-          <Link to="../quiz">
-            <button type="button" className="btn btn-primary">Quiz</button>
-          </Link>
         </div>
       </div>
 
@@ -94,7 +91,7 @@ function App(props) {
 
           
 
-        <div className="col-md-3 col-lg-3 col-xl-2 scrollable d-sm-none d-xs-none d-md-block"><Menu menuData={theoryData}/></div>
+        <div className="col-md-3 col-lg-3 col-xl-2 scrollable d-sm-none d-none d-md-block"><Menu menuData={theoryData}/></div>
         <div className="col-md-9 col-lg-9 col-xl-10 scrollable col-sm-12 col-12">
           {(location.pathname==='/')?<ContentSection content={aboutData} />:''}
           {isPathNotNestedAndContains(location, 'about')?<ContentSection content={aboutData} />:''}
