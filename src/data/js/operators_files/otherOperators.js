@@ -507,6 +507,190 @@ myCar instanceof Car; // true;
             },
 
 
+
+
+
+            {
+                [Symbol('title')]:'await',
+                [Symbol('code')]:`
+                The alternative is a <code>throw</code> method, available on the <code>Promise</code> prototype.
+                <code>then</code> works with not only async functions, and may react differently on rejection.
+                However this does not pause the function.
+<pre>
+let a = await 9;
+console.log(a); // 9
+
+let b = await Promise.resolve(8);
+console.log(b); // 8
+
+let c = await Promise.reject('error');
+// Uncaught 'error' 
+
+let d = Promise.resolve(4);
+// Unresolved promise
+</pre>
+
+Below function immediately returns an unresolved promise, that will eventualy 
+resolve to the <i>undefined</i> value. However inside there is a promise, and 
+function pauses for 3s until this promise resolves.
+<pre>
+async function(){
+    let prom = new Promise((resolve)=>{
+        setTimeout(()=>{resolve('done');},3000)
+    })
+    await prom;
+}
+</pre>                    
+
+Below function immediately returns an unresolved promise, that will eventualy (after 3s) 
+resolve to the <i>done</i> string value.
+<pre>
+async function(){
+    let prom = new Promise((resolve)=>{
+        setTimeout(()=>{resolve('done');},3000)
+    })
+    return await prom;
+}
+</pre>                    
+
+                `,
+                Operator: '<code>await</code>',
+                Name: `await`,
+                Usage: '[optionalAssersion] = await somePromise',
+                Description: `
+                    <ul>
+                    <li>May be used only in asyn functions</li>
+                    <li>Pauses the function untill the right hand promise is resolved</li>
+                    <li>Throws an error if the promise rejectes</li>
+                    <li>Returns a value that promise resolves to</li>
+                    </ul>
+                `
+            },
+
+
+
+
+
+            {
+                [Symbol('title')]:'yield',
+                [Symbol('code')]:`
+                <span class="bg-danger text-white p-1">Needs to be a function, starting with <b>functio*</b>, indicates that
+                this is a generator</span>
+                <pre>
+function throughArray(){
+    let a = [1, 2, 3, 4, 5];
+    for (let item of a){
+        yield item;
+    }
+}                
+                </pre>
+                <span class="bg-success text-white p-1">
+                This is good, as the function is a generator
+                this is a generator</span>
+
+                <pre>
+function* throughArray(){
+    let a = [1, 2, 3, 4, 5];
+    for (let item of a){
+        yield item;
+    }
+}
+
+for (let item of throughArray()){
+    console.log(item)
+}
+
+console.log(throughArray().next()) // {value:1, done:false}
+console.log(throughArray().next()) // {value:1, done:false}
+console.log(throughArray().next()) // {value:1, done:false}
+//Each time a new instance is created;
+
+let ta = throughArray();
+console.log(ta.next()); // {value:1, done:false}
+console.log(ta.next()); // {value:2, done:false}
+console.log(ta.next()); // {value:3, done:false}
+//Now 'ta' is an instance of the throughArray
+
+                </pre>
+
+
+
+                <span class="bg-success text-white p-1">
+                Pauses the function</span>
+
+                <pre>
+function* throughArray(){
+    let a = [1, 2, 3, 4, 5];
+    let index = 0;
+    for (let item of a){
+        index++;
+        if(index == 2) yield 9;
+        yield item;
+    }
+}
+
+for (let item of throughArray()){
+    console.log(item)
+} // 1, 9, 2, 3, 4, 5
+                </pre>
+
+
+                <span class="bg-danger text-white  p-1">
+                Throws an error and finishes the loop</span>
+
+                <pre>
+function* throughArray(){
+    let a = [1, 2, 3, 4, 5];
+    let index = 0;
+    for (let item of a){
+        index++;
+        if(index == 2) throw new Error(9);
+        yield item;
+    }
+}
+
+for (let item of throughArray()){
+    console.log(item)
+} // 1, 9, 2, 3, 4, 5
+                </pre>
+
+
+                <span class="bg-danger text-white p-1">
+                No way to throw an error as the result of the yeild expression</span>
+
+                <pre>
+function* throughArray(){
+    let a = [1, 2, 3, 4, 5];
+    let index = 0;
+    for (let item of a){
+        index++;
+        if(index == 2) yield {throw new Error('someReason'));
+        yield item;
+    }
+}
+
+for (let item of throughArray()){
+    console.log(item)
+} // 1, 9, 2, 3, 4, 5
+                </pre>
+
+
+
+                `,
+                Operator: '<code>yield</code>',
+                Name: `yield`,
+                Usage: 'yield somePromise',
+                Description: `
+                    <ul>
+                        <li>Should be called <b>only</b> in generator functions</li>
+                        <li>Do not call in a callback</b>
+                        <li>Returns an interface with a <code>next</code> function returning {value:..., done:...} object</li>
+                        <li>
+                    </ul>
+                `
+            },
+
+
     
     
         ]
