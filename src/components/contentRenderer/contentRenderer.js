@@ -7,6 +7,7 @@ import Image from './image.js'
 import Note from './note.js'
 import Code from './code.js'
 import StopWatchState from '../../testComponents/stopWatchState.js';
+import StopWatchReducer from '../../testComponents/stopWatchReducer';
 
 
 function getSingleElement(type, content, otherProps){
@@ -55,6 +56,7 @@ function getSingleNonListElementType(type, content, otherProps){
 
 
     if (type === 'StopWatchState') return <StopWatchState />
+    if (type === 'StopWatchReducer') return <StopWatchReducer />
 }
 
 function isListElementType(elementType){
@@ -66,7 +68,7 @@ function isNonListElementType(elementType){
     let nonListElementTypes = [
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
-        `StopWatchState`
+        `StopWatchState`, `StopWatchReducer`
     ];
     return nonListElementTypes.includes(elementType)
 }
