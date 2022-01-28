@@ -43,6 +43,7 @@ let data =     {
                         '<code>value</code> property is the value of the current iteration',
                         `<code>done</code> is false if there are still elements that may be returned, and done if there
                         are no more elements left`,
+                        `The last return done by the <code>next</code> function should be <code>{value: undefined, done: true}</code>`,
                         `<code>singleArg</code>, a single optional argument of the next function is an argument that 
                         does nothing, unless it is implemented. It is just available inside the next function.`
                     ]

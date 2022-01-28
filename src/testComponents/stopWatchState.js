@@ -35,7 +35,7 @@ function StopWatchState(){
                 setStopState({...stopState, currentTime: currentTime.current});
             }, 10)
         }
-        return ()=>{console.log('clearInt');clearInterval(interval);}        
+        return ()=>{clearInterval(interval);}        
     }, [stopState.running])
 
     return (
