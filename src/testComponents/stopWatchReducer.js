@@ -1,4 +1,14 @@
-import { useEffect, useLayoutEffect, useReducer, useRef } from "react";
+import { useEffect, useLayoutEffect, useReducer} from "react";
+
+function reducer(state, action){
+    if (action.type === "start") return {...state, running: true};
+    if (action.type === "stop" ) return {...state, running: false};
+    if (action.type === "restart") return {...state, currentTime: 0};
+    if (action.type === "tick") {
+        return {...state, currentTime: state.currentTime + 1};
+    }
+}   // May be placed outside the component
+
 
 function StopWatchReducer(){
     let initialState = {
@@ -6,13 +16,9 @@ function StopWatchReducer(){
         running: false
     }
     const [stopState, dispatch] = useReducer(reducer, initialState);
-    console.log(stopState)
-    console.log(initialState)
     if (stopState === undefined) throw new Error()
-    let actionTick = null;
     let interval = null;
     
-    let currentTimeRef = useRef(0);
     function getMsec(time){
         return time % (100);
     }
@@ -27,28 +33,20 @@ function StopWatchReducer(){
         return `${getMinutes(time)}:${prefix0(getSeconds(time))}:${prefix0(getMsec(time))}`
     }
     
-    function reducer(state, action){
-        console.log(state);
-        console.log(action);
-        switch (action.type){
-            case 'start':{
-                return {...state, running: true};break;
-            }
-            case 'stop':{
-                return {...state, running: false};
-            }
-            default: return state
-        }
-        // if (action.type === "start") return {...state, running: true};
-        // if (action.type === "stop" ) return {...state, running: false};
-        // return state;
-        // if (action.type === "restart") return {...state, currentTime: 0};
-        // if (action.type === "tick") return {...state, currentTime: currentTimeRef};
-    }
+    // function reducer(state, action){
+    //     if (action.type === "start") return {...state, running: true};
+    //     if (action.type === "stop" ) return {...state, running: false};
+    //     if (action.type === "restart") return {...state, currentTime: 0};
+    //     if (action.type === "tick") {
+    //         // console.log(currentTimeRef) // !! If a reducer is placed inside component, it does not have acces to the 
+    //         // component scope !
+    //         return {...state, currentTime: state.currentTime + 1};
+    //     }
+    // }
     let actionStart   = {type: 'start'};
     let actionStop    = {type:'stop'};
     let actionRestart = {type:'restart'};
-    // let actionTick    = {type: 'tick'};
+    let actionTick    = {type: 'tick'};
     
     
     
@@ -56,15 +54,12 @@ function StopWatchReducer(){
     useEffect(()=>{
         if(!stopState.running){
             return; // early return
-        } else {
-            // interval = setInterval(()=>{
-            //     // currentTimeRef.current += 1;
-            //     // dispatch(actionTick);
-            //     // setStopState({...stopState, currentTime: currentTime.current});
-            // }, 10)
         }
-        return ()=>{console.log('clearInt');clearInterval(interval);}        
-    // })
+        interval = setInterval(()=>{
+            dispatch(actionTick);
+        }, 10)
+        
+        return ()=>{clearInterval(interval);}        
     }, [stopState.running])
 
     return (
@@ -72,9 +67,9 @@ function StopWatchReducer(){
             <div className="col-md-6 col-sm-8 col-12 alert alert-dark bg-secondary text-white text-center p-2 d-inline-block">
                 <div className="container h1">{convertTime(stopState.currentTime)}</div>
                 <div className="container">
-                    <button type="button" onClick={dispatch(actionStart)} className="btn  btn-light m-1">Start</button>
-                    <button type="button" onClick={dispatch(actionStop)} className="btn  btn-light m-1">Stop</button>
-                    <button type="button" onClick={dispatch(actionRestart)} className="btn  btn-light m-1">Reset</button>
+                    <button type="button" onClick={()=>dispatch(actionStart)} className="btn  btn-light m-1">Start</button>
+                    <button type="button" onClick={()=>dispatch(actionStop)} className="btn  btn-light m-1">Stop</button>
+                    <button type="button" onClick={()=>dispatch(actionRestart)} className="btn  btn-light m-1">Reset</button>
                 </div>
             </div>
         </div>

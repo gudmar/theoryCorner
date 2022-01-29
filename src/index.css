@@ -15,3 +15,25 @@ code {
 *:target {
   background: yellow;
 }
+
+.note{
+  all: initial;
+  text-align: left;
+  padding: 8px;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  font-family: Arial, Helvetica, sans-serif;
+  overflow: auto;
+  border-left: gray solid thick;
+  display: inline-block;
+}
+
+.note-danger{
+  background-color: #f99;
+  border-left: red solid thick;
+}
+.note-success{
+  background-color: #9f9;
+  border-left: green solid thick;
+}
