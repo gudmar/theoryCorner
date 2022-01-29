@@ -17,7 +17,8 @@ import getDestructionAssignmentData2 from './js/destructiveAssignments_2';
 import getIteratorsGeneratorsData from './js/iteratorsGenerators';
 import getPromiseData from './js/promises';
 import getWebWorkerData from './js/webWorker';
-import getCWCData from './js/customWebComponent'
+import getCWCData from './js/customWebComponent';
+import getTDZData from './js/temporalDeadZone';
 
 
 let theoryDataJs = [
@@ -156,6 +157,7 @@ let theoryDataJs = [
     getPromiseData(),
     getWebWorkerData(),
     getCWCData(),
+    getTDZData(),
 ]
 
 export function getTheoryDataJs(){
