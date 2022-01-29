@@ -9,6 +9,11 @@ let stopWatchStateData =     {
             content:'Stop watch: useState'
         },
         {
+            elementType:'Paragraph',
+            content:`Please read in the React hooks about <code>useState</code>`
+            
+        },
+        {
             elementType:'StopWatchState',
             content:[
             ]
