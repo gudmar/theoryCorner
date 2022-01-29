@@ -276,7 +276,7 @@ class CustomElement extends HTMLElement {
 class SectionElement extends HTMLElement(){
     constructor(){
         super();
-        this.shadowRoot = this.attachShadoe({mode:'open'});
+        this.shadowRoot = this.attachShadow({mode:'open'});
     }
     connectedCallback(){
         let template = document.querySelector('#sectionTemplate');

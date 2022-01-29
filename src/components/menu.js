@@ -66,6 +66,7 @@ function sortSubmenu(submenuContent){
     function compare(a, b){
         return a.summary.localeCompare(b.summary);
     }
+    console.log(submenuContent);
     return submenuContent.sort(compare);
 }
 
