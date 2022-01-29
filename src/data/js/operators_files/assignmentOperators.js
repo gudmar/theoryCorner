@@ -1,4 +1,6 @@
 
+// SPELL CHECKED, CORRECT!
+
 let assignmentOperatorsData =     [
     {
         elementType:'Headline-3',
@@ -37,8 +39,8 @@ e = a = b = c = d;
 Chain assignments evaluate from left to right, but then they are assigned from
 right to left:
 a = (b = (c = (f() )))
-However chaining assignments is discouraged, aspecialy with <code>const</code>
-<code>let</code>, <code>var</code> it creates strage behaviours:
+However, chaining assignments is discouraged, especially with <code>const</code>
+<code>let</code>, <code>var</code> it creates strange behaviours:
 let a = b = c = 5;
 will declare only a, and the rest (c, b) will:
 1) Not be declared at all and cause an error,
@@ -85,7 +87,7 @@ b =+ a; // b is now 34, as there is no =+
                 Name: `Addition assignment`,
                 Usage: 'a += f()',
                 Description: `Adds or concatenates the evaluated expression on the right to the left operand
-                and assignes the result to the operand on the left,`
+                and assigns the result to the operand on the left,`
             },
 
 
@@ -97,17 +99,17 @@ b =+ a; // b is now 34, as there is no =+
                 [Symbol('code')]:`          
 <pre>
 let a = 'Hello World';
-a -= 'World'; // NaN, no string substraction
+a -= 'World'; // NaN, no string subtraction
 let b = 10;
 b -= 1; // 9;
 </pre>                                   
                 `,
                 Operator: '<code>-=</code>',
-                Name: `Substraction assignment`,
+                Name: `Subtraction assignment`,
                 Usage: 'a -= f()',
                 Description: `
                 <code>a = a - f()</code> 
-                Substracts the evaluated expression on the right from the left operand, and assignes the
+                Subtracts the evaluated expression on the right from the left operand, and assigns the
                 reusult to the operand on the left,
                 `
             },
@@ -120,17 +122,17 @@ b -= 1; // 9;
                 [Symbol('code')]:`          
 <pre>
 let a = 'Hello World';
-a *= 'World'; // NaN, no string multiplication
+a *= 'World'; // NaN, no string multiplicition
 let b = 10;
 b *= 7; // 70;
 </pre>                                   
                 `,
                 Operator: '<code>*=</code>',
-                Name: `Multiplication assignment`,
+                Name: `Multiplicition assignment`,
                 Usage: 'a *= f()',
                 Description: `
                 <code>a = a * f()</code> 
-                Multiplicates the evaluated expression on the right with the left operand and assignes to the 
+                Multiplicites the evaluated expression on the right with the left operand and assigns to the 
                 variable on the left,
                 `
             },
@@ -155,7 +157,7 @@ d /= +0; // +Infinity;
                 Usage: 'a /= f()',
                 Description: `
                 <code>a = a / f()</code> 
-                Divides the left operand by the evaluated expression on the rigth, and assigns the result to the
+                Divides the left operand by the evaluated expression on the right, and assigns the result to the
                 operand on the left,
                 `
             },
@@ -179,7 +181,7 @@ d /= 0; // NaN;
                 Usage: 'a %= f()',
                 Description: `
                 <code>a = a % f()</code> 
-                Divides the left operand by the evaluated expression on the rigth, and assigns the remainder to the
+                Divides the left operand by the evaluated expression on the right, and assigns the remainder to the
                 operand on the left,
                 `
             },
@@ -245,7 +247,7 @@ n << m is n ** (2*m)
                 Usage: 'a <<= f()',
                 Description: `
                 <code>a = a <<= f()</code> 
-                Moves the specified amount of bits to the left and asigns the result to the left operand;
+                Moves the specified amount of bits to the left and assigns the result to the left operand;
                 `
             },
 
@@ -282,7 +284,7 @@ n >> m is floor(n ** (0.5 * m));
                 Usage: 'a >>= f()',
                 Description: `
                 <code>a = a >>= f()</code> 
-                Moves the specified amount of bits to the right and asigns the result to the left operand;
+                Moves the specified amount of bits to the right and assigns the result to the left operand;
                 If a negative number is processed, then the literal negative value is taken
                 `
             },
@@ -307,7 +309,7 @@ negative >>>= 1; // 2147483598
                 Usage: 'a >>>= f()',
                 Description: `
                 <code>a = a >>>= f()</code> 
-                Moves the specified amount of bits to the right and asigns the result to the left operand;
+                Moves the specified amount of bits to the right and assigns the result to the left operand;
                 `
             },
 
@@ -326,7 +328,7 @@ c &= 3; // 101 and 011, common bit is 001,
 console.log(c); // 1
 
 let d = -5; // 11111111111111111111111111111011
-// this is the negative number representatnion:
+// this is the negative number representation:
 // (a >>> 0).toString(2);
 d &= 5; // 00...00101
 //common bit of 1011 and 0101 is 0001
@@ -453,7 +455,7 @@ d ||= f();
                 <code>x = y || f()</code> <code>x || (y = z)</code>, not <code> x = x || y</code>
                 Evaluates the right side operand expression <strong>only if the left site does not 
                 determine the result</strong> and assigns to x <strong>only if the right sight
-                is evaluated and would change the left site operand value</strong>. However if the 
+                is evaluated and would change the left site operand value</strong>. However, if the 
                 right side operand is evaluated, the assertion will take place 
                 <code>null || undefined === undefined</code> 
                 `
@@ -511,7 +513,7 @@ d &&= f();
                 <code>x = y && f()</code> <code>x && (y = z)</code>, not <code> x = x && y</code>
                 Evaluates the right side operand expression <strong>only if the left side does not 
                 determine the result</strong> and assigns to x the x AND f() result <strong>only if
-                necessarry</strong>
+                necessary</strong>
                 `
             },
 
@@ -548,8 +550,8 @@ d ??= f();
                 Name: `Logical nullish assignment`,
                 Usage: 'a ??= f()',
                 Description: `
-                Assigns a right hand expression only if left hand operand is <code>null</code> or
-                <code>undefined</code>. If left hand operand is not null or undefined the right hand
+                Assigns a right-hand expression only if left-hand operand is <code>null</code> or
+                <code>undefined</code>. If left-hand operand is not null or undefined the right-hand
                 expression is not evaluated at all.
                 `
             },
