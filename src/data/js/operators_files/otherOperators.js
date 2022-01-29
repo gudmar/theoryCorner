@@ -1,5 +1,5 @@
 
-
+// SPELL CHECKED, CORRECT!
 let otherOperatorsData = [
     {
         elementType:'Headline-3',
@@ -9,7 +9,7 @@ let otherOperatorsData = [
         elementType: 'Paragraph',
         content: `
         The other operators are: a <i>conditional (ternary)</i> operator, a <i>comma</i> operator, a <i>delete</i> 
-        operator, a <i>typeof</i> operator, a <i>void</i> operator, an <i>instanceof</i> operator and an <i>in</i> operator, , 
+        operator, a <i>typeof</i> operator, a <i>void</i> operator, an <i>instanceof</i> operator and an <i>in</i> operator,
         `
     },
 
@@ -20,8 +20,8 @@ let otherOperatorsData = [
     {
         elementType: 'Paragraph',
         content: `
-        Memory management in JS is done automatically. There is no possiblity to tirgger manual memory release.
-        Memory may be alocated by creating a new property, variable or with a <code>new</code> operator.
+        Memory management in JS is done automatically. There is no possibility to trigger manual memory release.
+        Memory may be allocated by creating a new property, variable or with a <code>new</code> operator.
         There are two algorithms for releasing the allocated memory (garbage collection):
         `
     },
@@ -29,8 +29,8 @@ let otherOperatorsData = [
         elementType: 'Paragraph',
         content: `
         <strong>A reference counting garbage collection</strong>: if the property has any reference pointing to it
-         it will not be garbage collected. There is a problem with the circural references. If an object points 
-         somehow to itsself, it will not be garbage collected with this algorithm
+         will not be garbage collected. There is a problem with the circular references. If an object points 
+         somehow to itself, it will not be garbage collected with this algorithm.
         `
     },
     {
@@ -120,7 +120,7 @@ let f2 = () => {
             {
                 [Symbol('title')]:'Comma',
                 [Symbol('code')]:`
-                This is not the comma from objects or arryays, this is the comma known from for example a <i>for</i>
+                This is not the comma from objects or arrays, this is the comma known from for example a <i>for</i>
                 operator.
 <pre>
 for (let i=0; i < 10; i++){};
@@ -129,7 +129,7 @@ function(){
     ...
     return (x +=1, x);
 } // in this example x will be incremented before it is returned
-// comma may perform an action bofore returning something.
+// comma may perform an action before returning something.
 
 let a, b, c; // declaring a set of variables;
 
@@ -225,8 +225,8 @@ delete f; // true
                 Usage: 'delete obj.prop',
                 Description: `
                 Removes a property from an object if this property is allowed to be removed. 
-                Does not free alocated memory. Returns <code>true</code> if the operation was successfull,
-                and false in other cases. If in strict mode, if operation is nusuccessfull will throw an error.
+                Does not free all ocated memory. Returns <code>true</code> if the operation was successful,
+                and false in other cases. If in strict mode, if operation is nusuccessful will throw an error.
                 `
             },
 
@@ -365,7 +365,7 @@ for (let key in instance) {console.log(key)}
                 [Symbol('title')]:'instanceof',
                 [Symbol('code')]:`
                 <ul>
-                <li>Primitives do not have a prototype, so a number 3 is not an instance of the <code>new Numbsee(3)</code></li>
+                <li>Primitives do not have a prototype, so a number 3 is not an instance of the <code>new Number(3)</code></li>
                 <li>If an objects instances prototype is changed, then instanceof result may change</li>
                 </ul>
 <pre>
@@ -421,9 +421,86 @@ cir.__prototype__ = Number.prototype;
                 Usage: 'o instanceof SomeConstructor',
                 Description: `
                 Returns true if the prototype of the left side operand is the same as the prototype of the right side operand.
-                The left side operand has to be a type of a "function" or an error will occure.
+                The left side operand has to be a type of "function" or an error will occur.
                 `
             },
+
+
+
+            {
+                [Symbol('title')]:'typeof',
+                [Symbol('code')]:`
+                <ul>
+                    <li><code>Undefined</code> is <code>"undefined"</code>,</li>
+                    <li><code>Null</code> is <code>"object"</code>: an exception due to the historical reasons,</li>
+                    <li><code>Boolean</code> is <code>"boolean"</code>,</li>
+                    <li><code>Number</code> is <code>"number"</code>,</li>
+                    <li><code>BigInt</code> is <code>"bigint"</code>,</li>
+                    <li><code>String</code> is <code>"string"</code>,</li>
+                    <li><code>Symbol</code> is <code>"symbol"</code>,</li>
+                    <li><code>Function</code> is <code>"function"</code>,</li>
+                    <li>any other is <code>"object"</code>,</li>
+                </ul>
+<pre>
+typeof 77 === 'number';
+typeof(4.32) === 'number';
+typeof Math.LN10 === 'number';
+typeof Infinity === 'number';
+typeof NaN === 'number';
+typeof Number('some string') === 'number; 
+// as Number returns a number, i this 
+// case a <code>NaN</code>, and <code>typeof NaN === 'number'</code>
+// so this is 'number'
+
+typeof 5n === 'bigint';
+typeof 'some string' === 'string';
+typeof true === 'boolean';
+typeof !!(1); // boolean;
+
+typeof Symbol() === 'symbol';
+typeof Symbol.iterator === 'symbol';
+
+typeof undefined === 'undefined';
+
+let a; // declared not defined;
+typeof a === 'undefined';
+typeof b === 'undefined'; // not declared
+
+typeof {s: ''} === 'object';
+typeof new Data() === 'object;
+typeof new Map() === 'object;
+typeof /s/ === 'object';
+typeof new Boolean(true) === 'object';
+typeof [1,2] === 'object';
+typeof function(){} === 'function';
+typeof function()*{} === 'function';
+typeof async function(){} === 'function';
+
+typeof 3.14 + 'pi' === 'numberpi';
+typeof 'pi' + Number === "stringfunction Number() { [native code] }";
+// Number is a function, it is not called, as the stirn appears first 
+// it is casted to the sting value;
+typeof Number + 'pi' === 'functionpi';
+typeof 'pi' + 3.14 === 'string3.14';
+<div class="note note-danger">
+  Above problems occur, because of the precedence. Firstly the typeof with the first argument is evaluated, and 
+  then the operand after <i>+</i> is cast to the string value and the concatenation result is returned.
+  To prevent this from happening additional brackets need to be added.
+</div>
+typeof (3.14 + 'pi') === 'string';
+typeof ('pi' + 3.14) === 'string';
+
+
+</pre>                    
+                `,
+                Operator: '<code>typeof</code>',
+                Name: `typeof`,
+                Usage: 'typeof operand, typeof(operand)',
+                Description: `
+                    Returns a string indicating the type of the evaluated operand.
+                `
+            },
+
 
 
 
@@ -462,8 +539,8 @@ a++++; // SyntaxError
                 Name: `Grouping operator`,
                 Usage: 'a * (b + c)',
                 Description: `
-                This operator controls the precedence of evaluation in expressions. May be used to change an non
-                expression to an expression (like in the ifee call or with the object descructive operaotrs)
+                This operator controls the precedence of evaluation in expressions. May be used to change a non
+                expression to an expression (like in the ifee call or with the object destructive operators)
                 `
             },
 
@@ -499,8 +576,8 @@ myCar instanceof Car; // true;
                 <li>Adds a property that will link newly created object to the prototype of the constructor function,
                 that property is often named <code>__proto__</code></li>
                 <li>Binds newly created object to the <code>this</code> property in the creator function</li>
-                <li>Retruns <code>this</code> if the creator function does not return anything</li>
-                <li>If the constructor function returnes something this returned object becomes the newly created
+                <li>Returns <code>this</code> if the creator function does not return anything</li>
+                <li>If the constructor function returns something this returned object becomes the newly created
                 object instead</li>
                 </ul>
                 `
@@ -515,7 +592,7 @@ myCar instanceof Car; // true;
                 [Symbol('code')]:`
                 The alternative is a <code>throw</code> method, available on the <code>Promise</code> prototype.
                 <code>then</code> works with not only async functions, and may react differently on rejection.
-                However this does not pause the function.
+                However, this does not pause the function.
 <pre>
 let a = await 9;
 console.log(a); // 9
@@ -530,8 +607,8 @@ let d = Promise.resolve(4);
 // Unresolved promise
 </pre>
 
-Below function immediately returns an unresolved promise, that will eventualy 
-resolve to the <i>undefined</i> value. However inside there is a promise, and 
+Below function immediately returns an unresolved promise, that will eventually 
+resolve to the <i>undefined</i> value. However, inside there is a promise, and 
 function pauses for 3s until this promise resolves.
 <pre>
 async function(){
@@ -542,7 +619,7 @@ async function(){
 }
 </pre>                    
 
-Below function immediately returns an unresolved promise, that will eventualy (after 3s) 
+Below function immediately returns an unresolved promise, that will eventually (after 3s) 
 resolve to the <i>done</i> string value.
 <pre>
 async function(){
@@ -559,9 +636,9 @@ async function(){
                 Usage: '[optionalAssersion] = await somePromise',
                 Description: `
                     <ul>
-                    <li>May be used only in asyn functions</li>
-                    <li>Pauses the function untill the right hand promise is resolved</li>
-                    <li>Throws an error if the promise rejectes</li>
+                    <li>May be used only in async functions</li>
+                    <li>Pauses the function until the right hand promise is resolved</li>
+                    <li>Throws an error if the promise rejects</li>
                     <li>Returns a value that promise resolves to</li>
                     </ul>
                 `
@@ -685,7 +762,6 @@ for (let item of throughArray()){
                         <li>Should be called <b>only</b> in generator functions</li>
                         <li>Do not call in a callback</b>
                         <li>Returns an interface with a <code>next</code> function returning {value:..., done:...} object</li>
-                        <li>
                     </ul>
                 `
             },
