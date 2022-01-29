@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 
 let precedencesData = [
     {
