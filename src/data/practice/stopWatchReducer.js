@@ -1,3 +1,4 @@
+// SPELL CHECKED, CORRECT!
 let stopWatchReducerData =     {
     summary: 'stop watch reducer',
     title: 'stop watch state',
@@ -62,7 +63,7 @@ function StopWatchReducer(){
     <div class="note note-danger">
 If the <b>reducer</b> function was here, in the 
 component scope, it would not have access to the component scope. Only <b>state</b> and <b>action</b>
-attributes would be available
+attributes would be available.
     </div>
     
 
@@ -91,8 +92,8 @@ attributes would be available
                     &lt;button type="button" onClick={()=>dispatch(actionStart)} className="btn  btn-light m-1">Start</button>
                     &lt;button type="button" onClick={()=>dispatch(actionStop)} className="btn  btn-light m-1">Stop</button>
                     &lt;button type="button" onClick={()=>dispatch(actionRestart)} className="btn  btn-light m-1">Reset</button>
-                    <div class="note note-danger">dispatch has to be returned by the wrapping function,
-                    or it will cause an infinite loop</div>
+                    <div class="note note-danger"><b>dispatch</b> has to be returned by the wrapping function,
+                    or it will cause an infinite loop.</div>
                 &lt;/div>
             &lt;/div>
         &lt;/div>

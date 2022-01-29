@@ -1,3 +1,4 @@
+// SPELL CHECKED, CORRECT!
 let stopWatchStateData =     {
     summary: 'stop watch',
     title: 'stop watch',
