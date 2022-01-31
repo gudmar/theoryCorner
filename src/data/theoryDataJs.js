@@ -20,6 +20,7 @@ import getPromiseData from './js/promises';
 import getWebWorkerData from './js/webWorker';
 import getCWCData from './js/customWebComponent';
 import getTDZData from './js/temporalDeadZone';
+import getConsoleData from './js/console';
 
 
 let theoryDataJs = [
@@ -159,6 +160,7 @@ let theoryDataJs = [
     getWebWorkerData(),
     getCWCData(),
     getTDZData(),
+    getConsoleData(),
 ]
 
 export function getTheoryDataJs(){
