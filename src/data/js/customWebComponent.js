@@ -284,7 +284,7 @@ class SectionElement extends HTMLElement(){
     }
 }
 
-customElements.define('section-element', SectionElement)
+window.customElements.define('section-element', SectionElement)
 </pre>  
 
 
@@ -315,9 +315,9 @@ customElements.define('section-element', SectionElement)
                         `The shadow-DOM host elements may be styled from the outside (but no influence on the interiors of the shadow DOM),
                         with a normal class or tag selectors: <code>my-custom-web-component{position...}</code>`,
                         `<code>custom-web-component:defined</code> will select a custom-web-component element if it is registered with the
-                        <code>customElements.define</code> method. This element may appear in the HTML, but may be defined later with CSS,`,
+                        <code>window.customElements.define</code> method. This element may appear in the HTML, but may be defined later with CSS,`,
                         `<code>custom-web-component:not(:defined)</code> this selects a custom-web-component if it is not defined. This is 
-                        a good solution for hiding elements until they are registered with the <code>customElements.define</code>`
+                        a good solution for hiding elements until they are registered with the <code>window.customElements.define</code>`
                     ]
                 },             
 
