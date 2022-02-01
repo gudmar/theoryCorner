@@ -148,7 +148,7 @@ let data =     {
                     elementType:'UnsignedList',
                     content:[
                         `Will be invoked each time a registered attribute (for example passed in the HTML) changes,`,
-                        `Uses a <code>static get observed attributes</code> method to learn what attributes will be 
+                        `Uses a <code>static get observedAttributes</code> getter to learn what attributes will be 
                         observed. This method returns an array of attributes: <code>return ['prop1, 'prop2']</code>`,
                         `BEWARE :). This should not be used together with a proxy or a mutation observer 
                         APIS, as a reaction to the same change will appear multiple times,`

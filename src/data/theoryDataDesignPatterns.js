@@ -3,6 +3,7 @@ import getPrototypeData from "./designPatterns/prototypeData";
 import getFactoryData from "./designPatterns/factoryData";
 import getBridgeData from "./designPatterns/bridgeData";
 import getAbstractFactoryData from "./designPatterns/abstractFactoryData";
+import getBuilderData from "./designPatterns/builderData"
 
 
 
@@ -12,6 +13,7 @@ let theoryDataDesignPatterns = [
     getFactoryData(),
     getAbstractFactoryData(),
     getBridgeData(),
+    getBuilderData(),
     
     // {
     //     summary: 'Design Patterns',
