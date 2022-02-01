@@ -5,6 +5,7 @@ import getBridgeData from "./designPatterns/bridgeData";
 import getAbstractFactoryData from "./designPatterns/abstractFactoryData";
 import getBuilderData from "./designPatterns/builderData";
 import getSingletonData from "./designPatterns/singleton";
+import getDecoraotrData from "./designPatterns/decoratorPattern";
 
 
 
@@ -16,6 +17,7 @@ let theoryDataDesignPatterns = [
     getBridgeData(),
     getBuilderData(),
     getSingletonData(),
+    getDecoraotrData(),
     
     // {
     //     summary: 'Design Patterns',

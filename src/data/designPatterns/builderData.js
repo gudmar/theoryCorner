@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'Builder',
     title: 'Builder',
@@ -19,14 +19,14 @@ let data =     {
                     content: `
                     A construction design pattern. Target object is being constructed in stages. When class from which target
                     object will be constructed is designed, it is not known how the final instance will look like. 
-                    The structure of the final product is rather complicated. A good example of such a design patter would be a 
+                    The structure of the final product is rather complicated. A good example of such a design pattern would be a 
                     web-page. 
                     `
                 },
 
                 {
                     elementType:'Headline-3',
-                    content:'Example 2: web page building'
+                    content:'Example : web page building'
                 },
                 {
                     elementType:'SmallHeadline',
@@ -49,12 +49,11 @@ let data =     {
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `There should be an object (component) that may be customized by the page content,`,
+                        `There should be an object (component) that may be customized by the page content data,`,
                         `Data may be passed in JSON notation. For example, an array of objects, each object in the
                         array has its type and content specified,`,
                         `The component object is customized with the data delivered in the JSON,`,
-                        `Despite the factory pattern visible here, the JSON like object describing the 
-                        page content will be the prototype.`
+                        `Page content may be modified, added later when user interacts with the page,`
                     ]
                 },
                 {
