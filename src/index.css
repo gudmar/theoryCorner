@@ -26,7 +26,9 @@ code {
   font-family: Arial, Helvetica, sans-serif;
   overflow: auto;
   border-left: gray solid thick;
-  display: inline-block;
+  /* display: inline-block; */
+  display: block;
+  margin:5px;
 }
 
 .note-danger{
