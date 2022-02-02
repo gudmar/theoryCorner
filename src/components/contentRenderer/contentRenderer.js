@@ -54,7 +54,13 @@ function getSingleNonListElementType(type, content, otherProps){
 
     if (type === 'ConditionalArray') 
         return <ConditionalArray headlines={otherProps.headItems} contentItems={content} />
-    if (type === 'exampleInIframe') return <ExampleInIframe src={otherProps.src} title={otherProps.title} />
+    if (type === 'exampleInIframe') {
+        return (<ExampleInIframe 
+            src={otherProps.src} 
+            title={otherProps.title} 
+            width={otherProps.width} 
+            height={otherProps.height}/>)
+    }
 
 
     if (type === 'StopWatchState') return <StopWatchState />
@@ -88,7 +94,9 @@ function ContentRenderer(props){
         alt:  props.content.alt,
         headItems: props.content.headItems,
         src: props.content.src,
-        title: props.content.title
+        title: props.content.title,
+        width: props.content.width,
+        height: props.content.height
     }
     
     

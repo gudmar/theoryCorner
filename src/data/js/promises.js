@@ -1431,6 +1431,13 @@ async function animateAwait(){
 </pre>                        
                         `
                     },
+
+
+                    {
+                        elementType:'Paragraph',
+                        content:`Now for the implementation with the await operator`
+                    },
+
                     {
                         elementType:'Paragraph',
                         content:`Implementation with the <code>then</code> method. <strong>Note, that all callbacks
@@ -1470,7 +1477,18 @@ async function animateThen(){
 })();
 </pre>                        
                         `
-                    }
+                    },
+                    {
+                        elementType:'Paragraph',
+                        content:`An example preview:`
+                    },
+                    {
+                        elementType: `exampleInIframe`,
+                        title: 'Slot example',
+                        src: 'https://gudmar.github.io/theoryCornerExamples/async.html',
+                        width: '500',
+                        height: '400'
+                    },
 
                 ]
             },
