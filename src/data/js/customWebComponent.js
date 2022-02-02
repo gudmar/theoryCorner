@@ -2,7 +2,7 @@
 let data =     {
     summary: 'custom web components',
     title: 'Custom web components',
-    searchKeywords:`
+    searchKeywords:` cwc slot template slotted host :host :slotted :defined
     `,
     cathegory: 'js',
     content: [
@@ -300,8 +300,189 @@ window.customElements.define('section-element', SectionElement)
 
                 {
                     elementType:'Headline-3',
+                    content:'Slots'
+                }, 
+                
+
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>&lt;slot></code> is an element placed inside the shadow DOM of the CWC,`,
+                        `<code>&lt;slot></code> will receive content of the light DOM element that's <code>slot</code> attribute
+                        matches the shadow DOM <code>&lt;slot></code> elements <code>name</code> attribute,`,
+                        `It is important to state that attaching shadow root to the element hides all other HTML content, that 
+                        was present inside this shadow host. The light DOM content is still available in the DOM, 
+                        however it is not visible on the page,`,
+                        `A <strong>slotted</code> element is the element that is placed inside the <code>&lt;slot></code> 
+                        tag in the shadow DOM, so <code>::slotted(selector)</code> pseudo-class refers to the shadow DOM element,`,
+                        `The HTML content corresponding to the slotted content is placed in the light DOM, in the place where 
+                        an element with the <code>slot</code> attribute is defined. That is why the css matching the slot 
+                        provider element will not target that element if placed in the shadow DOM`,
+                        `Slots are elements that can be used only with the CWC`
+                    ]
+                }, 
+                {
+                    elementType: 'Image',
+                    name: 'slot_outsideShadow.png',
+                    alt: 'Slot source is placed outside shadow DOM'
+                },
+                {
+                    elementType: 'SmallHeadline',
+                    content:`Slot example`
+                },
+
+                {
+                    elementType: 'Paragraph',
+                    content:`Below example illustrates how slots work. There is a simple CWC with a function, that changes
+                    its content once 2s`
+                },
+
+                {
+                    elementType: 'Code',
+                    content:`
+                    <div class="note">
+                    A HTML template for the CWC:
+                    </div>
+<pre>
+&lt;template id="personData">
+&lt;style>
+    .not-shadow-list{
+        background-color: yellow;
+        color:black;
+    }
+    .wrapper{
+        background-color:white;
+        color:black;
+        font-family: Arial, Helvetica, sans-serif;
+        border-radius: 5px;
+        width: 300px;
+    }
+    ::slotted(span){
+        background-color:green;
+        color:white;
+        border-radius: 5px;
+        padding: 3px;
+        margin: 5px;
+        font-weight: lighter;
+    }
+    .row{
+        margin: 15px;
+        font-weight: bold;
+        background-color: lightgreen;
+    }
+&lt;/style>
+&lt;div class="wrapper">
+    &lt;div class="row">
+        &lt;span class="label">Name: &lt;/span>
+        &lt;slot name="name">John&lt;/slot>
+    &lt;/div>
+    &lt;div class="row">
+        &lt;span class="label">Family name: &lt;/span>
+        &lt;slot name="family-name">John&lt;/slot>
+    &lt;/div>
+    &lt;div class="row">
+        &lt;span class="label">Data: &lt;/span>
+        &lt;slot name="data">Na&lt;/slot>
+    &lt;/div>
+&lt;/div>
+&lt;/template>
+</pre>
+
+
+                    <div class="note">
+                    A CWC element:
+                    </div>
+
+
+<pre>
+class PersonData extends HTMLElement{
+    constructor(){
+        super();
+        let templ = document.querySelector('#personData');
+        this.attachShadow({mode:'open'});
+        this.shadowRoot.appendChild(templ.content.cloneNode(true));
+    }
+}
+window.customElements.define('person-data', PersonData);
+</pre>
+                    <div class="note">
+                    A content generator:
+                    </div>
+<pre>
+
+function replaceData(){
+    let name = document.querySelector('[slot="name"]');
+    let famName = document.querySelector('[slot="family-name"]');
+    let data = document.querySelector('[slot="data"]');
+    let newDataSetGetter = nextDataSetGetter();
+    function replace(){
+        // console.log(data.childNodes)
+        
+        
+        let newDataSet = newDataSetGetter.nextValue();
+        console.log(newDataSet.data)
+        name.innerHTML = newDataSet.name;
+        famName.innerHTML = newDataSet.familName;
+        try{data.removeChild(data.childNodes[0]);}
+        catch{};
+        data.appendChild(newDataSet.data);
+    }
+    const int = setInterval(replace, 2000);
+}
+
+const dataSet = [
+    {name: 'Genowefa', familName:'Bąk', data:getDataElement(0)},
+    {name: 'Janusz', familName:'Bąkiewicz', data:getDataElement(1)},
+    {name: 'Eleonora', familName:'Bąkowska', data:getDataElement(2)},
+]
+function getDataElement(nr){
+    const data = [
+        ['Age: 32', 'ShoeSize: 43', 'EyeColor: blue', 'Height: 168cm'],
+        ['Age: 59', 'ShoeSize: 52', 'EyeColor: gray', 'Height: 188cm'],
+        ['Age: 25', 'ShoeSize: 40', 'EyeColor: green'],
+    ]
+    let list = document.createElement('ul');
+    list.classList.add('not-shadow-list')
+    let dataSet = data[nr];
+    for(let dataBit of dataSet){
+        let li = document.createElement('li');
+        li.innerHTML = dataBit;
+        list.appendChild(li);
+    }
+    console.log(list)
+    return list;
+}
+function nextDataSetGetter(arr = dataSet){
+    let iterator = function(){
+        let nextIndex = -1;
+        return {
+            next: ()=>{
+                nextIndex++;
+                if (nextIndex >= arr.length) nextIndex = 0;
+                console.log(nextIndex)
+                return{
+                    value: arr[nextIndex],
+                    done: false
+                }
+            }
+        }
+    };
+    let iteratorInstance = iterator();
+    function getNext(){return iteratorInstance.next().value}
+    return {
+        nextValue: getNext
+    } 
+}
+replaceData();
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Headline-3',
                     content:'Styling'
                 }, 
+
                 {
                     elementType:'UnsignedList',
                     content:[
@@ -317,7 +498,8 @@ window.customElements.define('section-element', SectionElement)
                         `<code>custom-web-component:defined</code> will select a custom-web-component element if it is registered with the
                         <code>window.customElements.define</code> method. This element may appear in the HTML, but may be defined later with CSS,`,
                         `<code>custom-web-component:not(:defined)</code> this selects a custom-web-component if it is not defined. This is 
-                        a good solution for hiding elements until they are registered with the <code>window.customElements.define</code>`
+                        a good solution for hiding elements until they are registered with the <code>window.customElements.define</code>`,
+                        `<code>::slotted(selector)</code> placed in the shadow root style. Will affect slotted elements,`,
                     ]
                 },             
 
