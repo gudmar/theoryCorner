@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'console',
     title: 'console',
@@ -51,7 +51,7 @@ console.assert(true, o2, o1, msg); // noting happens
                                 <li><code>obj</code>: objects that will be displayed in an expandable lists</li>
                             </ul>
                             `,
-                            Description:`Same as <code>if (!assertion) {console.error(..)}</code>. Displayes an error
+                            Description:`Same as <code>if (!assertion) {console.error(..)}</code>. displays an error
                             message in case assertion is not met,`,
                         },
 
@@ -103,7 +103,7 @@ loop(2, 'outerFunction', loop.bind(null,3,'nested',()=>{}))
                             <code>label</code>: a string label
                             `,
                             Description:`
-                                Displyes how many times this has been called with the specified label
+                                Displys how many times this has been called with the specified label.
                                 If none label is given, then it is set to 'default'
                                 `,
                         },
@@ -132,7 +132,7 @@ console.count();
                             `,
                             Usage:`console.countRestart(label)`,
                             Arguments:`
-                            <code>label</code>: optiona, string
+                            <code>label</code>: optional, string
                             `,
                             Description:`
                             Resets the console.count counter for the given label to 0. If no label given, restarts 
@@ -176,9 +176,9 @@ callXTimes(5, nested);
                             Usage:`console.info(obj1[, obj2, ...]);`,
                             Arguments:`
                             Objects comma separated, will be displayed as expandable lists. If one of object
-                            arguments in a message, than this message will be displayed anyway.
+                            arguments in a message, then this message will be displayed anyway.
                             `,
-                            Description:`Displayes objests as expandable lists`,
+                            Description:`Displays objects as expandable lists`,
                         },
 
 
@@ -297,19 +297,15 @@ console.table(o3)
                             Arguments:`
                                 Object, array that will be displayed.
                             `,
-                            Description:`Displayes data as a table`,
+                            Description:`displays data as a table`,
                         },
 
 
 
                         {
-                            [Symbol('title')]:'console.time(), console.timeLot(), console.timeEnd()',
+                            [Symbol('title')]:'console.time(), console.timeLog(), console.timeEnd()',
                             [Symbol('code')]:`
-<pre>
-console.clear();
-</pre>                            
-                            `,
-                            Usage:`
+
 <pre>
 function strength(n){
     let current = 1;
@@ -346,8 +342,13 @@ console.timeEnd('t2');
 // t1: 8ms; - timer expired
 </pre>
                             `,
+                            Usage:`
+                            console.time('lab');
+                            console.timeLog('lab');
+                            console.timeEnd('lab');
+                            `,
                             Arguments:`
-                            <code>label</code>: an optional strng argument for distinguishing timers. 
+                            <code>label</code>: an optional string argument for distinguishing timers. 
                             If none given, then will be set to the "<code>default</code>" value.
                             `,
                             Description:`
