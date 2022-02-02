@@ -8,6 +8,7 @@ import Note from './note.js'
 import Code from './code.js'
 import StopWatchState from '../../testComponents/stopWatchState.js';
 import StopWatchReducer from '../../testComponents/stopWatchReducer';
+import ExampleInIframe from './iFrame'
 
 
 function getSingleElement(type, content, otherProps){
@@ -53,10 +54,12 @@ function getSingleNonListElementType(type, content, otherProps){
 
     if (type === 'ConditionalArray') 
         return <ConditionalArray headlines={otherProps.headItems} contentItems={content} />
+    if (type === 'exampleInIframe') return <ExampleInIframe src={otherProps.src} title={otherProps.title} />
 
 
     if (type === 'StopWatchState') return <StopWatchState />
     if (type === 'StopWatchReducer') return <StopWatchReducer />
+    
 }
 
 function isListElementType(elementType){
@@ -68,6 +71,7 @@ function isNonListElementType(elementType){
     let nonListElementTypes = [
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
+        'exampleInIframe',
         `StopWatchState`, `StopWatchReducer`
     ];
     return nonListElementTypes.includes(elementType)
@@ -83,6 +87,8 @@ function ContentRenderer(props){
         name: props.content.name,
         alt:  props.content.alt,
         headItems: props.content.headItems,
+        src: props.content.src,
+        title: props.content.title
     }
     
     

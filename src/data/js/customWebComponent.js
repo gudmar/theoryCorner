@@ -338,6 +338,13 @@ window.customElements.define('section-element', SectionElement)
                 },
 
                 {
+                    elementType: `exampleInIframe`,
+                    title: 'Slot example',
+                    srcx: '../../../public/slotExample.html',
+                    src: '/public/slotExample.html'
+                },
+
+                {
                     elementType: 'Code',
                     content:`
                     <div class="note">
