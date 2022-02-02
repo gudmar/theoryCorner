@@ -45,6 +45,7 @@ ReactDOM.render(
       <Route path="quizTestMode" element={<QuizTestMode />} />
       <Route path="dedicatedWobWorker" element={<TestDedicatedWorker />} />
       <Route path="sharedWebWorker" element={<TestSharedWorker />} />
+      
       {/* <Route path="stopWatchState" element={<StopWatchState />} /> */}
     </Routes>
   </HashRouter>

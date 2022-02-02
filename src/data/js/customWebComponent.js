@@ -340,8 +340,7 @@ window.customElements.define('section-element', SectionElement)
                 {
                     elementType: `exampleInIframe`,
                     title: 'Slot example',
-                    srcx: '../../../public/slotExample.html',
-                    src: '/public/slotExample.html'
+                    src: 'https://gudmar.github.io/theoryCornerExamples/slotExample.html'
                 },
 
                 {
