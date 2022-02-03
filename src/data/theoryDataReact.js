@@ -7,6 +7,9 @@ import getHooksData from "./react/hooks";
 // lazy
 // https://pl.reactjs.org/docs/render-props.html
 // kontrolowane i nie kontrolowane
+// komponent kontrolowany to taki, którego stan kontroluje react, a niekontrolowany to taki, ktorego stan zależy od 
+// na przykład interacji użytkownika
+
 // testowanie w react
 
 let theoryDataReact = [

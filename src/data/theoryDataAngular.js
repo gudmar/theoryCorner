@@ -1,14 +1,16 @@
 // import getReactLifecycleData from "./react/lifecycleMethods";
 import getAngularFilesystemData from "./angular/installation";
+import getComponentData from './angular/components';
+import getBindingsData from './angular/bindings';
 
-// Inatalation, basic CLI commands
-// Filesystem
+// + Inatalation, basic CLI commands
+// + Filesystem
 // Binding data
 // Lifecycle hooks
 // Change detection
 // Services and dependency injection
 // Modules
-// Components
+// + Components
 // Referencing the component from its self
 // DIrectives
 // Pipes
@@ -19,6 +21,8 @@ import getAngularFilesystemData from "./angular/installation";
 
 let theoryDataAngular = [
     getAngularFilesystemData(),
+    getComponentData(),
+    getBindingsData(),
     {
         summary: 'position',
         title: 'position',
