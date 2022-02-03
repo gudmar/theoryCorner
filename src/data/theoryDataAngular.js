@@ -18,6 +18,7 @@ import getBindingsData from './angular/bindings';
 // Routing
 // Lazy loading
 // Tests
+// Animations?
 
 let theoryDataAngular = [
     getAngularFilesystemData(),
