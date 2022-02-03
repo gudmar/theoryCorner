@@ -320,6 +320,6 @@ let data =     {
     ]
 };
 
-export default function getProxyData(){
+export default function getAngularFilesystemData(){
     return data;
 }
