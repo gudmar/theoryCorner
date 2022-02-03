@@ -210,7 +210,35 @@ let data =     {
                                             content: []
                                         }                                        
                                     ]
+                                },
+                                {
+                                    title:'favicon.ico',
+                                    label:'icon that will be displayed in the borwser tab,',
+                                    content:[]
+                                },
+                                {
+                                    title: 'index.html',
+                                    label: `An html file that has an <code>&lt;app-root>&lt;/app-root></code> tag, for loading the main app component`,
+                                    content: []
+                                },
+                                {
+                                    title: `main.ts`,
+                                    label: `A file for bootstraping the application,`
+                                },
+                                {
+                                    title: `polyfills.ts`,
+                                    label: `A file with polyfills,`
+                                },
+                                {
+                                    title: `styles.scss`,
+                                    label: `A file for global styling, available in the whole application,`
+                                },
+                                {
+                                    title: `test.ts`,
+                                    label: `A required by karma file that loads recursively all the .spec and 
+                                    framework files.`
                                 }
+
                             ]
                         },
                         {
