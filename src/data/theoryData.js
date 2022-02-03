@@ -5,6 +5,7 @@ import { getTheoryDataTs } from './theoryDataTs';
 import { getTheoryDataReact } from './theoryDataReact';
 import { getPracticeComponents } from './practiceComponents';
 import { getTheoryDataDesignPatterns } from './theoryDataDesignPatterns';
+import { getTheoryDataAngular } from './theoryDataAngular';
 
 export function getTheoryData(){
     // let allData = [].concat(getTheoryDataCss(), getTheoryDataHtml(), getTheoryDataJs(), getTheoryDataTs())
@@ -36,6 +37,10 @@ export function getTheoryData(){
         {
             category: 'DesignPatterns',
             content: getTheoryDataDesignPatterns()
+        },
+        {
+            category: 'Angular',
+            content: getTheoryDataAngular()
         }
     ]
     return allData;

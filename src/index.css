@@ -16,6 +16,16 @@ code {
   background: yellow;
 }
 
+.hidden{
+  display: none;
+}
+.no-decoration{
+  list-style-type: none;
+}
+.hoverable:hover{
+  cursor: pointer;
+}
+
 .note{
   all: initial;
   text-align: left;

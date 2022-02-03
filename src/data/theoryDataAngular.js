@@ -1,5 +1,5 @@
 // import getReactLifecycleData from "./react/lifecycleMethods";
-// import getHooksData from "./react/hooks";
+import getAngularFilesystemData from "./angular/installation";
 
 // Inatalation, basic CLI commands
 // Filesystem
@@ -18,9 +18,7 @@
 // Tests
 
 let theoryDataAngular = [
-
-    getHooksData(),
-    getReactLifecycleData(),
+    getAngularFilesystemData(),
     {
         summary: 'position',
         title: 'position',
