@@ -10,6 +10,7 @@ import StopWatchState from '../../testComponents/stopWatchState.js';
 import StopWatchReducer from '../../testComponents/stopWatchReducer';
 import ExampleInIframe from './iFrame';
 import HiddenList from './hiddenList';
+import ListOfContent from './listOfContent';
 
 
 function getSingleElement(type, content, otherProps){
@@ -68,7 +69,11 @@ function getSingleNonListElementType(type, content, otherProps){
             <HiddenList content={content}/>
         )
     }
-
+    if (type === 'ListOfContent'){
+        return (
+            <ListOfContent content={content}/>
+        )
+    }
 
     if (type === 'StopWatchState') return <StopWatchState />
     if (type === 'StopWatchReducer') return <StopWatchReducer />
@@ -84,7 +89,7 @@ function isNonListElementType(elementType){
     let nonListElementTypes = [
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
-        'exampleInIframe', `HiddenList`,
+        'exampleInIframe', `HiddenList`, 'ListOfContent',
         `StopWatchState`, `StopWatchReducer`
     ];
     return nonListElementTypes.includes(elementType)

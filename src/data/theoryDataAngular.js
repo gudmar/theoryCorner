@@ -2,6 +2,7 @@
 import getAngularFilesystemData from "./angular/installation";
 import getComponentData from './angular/components';
 import getBindingsData from './angular/bindings';
+import getFormsData from './angular/forms'
 
 // + Inatalation, basic CLI commands
 // + Filesystem
@@ -24,6 +25,7 @@ let theoryDataAngular = [
     getAngularFilesystemData(),
     getComponentData(),
     getBindingsData(),
+    getFormsData(),
     {
         summary: 'position',
         title: 'position',
