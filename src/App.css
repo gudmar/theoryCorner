@@ -8,6 +8,15 @@
   cursor: pointer;
 }
 
+.attract:hover{
+  cursor: pointer;
+  background-color: #aafbfb!important;
+  transition: 0.3s
+}
+.attract{
+  transition: 0.3s;
+}
+
 .App {
   text-align: center;
 }

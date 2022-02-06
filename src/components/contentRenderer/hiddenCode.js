@@ -1,4 +1,4 @@
-import getDangerousHTML from '../../services/toolbox'
+import { getDangerousHTML } from '../../services/toolbox'
 import React, { useState, useRef } from 'react';
 
 function CodeSection(props){
@@ -9,11 +9,13 @@ function CodeSection(props){
     }
 return(
         <div>
-            <div className="bg-light" onClick={toggleHiddenState}>
+            <div className="bg-light attract m-2" onClick={toggleHiddenState}>
                 <span ref={arrow} className={`${isExpanded?'expanded':'collapsed'}`}>&#9658;</span>
-                <span dangerouslySetInnerHTML={props.info}></span>
+                <span dangerouslySetInnerHTML={getDangerousHTML(props.info)}></span>
             </div>
-            <div className={`alert alert-dark collapse ${isExpanded?'show':''}`} dangerouslySetInnerHTML={props.code}>
+            <div className={`alert alert-dark collapse ${isExpanded?'show':''}`} 
+                dangerouslySetInnerHTML={getDangerousHTML(props.code)}
+            >
             </div>
         </div>
     )
