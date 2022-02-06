@@ -1,19 +1,6 @@
-import { format } from "url";
-import { directive } from "@babel/types";
-
-// NgForm directive is automaticly created and attached to the &lt;form> tag in the template with the import of 
-// <code>FormsModule</code> to the component
-
-// ngModel is a directive that is declared in the <code>FormsModule</code>. It allows to bind controls in the
-// template driven form to the properties of the data model (the properties in the component)
-
-// Without the ngModel it would be unpossible to make a 2 way data binding with the 2 way binding syntsx 
-// to the HTML element, as simple HTML elements (non components) cannot have event handlers defined the other way
-// than using the event binding syntax. So of the event is binded with the (click)="effect" already, 
-// there is not point in adding a [(prop)]="componentProperty".
-
-// When [(ngModel)] is defined on an element, that element must have a unique name within a format. This name 
-// will be used to register the element withing the <code>NgForm</code> directive
+// SPELL CHECKED, CORRECT!
+// import { format } from "url";
+// import { directive } from "@babel/types";
 
 let data =     {
     summary: 'angular forms',
@@ -53,15 +40,15 @@ let data =     {
                     elementType:'Paragraph',
                     content:`When programming a GUI, there is a view: the object displayed on the screen, and the 
                     application state: the object representing the application in the application itself. The program
-                    works with the state object, and it has to update the view accirdingly.`
+                    works with the state object, and it has to update the view accordingly.`
                 },
                 {
                     elementType:'Paragraph',
                     content:`The one way binding is when update of the state, changes the view, or when the 
                     change in the view changes the application state without the need to worry about detecting 
-                    the change and updating this manualy. The two way binding is the situation, when 
+                    the change and updating this manually. The two-way binding is the situation, when 
                     update of the application state brings the update to the view, and the update to the view 
-                    updates the state automaticly.`
+                    updates the state automatically.`
                 },
                 {
                     elementType:'Paragraph',
@@ -75,8 +62,8 @@ let data =     {
                     to the view, and applying an event handler to the view element to trigger the state change.
                     This is the way it should be done when updating for example a common div element with 
                     <code>contenteditable</code> set to true. When communication between two angular components is 
-                    concidered the two way binding may be achieved by the two way binding syntax. However when 
-                    dealing with common HTML elements the 2 one way bindings combined together seem the only possible 
+                    considered, the two-way binding may be achieved by the two-way binding syntax. However, when 
+                    dealing with common HTML elements the 2 one way bindings combined seem the only possible 
                     solution. There is no way to trigger an event inside a common div element to apply the 2 way 
                     binding syntax.`
                 },
@@ -87,8 +74,8 @@ let data =     {
                 },
                 {
                     elementType:'Paragraph',
-                    content:`It is however possible to apply the two way binding to a build in HTML element 
-                    with the help of an algular directive. This directive is <code>NgModel</code>. <code>NgModel</code>
+                    content:`It is however possible to apply the two-way binding to a build in HTML element 
+                    with the help of an angular directive. This directive is <code>NgModel</code>. <code>NgModel</code>
                     is declared in the <code>NgForm</code> directive. <code>NgForm</code> directive is applied to every
                     <code>form</code> element, when only <code>FormsModule</code> is imported to the main application
                     module:`
@@ -161,7 +148,7 @@ import { BrowserModule } from '@angular/platform-browser';
                     enters ordering person name and address. When guitar brand is selected, the list of 
                     available models must adjust to match guitars produced by selected company. It would be 
                     good if the last selected model from the brand was remembered, even if used selects another 
-                    brand later. The name is a required box, and email is not only reqired, but shoul be 
+                    brand later. The name is a required box, and email is not only required, but should be 
                     validated.
                     `
                 },
@@ -218,7 +205,7 @@ ngOnInit(): void {
                         {
                             info: `
                             The form element in HTML template should have the <code>(ngSubmit)</code> 
-                            evnet handler, for binding with the function that will be triggered when
+                            event handler, for binding with the function that will be triggered when
                             submit button is pressed, and the <code>#ordererForm="ngForm"</code> 
                             reference, for getting into the form object when handling the subscription.
                             The <code>select</code> element has to have a <code>name</code> attribute, 
@@ -256,7 +243,7 @@ ngOnInit(): void {
                             Now the .ts file. Code uses setters and getters, as proxies. It is quite comfortable 
                             to do some side effects when setting the products property. This property is 
                             for holding the data from the GuitarDataService. When setting its value, the 
-                            selectedMake (so the property that is 2-way binded with the select element in the form)
+                            selectedMake (so the property that is 2-way bound with the select element in the form)
                             should be given some default value. When setting the <code>selectMake</code> property,
                             it is needed to update the possible guitar models list to match the chosen producers 
                             portfolio, and when the list of guitar models is updated it is needed to put a new 
@@ -302,7 +289,7 @@ When the form is restarted, the selectedMake becomes null, and should be reiniti
                             Now lets implement the guitar model changing when the guitar producer is selected.
                             It would be good to start with the HTML template part. The new <code>select</code
                             element should be added as a child of the form element. 
-                            There is a 2-way binding to the <code>selectedModel</code> property.
+                            There is a 2-way binding to the <code>selectedModel</code> property. The
                             <code>option</code> list is taken from the <code>availableModels</code> property, 
                             which is a getter that takes new set of data from the <code>products</code>
                             object, when the <code>selectedMake</code> property is changed.
@@ -311,7 +298,7 @@ When the form is restarted, the selectedMake becomes null, and should be reiniti
                             code:`
 <pre>
     &lt;div class="form-group">
-    <div class="note">This wrapping div is only for the styling purposes</code>
+    <div class="note">This wrapping div is only for the styling purposes</div>
         &lt;label for="select-model">Select model</label>
         &lt;select class="form-control" 
                 id = "select-model"
@@ -331,8 +318,8 @@ should be kept long</div>
                             Below methods should be added to the <code>GuitarOrderFormComponent</code>.
                             <ul>
                             <li><code>get selectedModel()</code>: a selectedModel getter. If there 
-                            is a property <code>lastSelection</code> in the obejct describing current 
-                            producer in the <code>products</code> list, returns a element matching the 
+                            is a property <code>lastSelection</code> in the object describing current 
+                            producer in the <code>products</code> list, returns an element matching the 
                             <code>lastSelection</code> index. If this property does not exist, returns 
                             the model matching index 0.</li>
                             <li><code>set selectedModel()</code>: creates a property <code>lastSelection</code>
@@ -384,11 +371,10 @@ get selectedModel() {
                         {
                             info:`
                             Now email and orderer name will be added to the form. Thanks to the angular 
-                            2 way binding syntax, there is nearly no type script code for this inputs. Only
+                            2 way binding syntax, there is nearly no type script code for these inputs. Only
                             properties declarations.
                             `,
                             code:`
-                            <div class="note"></div>
 <pre>
     &lt;div class="form-group">
         &lt;label for="select-model">Select model</label>
@@ -425,11 +411,11 @@ ordererMail: string = '';
                         },
                         {
                             info:`
-                            Submitting the form is done with whe <code>ngSubmit</code> event handler, that is 
-                            binded to the whole <code>form</code> element. Because properties <code>selectedMake</code>,
+                            Submitting the form is done with when <code>ngSubmit</code> event handler, that is 
+                            bound to the whole <code>form</code> element. Because properties <code>selectedMake</code>,
                             <code>selectedModel</code>, <code>ordererName</code> and <code>ordererMail</code>
-                            are binded directly to the view, it is certain, that those properties hold the 
-                            exect values, that were selected by the user. There is a possiblity to refer directly to the 
+                            are bound directly to the view, it is certain, that those properties hold the 
+                            exect values, that were selected by the user. There is a possibility to refer directly to the 
                             form directive, and get all form fields names and values from there. This approach will be 
                             demonstrated here:
                             `,
@@ -458,7 +444,7 @@ formContent: any;
                             `
                         },
                         {
-                            info:`Now lets create form submit, form clear buttons, and the place to put 
+                            info:`Now let's create form submit, form clear buttons, and the place to put 
                             the submitted form data:`,
                             code: `
 <pre>
@@ -489,16 +475,16 @@ formContent: any;
                             Restarting (clearing) the form in angular is not just 
                             putting null values in all form fields. If it is done that way, the form 
                             state will not return to the initial one, as angular adds css classes to the 
-                            form input elements. Please see next section to learn more. However <code>ngForm</code>
-                            states related to this classes will not be cleared this way. That is why there is a
+                            form input elements. Please see next section to learn more. However, <code>ngForm</code>
+                            states related to these classes will not be cleared this way. That is why there is a
                             <code>reset</code> method available under the <code>ngForm</code> directive.
                             It puts <code>null</code> values to all form fields, and restarts internal <code>ngForm</code>
                             directive states. Developer has to take care of all fixes to the component. In our case
-                            because <code>selectedMake</code> and <code>selectedModel</code> are binded with the 
+                            because <code>selectedMake</code> and <code>selectedModel</code> are bound with the 
                             form inputs, they will be assigned <code>null</code> values, and our component has to be 
                             ready to handle this. The important trick in below code is the usage of the <code>setTimeout</code>
                             method without any delay, to set the products property. Without this solution angular would not 
-                            detect any changes, an would not rerender the form component. Because <code>setTimeout</code>
+                            detect any changes, angular would not rerender the form component. Because <code>setTimeout</code>
                             is an async function, it will force form inputs rendering.
                             `,
                             code:`
@@ -528,7 +514,7 @@ clearForm(){
                 {
                     elementType:'Paragraph',
                     content:`
-                    When user intaracts with an angular form, the <code>ngFrom</code> directive changes its 
+                    When user interacts with an angular form, the <code>ngFrom</code> directive changes its 
                     internal state. With this state change some classes are added to the <code>form</code>
                     element, and to the input elements:
                     `
@@ -538,7 +524,7 @@ clearForm(){
                     content:[
                     `<code>ng-valid</code> is applied to the <code>form</code> or input element that is valid,`,
                     `<code>ng-invalid</code> is applied to the <code>form<code> or input element that is not valid,`,
-                    `<code>ng-touched</code> is applied to the element that was blured (lost focus),`,
+                    `<code>ng-touched</code> is applied to the element that was blurred (lost focus),`,
                     `<code>ng-untouched</code> is applied to the element that did not have a blur event yet,`,
                     `<code>ng-dirty</code> is applied to any element, that was edited by the user,`,
                     `<code>ng-pristine</code> is applied to any element, that was not edited by the user yet,`
@@ -566,11 +552,11 @@ clearForm(){
                 {
                     elementType:'UnsignedList',
                     content:[
-                        `<code>ngForm</code> is applied automaticly after adding a <code>FormsModule</code> to the 
+                        `<code>ngForm</code> is applied automatically after adding a <code>FormsModule</code> to the 
                         main app module</code>`,
                         `<code>ngModel</code> declaration is inside the <code>ngForm</code> directive, and is available 
                         after just importing the <code>ngForm</code> to the main app module,`,
-                        `<code>ngModel</code> shoud not be applid to elements that are not:
+                        `<code>ngModel</code> should not be applied to elements that are not:
                         <code>input</code>, <code>select</code> <code>textarea</code>, <code>button</code>,
                         <code>legent</code>, <code>datalist</code>, <code>option</code>`,
                         `There is a set of css classes for styling form items. These classes are applied to the 
