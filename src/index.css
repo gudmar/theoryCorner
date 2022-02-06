@@ -49,3 +49,11 @@ code {
   background-color: #9f9;
   border-left: green solid thick;
 }
+
+.expanded{
+  transform: rotateZ(90deg);
+  transition: 0.3s;
+}
+.collapsed{
+  transition: 0.3s;
+}

@@ -1,7 +1,6 @@
 import { HashLink as Link } from 'react-router-hash-link';
 function ListElement(props){
     return (
-        // <li ><a href={`#${props.id}`}>{props.title}</a></li>
         <li><Link to={`#${props.id}`}>{props.title}</Link></li>
     )
 }
