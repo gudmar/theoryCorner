@@ -6,10 +6,12 @@ import ConditionalArray from './conditionalArray.js';
 import Image from './image.js'
 import Note from './note.js'
 import Code from './code.js'
+import HiddenCode from './hiddenCode'
 import StopWatchState from '../../testComponents/stopWatchState.js';
 import StopWatchReducer from '../../testComponents/stopWatchReducer';
 import ExampleInIframe from './iFrame';
 import HiddenList from './hiddenList';
+import ListOfContent from './listOfContent';
 
 
 function getSingleElement(type, content, otherProps){
@@ -52,6 +54,7 @@ function getSingleNonListElementType(type, content, otherProps){
     if (type === 'Link') return <Link key={content} href={otherProps.href} content={content} />
     if (type === 'Image') return <Image name={otherProps.name} alt={otherProps.alt} />
     if (type === 'Code') return <Code content={content} />
+    if (type === 'HiddenCode') return <HiddenCode content={content} />
 
     if (type === 'ConditionalArray') 
         return <ConditionalArray headlines={otherProps.headItems} contentItems={content} />
@@ -68,7 +71,11 @@ function getSingleNonListElementType(type, content, otherProps){
             <HiddenList content={content}/>
         )
     }
-
+    if (type === 'ListOfContent'){
+        return (
+            <ListOfContent content={content}/>
+        )
+    }
 
     if (type === 'StopWatchState') return <StopWatchState />
     if (type === 'StopWatchReducer') return <StopWatchReducer />
@@ -84,7 +91,7 @@ function isNonListElementType(elementType){
     let nonListElementTypes = [
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
-        'exampleInIframe', `HiddenList`,
+        'exampleInIframe', `HiddenList`, 'ListOfContent', 'HiddenCode',
         `StopWatchState`, `StopWatchReducer`
     ];
     return nonListElementTypes.includes(elementType)
