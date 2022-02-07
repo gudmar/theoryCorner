@@ -12,6 +12,7 @@ import StopWatchReducer from '../../testComponents/stopWatchReducer';
 import ExampleInIframe from './iFrame';
 import HiddenList from './hiddenList';
 import ListOfContent from './listOfContent';
+import HiddenDescription from './hiddenDescription'
 
 
 function getSingleElement(type, content, otherProps){
@@ -24,7 +25,9 @@ function getSingleElement(type, content, otherProps){
 }
 
 function getSingleListElementType(type, content){
-    if (type === 'Section') return ``
+    if (type === 'Section') {
+        return <section>{content.map((element, index)=>{return <ContentRenderer key={index} content={element}/>})}</section>
+    }
     if (type === 'UnsignedList') return <UnsignedList items={content} />
     if (type === 'ExplanationList') return (
         // <ExplanationList headline={content.headline} content={content.content} />
@@ -55,6 +58,7 @@ function getSingleNonListElementType(type, content, otherProps){
     if (type === 'Image') return <Image name={otherProps.name} alt={otherProps.alt} />
     if (type === 'Code') return <Code content={content} />
     if (type === 'HiddenCode') return <HiddenCode content={content} />
+    if (type === 'HiddenDescription') return <HiddenDescription legend={content.legend} items={content.items}/>
 
     if (type === 'ConditionalArray') 
         return <ConditionalArray headlines={otherProps.headItems} contentItems={content} />
@@ -91,7 +95,7 @@ function isNonListElementType(elementType){
     let nonListElementTypes = [
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
-        'exampleInIframe', `HiddenList`, 'ListOfContent', 'HiddenCode',
+        'exampleInIframe', `HiddenList`, 'ListOfContent', 'HiddenCode','HiddenDescription',
         `StopWatchState`, `StopWatchReducer`
     ];
     return nonListElementTypes.includes(elementType)
@@ -113,11 +117,11 @@ function ContentRenderer(props){
         height: props.content.height,
         label: props.content.label
     }
-    
+    console.log(props)
     
     if (isInputArrayOfElements) {
         console.log(isInputArrayOfElements)
-        console.log(props)
+        console.log(props.content)
         return componentContent.map((element, index)=>{
             return <ContentRenderer key={index} content={element}/>
         })
