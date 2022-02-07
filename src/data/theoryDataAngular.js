@@ -2,11 +2,12 @@
 import getAngularFilesystemData from "./angular/installation";
 import getComponentData from './angular/components';
 import getBindingsData from './angular/bindings';
-import getFormsData from './angular/forms'
+import getFormsData from './angular/forms';
+import getLivecycleAngularData from  './angular/livecycleInAngular'
 
 // + Inatalation, basic CLI commands
 // + Filesystem
-// Binding data
+// + Binding data
 // Lifecycle hooks
 // Change detection
 // Services and dependency injection
@@ -26,6 +27,8 @@ let theoryDataAngular = [
     getComponentData(),
     getBindingsData(),
     getFormsData(),
+    getLivecycleAngularData(),
+
     {
         summary: 'position',
         title: 'position',

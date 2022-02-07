@@ -64,7 +64,7 @@ let data =     {
                     <code>contenteditable</code> set to true. When communication between two angular components is 
                     considered, the two-way binding may be achieved by the two-way binding syntax. However, when 
                     dealing with common HTML elements the 2 one way bindings combined seem the only possible 
-                    solution. There is no way to trigger an event inside a common div element to apply the 2 way 
+                    solution. There is no way to emit an event inside a common div element to apply the 2 way 
                     binding syntax.`
                 },
 
@@ -626,6 +626,12 @@ clearForm(){
                     content:'angular.io',
                     href: 'https://angular.io/guide/forms',
                     description:'Tutorial on creating a form'
+                },
+                {
+                    elementType:'Link',
+                    content:'github.com',
+                    href: 'https://github.com/gudmar/angularExamplesForTheoryCorner',
+                    description:'Example on github'
                 },
 
             ]
