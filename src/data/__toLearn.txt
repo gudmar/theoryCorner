@@ -1,0 +1,21 @@
+CSS:
+    Flex-box - read -> no article :)
+    Grid basic - read 
+    position and stacking context
+
+
+
+TS
+    Decorators
+    Templates
+
+React
+
+
+Angular
+ change strategy
+ lifecycle
+ routes
+
+
+ observables

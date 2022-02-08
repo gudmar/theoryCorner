@@ -3,41 +3,11 @@ import { Component } from "react";
 
 // constructor, not a part of Angular
 
-//ngOnChanges(): VERY FREQUENTLY, impacts performance, fired when angular sets of resets data-bound input properties.
-                // A SimpleChange object of current and previous property values is send
-                // IF a component has no inputs, this method WILL NEVER be triggered   
-                // 
-                // When data bound property changes (for example in input box)             
-
-//ngOnInit(): called shortly after the first ngOnChanges. If ngOnChanges is not called due to lack of 
-            // inputs, this is called anyway. Is called ONLY ONCE. This is for initializing the directive or the component 
-            // after Angular first displays the data-bound properties and sets input properties
-            //
-            // input property is set
-
-//ngDoCheck(): Detecting and acting upon the changes that angular will not detect on its own.
-        // When angular change detection mechanism runs. When angular 'feels' like something changed
-
-// ngAfterContentInit(): Called ONLY ONCE after the first ngDoCheck. Respond after Anglar projects external content into 
-            // the components view
-
-// ngAfterContentChecked(): After the ngAfterContentInit, and then after each ngDoCheck. Respond after Angular 
-        // checks the content projected into the directive or the component          
-        //
-        // When change is detected in the project  
-
-// ngAfterViewInit() Respond after Angular initializes the components view AND child views, or after Angular 
-        // initializes view of the component that directive is applied to        
-
-// ngAfterViewCHecked(): respond after Angular checks the components view and child views,
-
-// ngOnDestroy(): Called immediately before the angular destroys the Component or directive
-      // Celaunup, unsubscribe, detach event handlers
+// export class DoCheckComponent implements DoCheck, OnChanges, OnInit
+// a way to use a lot implementations,
+// OnChenge shuld not be used with the DoCheck
 
 
-//       First one is kick start event ngOnchanges(), ngOnit(), ngDoCheck()
-// Second one is events for projected contents ngAfterContentInit(), ngAfterContentChecked()
-// Finally third one is View component events ngAfterViewInit(). ngAfterViewChecked()
 
 let data =     {
     summary: 'angular livecycle',
@@ -65,10 +35,10 @@ let data =     {
                     content: `
                     Every component/directive has its lifecycle. It starts when the component/directive is created
                     with the <code>new</code> operator, and ends when the component/directive is removed. 
-                    Meanwhile the component/directive internal state may change. Inputs may change. 
-                    When changes occure, the view may be updated by Angular. When component or directive 
+                    Meanwhile, the component/directive internal state may change. Inputs may change. 
+                    When changes occur, the view may need to be updated by Angular. When component or directive 
                     initializes, changes or before it is destroyed it may be needed to run some specific operations.
-                    To hook into a components or directives lifecycle, there are some methods intorduced. 
+                    To hook into a components or directives lifecycle, there are some methods introduced. 
                     Developer may implement some of those methods, all of them or none of them.
                     `
                 },
@@ -79,7 +49,7 @@ let data =     {
                 },
                 {
                     elementType:'Paragraph',
-                    content:`As mentioned in one of the references to this artice, lifecycle methods may be divided
+                    content:`As mentioned in one of the references to this article, lifecycle methods may be divided
                     to:`
                 },
 
@@ -121,7 +91,7 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                    Lets concidere creation of a parent and a single child. Then lets change this chids <code>@Input()</code>
+                    Lets considere creation of a parent and a single child. Then let's change this childs <code>@Input()</code>
                     property 10 times. This is the result:
                     `
                 },
@@ -133,7 +103,7 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                    Now lets create 10 child elements, clear the logging pane, and cause 10 changes of only one 
+                    Now let's create 10 child elements, clear the logging pane, and cause 10 changes of only one 
                     of the children. The problem is, that clearing the logging pane already causes a lot of 
                     lifecycle methods to be called:
                     `
@@ -147,7 +117,7 @@ let data =     {
                 {
                     elementType:'Paragraph',
                     content:`
-                    Now let's change an single input of a single child 10 times (with a parent element and 
+                    Now let's change a single input of a single child 10 times (with a parent element and 
                 10 children; other components on the page are not logging lifecycle methods here.)
                     `
                 },
@@ -200,6 +170,20 @@ let data =     {
                                                 creates a component/directive instance with the <code>new</code>
                                                 operator.
                                                 `
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                Constructor is only for setting some properties with a simple values.
+                                                In most circumsantces can be kept empty. In some occasions can be even
+                                                omitted. Then a default one will be provided.
+                                                `
+                                            },  
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                A constructor is good for injecting services.
+                                                `
                                             }
                                         ]
                                     }
@@ -212,7 +196,7 @@ let data =     {
                                         content:[
                                             {
                                                 elementType:'NoteWarning',
-                                                content:`This lauches quite often and 
+                                                content:`This launches quite often and 
                                                 may have significant impact of performance`
                                             },
                                             {
@@ -244,7 +228,8 @@ let data =     {
                                                 content:[
                                                     `Web worker requests,`,
                                                     `Server requests,`,
-                                                    `Changing elements binded to the view, as they still will rerender,`
+                                                    `Changing elements bound to the view, as they still will rerender,`,
+                                                    `Should be lean, not to spoil performance,`
                                                 ]
                                             },
 
@@ -290,7 +275,8 @@ let data =     {
                                                 content:[
                                                     `This is run only once,`,
                                                     `Server requests,`,
-                                                    `Web workers requests,`
+                                                    `Web workers requests,`,
+                                                    `Set up the component, after Angular sets the input properties`
                                                 ]
                                             },
                                         ]
@@ -318,7 +304,8 @@ let data =     {
                                                 Custom change detection, code to be executed in situations 
                                                 when Angular may miss some change. This is executed on every 
                                                 possible component on every small change in the application, so 
-                                                no possible change is missed.
+                                                no possible change is missed. Sometimes even a mouse over a
+                                                component may launch this methods.
                                                 `
                                             },
 
@@ -338,26 +325,72 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`
+                                                May be used for manual change detections with for example an 
+                                                <code>onPush</code> change detection strategy. 
+                                                View will not be updated if a nested value of the object
+                                                set as the <code>Input</code> changes. In this cases 
+                                                changes should be detected manualy. A component should be referenced
+                                                with a <code>ChangeDetecterRef</code> and <code>markForCheck</code>
+                                                or <code>detectChanges</code> should be called.
+                                                `
                                             },
 
                                         ]
                                     }
                             },
+
+                            // SPELL CHECKING HERE
                             {
                                 type: 'One Time',
                                 title: 'ngAfterContentInit',
                                 description: {
                                     elementType:'Section',
                                     content:[
-                                            {
+                                        {
+                                            elementType:'Paragraph',
+                                            content:`This method may be compared to the <code>ngOnInit</code>
+                                            but not for the component, but for its projected content. It will
+                                            be called after components content is initiated. `
+                                        },
+
+                                        {
                                                 elementType:'SmallHeadline',
                                                 content:`Purpose`
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`A content is the component, that is projected into the host
+                                                component. This is not the direct usage of a child component in the 
+                                                html template of the parent, but rather nesting external component with a 
+                                                <code>ng-content</code>`
                                             },
+                                            {
+                                                elementType:'Code',
+                                                content:`
+                                                <pre>
+&lt;parent>
+    &lt;child>&lt;child>
+&lt;/parent>                                                
+                                                </pre>
+                                                <div class="note">And the parent component</div>
+                                                <pre>
+&lt;div>
+...
+&lt;ng-content>&lt;ngcontent>
+&lt;/div>
+                                                </pre>
+                                                `
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`So <code>ngAfterViewInit</code> is launched, when only
+                                                all content is projected to the host component, and all 
+                                                <code>ContentChild</code> decorated properties are updated.
+                                                `
+                                            },
+                                            
+                                            
 
                                             {
                                                 elementType:'SmallHeadline',
@@ -365,10 +398,14 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:`When components content (<strong>children</code>) 
-                                                was initialized.
-                                                Just after <code>ngDoCheck</code>. <strong>Only once</code>, when
-                                                the content is initialized for the first time.`
+                                                content:`When components content: <strong> projected
+                                                component</strong> is injected, and <code>ContentChild</code>
+                                                decorated properties are updated.
+                                                Just after <code>ngDoCheck</code> of the component. 
+                                                <strong>Only once</code>, when
+                                                the content is initialized for the first time.
+                                                Interesting thing is, that this method is called even if 
+                                                a component has no extenal content that needs to be projected.`
                                             },
 
                                             {
@@ -377,8 +414,19 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`
+                                                Code that needs to run after content that will be projected to 
+                                                descendants is initilaized. Still good place to make 
+                                                changes that will update projected component.
+                                                `
                                             },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                Run only once.
+                                                `
+                                            },
+                                            
 
                                         ]
                                     }
@@ -392,15 +440,14 @@ let data =     {
                                         {
                                             elementType:'NoteWarning',
                                             content:`
-                                            The last opportunity to make some state changes, that would impact the 
-                                            view. If done later, the <code>ExpressionChangedAfterItHasBeenCheckedError</code>
-                                            will appear, meaning that contant was changed after the last content check was perforemed.
-                                            It should be avioded to make changes after this method was called. If it happens and 
-                                            cannot be avoided there is a work-around: calling the change in an async function (like 
-                                            a <code>setTimeout</code> without any second argument). 
-                                            <br>
-                                            <b>NOTE</b> this work-around approach may cause an infinite loop, if the <code>ngAfterViewChecked</code>
-                                            causes the view to rerender.
+                                            No code affecting view of the projected external content should be 
+                                            added here, as content component is already checked. If
+                                            there is an attempt to modify projected contents view, it may result 
+                                            in <code>ExpressionChangedAfterItHasBeenCheckedError</code>.
+                                            A way around this error is running change in an async function 
+                                            like a <code>setTimeout</code>. However, triggerning a change to a 
+                                            projected component with an async function here will result in 
+                                            an infninte loop, that will not be detected by Angular or browser.
                                             `
                                         },
                                             {
@@ -409,7 +456,8 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`Run code that needs to be executed after external projected
+                                                components changes are checked`
                                             },
 
                                             {
@@ -418,7 +466,17 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:`The call is repeated after the <code>afterViewInit</code> and <code>ngAfterContentChecked</code>`
+                                                content:`After
+                                                <code>afterContentInit</code> or 
+                                                <code>ngDoCheck</code>, depending if <code>afterContentInit</code>
+                                                is executed.`
+                                            },
+                                            {
+                                                elementType:'NoteWarning',
+                                                content:`This will be called even if a component has no content to be
+                                                projected. Moreover this method is called very freequently. Same 
+                                                often as <code>ngDoChange</code>, so will cause performance issues
+                                                if is not lean enough.`
                                             },
 
                                             {
@@ -429,6 +487,7 @@ let data =     {
                                                 elementType:'Paragraph',
                                                 content:``
                                             },
+                                            
 
                                         ]
                                     }
@@ -439,14 +498,37 @@ let data =     {
                                 description: {
                                     elementType:'Section',
                                     content:[
-
+                                        {
+                                            elementType:'Paragraph',
+                                            content:`View are child components and elements that are referenced
+                                            directly in the components template:`
+                                        },
+                                        {
+                                            elementType:'Code',
+                                            content:`
+<pre>
+&lt;div>
+    &lt;some-child-component>&lt;/some-child-component> 
+    //this is the view, not the content.
+&lt;div>
+</pre>                                            
+                                            `
+                                        },
+                                        {
+                                            elementType:'Paragraph',
+                                            content:`No <code>ng-content</code>. This elements are accessed from the 
+                                            ts code with <code>ChildView</code> decorators.`
+                                        },
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`Purpose`
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`
+                                                Run code just after all descendant components and elements of the 
+                                                host component are initialized.
+                                                `
                                             },
 
                                             {
@@ -455,7 +537,9 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`<strong>Only once</code> after component view descendants 
+                                                are initialized, and porperties marked with <code>ViewChild</code>
+                                                are updated.`
                                             },
 
                                             {
@@ -464,7 +548,9 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`Good place to put code that would affect the view of the 
+                                                descendats. Some content from the server may be fetched and injected
+                                                to the descendants for example.`
                                             },
 
                                         ]
@@ -482,7 +568,10 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`Run code that needs to be executed after the 
+                                                view descendants are checked for differences with the content displayed
+                                                on the sreen.
+                                            `
                                             },
 
                                             {
@@ -491,7 +580,7 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`After all view descendants are checked.`
                                             },
 
                                             {
@@ -500,7 +589,20 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`
+                                                No code updating the displayed view, as it may cause an 
+                                                <code>ExpressionChangedAfterItHasBeenCheckedError</code>.
+                                                If such code would be run in an async manner here, it would 
+                                                cause infinite loop that would not be detected by the Angular
+                                                or browser. 
+                                                `
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                This method is run quiet freequently. The same paste as the <code>ngDoCheck</code>
+                                                so with each buttin click, each checkbox checked. 
+                                                `
                                             },
 
                                         ]
@@ -523,10 +625,7 @@ let data =     {
                                                 content:`Clean before element is removed`
                                             },
 
-                                            {
-                                                elementType:'Paragraph',
-                                                content:``
-                                            },
+                                            
 
                                             {
                                                 elementType:'SmallHeadline',
@@ -539,13 +638,14 @@ let data =     {
 
                                             {
                                                 elementType:'SmallHeadline',
-                                                content:`Event handler remove, unsubscribe`
-                                            },
-                                            {
-                                                elementType:'Paragraph',
-                                                content:``
+                                                content:`What to put here`
                                             },
 
+                                            {
+                                                elementType:'SmallHeadline',
+                                                content:`Event handler removals, unsubscriptions`
+                                            },
+                                           
                                         ]
                                     }
                             }
@@ -559,6 +659,19 @@ let data =     {
                         
                     }
                     
+                },
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    Lifecycle methods should be kept lean
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <code>ngOnChange</code> should not be used with <code>ngDoCheck</code>, as they are
+                    redundant.
+                    `
                 },
 
             ]
@@ -596,6 +709,12 @@ let data =     {
                     content:'Example angular.io',
                     href: 'https://stackblitz.com/run?file=src/app/app.component.html',
                     description:'A life example how often and when lifecycle methods are fired. Description in the next link'
+                },
+                {
+                    elementType:'Link',
+                    content:'angular.io',
+                    href: 'https://angular.io/guide/lifecycle-hooks',
+                    description:'Description'
                 },
                 {
                     elementType:'Link',
