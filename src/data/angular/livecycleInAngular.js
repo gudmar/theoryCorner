@@ -105,6 +105,70 @@ let data =     {
                     ]
                 },
 
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    Note, that some lifecycle methods may be called a great number of times. The most 
+                    called methods are: <code>ngDoCheck</code>, <code>ngAfterContentChecked</code>,
+                    <code>ngAfterViewChecked</code>. Even a little touch of the button, checking a 
+                    checkbox or hovering over something may cause a chain reaction. Methods 
+                    given as an example are called on every possible occasion, even when an element not 
+                    related to the components they are called on is touched. This will cause a great performance 
+                    issues when used not wisely.
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Lets concidere creation of a parent and a single child. Then lets change this chids <code>@Input()</code>
+                    property 10 times. This is the result:
+                    `
+                },
+                {
+                    elementType: 'Image',
+                    name: 'lifecycle_angular_1added_10modified_chart.png',
+                    alt: '1 child added 10 times modified'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Now lets create 10 child elements, clear the logging pane, and cause 10 changes of only one 
+                    of the children. The problem is, that clearing the logging pane already causes a lot of 
+                    lifecycle methods to be called:
+                    `
+                },
+            
+                {
+                    elementType: 'Image',
+                    name: 'lifecycle_angular_10added_cleared_all.png',
+                    alt: '10 child added cleared'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Now let's change an single input of a single child 10 times (with a parent element and 
+                10 children; other components on the page are not logging lifecycle methods here.)
+                    `
+                },
+                {
+                    elementType: 'Image',
+                    name: 'lifecycle_angular_10added_cleared_1inputChanged10times_small.png',
+                    alt: '10 child added cleared, and a single elements single input changed 10 times.'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    10 elements and 10 input modifications are 10 x 10 = 100 changes. A button was clicked 10 times,
+                    causing 10 <code>ngOnCheck</code> runs and clearing content gave 10 <code>ngOnCheck</code> runs.
+                    This meens, that no matter that the input of a single element was changed only 10 times.
+                    This caused <code>ngOnCheck</code> run 10 times on each sibling, so 100 runs. There are other 
+                    methods that are equaly willingly called: <code>ngAfterContentChecked</code> and 
+                    <code>ngAfterViewChecked</code>. So this single change to one input in a very small example 
+                    caused already 300 function calls. And what if those children had grand-children and so on...
+                    `
+                },
+
 
                 {
                     elementType: 'HiddenDescription',
@@ -157,7 +221,8 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`React on the <code>@Input()</code> decorated properties
+                                                change.`
                                             },
                                             {
                                                 elementType:'SmallHeadline',
@@ -175,8 +240,12 @@ let data =     {
                                                 content:`What to put here`
                                             },
                                             {
-                                                elementType:'Paragraph',
-                                                content:``
+                                                elementType:'UnsignedList',
+                                                content:[
+                                                    `Web worker requests,`,
+                                                    `Server requests,`,
+                                                    `Changing elements binded to the view, as they still will rerender,`
+                                                ]
                                             },
 
                                         ]
@@ -194,7 +263,10 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`Initialize the component. Inputs are already created, 
+                                                constructor and <code>ngOnCheck</code> is already run. View is still 
+                                                not available. <b>Note</b> this method is called only once, so 
+                                                no great impact on performance.`
                                             },
 
                                             {
@@ -212,7 +284,15 @@ let data =     {
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'UnsignedList',
+                                                content:[
+                                                    `This is run only once,`,
+                                                    `Server requests,`,
+                                                    `Web workers requests,`
+                                                ]
+                                            },
                                         ]
                                     }     
                             },
@@ -226,7 +306,7 @@ let data =     {
                                                 elementType:'NoteWarning',
                                                 content:`This method is called every time something changes.
                                                 Even if there are sibling elements, this is called on every single
-                                                element.`
+                                                sibling element change.`
                                             },
                                             {
                                                 elementType:'SmallHeadline',
@@ -285,7 +365,8 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:`When <code>components content</code> was initialized.
+                                                content:`When components content (<strong>children</code>) 
+                                                was initialized.
                                                 Just after <code>ngDoCheck</code>. <strong>Only once</code>, when
                                                 the content is initialized for the first time.`
                                             },
@@ -308,6 +389,20 @@ let data =     {
                                 description: {
                                     elementType:'Section',
                                     content:[
+                                        {
+                                            elementType:'NoteWarning',
+                                            content:`
+                                            The last opportunity to make some state changes, that would impact the 
+                                            view. If done later, the <code>ExpressionChangedAfterItHasBeenCheckedError</code>
+                                            will appear, meaning that contant was changed after the last content check was perforemed.
+                                            It should be avioded to make changes after this method was called. If it happens and 
+                                            cannot be avoided there is a work-around: calling the change in an async function (like 
+                                            a <code>setTimeout</code> without any second argument). 
+                                            <br>
+                                            <b>NOTE</b> this work-around approach may cause an infinite loop, if the <code>ngAfterViewChecked</code>
+                                            causes the view to rerender.
+                                            `
+                                        },
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`Purpose`
@@ -323,7 +418,7 @@ let data =     {
                                             },
                                             {
                                                 elementType:'Paragraph',
-                                                content:``
+                                                content:`The call is repeated after the <code>afterViewInit</code> and <code>ngAfterContentChecked</code>`
                                             },
 
                                             {
