@@ -54,10 +54,118 @@ let data =     {
                     elementType:'Headline',
                     content:'Livecycle in angular'
                 },
+                {
+                    elementType:'Paragraph',
+                    content:`Lifecycle hooks are launched both: during the directive lifecycle, and during the 
+                    component lifecycle.`
+                },
 
                 {
                     elementType: 'Paragraph',
                     content: `
+                    Every component/directive has its lifecycle. It starts when the component/directive is created
+                    with the <code>new</code> operator, and ends when the component/directive is removed. 
+                    Meanwhile the component/directive internal state may change. Inputs may change. 
+                    When changes occure, the view may be updated by Angular. When component or directive 
+                    initializes, changes or before it is destroyed it may be needed to run some specific operations.
+                    To hook into a components or directives lifecycle, there are some methods intorduced. 
+                    Developer may implement some of those methods, all of them or none of them.
+                    `
+                },
+
+                {
+                    elementType:'Headline-3',
+                    content:`Lifecycle methods division`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`As mentioned in one of the references to this artice, lifecycle methods may be divided
+                    to:`
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:`Host component/directive hooks:`
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `constructor`,'OnChanges','OnInit', 'DoCheck', 'OnDestroy'
+                    ]
+                },
+                
+                {
+                    elementType:'SmallHeadline',
+                    content:`Child component/directive hooks:`
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `AfterContentInit`, 'AfterContentChecked', 'AfterViewInit','AfterViewChecked'
+                    ]
+                },
+
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    Note, that some lifecycle methods may be called a great number of times. The most 
+                    called methods are: <code>ngDoCheck</code>, <code>ngAfterContentChecked</code>,
+                    <code>ngAfterViewChecked</code>. Even a little touch of the button, checking a 
+                    checkbox or hovering over something may cause a chain reaction. Methods 
+                    given as an example are called on every possible occasion, even when an element not 
+                    related to the components they are called on is touched. This will cause a great performance 
+                    issues when used not wisely.
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Lets concidere creation of a parent and a single child. Then lets change this chids <code>@Input()</code>
+                    property 10 times. This is the result:
+                    `
+                },
+                {
+                    elementType: 'Image',
+                    name: 'lifecycle_angular_1added_10modified_chart.png',
+                    alt: '1 child added 10 times modified'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Now lets create 10 child elements, clear the logging pane, and cause 10 changes of only one 
+                    of the children. The problem is, that clearing the logging pane already causes a lot of 
+                    lifecycle methods to be called:
+                    `
+                },
+            
+                {
+                    elementType: 'Image',
+                    name: 'lifecycle_angular_10added_cleared_all.png',
+                    alt: '10 child added cleared'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Now let's change an single input of a single child 10 times (with a parent element and 
+                10 children; other components on the page are not logging lifecycle methods here.)
+                    `
+                },
+                {
+                    elementType: 'Image',
+                    name: 'lifecycle_angular_10added_cleared_1inputChanged10times_small.png',
+                    alt: '10 child added cleared, and a single elements single input changed 10 times.'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    10 elements and 10 input modifications are 10 x 10 = 100 changes. A button was clicked 10 times,
+                    causing 10 <code>ngOnCheck</code> runs and clearing content gave 10 <code>ngOnCheck</code> runs.
+                    This meens, that no matter that the input of a single element was changed only 10 times.
+                    This caused <code>ngOnCheck</code> run 10 times on each sibling, so 100 runs. There are other 
+                    methods that are equaly willingly called: <code>ngAfterContentChecked</code> and 
+                    <code>ngAfterViewChecked</code>. So this single change to one input in a very small example 
+                    caused already 300 function calls. And what if those children had grand-children and so on...
                     `
                 },
 
@@ -87,7 +195,10 @@ let data =     {
                                             {
                                                 elementType:'Paragraph',
                                                 content:`
-                                                Not an angular creation. This is run by the typeScript
+                                                Not an angular creation. This is the 
+                                                Java Script class constructor, that is run when angular 
+                                                creates a component/directive instance with the <code>new</code>
+                                                operator.
                                                 `
                                             }
                                         ]
@@ -109,13 +220,34 @@ let data =     {
                                                 content:`Purpose`
                                             },
                                             {
+                                                elementType:'Paragraph',
+                                                content:`React on the <code>@Input()</code> decorated properties
+                                                change.`
+                                            },
+                                            {
                                                 elementType:'SmallHeadline',
-                                                content:`When triggered`
+                                                content:`When called`
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`Only when <strong>input properties</code> of the component
+                                                change. If there are no input properties this hook <strong>
+                                                may never be called</strong>. This method is not called on the 
+                                                components that will for sure not be impacted with the change.`
                                             },
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'UnsignedList',
+                                                content:[
+                                                    `Web worker requests,`,
+                                                    `Server requests,`,
+                                                    `Changing elements binded to the view, as they still will rerender,`
+                                                ]
+                                            },
+
                                         ]
                                     }
                             },
@@ -130,13 +262,37 @@ let data =     {
                                                 content:`Purpose`
                                             },
                                             {
-                                                elementType:'SmallHeadline',
-                                                content:`When triggered`
+                                                elementType:'Paragraph',
+                                                content:`Initialize the component. Inputs are already created, 
+                                                constructor and <code>ngOnCheck</code> is already run. View is still 
+                                                not available. <b>Note</b> this method is called only once, so 
+                                                no great impact on performance.`
                                             },
+
+                                            {
+                                                elementType:'SmallHeadline',
+                                                content:`When called`
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                <strong>Only once</strong> when component is initialized, 
+                                                after inputs were set, after first call of the <code>ngOnChanges</code>
+                                                `
+                                            },
+
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'UnsignedList',
+                                                content:[
+                                                    `This is run only once,`,
+                                                    `Server requests,`,
+                                                    `Web workers requests,`
+                                                ]
+                                            },
                                         ]
                                     }     
                             },
@@ -147,17 +303,44 @@ let data =     {
                                     elementType:'Section',
                                     content:[
                                             {
+                                                elementType:'NoteWarning',
+                                                content:`This method is called every time something changes.
+                                                Even if there are sibling elements, this is called on every single
+                                                sibling element change.`
+                                            },
+                                            {
                                                 elementType:'SmallHeadline',
                                                 content:`Purpose`
                                             },
                                             {
-                                                elementType:'SmallHeadline',
-                                                content:`When triggered`
+                                                elementType:'Paragraph',
+                                                content:`
+                                                Custom change detection, code to be executed in situations 
+                                                when Angular may miss some change. This is executed on every 
+                                                possible component on every small change in the application, so 
+                                                no possible change is missed.
+                                                `
                                             },
+
+                                            {
+                                                elementType:'SmallHeadline',
+                                                content:`When called`
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`On every change detection cycle after <code>ngOnInit</code>
+                                                if it was executed, or after <code>ngOnChanges</code>`
+                                            },
+
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
                                         ]
                                     }
                             },
@@ -172,13 +355,31 @@ let data =     {
                                                 content:`Purpose`
                                             },
                                             {
-                                                elementType:'SmallHeadline',
-                                                content:`When triggered`
+                                                elementType:'Paragraph',
+                                                content:``
                                             },
+
+                                            {
+                                                elementType:'SmallHeadline',
+                                                content:`When called`
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`When components content (<strong>children</code>) 
+                                                was initialized.
+                                                Just after <code>ngDoCheck</code>. <strong>Only once</code>, when
+                                                the content is initialized for the first time.`
+                                            },
+
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
                                         ]
                                     }
                             },
@@ -188,18 +389,47 @@ let data =     {
                                 description: {
                                     elementType:'Section',
                                     content:[
+                                        {
+                                            elementType:'NoteWarning',
+                                            content:`
+                                            The last opportunity to make some state changes, that would impact the 
+                                            view. If done later, the <code>ExpressionChangedAfterItHasBeenCheckedError</code>
+                                            will appear, meaning that contant was changed after the last content check was perforemed.
+                                            It should be avioded to make changes after this method was called. If it happens and 
+                                            cannot be avoided there is a work-around: calling the change in an async function (like 
+                                            a <code>setTimeout</code> without any second argument). 
+                                            <br>
+                                            <b>NOTE</b> this work-around approach may cause an infinite loop, if the <code>ngAfterViewChecked</code>
+                                            causes the view to rerender.
+                                            `
+                                        },
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`Purpose`
                                             },
                                             {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
+                                            {
                                                 elementType:'SmallHeadline',
                                                 content:`When triggered`
                                             },
                                             {
+                                                elementType:'Paragraph',
+                                                content:`The call is repeated after the <code>afterViewInit</code> and <code>ngAfterContentChecked</code>`
+                                            },
+
+                                            {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
                                         ]
                                     }
                             },
@@ -215,13 +445,28 @@ let data =     {
                                                 content:`Purpose`
                                             },
                                             {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
+                                            {
                                                 elementType:'SmallHeadline',
                                                 content:`When triggered`
                                             },
                                             {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
+                                            {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
                                         ]
                                     }
                             },
@@ -236,13 +481,28 @@ let data =     {
                                                 content:`Purpose`
                                             },
                                             {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
+                                            {
                                                 elementType:'SmallHeadline',
                                                 content:`When triggered`
                                             },
                                             {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
+                                            {
                                                 elementType:'SmallHeadline',
                                                 content:`What to put here`
-                                            }
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
                                         ]
                                     }
                             },
@@ -256,9 +516,16 @@ let data =     {
                                                 elementType:'SmallHeadline',
                                                 content:`Purpose`
                                             },
+
+
                                             {
                                                 elementType:'Paragraph',
                                                 content:`Clean before element is removed`
+                                            },
+
+                                            {
+                                                elementType:'Paragraph',
+                                                content:``
                                             },
 
                                             {
@@ -273,7 +540,12 @@ let data =     {
                                             {
                                                 elementType:'SmallHeadline',
                                                 content:`Event handler remove, unsubscribe`
-                                            }
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:``
+                                            },
+
                                         ]
                                     }
                             }
@@ -312,6 +584,12 @@ let data =     {
                 {
                     elementType:'Headline-2',
                     content:'References'
+                },
+                {
+                    elementType:'Link',
+                    content:'blog.logrocket.com',
+                    href: 'https://blog.logrocket.com/angular-lifecycle-hooks/',
+                    description:'Very good explanation'
                 },
                 {
                     elementType:'Link',
