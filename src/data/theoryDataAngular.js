@@ -4,6 +4,8 @@ import getComponentData from './angular/components';
 import getBindingsData from './angular/bindings';
 import getFormsData from './angular/forms';
 import getLivecycleAngularData from  './angular/livecycleInAngular'
+import getTemplateData from './angular/modules'
+import getAngularRoutingData from './angular/routing'
 
 // + Inatalation, basic CLI commands
 // + Filesystem
@@ -28,6 +30,8 @@ let theoryDataAngular = [
     getBindingsData(),
     getFormsData(),
     getLivecycleAngularData(),
+    getTemplateData(),
+    getAngularRoutingData(),
 
     {
         summary: 'position',

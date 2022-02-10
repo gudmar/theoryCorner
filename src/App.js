@@ -93,9 +93,11 @@ function App(props) {
 
         <div className="col-md-3 col-lg-3 col-xl-2 scrollable d-sm-none d-none d-md-block"><Menu menuData={theoryData}/></div>
         <div className="col-md-9 col-lg-9 col-xl-10 scrollable col-sm-12 col-12">
+          <div className="container">
           {(location.pathname==='/')?<ContentSection content={aboutData} />:''}
           {isPathNotNestedAndContains(location, 'about')?<ContentSection content={aboutData} />:''}
           {doLocationParamsMatch(locationParams, 'topic')?<ContentSection content={getTopicFromTheory(locationParams.topic)} />:''}
+          </div>
         </div>
           {/* <div className="col-sm-8"><ContentSection content={aboutData}/></div> */}
 
