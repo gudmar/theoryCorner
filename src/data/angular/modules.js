@@ -1,4 +1,4 @@
-
+// SPELL CHECKED, CORRECT!
 let data =     {
     summary: 'angular modules',
     title: 'Angular modules',
@@ -46,15 +46,15 @@ let data =     {
                     content: [
                         `<code>declarations</code>: a set of pipes, components and directives belonging to this module,`,
                         `<code>providers</code>: a set of injectable objects, that are available in the injector of the module.
-                        This are the services. A service imported and listed in this field in the root module becomes <code>a
-                        singleton</code> by default, and can be injected to a component by giving it as a argument for the
+                        This are services. A service imported and listed in this field in the root module becomes <code>a
+                        singleton</code> by default, and can be injected to a component by giving it as an argument for the
                         component constructor.`,
                         `<code>imports</code>: the set of NgModules whose exported declarables will be available to the 
                         module,
                         `,
                         `<code>exports</code>: the set of components, directives and pipes that the module wants to be public,
                         available in other modules using the module,`,
-                        `<code>entryComponents</code>: the set of components that will be dynamicly loaded to the view, when 
+                        `<code>entryComponents</code>: the set of components that will be dynamically loaded to the view, when 
                         the module compiles.`,
                         `<code>bootstrap</code>: the set of comonents that are bootstrapped when this module is bootstrapped.
                         These components are automatically added to the <code>entryComponents</code>`
@@ -70,8 +70,8 @@ let data =     {
                     elementType: 'Paragraph',
                     content: `
                     Services provided in the root module, are by default singletons. There is a way not to create a 
-                    singleton, but this requires lasy-loading the module. Lazy loaded services are scoped to teh lazy-loaded
-                    module injectrl.
+                    singleton, but this requires lazy-loading the module. Lazy loaded services are scoped to the lazy-loaded
+                    module injected.
                     `
                 },
                 {
@@ -88,7 +88,7 @@ let data =     {
                     content: `
                     <div class="note">Lets create a simple Menu module. It provides a menu component, with 
                     a class that sends commands to subscribed components. For example a <i>Load</i> button
-                    should open a dialog box enabling a user to select a file, and this action shuould infrom 
+                    should open a dialog box enabling a user to select a file, and this action should inform 
                     all interested components that there is a file to be opened, and send the file as a blob.</div>
 <pre>
 import {CommonModule} from "@angular/common";
@@ -101,7 +101,7 @@ import {CommonModule} from "@angular/common";
 
     }
 </pre>
-                <div class="note">And now a service that sends commands</div>
+                <div class="note">And now a service that sends commands.</div>
 <pre>
 @Injectable()
 export class CommandersService {
@@ -140,7 +140,7 @@ export class CommandersService {
     }
 }
 </pre>               
-                    <div class="note">The full Menu component will not be shown, as this example is already too long</div>
+                    <div class="note">The full Menu component will not be shown, as this example is already too long.</div>
 <pre>
 @Component({
     selector: 'menu',
@@ -179,8 +179,8 @@ exportClass MenuComponent{
                     content: `
                     The root module should import a <code>BrowserModule</code>, where a feature module should 
                     import a <code>CommonModule</code>. Thanks to this module there is access to the <code>ngIf</code>
-                    or <code>ngFor</code> directives. In the root module there shuld be a <code>bootstrap</code>
-                    property in the decorator, for defining what components should be bootsrtarpped during the application 
+                    or <code>ngFor</code> directives. In the root module there should be a <code>bootstrap</code>
+                    property in the decorator, for defining what components should be bootstrapped during the application 
                     start.
                     `
                 },
