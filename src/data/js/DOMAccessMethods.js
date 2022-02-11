@@ -276,7 +276,27 @@ shadowRoot.innerHTML = \`&lt;style>...&lt;style>&lt;div> ... &lt;/div>\`
                     elementType:'UnsignedList',
                     content:[
                         `<code>element.innerHTML=stringWithHTML</code>`,
-                        `<code>element.insertAdjacentHTML('beforeend', stringWithHTML)`,
+                        `<code>element.insertAdjacentHTML('beforeend', stringWithHTML):
+                            <ul>
+                                <li>
+                                    <code>parent.insertAdjacentHTML('beforeBegin','&lt;i>&lt;/i>)</code>:
+                                    inserts a <i>i</i> element before the parent element (as adjacent sibling),
+                                </li>
+                                <li>
+                                    <code>parent.insertAdjacentHTML('afterBegin','&lt;i>&lt;/i>)</code>:
+                                    inserts a <i>i</i> element as the first child of the parent,
+                                </li>
+                                <li>
+                                    <code>parent.insertAdjacentHTML('beforeEnd','&lt;i>&lt;/i>)</code>:
+                                    inserts a <i>i</i> element as the last child of the parent,
+                                </li>
+                                <li>
+                                    <code>parent.insertAdjacentHTML('afterEnd','&lt;i>&lt;/i>)</code>:
+                                    inserts a <i>i</i> element just after the parent element (as adjacent sibling),
+                                </li>
+                            </ul>
+                            Please see an iframe example just after the code section.
+                        `,
                         `create a document fragment and append it to the DOM`
                     ]
                 },
@@ -289,6 +309,17 @@ hostElement.appendChild(elementToAdd)
 </pre>                    
                     `
                 },
+
+
+                {
+                    elementType: `exampleInIframe`,
+                    title: 'insertAdjacentHTML',
+                    src: 'https://gudmar.github.io/theoryCornerExamples/insertAdjacent.html',
+                    width: '500',
+                    height: '400'
+                },
+
+
                 {
                     elementType:'Headline-2',
                     content:'Document fragment'
