@@ -79,14 +79,79 @@ let data =     {
             content:[
                 {
                     elementType:'Headline-2',
-                    content:''
+                    content:'Custom matchers'
                 },
                 {
-                    elementType:'Paragraph',
+                    elementType:'SmallHeadline',
                     content:`
-
+                        MatchersUtil
                     `
                 },
+                {
+                    elementType:'SmallHeadline',
+                    content:`
+                        An object with utils to be used in custom matchers
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>contains(searchIn, searchFor)</code>: boolean if searchFor was in searchIn`,
+                        `<code>equals(a, b)</code>: boolean if both values are deeply equal,`,
+                        `<code>pp(msg)</code>: pretty-print: a formatter returning a string that may be used 
+                        on the failure.`,
+                    ]
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+var customMatchers = {
+    toBeEqualExpectedPlus2: function(matchersUtil){
+        return {
+            compare: function(actual, expected){
+                var result = {};
+                result.pass = (matchersUtil.equals(actual + 2, expected))
+                if (result.pass)  result.message="Passed"
+                else result.message="Failed"
+                return result
+            }
+        }
+    },
+    toContainKey: function(matchersUtil){
+        return {
+            compare: function(actual, expected){
+                var result = {};
+                let keys = Object.getOwnPropertyNames(actual)
+                result.pass = matcherUtil.contains(keys, expected)
+                
+                return result;
+                // message does not have to be set, 
+                // if not set will be fabricated
+            }
+
+        }
+    }
+}
+</pre>                    
+            <div class="note">Usage in tests</div>
+<pre>
+describe("Custom matchers example", ()=>{
+    beforeEach(()=>{
+        jasmine.addMatchers(customMatchers)
+    })
+    it('Should be 4', (){
+        expect(2).toBeEqualExpectedPlus2(4);
+    })
+    it('Should have a key', ()=>{
+        expect({a: 'val'}).toContainKey('a')
+    })
+})
+</pre>            
+                    `
+                },
+
+
             ]
         },
         {
@@ -106,6 +171,12 @@ let data =     {
                     elementType:'Link',
                     content:'jasmine.github.io',
                     href: 'https://jasmine.github.io/tutorials/custom_matcher',
+                    description:'Custom matchers'
+                },
+                {
+                    elementType:'Link',
+                    content:'jasmine.github.io',
+                    href: 'https://jasmine.github.io/api/edge/MatchersUtil.html',
                     description:'Custom matchers'
                 },
             ]
