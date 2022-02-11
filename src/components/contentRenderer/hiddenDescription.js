@@ -9,7 +9,7 @@ function LegendItem(props){
     const description = props.description;
     return (
         <div>
-            <div className={`${classes} disabled`}>{type}</div>
+            <div className={`${classes} disabled mb-2`}>{type}</div>
             <span>{description}</span>
         </div>
     )
@@ -88,7 +88,7 @@ function HiddenDescription(props){
                 <>
                     <Legend inputs={legend} />
                     <hr></hr>
-                    <i class="badge rounded-pill bg-secondary">Click an element to interact with it</i>
+                    <i class="badge rounded-pill bg-secondary mb-2">Click an element to interact with it</i>
                     {allItems()}
                 </>
             )        

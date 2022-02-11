@@ -146,12 +146,12 @@ let data =     {
                         legend: [
                             {
                                 type: 'One Time',
-                                styleClasses: 'btn btn-danger text-white m-2',
+                                styleClasses: 'btn btn-danger text-white m-4 mb-1 mt-1',
                                 description: 'Called only once, on the component initialization'
                             },
                             {
                                 type: 'Repeating',
-                                styleClasses:'btn btn-success m-2',
+                                styleClasses:'btn btn-success mb-1',
                                 description: 'Called each time change detection runs'
                             }
                         ],

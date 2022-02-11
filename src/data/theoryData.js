@@ -6,6 +6,7 @@ import { getTheoryDataReact } from './theoryDataReact';
 import { getPracticeComponents } from './practiceComponents';
 import { getTheoryDataDesignPatterns } from './theoryDataDesignPatterns';
 import { getTheoryDataAngular } from './theoryDataAngular';
+import { getTheoryDataJasmine } from './theoryDataJasmine';
 
 export function getTheoryData(){
     // let allData = [].concat(getTheoryDataCss(), getTheoryDataHtml(), getTheoryDataJs(), getTheoryDataTs())
@@ -41,6 +42,10 @@ export function getTheoryData(){
         {
             category: 'Angular',
             content: getTheoryDataAngular()
+        },
+        {
+            category: 'Jasmine',
+            content: getTheoryDataJasmine()
         }
     ]
     return allData;
