@@ -95,7 +95,10 @@ let data =     {
                                             {
                                                 elementType:'Paragraph',
                                                 content:`
-                                                Is good for the setups
+                                                Is good for the setups. Due to documentation, custom
+                                                matchers should ideally be added here:
+                                                <code>jasmine.addMatchers(customMatchers)</code>
+                                                })
                                                 `
                                             },
                                         ]
