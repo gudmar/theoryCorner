@@ -57,11 +57,109 @@ let data =     {
                                             {
                                                 elementType:'Paragraph',
                                                 content:`
+                                                <code>describe</code> is a function for running the test suit.
+                                                It has:
                                                 `
+                                            },
+                                            {
+                                                elementType:'UnsignedList',
+                                                content:[
+                                                    `<code>beforeEach(cb)</code>: test case setup,`,
+                                                    `<code>afterEach(cb)</code>: test case teardown,`,
+                                                    `<code>beforeAll(cb)</code>: suite setup,`,
+                                                    `<code>afterEach(cb)</code>: suite teardown,`,
+                                                    `<code>it(description, cb)</code>: test case,`,
+                                                ]
                                             },
                                         ]
                                     }
                             },
+
+
+                            {
+                                type: 'Nested',
+                                title: 'beforeEach(cb)',
+                                description: {
+                                    elementType:'Section',
+                                    content:[
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                <code>cb</code> callback will be called before each 
+                                                <code>spec</code> from this <code>describe</code> block.
+                                                This means, that this callback will be called even 
+                                                before each <code>spec</code> (<code>it()</code>) from 
+                                                the <code>describe</code> blocks that are nested in this block
+                                                `
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                Is good for the setups
+                                                `
+                                            },
+                                        ]
+                                    }
+                            },  
+                            {
+                                type: 'Nested',
+                                title: 'afterEach(cb)',
+                                description: {
+                                    elementType:'Section',
+                                    content:[
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                <code>cb</code> callback will be called after each 
+                                                <code>spec</code> from this <code>describe</code> block.
+                                                This means, that this callback will be called even 
+                                                after each <code>spec</code> (<code>it()</code>) from 
+                                                the <code>describe</code> blocks that are nested in this block
+                                                `
+                                            },
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                Should be used for the test case teardown
+                                                `
+                                            },
+                                        ]
+                                    }
+                            }, 
+                            {
+                                type: 'Nested',
+                                title: 'beforeAll(cb)',
+                                description: {
+                                    elementType:'Section',
+                                    content:[
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                Will be called before all spec from the hosting 
+                                                <code>describe</code> block. May be used for the 
+                                                test suite setup.
+                                                `
+                                            },
+                                        ]
+                                    }
+                            }, 
+                            {
+                                type: 'Nested',
+                                title: 'afterAll(cb)',
+                                description: {
+                                    elementType:'Section',
+                                    content:[
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                Will be called after all test cases (it) from the hosting 
+                                                <code>describe</code> block. May be used for the test 
+                                                teardown.
+                                                `
+                                            },
+                                        ]
+                                    }
+                            }, 
 
                             {
                                 type: 'Nested',
@@ -86,12 +184,7 @@ let data =     {
                                                     <code>it</code> decorator-function.`
                                                 ]
                                             },
-                                            {
-                                                elementType:'Code',
-                                                content:`
-                                                
-                                                `
-                                            },
+                                        
                                         ]
                                     }
                             },  
@@ -137,12 +230,6 @@ let data =     {
                                                     function, and passes the test in case the values are equal, or fails it.
                                                 `
                                             },
-                                            {
-                                                elementType:'Code',
-                                                content:`
-
-                                               `
-                                            },
 
 
                                         ]
@@ -182,6 +269,26 @@ let data =     {
                                         ]
                                     }
                             },        
+                            {
+                                type: 'Deeply nested',
+                                title: 'beforeAll(cb)',
+                                description: {
+                                    elementType:'Section',
+                                    content:[
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                <code>beforeAll</code>, <code>afterAll</code>, 
+                                                <code>beforeEach</code> and <code>afterEach</code>
+                                                may be nested in the nested describe blocks.
+                                                In this cases will be executed only before or after 
+                                                test cases from the host <code>describe</code> block
+                                                (the nested one)
+                                                `
+                                            },
+                                        ]
+                                    }
+                            },   
                             
                             
 
@@ -211,9 +318,79 @@ let data =     {
 
 
                         ]
-                    }
+                    },
+
 
                 },
+                {
+                    elementType: 'Headline-3',
+                    content:'example'
+                },
+
+
+                {
+                    elementType:'Code',
+                    content:`
+                    <div class="note">Lets test the following class</div>
+<pre>
+class MathOperations{
+    add(a,b){return a + b;}
+    substr(a,b){return a - b;}
+    sort(arr){
+        arr.sort((a,b)=>{
+            if (a<b) return -1;
+            if (a===b) return 0;
+            return 1
+        })
+    }
+}
+</pre>           
+                <div class="note">Tests</div>
+<pre>
+describe('Test MathOperations'){
+    var testedClass = null; 
+       // or testedClass = new MathOperations()
+       // lets use beforeAll, to ilustrate this function
+    beforeAll(()=>{
+        testedClass = new MathOperations()
+    })
+    afterAll(()=>{
+        delete testedClass;
+            // would be garbage collected, but again
+            // lest show the tardown :)
+    })
+    beforeEach(()=>{
+        console.log('Running a MathOperations test')
+    })
+
+    describe('Test arithm. operations', ()=>{
+        beforeEach(()=>{
+            console.log('Running an arithm. test');
+        })
+        it('Should return 4 if 2 added to 2', ()=>{
+            expect(testedClass.add(2, 2)).toBe(4);
+        })
+        it('Should return 5 if 3 substr. from 8', ()=>{
+            expect(testedClass.substr(8, 5)).toBe(3);
+        })
+
+    })
+
+    it('Should sort an array', ()=>{
+        expect(testedClass.sort([4,2,3,1])).toEqual([1,2,3,4]);
+    })
+    xit('Should sort an array', ()=>{
+        expect(testedClass.sort([4,2,3,{a: 9}])).toEqual([1,2,3,4]);
+        // This will not fail, will be pending, no matter that this would
+        // throw a TypeError. xit will not be called.
+    })
+
+}
+</pre>                
+
+                    `
+                }
+
 
 
 

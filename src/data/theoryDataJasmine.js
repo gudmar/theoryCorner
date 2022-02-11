@@ -8,7 +8,7 @@ let theoryDataJasmine = [
     getJasmineAsyncData(),
     getJasmineGettingStartedData(),
     getMatchersData(),
-    getJasmineTestStructureData(),
+    
 
 
 
