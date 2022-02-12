@@ -1,4 +1,4 @@
-
+// ng test --include='**/jasmineTesting/*.spec.ts'
 let data =     {
     summary: 'jasmine getting started',
     title: 'Jasmine, getting started',

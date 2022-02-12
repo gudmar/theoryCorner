@@ -18,9 +18,17 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                    A spy is a function that may be bound to another function in order to measure the  
-                    number of calls of the spied on function. Later there is a possiblity to match:
+                    A <code>spy</code> is a dummy function, that will be invoked instead of the real function when
+                    the real function is invoked. There are matchers for finding out if the function that is spied on 
+                    was called, how many times it was called and with what parameters it was called.
+                    There is a possiblity to invoke the real function with the spy (so it is executed in reality), 
+                    or to invoke a false function with the spy instead, or the spy call may return a value.
                     `
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'Matchers'
                 },
 
                 {
@@ -34,6 +42,40 @@ let data =     {
                         `<code>expect(aSpy).toHaveBeenCalledWith(arg1[, arg2[, ...]])</code> to check if the 
                         spy was called with specified set of arguments.`
                     ]
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'Creating a spy'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`Firstly, lets create an instance of the object, that is going to be spied on:
+                    <code>let s = new SomeService()</code>. Now:`
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>let someSpy = spyOn<any, any>(s, 'methodName')</code>: 
+                        this creates a dummy method. The real one will not be called. The <code>any, any</code>
+                        part is for typeScript. There may ocure an error
+                         <i>Argument of type '"methodName"' is not assignable to parameter of type 'never'</i>, and by 
+                         specifying types we aviod this error.`,
+                        `<code>let someSpy = spyOn<any, any>(s, 'methodName').and.callThrough()</code>: this creates a spy,
+                        and calls the real function,`,
+                        `<code>let someSpy = spyOn<any, any>(s, 'methodName').and.callFake(()=>{console.log('I am fake')})</code>:
+                        calls the fake function given as the <code>callFake</code> argument,`,
+                        `<code>let someSpy = spyOn<any, any>(s, 'methodName').and.returnValue('someVal')</code>:
+                        will not call the real function, only the dummy one, and then return the value given to the <code>returnValue</code>
+                        as an argument.`
+                    ]
+
+                    
+                },
+
+                {
+                    elementType:'SmallHeadline',
+                    content:'The simple example'
                 },
 
                 {
@@ -101,6 +143,91 @@ it('Should create a mock spy object', function(this:any){
 
             ]
         },
+
+        {
+            elementType:'SmallHeadline',
+            content:'Example with calling functions'
+        },
+
+        {
+            elementType:'Code',
+            content:`
+            <div class="note">A class to be tested:</div>
+<pre>
+class DummyClass{
+    callDummy(){
+        this.dummy();
+    }
+    dummy(){
+        this.nextDummy();
+        console.log('Dummy');
+    }
+    nextDummy(){
+        console.log('nextDummy');
+    }
+}
+</pre>            
+            <div class="note">Now the test</div>
+<pre>
+describe('Test callThrough, callFake and returnValue' ()=>{
+    let s: DummyClass;
+    beforeEach(()=>{s = new DummyClass()});
+
+    it('should call nextDummy spy', ()=>{
+        let spyA = spyOn<any,any>(s, 'dummy').and.callThrough();
+        // the real dummy will be called,
+        let spyB = spyOn<any, any>(s, 'nextDummy').and.callFake(()=>{
+            console.log('I am a fake nextDummy, the real will not be called')
+        })
+        s.callDummy();
+        expect(spyA).toHaveBeenCalledBefore(spyB);
+        //spyA called the real method, so spyB was called instead of the 
+        // nextDummy method.
+        // Instead of nextDummy, a fake function was invoked.
+        // Will pass, as spyA was called before spyB
+    })
+})
+</pre>
+            `
+        },
+
+        {
+            elementType:'SmallHeadline',
+            content:'Example with <code>returnValue</code>'
+        },
+
+        {
+            elementType:'Code',
+            content:`
+            <div class="note">Class to test</code>
+<pre>
+class DummyClass{
+
+    testIf3(){
+        return (this.dummyIs3() === 3)
+        // returns false, as dummyIs3 returns 2
+    }
+
+    dummyIs3(){return 2}
+}
+</pre>                        
+            <div class="note">The spy will return 3, so the test will pass</code>
+<pre>
+describe('Testing returnValue', ()=>{
+    let s: DummyClass;
+
+    beforeEach(()=>{s = new DummyClass()});
+    it('should pass', ()=>{
+        let spy = spyOn<any,any>(s, 'dummyIs3').and.returnValue(3);
+        let result = s.testIf3();
+        expect(result).toBe(3);
+        // pass
+    })
+})
+</pre>            
+            `
+        },
+
         {
             elementType:'Article',
             content:[

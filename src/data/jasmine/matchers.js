@@ -6,7 +6,7 @@ let data =     {
     expect toBe toEqual toBeCloseTo toBeDefined toBeFalsy toBeGreaterThan toBeGreaterThanOrEqual toBeLessThan
     toBeLessOrEqual toBeNaN toBeNegativeInfinity toBeNull toBePositiveInfinity toBeTruthy toBeUndefined toContain(expected) 
     toHaveBeenCalled toHaveBeenCalledBefore(expected) goHaveBeenCalledTimes toHaveBeenCalledWhith toMatch toThrow(expected)
-    toThrowError(expected, message) custom matchers fail
+    toThrowError(expected, message) custom matchers fail asymetricMatch any
     `,
     cathegory: 'jasmine',
     content: [
@@ -214,6 +214,34 @@ it('Should pass', function(){
 </pre>                    
                     `
                 },
+
+
+                {
+                    elementType: 'Headline-3',
+                    content:'Asymetric match'
+                },
+                {
+                    elementType: 'Paragraph',
+                    content:`If there is a need to know if compared objects are only in sam part equal.`
+                },
+                {
+                    elementType: 'Code',
+                    content:`
+<pre>
+describe('Asymetric match', ()=>{
+    var has3 = {
+        asymmetricMatch: function(actual){
+            actual.includes(3);
+        }
+    }
+    it('Should match', function(){
+        expect([1,2,3]).toEqual(has3);
+    })    
+})
+</pre>                    
+                    `
+                },
+
 
 
             ]

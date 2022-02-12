@@ -77,6 +77,35 @@ let data =     {
 
 
                             {
+                                type: 'Not nested',
+                                title: 'fdescribe(testSuiteName: string, callback: function)',
+                                description: {
+                                    elementType:'Section',
+                                    content:[
+                                            {
+                                                elementType:'Paragraph',
+                                                content:`
+                                                <code>fdescribe</code> similar to <code>descirbe</code>, but 
+                                                if this is present, no other tests will run. Only the 
+                                                <code>fdescribe</code> tests will be executed.
+                                                `
+                                            },
+                                            {
+                                                elementType:'UnsignedList',
+                                                content:[
+                                                    `<code>beforeEach(cb)</code>: test case setup,`,
+                                                    `<code>afterEach(cb)</code>: test case teardown,`,
+                                                    `<code>beforeAll(cb)</code>: suite setup,`,
+                                                    `<code>afterEach(cb)</code>: suite teardown,`,
+                                                    `<code>it(description, cb)</code>: test case,`,
+                                                ]
+                                            },
+                                        ]
+                                    }
+                            },
+
+
+                            {
                                 type: 'Nested',
                                 title: 'beforeEach(cb)',
                                 description: {
