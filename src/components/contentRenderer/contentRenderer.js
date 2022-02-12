@@ -70,7 +70,6 @@ function getSingleNonListElementType(type, content, otherProps){
             height={otherProps.height}/>)
     }
     if (type === 'HiddenList'){
-        console.log(content)
         return (
             <HiddenList content={content}/>
         )
@@ -119,7 +118,6 @@ function ContentRenderer(props){
     }
     
     if (isInputArrayOfElements) {
-        console.dir(componentContent)
         return componentContent.map((element, index)=>{
             return <ContentRenderer key={index} content={element}/>
         })
