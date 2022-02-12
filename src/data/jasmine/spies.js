@@ -252,9 +252,15 @@ describe('Testing returnValue', ()=>{
                 },
                 {
                     elementType:'Link',
-                    content:'Developer mozilla',
-                    href: ' ',
-                    description:'Tutorial'
+                    content:'scriptverse.academy',
+                    href: 'https://scriptverse.academy/tutorials/jasmine-spyon.html',
+                    description:'callThorough, callFake and returnValue explained'
+                },
+                {
+                    elementType:'Link',
+                    content:'codecraft.tv',
+                    href: 'https://codecraft.tv/courses/angular/unit-testing/asynchronous/',
+                    description:'Good side about testing in Angular. Done explained'
                 },
             ]
         }
