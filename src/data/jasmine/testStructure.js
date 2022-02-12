@@ -325,6 +325,70 @@ let data =     {
 
 
                 },
+
+                {
+                    elementType: 'Headline-3',
+                    content:'<code>this</code> keywrod'
+                },
+
+                {
+                    elementType: 'Paragraph',
+                    content:`
+                    May be used to pass information between the functions in a <code>describe</code> block.
+                    There is a new, clean <code>this</code> set for each <code>describe block</code> 
+                    making the same <code>this</code> available to exchange information between <code>beforeEach</code>
+                    <code>afterEach</code>, <code>beforeAll</code>, <code>afterAll</code> and each <code>it</code>
+                    `
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content:[
+                        `In typeScript, the callback should not be an arrow function, because of 
+                        issues with the <code>this</code> keyword. If <code>this</code> is not an arrow funciton
+                        then <code>this</code> should be declared in the function argument section`,
+                        `The scope of the nested <code>describe</code> shadows the not nested one, and creates 
+                        its own scope of <code>this</code>. But the <code>this</code> of the parent will be 
+                        still available in the parent scope:`
+                    ]
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content:`
+                    <pre>
+describe('The this demonstration', ()=>{
+    var counter = 0;
+    beforeAll(function(this: any) {
+        // no arrow function in ts, because of issues with types 
+        this.parentScopeMessage = "I am parent scope"
+    })
+    befeoreEach(function(this: any){
+        // no arrow function in ts, because of issues with types
+        console.info(\`I am the \${counter} beforeEach call. This is the 'this' message\`, this.message);
+        counter++;
+    })
+    describe('Child scope for this demonstration', function(this: any){
+        beforeAll(function(this: any) {
+            this.childScope = "I am child scope"
+        })
+        beforeEach(function(this: any){
+            console.info('I am child beforeEach ' + counter, this.childScope, this.parentScopeMessage);
+            // this.childScope is visible as expected,
+            // this.parentScope will be undefined, as this is the new scope for this
+            counter++;
+        })
+        it('some test case', function(this:any){
+            console.log('this in it', this);
+            // this.childScopeMessage OK,
+            // this.parentScope undefined
+            expect(1).toBe(1);
+        })
+    })
+})                    
+                    </pre>
+                    `
+                },
+
+
                 {
                     elementType: 'Headline-3',
                     content:'example'

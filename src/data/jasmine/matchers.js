@@ -6,7 +6,7 @@ let data =     {
     expect toBe toEqual toBeCloseTo toBeDefined toBeFalsy toBeGreaterThan toBeGreaterThanOrEqual toBeLessThan
     toBeLessOrEqual toBeNaN toBeNegativeInfinity toBeNull toBePositiveInfinity toBeTruthy toBeUndefined toContain(expected) 
     toHaveBeenCalled toHaveBeenCalledBefore(expected) goHaveBeenCalledTimes toHaveBeenCalledWhith toMatch toThrow(expected)
-    toThrowError(expected, message) custom matchers
+    toThrowError(expected, message) custom matchers fail
     `,
     cathegory: 'jasmine',
     content: [
@@ -82,13 +82,46 @@ let data =     {
                     content:'Custom matchers'
                 },
                 {
+                    elementType:'Paragraph',
+                    content:`
+                        A <code>custom matchers</code> factory is an object returning functions, that are custom matchers.
+                        A custom matcher is a function taking a <code>matchersUtil</code> object, and returning an 
+                        object, that has a <code>compare</code> function. Than compare function takes
+
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>actual</code> the arguemant that is taken by the <code>expect</code> function
+                         that will be chained with the matcher,`,
+                        `<code>expected</code>: an argument taken by the custom matcher,`,
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    and returns the <code>result</code> object, having keys:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>pass</code>: the boolean value, that if true then the test will be passed, and if false,
+                        then the test will fail,`,
+                        `<code>message</code>: a string, that will be displayed. Should be different for the 
+                        pass and fail scenario. If absent, then will be factorized by the framework,`,
+                    ]
+                },
+
+                {
                     elementType:'SmallHeadline',
                     content:`
                         MatchersUtil
                     `
                 },
                 {
-                    elementType:'SmallHeadline',
+                    elementType:'Paragraph',
                     content:`
                         An object with utils to be used in custom matchers
                     `
@@ -148,6 +181,37 @@ describe("Custom matchers example", ()=>{
     })
 })
 </pre>            
+                    `
+                },
+
+                {
+                    elementType: 'Headline-3',
+                    content:'<code>fail(cause)</code>'
+                },
+                {
+                    elementType: 'Paragraph',
+                    content:`Is for manual failing test cases`
+                },
+
+                {
+                    elementType: 'Headline-3',
+                    content:'<code>any(constructorName)</code>'
+                },
+                {
+                    elementType: 'Paragraph',
+                    content:`Returns true if the function was called with the constructor name`
+                },
+                {
+                    elementType: 'Code',
+                    content:`
+<pre>
+
+it('Should pass', function(){
+    let aSpy = jasmine.createSpy('aSpy');
+    aSpy(4, 'caption');
+    expect(aSpy).toHaveBeenCalledWith(jasmine.any(Number), jasmine.any(String))
+})
+</pre>                    
                     `
                 },
 
