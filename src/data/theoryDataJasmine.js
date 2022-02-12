@@ -8,6 +8,7 @@ import getSpyData from './jasmine/spies'
 let theoryDataJasmine = [
     getJasmineAsyncData(),
     getJasmineGettingStartedData(),
+    getJasmineTestStructureData(),
     getMatchersData(),
     getSpyData(),
 
