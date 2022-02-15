@@ -116,11 +116,8 @@ function ContentRenderer(props){
         height: props.content.height,
         label: props.content.label
     }
-    console.info(props)
     
     if (isInputArrayOfElements) {
-        console.log(componentContent)
-        
         return componentContent.map((element, index)=>{
             return <ContentRenderer key={index} content={element}/>
         })

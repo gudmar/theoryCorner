@@ -1,57 +1,4 @@
-
-
-// TestBed - configures and initializes environment for unit testing and provides methods for creating 
-// components and services
-    // initTestEnvironment(): initialize the environtmant for testing with a compiler factory. Should be called
-    // only once, to set up the common providers for the current test suit and currnet platform. 
-    // If called later, resetTestEnvironment should be used instead
-
-    //configureTestingModule()
-    // compileComponents()
-    // inject(token, notFoundValue?, flags?)
-    // get(token)
-    // execute(tokens, fn)
-    /// overrideModule(module, overrideMedatata), overrideComponent, overrideDirective, overrideProvider(token, providers)
-    // createComponent(component)
-    
-
-    // https://angular.io/api/core/testing/TestBed
-
-
-
-
-
-// Mock everything not related
-
-
-
-// COMPONENTS
-// Lifecycle methods are not called by default, an user has to call them
-
-
-// beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       // provide the component-under-test and dependent service
-//       providers: [
-//         WelcomeComponent,
-//         { provide: UserService, useClass: MockUserService }
-//       ]
-//     });
-//     // inject both the component and the dependent service.
-//     comp = TestBed.inject(WelcomeComponent);
-//     userService = TestBed.inject(UserService);
-//   });
-
-// it( '', ()=>{
-//     comp.ngOnInit();
-// })
-
-
 // https://angular.io/guide/testing-components-basics
-
-
-
-
 
 let data =     {
     summary: 'jasmine angular',
@@ -78,6 +25,7 @@ let data =     {
                         // {id: 'pipes', title: 'Testing pipes,'},
                         {id: 'simpleComponent', title: 'Testing a component without dependencies,'},
                         {id: 'serviceComponent', title: 'Testing a component with service,'},
+                        {id: 'colorFilterComponent', title: 'Testing a more complicated exampe with a service,'},
                         {id: 'DOM', title: 'Testing component with DOM,'},
                         {id: 'directives', title: 'Testing directives,'},
                         {id: 'private', title: 'What about private members of the class,'},
@@ -92,7 +40,7 @@ let data =     {
 
                 {
                     elementType:'Headline',
-                    content:'Dictionary'
+                    content:'<span id="dictionary">Dictionary</span>'
                 },
 
                 {
@@ -385,7 +333,7 @@ describe('',()=>{
                 },
                 {
                     elementType:'Headline-2',
-                    content:'No dependencies'
+                    content:'<span id="simpleComponent">No dependencies</span>'
                 },
                 {
                     elementType:'Paragraph',
@@ -393,10 +341,18 @@ describe('',()=>{
                     Let's take a simple component for exercising
                     `
                 },
+
+
+
+
                 {
-                    elementType:'Code',
-                    content:`
-<div class="note">HTML</div>                    
+                    elementType:'HiddenCode',
+                    content:[
+                        {
+                            info:`
+                            HTML template for the component
+                            `,
+                            code:`
 <pre>
 &lt;div class="alert alert-warning">
     {{content}}
@@ -420,17 +376,15 @@ export class MyComponent implements OnInit {
 </pre>
                     `
                 },
-
                 {
-                    elementType:'Paragraph',
-                    content:`
+                    info:`
                     The easiest way to create and test a component class is with the <code>new</code> operator
-                    usage:
-                    `
-                },
-                {
-                    elementType:'Code',
-                    content:`
+                    usage. Lets look at en example, but lest keep in mind, that the component in Angular is never a 
+                    ts class alone. It is binded with a HTML template and those bindings are what is needed to be 
+                    tested on the entity level. So creating a component with a <code>new</code> operator, and not 
+                    using a fixture is a bad idea.
+                    `,
+                    code: `
 <pre>
 fdescribe('Setting test with new operator', ()=>{
     let component = new MyComponent();
@@ -445,18 +399,14 @@ fdescribe('Setting test with new operator', ()=>{
                     `
                 },
                 {
-                    elementType:'Paragraph',
-                    content:`
+                    info:`
                     Above code allows to test the component class, even to invoke lifecycle methods on it.
                     However, the Angular component consists of the ts class, that is binded with the HTML
                     template. When the component is tested, the bindings should be tested. 
                     So access to the DOM is needed, and the <code>detectChanges</code> method would be necessary.
                     Because of this, the fixture is inevitable.
-                    `
-                },
-                {
-                    elementType:'Code',
-                    content:`
+                    `,
+                    code: `
 <pre>
 describe('Test with the fixture', () => {
     let component: MyComponent;
@@ -491,10 +441,12 @@ describe('Test with the fixture', () => {
 </pre>
                     `
                 },
+            ]
+        },
 
                 {
                     elementType:'SmallHeadline',
-                    content:'Testing a component with the service dependency'
+                    content:'<span id="serviceComponent">Testing a component with a service dependency</span>'
                 },
                 {
                     elementType:'Paragraph',
@@ -502,9 +454,13 @@ describe('Test with the fixture', () => {
                     set in ngOnInit by an async service:`
                 },
                 {
-                    elementType:'Code',
-                    content:`
-                    <div class="note">The service giving random strings</div>
+                    elementType:'HiddenCode',
+                    content:[
+                        {
+                            info:`
+                            A service giving random strings
+                            `,
+                            code:`
 <pre>
 export class RandomDataProviderService {
     getData(len:number){
@@ -513,7 +469,7 @@ export class RandomDataProviderService {
       return new Promise((resolve)=>{
         let int = setInterval(()=>{
           let d = Date.now() * Math.random();
-          output += ` ` + d.toString(32);
+          output += ' ' + d.toString(32);
           count++;
           if (count >= len) {
             clearTimeout(int);
@@ -523,8 +479,10 @@ export class RandomDataProviderService {
       })
     }
   }
-</pre>               
-                <div class="note">And the components HTML</div>
+</pre>               `},
+                      {
+                          info:'A HTML template for the component',
+                          code:`
                 <pre>                
 &lt;h5>{{headline}}&lt;/h5>
 &lt;p>{{content}}&lt;/p>
@@ -559,14 +517,9 @@ export class LoadChangeContentComponent implements OnInit {
                 },
 
                 {
-                    elementType:'Paragraph',
-                    content:`The service gives random values. For tests it is better to have 
-                    deterministic values. Service class has to be mocked:`
-                },
-                {
-                    elementType:'Code',
-                    content:`
-                    <div class="note">Mocked service</div>
+                    info:`The service gives random values. For tests it is better to have 
+                    deterministic values. Service class has to be mocked:`,
+                code: `
 <pre>
 class MockRandomDataService {
     nrOfRuns: number = 0;
@@ -590,19 +543,19 @@ class MockRandomDataService {
   }
 </pre>`
                 },
+            ]
+        },
+        {
+            elementType:'Paragraph',
+            content:`The <code>increaseCounter()</code> method will manualy change the data that the 
+            mock is providing, but in a deterministic way. We are testing a component, not the service!`
+        },
                 {
-                    elementType:'Paragraph',
-                    content:`The <code>increaseCounter()</code> method will manualy change the data that the 
-                    mock is providing, but in a deterministic way. We are testing a component, not the service!`
-                },
-                
-                {
-                    elementType:'Paragraph',
-                    content:`Now for the tests`
-                },
-                {
-                    elementType:'Code',
-                    content:`
+                    elementType:'HiddenCode',
+                    content:[
+                        {
+                            info: 'Tests for the above content:',
+                            code: `
 <pre>
 describe('LoadChangeContentComponent', () => {
     let component: LoadChangeContentComponent;
@@ -668,6 +621,37 @@ describe('LoadChangeContentComponent', () => {
 </pre>                    
                     `
                 },
+            ]
+        },
+
+
+        {
+            elementType:'SmallHeadline',
+            content:`<span id="colorFilterExample">More complicated example with a service</span>`
+        },
+        {
+            elementType:'Paragraph',
+            content:`This component has a color input. By interacting with it, user changes its <code>value</code>
+            property to the hexadecimal string indicating the chosen color. By default the element has the black:
+            <code>'#000000'</code> color. There are checkboxes with blue, green and red lables. Each checkbox 
+            toggles one of the chosen color ingrediants, so the <code>outputColor</code> div gets the 
+            color with or without the selected ingrediance.`
+        },
+        {
+            elementType:'Paragraph',
+            content:`The service is responsible for returning a color without filtered ingrediances.`
+        },
+                {
+                    elementType:'HiddenCode',
+                    content:[
+                        {
+                            info: 'Tests for the above content:',
+                            code: `
+                            `
+                        }
+                    ]
+                },
+
 
             ]
         },

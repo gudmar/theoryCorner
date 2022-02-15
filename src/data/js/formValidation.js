@@ -129,6 +129,34 @@ let data =     {
             content:[
                 {
                     elementType:'Headline-2',
+                    content:'Interaction with inputs'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Most of the input element values may be modifeid or checked by the <code>value</code> property. 
+                    However, in case of a checkbox, a <code>checked</code> is more appropriate. 
+                    `
+                },
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    There is a difference between an <code>checked</code> html attribute and the <code>checked</code>
+                    js object property. Setting <code>document.querySelector('[type=checkbox]').checked = true</code>
+                    will not add the <code>checked</code> html attribute. Will just toggle checkbox state.<br>
+                    The <code>checked</code> html attribute indicates if the element is checked by default. 
+                    This attribute does not change with the elements state (so user interaction does not change 
+                    this element. The only way to do this is to use <code>setAttribute</code> method)
+                    `
+                },
+
+            ]
+        },
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline-2',
                     content:'References'
                 },
                 {
