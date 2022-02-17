@@ -3,12 +3,14 @@ import getSpecifityData from "./css/specifity";
 import getSelectorsData from "./css/selectors";
 import getPseudoClassesData from "./css/pseudoClasses";
 import getPseudoElementData from "./css/pseudoElements";
+import getFWPData from "./css/FrontendWebPerformance"
 
 let theoryDataCss = [
 
     getSpecifityData(),
     getBoxModelData(),
     getSelectorsData(),
+    getFWPData(),
     {
         summary: 'position',
         title: 'position',
