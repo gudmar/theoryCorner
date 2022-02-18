@@ -26,6 +26,11 @@ let data =     {
                         @use "./someModule" with (bg-color: green)</code> module import line, or in the 
                         call of the module function: <code>@include someModule.my-mixin;</code>. In this case 
                         the file name is <code>_someModule.scss</code>,`,
+                        `A private member of a module starts with an underscare, or a dash`,
+                        `A moudle may be imported with an alias name <code>@use 'someFile' as s</code>. Now 
+                        the call is s.someMethod`,
+                        `There is a <code>!default<code>: a keyword allowing to set a default value for some configurable
+                        variables of a module`
                     ]
                     
                 },

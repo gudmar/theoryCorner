@@ -1,0 +1,177 @@
+
+let data =     {
+    summary: 'Advanced',
+    title: 'Advanced',
+    searchKeywords:`
+
+    `,
+    cathegory: 'scss',
+    content: [
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline',
+                    content:'Advanced functions and mixins in scss'
+                },
+
+                {
+                    elementType: 'ListOfContent',
+                    content: [
+                        {id: 'block-arbitrary', title: 'Mixins: hover'},
+                        {id: 'mixins-arbitrary', title: 'Mixins: arbitrary arguments'},
+                        {id: 'mixins-keyword', title: 'Mixings: arbitrary keyword arguments'},
+                    ]
+                },
+
+                {
+                    elementType: 'Headline-3',
+                    content: `Mixins`
+                },
+                {
+                    elementType:'HiddenCode',
+                    content:[
+
+                        {
+                            info:`
+                            <strong>Mixins: hover</code>: <code>@content</code> injects content.
+                            `,
+                            code:`
+                            <pre>
+@mixin hover {
+    &not([disabled]):hover{
+        @content
+    }
+}
+
+.button {
+    border: solid black thin;
+    @include hover{
+        cursor: pointer;
+    }
+}
+                            </pre>
+                            <div class="note">Result</div>
+<pre>
+.button{
+    border: solid balck thin;
+}
+.button:not([disabled]):hover{
+    cursor: pointer;
+}
+</pre>                            
+                            `
+                        },
+
+                        {
+                            info:`
+                            <strong>Arbitrary arguments</code>
+                            `,
+                            code:`
+                            <pre>
+@mixin margin($paddingUnit, $selectors...) {
+    @for $i from 0 to length($selectors...) {
+        #(nth($selectors, $i + 1)) {
+            position: relative;
+            margin-left: $i * $paddingUnit;
+        }
+    }
+}
+
+@include margin(20px, "input.brand", "input.model", "input.ordererName")
+                            </pre>
+                            <div class="note">Will compile to </div>
+<pre>
+input.brand{
+    position: relative; 
+    margin-left: 0;
+}
+input.model{
+    position: relative; 
+    margin-left: 20px;
+}
+
+input.ordererName{
+    position: relative; 
+    margin-left: 40px;
+}
+
+</pre>                            
+                            `
+                        },
+
+
+
+                        {
+                            info:`
+                            <strong>Arbitrary keyword arguments</code>
+                            `,
+                            code:`
+<pre>
+@use "sass:meta";
+@mixin svg-insert($args...) {
+    @debug meta.keywords($args);
+    // (clock: '../assets/click.svb, arrow-left...)
+
+    @each $name, $path in meta.keywords($args) {
+        div.svg-#{$name}{
+            background-image: url($name);
+        }
+    }
+}
+
+@include svg-insert(
+    $clock: '../assets/clock.svg',
+    $arrow-left: '../assets/arrL.svg',
+    $arrow-right: '../assets/arrR.svg',
+)
+</pre>    
+            <div class="note">Output would be</div>
+<pre>
+div.svg-clock {background-image: url('../assets/clock.svg')}
+div.svg-arrow-left {background-image: url('../assets/arrL.svg')}
+div.svg-arrow-right {background-image: url('../assets/arrR.svg')}
+</pre>                                    
+                            `
+                        },
+
+                    ]
+                },
+            ]
+        },
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline-2',
+                    content:''
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+
+                    `
+                },
+            ]
+        },
+        {
+            elementType:'Article',
+            content:[
+                {
+                    elementType:'Headline-2',
+                    content:'References'
+                },
+                {
+                    elementType:'Link',
+                    content:'Developer mozilla',
+                    href: ' ',
+                    description:'Tutorial'
+                },
+            ]
+        }
+    ]
+};
+
+export default function getTemplateData(){
+    return data;
+}
