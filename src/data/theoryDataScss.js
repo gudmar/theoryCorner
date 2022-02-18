@@ -3,6 +3,7 @@ import getMixinFunctionData from "./scss/mixinsFunctions"
 import getScssModulesData from "./scss/modules"
 import getScssOperatorsData from "./scss/operatorsValuesInterpolations"
 import getScssOverviewData from "./scss/overview"
+import getVariablesData from "./scss/variables"
 
 
 
@@ -13,6 +14,7 @@ let theoryDataCss = [
     getScssModulesData(),
     getScssOperatorsData(),
     getScssOverviewData(),
+    getVariablesData(),
 
     {
         summary: 'position',
