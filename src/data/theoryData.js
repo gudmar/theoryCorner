@@ -8,6 +8,7 @@ import { getTheoryDataDesignPatterns } from './theoryDataDesignPatterns';
 import { getTheoryDataAngular } from './theoryDataAngular';
 import { getTheoryDataJasmine } from './theoryDataJasmine';
 import { getTheoryDataScss } from './theoryDataScss';
+import { getTheoryDataPython } from './theoryDataPython';
 
 export function getTheoryData(){
     // let allData = [].concat(getTheoryDataCss(), getTheoryDataHtml(), getTheoryDataJs(), getTheoryDataTs())
@@ -52,6 +53,10 @@ export function getTheoryData(){
         {
             category: 'Jasmine',
             content: getTheoryDataJasmine()
+        },
+        {
+            category: 'Python',
+            content: getTheoryDataPython()
         }
     ]
     return allData;
