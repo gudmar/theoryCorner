@@ -143,15 +143,110 @@ div.svg-arrow-right {background-image: url('../assets/arrR.svg')}
             elementType:'Article',
             content:[
                 {
-                    elementType:'Headline-2',
-                    content:''
+                    elementType:'Headline-3',
+                    content:'Functions'
                 },
                 {
                     elementType:'Paragraph',
                     content:`
-
+                    <code>@function <name> (<arguments...>) {...}</code> is a way to encapsulate complex operations.
+                    Functions should:
                     `
                 },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `Always <code>@return</code> a value, or an expression evaluating to a value,`,
+                        `Be clean functions: no state changing, though it is possible,`,
+                        `May return early,`,
+                        'May have a default argument,',
+                        'May have keyworder arguments,',
+                        `May have arbitrary arguments`,
+                        `The statement <code>someFunction(args...)</code> may be used to turn the <code>args</code>
+                        array into the arguments.`
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    While working with functions some things should be taken into concideration:
+                    `
+                },
+                {
+                    elementType:'UnsignedList',
+                    content:[
+                        `Dashes: '-' are equal to '_' underscores in the function naming convension. So: 
+                        <code>some_function</code> is the same as <code>some-function</code>`,
+                        `One must be very careful when writing function names, as every function, thats name 
+                        is not found in the scope, is compiled as it was a pure <code>css</code> function.
+                        This is to make sure a new release of scss is not needed everytime css creators come up with
+                        some new invention.`,
+                        `Css functions like <code>calc()</code> or <code>element()</code> have to be written 
+                        as unquoted strings`
+                    ]
+                },
+                {
+                    elementType:'HiddenCode',
+                    content:[
+
+                        {
+                            info:`
+                            A function with default argument. Uses a build in <code>lightness</code> function.
+                            Calculates the color of the font based on the color of the background
+                            `,
+                            code:`
+                            <pre>
+ @function getColor($_bg-color: gray){
+    $output: #000;
+    $lightness: lightness($_bg-color);
+    @if $lightness < 50% {
+        $output: #fff;
+    }
+    @return $output;
+}                           
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`
+                            Arbitrary arguments
+                            `,
+                            code:`
+                            <pre>
+ @function min($items...){
+        $current: 10000000;
+        @each $item in $items {
+            @if $item < $current {
+                $current: $item
+            }
+        }
+    @return $item;
+
+ }
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`
+                            Keyworded arguments: what it is needed for?
+                            `,
+                            code:`
+                            <pre>
+ @function getColor($_bg-color: gray){
+    $output: #000;
+    $lightness: lightness($_bg-color);
+    @if $lightness < 50% {
+        $output: #fff;
+    }
+    @return $output;
+}                           
+                            </pre>
+                            `
+                        },
+                    ]
+                }
+
+
             ]
         },
         {
@@ -172,6 +267,6 @@ div.svg-arrow-right {background-image: url('../assets/arrR.svg')}
     ]
 };
 
-export default function getTemplateData(){
+export default function getAdvancedData(){
     return data;
 }
