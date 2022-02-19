@@ -4,6 +4,7 @@ import getScssModulesData from "./scss/modules"
 import getScssOperatorsData from "./scss/operatorsValuesInterpolations"
 import getScssOverviewData from "./scss/overview"
 import getVariablesData from "./scss/variables"
+import getAdvancedData from "./scss/advanced"
 
 
 
@@ -15,6 +16,7 @@ let theoryDataCss = [
     getScssOperatorsData(),
     getScssOverviewData(),
     getVariablesData(),
+    getAdvancedData(),
 
     {
         summary: 'position',

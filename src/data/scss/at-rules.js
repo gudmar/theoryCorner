@@ -249,7 +249,7 @@ selector {
                         },
                         {
                             info:`
-                            <code>@mixine</code> is a way to get some styling into a block, that may be included
+                            <code>@mixin</code> is a way to get some styling into a block, that may be included
                             with <code>@include</code> rule to many style blocks. This is like a procedure in pascal.
                             May take arguments, but does not return a thing:
 
@@ -284,11 +284,151 @@ selector {
                             `
                         },
                         {
-                            info: `
+                            info: `<code>@function</code> is a way to encapsulate complex operations on SassScript values.
+                            It must <code>@return</code> a number, should be a clear function, can take keywordes arguments,
+                            can take a list of arguments. The dash and underscore are treated equaly in the function name.
+                            Please refer to the advanced section to learn more about functions.
                             `,
                             code: `
+                            <pre>
+@function getColor($_bg-color: gray){
+    $output: #000;
+    $lightness: lightness($_bg-color);
+    @if $lightness < 50% {
+        $output: #fff;
+    }
+    @return $output;
+}                            
+
+@function strength($val){
+    $output = 1;
+    @for $number from 1 through $val {
+        $output = $output * $number;
+    }
+}
+                            </pre>
                             `
-                        }
+                        },
+                        {
+                            info:`<code>@extend</code> introduces the inheritance mechanism. The extended block 
+                            gets all properties from the selector it inherits. Extensions only affect stylesheets 
+                            upstream: meaning, that in some sheet a selector is extended, this selector will be
+                            affected by this extention only in stylesheet it was extended, and stylesheets 
+                            imported by this stylesheet`,
+                            code:`
+                            <div class="note">In this case the background would be white, as extend is shadowed.
+                            <pre>
+.toExtend{
+    background-color: violet;
+
+}
+.extended{
+    @include rectangle();
+    background-color: white;
+    @extend .toExtend;
+}                            
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`<code>@error</code>: the way to inform developer, that during compilation something 
+                            went wrong`,
+                            code:`
+                            <pre>
+@if $width > 500px {
+    @error "Width is greater than 
+}
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`<code>@warn</code>: the way to inform developer, that during compilation something 
+                            went wrong`,
+                            code:`
+                            <pre>
+@if $width > 500px {
+    @warn "Width is greater than 
+}
+
+@function depraciated(args...){
+    @warn "This function was depraciated, please use the nonDepraciatedFunction"
+    @return nonDepraciatedFunction(args...)
+}
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`<code>@debug</code>: A way to inform the developer about something during the 
+                            compilation process. Has no impact on the compilation outcome.`,
+                            code:`
+                            <pre>
+@debug "inform abut sometihing"
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`<code>@at-root</code>: makes the decorated selector migrate into the DOM-root
+                            element, instead of staying in the element it was defined in,`,
+                            code:`
+                            <pre>
+@debug "inform abut sometihing"
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`<code>@if <expression> @else <expression></code>: 
+                            Runs a statement if the condition is true,`,
+                            code:`
+                            <pre>
+@if $bg-color == green {
+    $color = white;
+} @else if bg-color == white {
+    $color = black;
+} @ else {
+    $color = yellow;
+}
+                            </pre>
+                            `
+                        },
+                        {
+                            info:`<code>@each <variable> in <expression></code>: 
+                            makes it possible to iterate through a collection. May be iterater througn a 
+                            keyworded values`,
+                            code:`
+                            <pre>
+$colors: red, green, blue;
+
+@each $color in $colors {
+    .button-#{$color} {
+        background-color: $color;
+    }
+}
+                            </pre>
+                            <div class="note">Compiles to </div>
+<pre>
+.button-red{background-colro: red;};
+.button-green{background-colro: green;};
+.button-blue{background-colro: blue;};
+</pre>
+
+                                <div class="note">Keyworder @each</div>
+                                <pre>
+$pictures: ("eye": "\f112", "start": "\f12e", "stop": "\f12f");
+@each $name, $symbol in $pictures {
+    .button-#{$name}:after{content: $symbol;}
+}
+</pre>
+        <div class="note">output</div>
+
+<pre>
+.button-red{background-colro: red;};
+.button-green{background-colro: green;};
+.button-blue{background-colro: blue;};
+</pre>
+
+
+                            `
+                        },
                     
                     ]
                 }
