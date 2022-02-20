@@ -1,10 +1,13 @@
 import getDataTypesPythonData from "./python/dataTypes"
+import getStringPythonData from "./python/strings"
+import getOperatorsPythonData from "./python/operators"
 
 
 let theoryDataCss = [
 
     getDataTypesPythonData(),
-
+    getStringPythonData(),
+    getOperatorsPythonData(),
     // {
     //     summary: 'position',
     //     title: 'position',
