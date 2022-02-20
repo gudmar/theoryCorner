@@ -23,6 +23,107 @@ let data =     {
 
 
 
+                {
+                    elementType:'Headline-3',
+                    content:'Arithmetic operators'
+                },
+
+
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Operator', 'Usage','Description'
+                    ],
+                    content: [
+
+                        {
+                            [Symbol('title')]:'Modulus',
+                            [Symbol('code')]:`
+                            <div class="note note-danger">Python</div>
+<pre>
+10 % 3 is 1 # True
+10 % -3 is -2 # True
+-10 % 3 is 3 # True
+-10 % -3 is -1 # True
+
+</pre>
+                            <div class="note note-danger">JS</div>
+<pre>
+10 % 3 === 1 // true
+10 % -3 === 1 // true
+-10 % 3 === 1 // true
+-10 % -3 === -1 // true
+</pre>                      
+                    <div class="note note-danger">The difference is, that in JS % is the <code>rest</code> operator, and
+                    in Python this is called a <code>modulus</code> operator. The difference is in handling negative numbers
+                    </div>
+                            `,
+                            Operator: '<code>%</code>',
+                            Usage: 'a % b',
+                            Description: `
+                            a modulus b
+                            `,
+                        },
+
+
+
+                {
+                    [Symbol('title')]:'Floor division',
+                    [Symbol('code')]:`
+                <pre>
+10 // 3 is 3 # True                
+                </pre>
+                    `,
+                    Operator: '<code>//</code>',
+                    Usage: 'a // b',
+                    Description: `
+                    Floor division
+                    `,
+                },
+            ]
+        },
+
+
+
+
+
+
+
+                {
+                    elementType:'Headline-3',
+                    content:'Assignment operators'
+                },
+
+
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Operator', 'Usage','Description'
+                    ],
+                    content: [
+
+                        {
+                            [Symbol('title')]:'Add assign',
+                            [Symbol('code')]:`
+                            <pre>
+a = 3;
+a += 5;
+# now a is 8
+                            </pre>
+                            `,
+                            Operator: '<code>+=</code>',
+                            Usage: 'a += b',
+                            Description: `
+                            Adds b to a, and assigns the result to a
+                            `,
+                        },
+                    ]
+                },
+
+
+
 
                 {
                     elementType:'Headline-3',
@@ -80,6 +181,10 @@ ARRAYS:
 [1, 0] > [1, 1] # False
 [1, 0] > [0, 1] # True
 # So like 10 > 01
+
+'aa' < 'bb' # True
+['aa', 2] < ['ab',2] # True
+
 </pre>
                             `,
                             Operator: '<code>></code>',
@@ -274,6 +379,8 @@ g is h # False, not the same objects
 a = 5
 b = 5
 a is b # True
+
+{1,2} is {1,2} # False
                             </pre>
                             `,
                             Operator: '<code>is</code>',
@@ -336,8 +443,8 @@ a is not b # False
                 },
                 {
                     elementType:'Link',
-                    content:'Developer mozilla',
-                    href: ' ',
+                    content:'w3schools',
+                    href: 'https://www.w3schools.com/python/python_operators.asp',
                     description:'Tutorial'
                 },
             ]
