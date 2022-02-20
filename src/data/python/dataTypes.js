@@ -250,7 +250,74 @@ z = range(20, 1)
                 {
                     [Symbol('title')]:'Set',
                     [Symbol('code')]:`
+                    <ul>
+                        <li>Unordered, never in the same order</li>
+                        <li>Not accessable with index or key</li>
+                        <li>May iterate with for loop</li>
+                        <li>May check with a <code>in</code> operator</li>
+                        <li>Set items are immutable, but a set item may be added or removed</li>
+                        <li>No duplicate values</li>
+                    </ul>
+                    <pre>
 {'val1', 3, 5j}
+
+s = set([1,2,3,4,5])
+
+for item in set:
+    print(item) # works
+
+print(3 in s)    # works
+
+invalidSet = {1,1,2,2,3} 
+# Silently drops repeting items
+print(invalidSet) # 1,2,3
+# The same with the constructor set([1,1,2,2,3])
+
+s.add('item')  # add an item to a set
+print(s) # {1,2,3,4,5,'item'}
+s.add(3) # {1,2,3,4,5,'item'} 
+#Silently dropped
+                    </pre>
+                    <div class="note note-danger">But when removing an item</div>
+                    <pre>
+print(s)  # {1,2}
+s.remove(5) # KeyError, no key 5
+# no silent behaviour here
+                    </pre>                    
+                    <div class="note note-warning">discard will not rise an error</div>
+                    <pre>
+print(s)  # {1,2}
+s.discard(5) # silent, nothing happened, there was no 5 item
+                    </pre>                    
+                    <div class="note note-warning">pop removes an item but no knowledge which item is removed.
+                        Returns the removed item.
+                    </div>
+                    <pre>
+print(s)  # {1,2}
+rem = s.pop() # removed 1 or 2, random, rem value is the removed item
+                    </pre>     
+                    
+                    <div class="note">pop removes an item but no knowledge which item is removed.
+                        Update and union are made to combine sets
+                    </div>
+                    <pre>
+print(s)  # {1,2}
+s1 = {2, 4}
+s2 = s1.union(s);
+# s is still 1,2
+# s1 is still 2, 4
+# s2 is {1, 2, 4}
+
+#With update:
+print(s) # {1,2}
+print(s1) # {2,4}
+s2 = s.update(s1)
+# s2 is None
+# s is updated to {1,2,4}
+
+                    </pre>  
+
+
 
 
                     `,
@@ -382,9 +449,16 @@ x=memoryview(bytes(5))
                 },
                 {
                     elementType:'Link',
-                    content:'Developer mozilla',
+                    content:'',
                     href: ' ',
                     description:'Tutorial'
+                },
+
+                {
+                    elementType:'Link',
+                    content:'w3schools',
+                    href: 'https://www.w3schools.com/python/python_sets_methods.asp',
+                    description:'Set methods'
                 },
             ]
         }
