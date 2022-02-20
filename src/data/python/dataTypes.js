@@ -264,8 +264,9 @@ z = range(20, 1)
                 {
                     [Symbol('title')]:'Dictionary',
                     [Symbol('code')]:`
-o = {name: 'Andrzej', familyName: 'Kmicic'}
-o[name] = 'Antoni'
+o = {'name': 'Andrzej', 'familyName': 'Kmicic'}
+o['name'] = 'Antoni'
+# NOTE: key has to be in quotes
                     `,
                     Name: 'Dictionary',
                     Shortcut: '<code>dict</code>',
@@ -363,6 +364,7 @@ x=memoryview(bytes(5))
                         '<code>int(v)</code> conversion to int',
                         '<code>str(v)</code> conversion to string',
                         '<code>float(v)</code> conversion to float',
+                        `<code>bool('')</code> conversion of a given value to boolean,`,
                         '<code>hex(v)</code> conversion to a string representation of hexadecimal',
                         '<code>oct(v)</code> conversion to a string representation of hexadecimal',
                     ]
