@@ -1,4 +1,7 @@
+import  getTsDecoratorData  from './ts/decorators'
+
 let theoryDataTs = [
+    getTsDecoratorData(),
     {
         summary: 'types',
         title: 'types',
