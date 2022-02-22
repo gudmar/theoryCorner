@@ -103,9 +103,20 @@ let data =     {
                     elementType: 'HiddenCode',
                     content: [
                         {
-                            info:``,
+                            info:`<code>no-wrap</code>`,
                             code:`
-                            <style>.flexbox-ex-item</style>
+                            <style>
+                            @media only screen and (max-width: 1000px){
+                                .hide-small-screen{
+                                    display:none;
+                                }
+                            }
+                            @media only screen and (max-width: 500px){
+                                .hide-v-small-screen{
+                                    display:none;
+                                }
+                            }
+                            </style>
                             <div class="flexbox-ex-row">
                                 <div class="flexbox-ex-item"></div>
                                 <div class="flexbox-ex-item"></div>
@@ -113,41 +124,259 @@ let data =     {
                                 <div class="flexbox-ex-item"></div>
                                 <div class="flexbox-ex-item"></div>
                                 <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
+                                <div class="flexbox-ex-item hide-v-small-screen"></div>
+                                <div class="flexbox-ex-item hide-v-small-screen"></div>
+                                <div class="flexbox-ex-item hide-v-small-screen"></div>
+                                <div class="flexbox-ex-item hide-v-small-screen"></div>
+                                <div class="flexbox-ex-item hide-small-screen"></div>
+                                <div class="flexbox-ex-item hide-small-screen"></div>
+                                <div class="flexbox-ex-item hide-small-screen"></div>
+                                <div class="flexbox-ex-item hide-small-screen"></div>
+                                <div class="flexbox-ex-item hide-small-screen"></div>
+                                <div class="flexbox-ex-item hide-small-screen"></div>
+                                <div class="flexbox-ex-item hide-small-screen"></div>
                             </div>
                             `,
                         },
                         {
-                            info:``,
+                            info:`<code>wrap</code>`,
                             code:`
-                            <style>.flexbox-ex-item</style>
+                            <style>
+                            @media only screen and (max-width: 500px){
+                                .shrink-v-small-screen {
+                                    width: 50px;
+                                }
+                            }
+                            </style>
                             <div class="flexbox-ex-row flexbox-ex-wrap">
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                                <div class="flexbox-ex-item"></div>
-                            </div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                                <div class="flexbox-ex-item shrink-v-small-screen"></div>
+                            </div>                          
                             `,
                         },
+                        {
+                            info:`<code>flexbox with fluid width</code>`,
+                            code:`
+                            <style>
+                            .flexbox-ex-item-fluid{
+                                flex-grow: 1;
+                                flex-basis: 200px;
+                            }
+                            @media only screen and (max-width: 830px){
+                                .flexbox-ex-item-fluid{
+                                    flex-basis: 75px;
+                                }
+                            }
+                            </style>
+                            <div class="flexbox-ex-row flexbox-ex-wrap">
+                                <div class="flexbox-ex-item flexbox-ex-item-fluid"></div>
+                                <div class="flexbox-ex-item flexbox-ex-item-fluid"></div>
+                                <div class="flexbox-ex-item flexbox-ex-item-fluid"></div>
+                                <div class="flexbox-ex-item flexbox-ex-item-fluid"></div>
+                                <div class="flexbox-ex-item flexbox-ex-item-fluid"></div>
+                                <div class="flexbox-ex-item flexbox-ex-item-fluid"></div>
+                                <div class="flexbox-ex-item flexbox-ex-item-fluid"></div>
+                            </div>
+                            <ul>
+                                <li><code>flex-basis</code> is for setting the initial width of the flex item
+                                element. Without this elements would shrink to fit to a sigle line,</li>
+                                <li><code>flex-growth: 1</code> is for forcing each flex item to shrink or grow
+                                in the same paste. Without this property all items would have a fixed width,</li>
+                                <li><code>flex-wrap</code> on parent container is to alow elements to the next line.
+                                Without this property, elements would stay in the first line shrinking or stretching.
+                                Even if the elements <code>width</code> or <code>flex-basis</code> would be set to 
+                                a fixed value, in case of <code>no-wrap</code> items would shrink or grow.</li>
+                            </ul>
+<pre>
+.flex-container{
+    display: flex;
+    flex-wrap: wrap;    
+}
+.flex-item{
+    flex-basis: 200px;
+    flex-growth: 1;
+}
+&lt;div class="flex-container">
+    &lt;div class="flex-item">&lt;/div>
+    &lt;div class="flex-item">&lt;/div>
+    &lt;div class="flex-item">&lt;/div>
+    &lt;div class="flex-item">&lt;/div>
+    &lt;div class="flex-item">&lt;/div>
+    &lt;div class="flex-item">&lt;/div>
+    &lt;div class="flex-item">&lt;/div>
+    &lt;div class="flex-item">&lt;/div>
+&lt;div>
+</pre>  
+                            `,
+                        },
+
+
+
+
+
+
+                        {
+                            info:`<code>A <code>justify-items: center</code> problem</code>`,
+                            code:`
+                            <style>
+                            .flexbox-ex-justify-content{
+                                justify-content: center;
+                                overflow: auto;
+                            }
+                            .flexbox-ex-items-200px{
+                                min-width: 200px;
+                                position:relative;
+                            }
+                            .max-width{
+                                max-width: 500px;
+                            }
+
+                            @media only screen and (max-width: 830px){
+                                .flexbox-ex-item-fluid{
+                                    flex-basis: 75px;
+                                }
+                            }
+                            </style>
+                            <div class="flexbox-ex-row max-width flexbox-ex-justify-content">
+                                <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                                <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                                <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                                <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                                <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                            </div>
+                         Above example shows, that if align-content is set to <code>center</code>
+                         elements inside the flex-container are fixed width, and the sum of the
+                         flex-container childrens width is greater then the flex-container width, 
+                         then some content from the start or end may not be accessable.
+<pre>
+.flex-container{
+    max-width: 500px;
+    display: flex;
+    overflow:auto;
+    justify-content: center;
+    position: relative;
+}
+.flex-item{
+    min-width: 200px;
+    height: 60px;
+    position: relative;
+}
+</pre>  
+                    The inaccessible content of <code>aligned-content: center</code> items in not quite easy to 
+                    solve. Most found on stackoverflow (see references) solutions are based on getting rid of 
+                    flex-center. There is one solution that uses <code>safe center</code> value, but this 
+                    solution is still not implemented in other browsers than firefox.
+
+
+
+
+                    <style>
+                    .flexbox-ex-justify-content-safe{
+                        justify-content: safe center;
+                        overflow: auto;
+                    }
+                    .flexbox-ex-items-200px{
+                        min-width: 200px;
+                        position:relative;
+                    }
+                    .max-width{
+                        max-width: 500px;
+                    }
+                    </style>
+                    <div class="flexbox-ex-row max-width flexbox-ex-justify-content-safe">
+                        <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                        <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                        <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                        <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                        <div class="flexbox-ex-item flexbox-ex-items-200px"></div>
+                    </div>
+                    Above example is a <code>safe center</code> fix to the inaccissable content of the aligned center
+                    content. For now it will work only in firefox.
+                            `,
+                            
+                        },
+                        
+                        {
+                            info:`<code>justify-content</code>`,
+                            code:`
+                            <style>
+                            .fixed-width{
+                                position: relative;
+                                width: 50px;
+                            }
+                            .flex-j-c-start{justify-content: flex-start;}
+                            .flex-j-c-end{justify-content: flex-end;}
+                            .flex-j-c-center{justify-content: center;}
+                            .flex-j-c-between{justify-content: space-between;}
+                            .flex-j-c-around{justify-content: space-around;}
+                            .flex-j-c-evenly{justify-content: space-evenly;}
+                            @media only screen and (max-width: 1000px){
+                                .jc-small {
+                                    width: 50px;
+                                }
+                            }
+                            @media only screen and (max-width: 550px){
+                                .jc-small {
+                                    width: 30px;
+                                    height: 30px;
+                                    font-size: 1rem;
+                                }
+                            }
+                            </style>
+                            <h4><code>justify-content: flex-start;</code></h4>
+                            <div class="flexbox-ex-row flex-j-c-start">
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                            </div>                          
+                            <h4><code>justify-content: flex-end;</code></h4>
+                            <div class="flexbox-ex-row flex-j-c-end">
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                            </div>                          
+                            <h4><code>justify-content: center;</code></h4>
+                            <div class="flexbox-ex-row flex-j-c-center">
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                            </div>                          
+                            <h4><code>justify-content: space-between;</code></h4>
+                            <div class="flexbox-ex-row  flex-j-c-between">
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                            </div>                          
+                            <h4><code>justify-content: space-around;</code></h4>
+                            <div class="flexbox-ex-row flex-j-c-around">
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                            </div>                          
+                            <h4><code>justify-content: space-evenly;</code></h4>
+                            <div class="flexbox-ex-row flex-j-c-evenly">
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                                <div class="flexbox-ex-item jc-small"></div>
+                            </div>                          
+
+
+
+                            `,
+                        },
+
+
                     ]
                 },
 

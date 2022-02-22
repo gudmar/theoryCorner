@@ -82,7 +82,8 @@ code {
 /********************* Flexbox demonstration *************************/
 
 .flexbox-ex-row{
-  counter-increment: div 0;
+  /* counter-increment: div; */
+  counter-reset: div;
   display: flex;
   border: thin black solid;
   border-radius: 5px;
@@ -106,8 +107,8 @@ code {
   margin: 5px;
 }
 .flexbox-ex-item:before{
-  counter-increment: div +1;
   content: counter(div);
+  counter-increment: div +1;
   position: absolute;
   top: 50%;
   left:50%;
