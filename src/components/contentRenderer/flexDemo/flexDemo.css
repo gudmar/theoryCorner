@@ -1,0 +1,25 @@
+
+
+.felx-demo-wrapper{
+    position: relative;
+    width: 800px;
+    height: 500px;
+    border: solid thin black;
+    border-radius: 5px;
+}
+
+.flex-item-example{
+    position: relative;
+    width: 150px;
+    height: 150px;
+    border:solid thin black;
+    border-radius: 5px;
+    background-color: cadetblue;
+}
+
+.flex-container-example{
+    position: relative;
+    height: 500px;
+    background-color: blueviolet;
+    border-radius: 5px;
+}
