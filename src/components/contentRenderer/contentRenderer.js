@@ -13,6 +13,7 @@ import ExampleInIframe from './iFrame';
 import HiddenList from './hiddenList';
 import ListOfContent from './listOfContent';
 import HiddenDescription from './hiddenDescription'
+import FlexDemo from './flexDemo/flexDemo'
 
 
 function getSingleElement(type, content, otherProps){
@@ -82,6 +83,7 @@ function getSingleNonListElementType(type, content, otherProps){
 
     if (type === 'StopWatchState') return <StopWatchState />
     if (type === 'StopWatchReducer') return <StopWatchReducer />
+    if (type === 'FlexDemo') return <FlexDemo />
     
 }
 
@@ -95,7 +97,7 @@ function isNonListElementType(elementType){
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
         'exampleInIframe', `HiddenList`, 'ListOfContent', 'HiddenCode','HiddenDescription',
-        `StopWatchState`, `StopWatchReducer`
+        `StopWatchState`, `StopWatchReducer`, `FlexDemo`
     ];
     return nonListElementTypes.includes(elementType)
 }
