@@ -370,10 +370,235 @@ let data =     {
                                 <div class="flexbox-ex-item jc-small"></div>
                                 <div class="flexbox-ex-item jc-small"></div>
                             </div>                          
-
-
+There is a <code>safe</code> and <code>unsafe</code> keyword that works with all <code>justify-content</code>
+values. The <code>safe</code> ensures, that the content will be accessable in edge cases (see 
+justify-content center problem). However this works only with firefox for now.
 
                             `,
+                        },
+
+
+                        {
+                            info:`<code>align-items</code>`,
+                            code:`
+                            <style>
+                            .big-wrapper{
+                                position: relative;
+                                height: 400px;
+                            }
+                            .flex-a-i-start  {align-items: flex-start;}
+                            .flex-a-i-end    {align-items: flex-end;}
+                            .flex-a-i-center {align-items: center;}
+                            .flex-a-i-stretch{align-items: stretch;}
+                            .flex-a-i-baseline {align-items: baseline;}
+                            .s1{height: 50px;} .s2{height: 150px;} .s3{height: 100px;}
+                            @media only screen and (max-width: 1000px){
+                                .jc-small-a {
+                                    width: 50px;
+                                }
+                            }
+                            @media only screen and (max-width: 550px){
+                                .jc-small-a {
+                                    width: 30px;
+                                    font-size: 1rem;
+                                }
+                                .big-wrapper{
+                                    height: 300px
+                                }
+                            }
+                            </style>
+                            <h4><code>align-items: flex-start;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper flex-a-i-start">
+                                <div class="flexbox-ex-item jc-small-a s1"></div>
+                                <div class="flexbox-ex-item jc-small-a s2"></div>
+                                <div class="flexbox-ex-item jc-small-a s3"></div>
+                            </div>   
+                            <h4><code>align-items: flex-end;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper flex-a-i-end">
+                                <div class="flexbox-ex-item jc-small-a s1"></div>
+                                <div class="flexbox-ex-item jc-small-a s2"></div>
+                                <div class="flexbox-ex-item jc-small-a s3"></div>
+                            </div> 
+                            <h4><code>align-items: center;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper flex-a-i-center">
+                                <div class="flexbox-ex-item jc-small-a s1"></div>
+                                <div class="flexbox-ex-item jc-small-a s2"></div>
+                                <div class="flexbox-ex-item jc-small-a s3"></div>
+                            </div>         
+                            <h4><code>align-items: stretch;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper flex-a-i-stretch">
+                                <div class="flexbox-ex-item jc-small-a s1"></div>
+                                <div class="flexbox-ex-item jc-small-a s2"></div>
+                                <div class="flexbox-ex-item jc-small-a s3"></div>
+                            </div>      
+                            <h4><code>align-items: baseline;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper flex-a-i-baseline">
+                                <div class="flexbox-ex-item jc-small-a s1"></div>
+                                <div class="flexbox-ex-item jc-small-a s2"></div>
+                                <div class="flexbox-ex-item jc-small-a s3"></div>
+                            </div>         
+   
+
+                            `
+                        },
+
+
+
+
+                        {
+                            info:`<code>align-content</code>: <code>align-items</code> is for setting
+                            elements fitting into a single line behaviour, and the <code>align-content</code>
+                            is for setting behaviour specific for content having more than just a single line.
+                            Some behaviours are related to the spaces between lines, and this will have no effect 
+                            when there is only a single line, and others behaviours are related alignment between 
+                            elements of different heights. This kind of behaviour will be applied to each line of 
+                            ...... ???????? `,
+                            code:`
+                            <style>
+                            .big-wrapper-ac{
+                                position: relative;
+                                height: 700px;
+                            }
+                            .height-unset{height: unset;}
+                            .flex-a-c-start  {align-content: flex-start;}
+                            .flex-a-c-end    {align-content: flex-end;}
+                            .flex-a-c-center {align-content: center;}
+                            .flex-a-c-stretch{align-content: stretch;}
+                            .flex-a-c-between {align-content: space-between;}
+                            .flex-a-c-around {align-content: space-around;}
+                            .sa1{height: 50px;} .sa2{height: 80px;} .sa3{height: 90px;}.sa4{height: 75px;}
+                            @media only screen and (max-width: 1000px){
+                                .jc-small-a {
+                                    width: 50px;
+                                }
+                            }
+                            @media only screen and (max-width: 550px){
+                                .jc-small-a {
+                                    width: 30px;
+                                    font-size: 1rem;
+                                }
+                                .big-wrapper{
+                                    height: 300px
+                                }
+                            }
+                            </style>
+                            <h4><code>align-content: flex-start;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper-ac flexbox-ex-wrap flex-a-c-start">
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                            </div>   
+                            <h4><code>align-content: flex-end;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper-ac flexbox-ex-wrap flex-a-c-end">
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                            </div> 
+                            <h4><code>align-items: center;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper-ac flexbox-ex-wrap flex-a-c-center">
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                            </div>         
+                            <h4><code>align-items: stretch;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper-ac flexbox-ex-wrap flex-a-c-stretch">
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                                <div class="flexbox-ex-item jc-small-a height-unset"></div>
+                            </div>    
+                            <h4><code>align-content: space-between;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper-ac flexbox-ex-wrap flex-a-c-between">
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                            </div>         
+                            <h4><code>align-content: space-around;</code></h4>
+                            <div class="flexbox-ex-row big-wrapper-ac flexbox-ex-wrap flex-a-c-around">
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                                <div class="flexbox-ex-item jc-small-a sa1"></div>
+                                <div class="flexbox-ex-item jc-small-a sa2"></div>
+                                <div class="flexbox-ex-item jc-small-a sa3"></div>
+                                <div class="flexbox-ex-item jc-small-a sa4"></div>
+                            </div>         
+   
+
+                            `
                         },
 
 
