@@ -25,16 +25,19 @@ function getSingleDefaultStyle(index){
 function Select(props){
     const name=props.name;
     const values = props.values;
-    console.log(values)
     function getOptions(){
-        values.map((item, index, arr)=>{
+        return values.map((item, index, arr)=>{
             return (<option value={item}>{item}</option>)
         })
     }
     return (
-        <select name = {name}>
-            {getOptions()}
-        </select>
+        <div className="mb-3 mt-3">
+            <label for={name}><b>{name}: &nbsp;
+            </b></label>
+            <select name = {name} id={name}>
+                {getOptions()}
+            </select>
+        </div>
     )
 }
 
@@ -46,8 +49,14 @@ function GeneralMenu(props){
             return(
             <>
                 {descriptor[key]==='number'
-                    ?(<input type="number"></input>)
-                    :<Select name={key} values={descriptor[key]}></Select>}
+                    ?
+                        (
+                            <>
+                        <label for ={key}>{key}</label>
+                        <input type="number" id={key} key="key" key={key}></input>
+                        </>)
+                    
+                    :<Select name={key} values={descriptor[key]} key={key}></Select>}
             </>
             )
         })
@@ -72,10 +81,10 @@ function ItemMenu(props){
 
 function ContainerMenu(props){
     const [containerStyle, setContainerStyle] = useState(props.containerStyle)
-
+    
     return (
         <form>
-            <GeneralMenu descriptor={containerStyle}></GeneralMenu>
+            <GeneralMenu descriptor={getWrapperDefaultContent()}></GeneralMenu>
         </form>
     )
 }
@@ -88,6 +97,8 @@ function FlexMenu(props){
     const itemStyleChangeHandler = props.itemStyleChangeHandle;
     const nrOfItemsChangeHandler = props.nrItemsStyleChangeHandle;
 
+    console.log(itemToShowIndex)
+    console.log(containerStyle)
     return (
         itemToShowIndex>=0
             ? <ItemMenu itemToShowIndex = {itemToShowIndex} itemStyle = {itemsStyle}></ItemMenu>
