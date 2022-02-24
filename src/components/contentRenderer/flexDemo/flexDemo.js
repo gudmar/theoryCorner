@@ -98,7 +98,7 @@ function FlexDemo(props){
         }
     }
 
-
+    console.log(itemsStyle)
 
     return (
         <>

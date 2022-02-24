@@ -4,7 +4,7 @@ function FlexItem(props){
     const [style, setStyle] = useState(props.style)
 
     return (
-        <div className="flex-item-example center" style = {style}>{props.key}</div>
+        <div className="flex-item-example center" style = {style}>{props.style}</div>
     )
 }
 

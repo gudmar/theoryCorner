@@ -9,7 +9,8 @@ function FlexContainer(props){
     const containerDescriptor = props.containerStyle;
 
     function getItems(){
-        itemDescriptors.map((item, index, arr)=>{
+        return itemDescriptors.map((item, index, arr)=>{
+            console.log(item)
             return (
                 <FlexItem style={item.style} key={item.key} />
             )
@@ -18,7 +19,7 @@ function FlexContainer(props){
 
     return (
         <div className="flex-container-example" style = {containerDescriptor}>
-            
+            {getItems()}
         </div>
     )
 
