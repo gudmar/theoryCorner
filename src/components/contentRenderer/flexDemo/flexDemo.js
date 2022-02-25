@@ -72,11 +72,15 @@ function cloneItems(items){
 function FlexDemo(props){
     // props not needed
     const [nrOfElements, setNrOfElements] = useState(getWrapperDefaultStyle().nrOfItems);
-    const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle());
+    const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle(getWrapperDefaultStyle()));
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
 
-    const handleContainerStyleChange = (newStyle)=>{setContainerStyle(newStyle)}
+    const handleContainerStyleChange = (newStyle)=>{
+        console.dir(newStyle)
+        setContainerStyle(newStyle)
+    }
+
     const handleSingleItemChange = (newItemStyle, index)=>{
         let newState = cloneItems(itemsStyle);
         newState.splice(index, 1, newItemStyle);

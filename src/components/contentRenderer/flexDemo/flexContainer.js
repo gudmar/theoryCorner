@@ -7,10 +7,8 @@ import FlexItem from './flexItem';
 function FlexContainer(props){
     const itemDescriptors = props.itemsStyle;
     const containerDescriptor = props.containerStyle;
-
     function getItems(){
         return itemDescriptors.map((item, index, arr)=>{
-            console.log(item)
             return (
                 <FlexItem style={item.style} key={item.key} />
             )
