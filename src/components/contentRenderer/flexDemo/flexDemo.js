@@ -25,6 +25,7 @@ function singleItemDescriptor(settingObj){
 
 function getWrapperDefaultStyle(){
     return {
+        nrOfItems: 4,
         // display: 'flex',
         // flexDirection: unset,
         // flexWrap: unset,
@@ -70,7 +71,7 @@ function cloneItems(items){
 
 function FlexDemo(props){
     // props not needed
-    const [nrOfElements, setNrOfElements] = useState(5);
+    const [nrOfElements, setNrOfElements] = useState(getWrapperDefaultStyle().nrOfItems);
     const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle());
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
@@ -83,15 +84,24 @@ function FlexDemo(props){
     const handleChangeNrOfItems = (newNumberOfItems)=>{
         let deltaNrOfItems = newNumberOfItems - itemsStyle.length;
         let newState = cloneItems(itemsStyle);
+        let newContainerStyleState = {...containerStyle}
+        const mutateBothStates = () => {
+            newContainerStyleState.nrOfItems = newState.length;
+            setItemsStyle(newState);
+            setContainerStyle(newContainerStyleState)
+        }
         if(deltaNrOfItems > 0){ // added
             for(let i = 0; i < deltaNrOfItems; i++){
                 newState.push(getSingleDefaultStyle(itemsStyle.length + i))
             }
+            mutateBothStates()
+
         }
         if (deltaNrOfItems < 0){
             for(let i = 0; i < Math.abs(deltaNrOfItems); i++){
                 newState.pop();
             }
+            mutateBothStates()
         }
         if (deltaNrOfItems === 0){
             console.warn('Something is wrong. deltaNrOfItems is 0 and handelChangeNrOfItems tirggered')
@@ -115,7 +125,11 @@ function FlexDemo(props){
                     </FlexMenu>
                 </div>
                 <div className = "col-9">
-                    <FlexContainer containerStyle={containerStyle} itemsStyle={itemsStyle}></FlexContainer>
+                    <FlexContainer 
+                        containerStyle={containerStyle} 
+                        itemsStyle={itemsStyle}
+                    >
+                    </FlexContainer>
                 </div>
             </div>
         </>

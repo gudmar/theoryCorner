@@ -1,7 +1,9 @@
-import { useEffect, useState } from 'react';
+
+
+import { useEffect} from 'react';
 
 function FlexItem(props){
-    const [style, setStyle] = useState(props.style)
+    const style = props.style;
 
     return (
         <div className="flex-item-example center" style = {style}>{props.style}</div>
