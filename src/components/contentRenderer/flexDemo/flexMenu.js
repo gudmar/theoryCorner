@@ -26,6 +26,7 @@ function Select(props){
     const name=props.name;
     const values = props.values;
     const currentValues = props.currentValues;
+    const changeHandler = props.changeHandler;
     function getOptions(){
         return values.map((item, index, arr)=>{
             return (<option key={item} value={item}>{item}</option>)
@@ -35,7 +36,7 @@ function Select(props){
         <div className="mb-3 mt-3">
             <label htmlFor={name}><b>{name}: &nbsp;
             </b></label>
-            <select name = {name} id={name} value={currentValues[name]}>
+            <select name = {name} id={name} value={currentValues[name]} onChange={changeHandler}>
                 {getOptions()}
             </select>
         </div>
@@ -53,7 +54,6 @@ function GeneralMenu(props){
                 out[index] = currentValues[item]
             }
         })
-        console.log(out)
         return out;
     }
     const [numericValueStorage, setNumericValueStorage] = useState(getInitialNumberValues())
@@ -62,7 +62,6 @@ function GeneralMenu(props){
         return function (e){
             const newVal = parseInt(e.nativeEvent.target.value);
             newState[index] = isNaN(newVal)?0:newVal;
-            console.log(newState)
             setNumericValueStorage(newState);
         }
     }
@@ -79,7 +78,6 @@ function GeneralMenu(props){
                         <input type="number" id={key} key="key" key={key} 
                             onChange = {numericStateChangeFactory(index)}
                             onBlur={(e)=>{changeHandler(e)}}
-                            // value={currentValues[key]!=undefined?currentValues[key]:0}
                             value={numericValueStorage[index]}
                         >
                         </input>
@@ -89,7 +87,8 @@ function GeneralMenu(props){
                         currentValues={currentValues} 
                         values={descriptor[key]} 
                         key={key}
-                        onChange={changeHandler}
+                        changeHandler={changeHandler}
+                        
                     >
                     </Select>}
             </div>
@@ -122,7 +121,7 @@ function ContainerMenu(props){
     return (
         <form>
             <GeneralMenu 
-                changeHandler={props.changeHandler} 
+                changeHandler={changeHandler} 
                 descriptor={getWrapperDefaultContent()} 
                 currentValues={currentValues}
             ></GeneralMenu>
@@ -147,8 +146,15 @@ function FlexMenu(props){
                 ? itemToShowIndex(newVal)
                 : nrOfItemsChangeHandler(newVal)
         } else {
-            console.dir(e)
-            // itemStyleChangeHandler(e.target.value);
+            const key = e.nativeEvent.target.name;
+            const containerStyleClone = {...containerStyle};
+            containerStyleClone[key] = newVal==='undefined'?'':newVal;
+
+            if(itemToShowIndex>=0){
+                // itemStyleChangeHandler(newVal)
+            } else {
+                containerStyleChangeHandler(containerStyleClone)
+            }
         }
     }
     
