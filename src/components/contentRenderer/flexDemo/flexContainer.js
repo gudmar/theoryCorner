@@ -23,7 +23,7 @@ function FlexContainer(props){
                     className="flex-item-example center" 
                     // onClick={itemToDisplayInMenuIndex(index)} 
                     onClick={displayItemMenu(index)}
-                    style={item.style} 
+                    style={item.styles} 
                     key={index}
                 >{index}
                 </div>

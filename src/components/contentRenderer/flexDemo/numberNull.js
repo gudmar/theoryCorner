@@ -8,7 +8,9 @@ function NumberNull(props){
     const blurHandler = props.blurHandler;
 
     const mutateValue = ()=>{
-        return (e) => {setValue(e.nativeEvent.target.value)}
+        return (e) => {
+            setValue(e.nativeEvent.target.value)
+        }
     }
 
     const toggleActive = ()=>{
@@ -20,9 +22,12 @@ function NumberNull(props){
     <>
         <input type="checkbox" onChange={toggleActive}/>&nbsp;&nbsp;
         <label htmlFor ={name}><b>{name}</b></label>
-        <input type="number" id={name}
-            onChange = {toggleActive}
-            onBlur={(e)=>{changeHandler(e)}}
+        <input type="number" name={name} data-type="number-null" id={name}
+            onChange = {mutateValue()}
+            onBlur={(e)=>{
+                // console.log(changeHandler)
+                changeHandler(e)
+            }}
             value={value}
             disabled={!isActive}
         >

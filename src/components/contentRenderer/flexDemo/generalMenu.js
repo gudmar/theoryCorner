@@ -48,13 +48,15 @@ function GeneralMenu(props){
         setNumericValueStorage(getInitialNumberValues());
     }, [currentValues])
     const numericStateChangeFactory = (index)=>{
-        let newState = [...numericValueStorage];
+        
         return function (e){
+            let newState = [...numericValueStorage];
             const newVal = parseInt(e.nativeEvent.target.value);
             newState[index] = isNaN(newVal)?0:newVal;
             setNumericValueStorage(newState);
         }
     }
+
     
     function getInputs(){
         return Object.getOwnPropertyNames(descriptor).map((key, index, arr)=>{
@@ -64,7 +66,7 @@ function GeneralMenu(props){
                         (
                             <>
                         <label htmlFor ={key}><b>{key}</b></label>
-                        <input type="number" id={key} key={key} 
+                        <input type="number" data-type="number" id={key} key={key} 
                             onChange = {numericStateChangeFactory(index)}
                             onBlur={(e)=>{changeHandler(e)}}
                             value={numericValueStorage[index]}
@@ -83,7 +85,7 @@ function GeneralMenu(props){
                     : descriptor[key] === 'number-null' ? 
                         <NumberNull 
                             name={key}
-                            changeHandler = {numericStateChangeFactory(index)}
+                            changeHandler = {changeHandler}
                             blurHandler= {changeHandler}
                         />
                     :
