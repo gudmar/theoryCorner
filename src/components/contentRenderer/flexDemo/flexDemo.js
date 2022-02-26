@@ -163,15 +163,37 @@ function FlexDemo(props){
             : {...itemsStyle[itemToShowIndex].styles}
     }
 
+    const changeItemValuesHandler = (index, key, newValue)=>{
+        let itemsStyleClone = {...itemsStyle[index].styles};
+        
+        if (newValue === null) {
+            delete itemsStyleClone[key]
+        } else {
+            // console.log(itemsStyleClone[index].styles)
+            // console.dir(Object.getOwnPropertyDescriptor(itemsStyleClone[index], 'styles'))
+            itemsStyleClone[key] = newValue;
+        }
+        console.log(itemsStyleClone)
+        console.log(itemsStyle[index])
+        itemsStyle[index].styles = itemsStyleClone;
+        
+        setItemsStyle([...itemsStyle]);
+    }
+
     function changeHandlerGeneric(e){
         let newVal = e.nativeEvent.target.value;
-        console.log(e.target.type)
-        if (e.target.type === 'number'){
+        let inputType = e.nativeEvent.target.getAttribute('data-type')
+        console.log(inputType)
+        if (inputType === 'number'){
             itemToShowIndex>=0
-                ? handleSingleItemChange(newVal)
+                ? handleSingleItemChange(newVal, itemToShowIndex)
                 : handleChangeNrOfItems(newVal) 
-        } else if(e.target.type ==='number-null'){
+        } else if(inputType ==='number-null'){
                 console.log('%cNumber null',"background-color:black; color:white")
+                const key = e.nativeEvent.target.name;
+                itemToShowIndex>=0
+                ? changeItemValuesHandler(itemToShowIndex, key, newVal)
+                : handleChangeNrOfItems(newVal)
         } else {
             const key = e.nativeEvent.target.name;
             const containerStyleClone = {...containerStyle};
