@@ -16,7 +16,9 @@ function FlexContainer(props){
     }
 
     function getItems(){
+        
         return itemDescriptors.map((item, index, arr)=>{
+            console.log(item.styles)
             return (
                 // <FlexItem click={itemToDisplayInMenuIndex(index)} style={item.style} key={item.key} />
                 <div
