@@ -1,4 +1,6 @@
 import { useEffect, useState } from 'react';
+import  GeneralMenu  from './generalMenu'
+
 
 function getWrapperDefaultContent(){
     return {
@@ -14,97 +16,16 @@ function getWrapperDefaultContent(){
 function getSingleDefaultStyle(index){
     return {
         indexOfItem: 'number',
-        order: 'number',
-        flexGrowth: 'number',
-        flexShrink: 'number',
-        flexBasis: 'number',
+        order: 'number-null',
+        flexGrowth: 'number-null',
+        flexShrink: 'number-null',
+        flexBasis: 'number-null',
         alignSelf: ['undefined','auto','flex-start','flex-end','center','baseline','stretch'],
     }
 }
 
-function Select(props){
-    const name=props.name;
-    const values = props.values;
-    const currentValues = props.currentValues;
-    const changeHandler = props.changeHandler;
-    function getOptions(){
-        return values.map((item, index, arr)=>{
-            return (<option key={item} value={item}>{item}</option>)
-        })
-    }
-    return (
-        <div className="mb-3 mt-3">
-            <label htmlFor={name}><b>{name}: &nbsp;
-            </b></label>
-            <select name = {name} id={name} value={currentValues[name]} onChange={changeHandler}>
-                {getOptions()}
-            </select>
-        </div>
-    )
-}
 
-function GeneralMenu(props){
-    const descriptor = props.descriptor;
-    const currentValues = props.currentValues;
-    const changeHandler = props.changeHandler;
-    const getInitialNumberValues = ()=>{
-        console.log(props)
-        console.log(descriptor)
-        console.log(currentValues)
-        const out = new Array(Object.getOwnPropertyNames(descriptor).length-1).fill(0);
-        
-        Object.getOwnPropertyNames(descriptor).forEach((item, index)=>{
-            if (descriptor[item] === 'number') {
-                out[index] = currentValues[item]
-            }
-        })
-        return out;
-    }
-    const [numericValueStorage, setNumericValueStorage] = useState(getInitialNumberValues())
-    const numericStateChangeFactory = (index)=>{
-        let newState = [...numericValueStorage];
-        return function (e){
-            const newVal = parseInt(e.nativeEvent.target.value);
-            newState[index] = isNaN(newVal)?0:newVal;
-            setNumericValueStorage(newState);
-        }
-    }
-    
-    function getInputs(){
-        return Object.getOwnPropertyNames(descriptor).map((key, index, arr)=>{
-            return(
-            <div key={key}>
-                {descriptor[key]==='number'
-                    ?
-                        (
-                            <>
-                        <label htmlFor ={key}>{key}</label>
-                        <input type="number" id={key} key="key" key={key} 
-                            onChange = {numericStateChangeFactory(index)}
-                            onBlur={(e)=>{changeHandler(e)}}
-                            value={numericValueStorage[index]}
-                        >
-                        </input>
-                        </>)
-                    
-                    :<Select name={key} 
-                        currentValues={currentValues} 
-                        values={descriptor[key]} 
-                        key={key}
-                        changeHandler={changeHandler}
-                        
-                    >
-                    </Select>}
-            </div>
-            )
-        })
-    }
-    return(
-        <>
-            {getInputs()}
-        </>
-    )
-}
+
 
 function ItemMenu(props){
     const itemToShowIndex = props.itemToShowIndex;
@@ -117,8 +38,10 @@ function ItemMenu(props){
 
     return (
         <form>
-            <GeneralMenu changeHandler={props.changeHandler} 
-                descriptor={getSingleDefaultStyle(itemToShowIndex)} currentValues={currentValues}
+            <GeneralMenu 
+                changeHandler={props.changeHandler} 
+                descriptor={getSingleDefaultStyle(itemToShowIndex)} 
+                currentValues={currentValues}
                 currentValues={itemStyle}
             >
             </GeneralMenu>
@@ -130,6 +53,7 @@ function ContainerMenu(props){
     const containerStyle = props.containerStyle;
     const currentValues = props.containerStyle;
     const changeHandler = props.changeHandler;
+    console.log(props)
     return (
         <form>
             <GeneralMenu 
@@ -149,24 +73,23 @@ function FlexMenu(props){
     const containerStyleChangeHandler = props.containerStyleChangeHandle;
     const itemStyleChangeHandler = props.itemStyleChangeHandle;
     const nrOfItemsChangeHandler = props.nrItemsStyleChangeHandle;
+
     function changeHandlerGeneric(e){
-        console.log(e)
-        console.log(e.nativeEvent.target.value)
-        console.log(itemToShowIndex)
-        console.log(nrOfItemsChangeHandler)
-        console.log(props)
         let newVal = e.nativeEvent.target.value;
+        console.log(e.target.type)
         if (e.target.type === 'number'){
             itemToShowIndex>=0
                 ? itemStyleChangeHandler(newVal)
-                : nrOfItemsChangeHandler(newVal)
+                : nrOfItemsChangeHandler(newVal) 
+        } else if(e.target.type ==='number-null'){
+                console.log('%cNumber null',"background-color:black; color:white")
         } else {
             const key = e.nativeEvent.target.name;
             const containerStyleClone = {...containerStyle};
             containerStyleClone[key] = newVal==='undefined'?'':newVal;
-
+            console.log(e)
             if(itemToShowIndex>=0){
-                // itemStyleChangeHandler(newVal)
+                itemStyleChangeHandler(newVal)
             } else {
                 containerStyleChangeHandler(containerStyleClone)
             }
@@ -184,6 +107,7 @@ function FlexMenu(props){
             >
             </ItemMenu>
             : <ContainerMenu 
+                changeHandler={containerStyleChangeHandler} 
                 changeHandler={changeHandlerGeneric} 
                 containerStyle = {containerStyle}
             >
