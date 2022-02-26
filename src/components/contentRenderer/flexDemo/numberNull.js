@@ -19,7 +19,7 @@ function NumberNull(props){
     return  (
     <>
         <input type="checkbox" onChange={toggleActive}/>&nbsp;&nbsp;
-        <label htmlFor ={name}>{name}</label>
+        <label htmlFor ={name}><b>{name}</b></label>
         <input type="number" id={name}
             onChange = {toggleActive}
             onBlur={(e)=>{changeHandler(e)}}
