@@ -76,6 +76,15 @@ function FlexDemo(props){
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
 
+    const itemToShowIndexHandler = (index) => {
+        
+        return (e)=>{
+            console.log(e)
+            // setItemToShowIndex.bind(this, index)
+            setItemToShowIndex(index)
+        }
+    }
+
     const handleContainerStyleChange = (newStyle)=>{
         console.dir(newStyle)
         setContainerStyle(newStyle)
@@ -120,7 +129,7 @@ function FlexDemo(props){
                 <div className = "col-3">
                     <FlexMenu 
                         containerStyle={containerStyle} 
-                        itemsStyle={itemsStyle}
+                        itemStyle={itemsStyle}
                         itemToShowIndex={itemToShowIndex}
                         containerStyleChangeHandle = {handleContainerStyleChange}
                         itemStyleChangeHandle = {handleSingleItemChange}
@@ -132,6 +141,7 @@ function FlexDemo(props){
                     <FlexContainer 
                         containerStyle={containerStyle} 
                         itemsStyle={itemsStyle}
+                        itemToDisplayInMenuIndex={itemToShowIndexHandler}
                     >
                     </FlexContainer>
                 </div>
