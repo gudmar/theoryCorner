@@ -92,6 +92,7 @@ function FlexDemo(props){
 
     const handleSingleItemChange = (newItemStyle, index)=>{
         let newState = cloneItems(itemsStyle);
+        console.log('dsadfasdfsadfasdf')
         newState.splice(index, 1, newItemStyle);
     }
     const handleChangeNrOfItems = (newNumberOfItems)=>{
@@ -133,6 +134,7 @@ function FlexDemo(props){
                         itemToShowIndex={itemToShowIndex}
                         containerStyleChangeHandle = {handleContainerStyleChange}
                         itemStyleChangeHandle = {handleSingleItemChange}
+                        // changeHandler = {handleSingleItemChange}
                         nrItemsStyleChangeHandle = {handleChangeNrOfItems}
                     >
                     </FlexMenu>
@@ -142,6 +144,7 @@ function FlexDemo(props){
                         containerStyle={containerStyle} 
                         itemsStyle={itemsStyle}
                         itemToDisplayInMenuIndex={itemToShowIndexHandler}
+                        // changeHandler={itemToShowIndexHandler}
                     >
                     </FlexContainer>
                 </div>
