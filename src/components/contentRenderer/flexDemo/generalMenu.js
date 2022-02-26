@@ -40,9 +40,13 @@ function GeneralMenu(props){
                 out[index] = currentValues[item]
             }
         })
+        console.log(out)
         return out;
     }
     const [numericValueStorage, setNumericValueStorage] = useState(getInitialNumberValues())
+    useEffect(()=>{
+        setNumericValueStorage(getInitialNumberValues());
+    }, [currentValues])
     const numericStateChangeFactory = (index)=>{
         let newState = [...numericValueStorage];
         return function (e){
@@ -59,8 +63,8 @@ function GeneralMenu(props){
                 {descriptor[key]==='number' ?
                         (
                             <>
-                        <label htmlFor ={key}>{key}</label>
-                        <input type="number" id={key} key="key" key={key} 
+                        <label htmlFor ={key}><b>{key}</b></label>
+                        <input type="number" id={key} key={key} 
                             onChange = {numericStateChangeFactory(index)}
                             onBlur={(e)=>{changeHandler(e)}}
                             value={numericValueStorage[index]}

@@ -25,7 +25,7 @@ function FlexContainer(props){
                     onClick={displayItemMenu(index)}
                     style={item.style} 
                     key={index}
-                >
+                >{index}
                 </div>
             )
         })

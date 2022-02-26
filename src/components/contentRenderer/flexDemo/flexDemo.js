@@ -1,5 +1,6 @@
 import FlexContainer from './flexContainer';
-import FlexMenu from './flexMenu';
+// import FlexMenu from './flexMenu';
+import GeneralMenu from './generalMenu';
 import { useEffect, useState } from 'react';
 
 function styleContainer(settingObj){
@@ -38,6 +39,7 @@ function getWrapperDefaultStyle(){
 function getSingleDefaultStyle(index){
     return {
         styles: {
+            indexOfItem: index,
             // order: unset,
             // flexGrowth: unset,
             // flexShrink: unset,
@@ -80,10 +82,15 @@ function FlexDemo(props){
         
         return (e)=>{
             console.log(e)
+            console.log(index)
             // setItemToShowIndex.bind(this, index)
             setItemToShowIndex(index)
         }
     }
+
+    useEffect(()=>{
+
+    },[itemToShowIndex])
 
     const handleContainerStyleChange = (newStyle)=>{
         console.dir(newStyle)
@@ -124,20 +131,70 @@ function FlexDemo(props){
 
     console.log(itemsStyle)
 
+    function getWrapperMenuDescriptor(){
+        return {
+            // display: flex,
+            nrOfItems: 'number',
+            flexDirection: ['undefined', 'row','column'],
+            flexWrap: ['undefined','wrap','no-wrap'],
+            justifyContent: ['undefined','flex-start','flex-end','center','space-between','space-around','space-evenly'], 
+            alignItems: ['undefined','flex-start','flex-end','center','stretch','baseline'],
+            alignContent: ['undefined','flex-start','flex-end','center','stretch','space-between','space-around'],
+        }
+    }
+    function getItemMenuDescriptor(index){
+        return {
+            indexOfItem: 'number',
+            order: 'number-null',
+            flexGrowth: 'number-null',
+            flexShrink: 'number-null',
+            flexBasis: 'number-null',
+            alignSelf: ['undefined','auto','flex-start','flex-end','center','baseline','stretch'],
+        }
+    }
+
+    const getDescriptor = ()=>{
+        return itemToShowIndex < 0 ? getWrapperMenuDescriptor() : getItemMenuDescriptor(itemToShowIndex);
+    }
+    const getCurrentValues = ()=>{
+        console.log(itemsStyle[itemToShowIndex])
+        return itemToShowIndex < 0 
+            ? containerStyle
+            : {...itemsStyle[itemToShowIndex].styles}
+    }
+
+    function changeHandlerGeneric(e){
+        let newVal = e.nativeEvent.target.value;
+        console.log(e.target.type)
+        if (e.target.type === 'number'){
+            itemToShowIndex>=0
+                ? handleSingleItemChange(newVal)
+                : handleChangeNrOfItems(newVal) 
+        } else if(e.target.type ==='number-null'){
+                console.log('%cNumber null',"background-color:black; color:white")
+        } else {
+            const key = e.nativeEvent.target.name;
+            const containerStyleClone = {...containerStyle};
+            containerStyleClone[key] = newVal==='undefined'?'':newVal;
+            console.log(e)
+            if(itemToShowIndex>=0){
+                handleSingleItemChange(newVal)
+            } else {
+                handleContainerStyleChange(containerStyleClone)
+            }
+        }
+    }
+
     return (
         <>
             <div className="felx-demo-wrapper row">
                 <div className = "col-3">
-                    <FlexMenu 
-                        containerStyle={containerStyle} 
-                        itemStyle={itemsStyle}
-                        itemToShowIndex={itemToShowIndex}
-                        containerStyleChangeHandle = {handleContainerStyleChange}
-                        itemStyleChangeHandle = {handleSingleItemChange}
-                        // changeHandler = {handleSingleItemChange}
-                        nrItemsStyleChangeHandle = {handleChangeNrOfItems}
-                    >
-                    </FlexMenu>
+                <GeneralMenu
+                    descriptor = {getDescriptor()}
+                    currentValues = {getCurrentValues()}
+                    changeHandler = {changeHandlerGeneric}
+                />
+
                 </div>
                 <div className = "col-9">
                     <FlexContainer 
