@@ -134,7 +134,7 @@ function FlexDemo(props){
     function getWrapperMenuDescriptor(){
         return {
             // display: flex,
-            nrOfItems: 'number',
+            nrOfItems: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
             flexDirection: ['undefined', 'row','column'],
             flexWrap: ['undefined','wrap','no-wrap'],
             justifyContent: ['undefined','flex-start','flex-end','center','space-between','space-around','space-evenly'], 
@@ -146,9 +146,9 @@ function FlexDemo(props){
         return {
             indexOfItem: 'number',
             order: 'number-null',
-            flexGrowth: 'number-null',
+            flexGrow: 'number-null',
             flexShrink: 'number-null',
-            flexBasis: 'number-null',
+            flexBasis: 'text-null',
             alignSelf: ['undefined','auto','flex-start','flex-end','center','baseline','stretch'],
         }
     }
@@ -181,30 +181,28 @@ function FlexDemo(props){
     }
 
     function changeHandlerGeneric(e){
-        let newVal = e.nativeEvent.target.value;
-        let inputType = e.nativeEvent.target.getAttribute('data-type')
-        console.log(inputType)
-        if (inputType === 'number'){
+        const key = e.key;
+        const newVal = e.newVal;
+        const eSource = e.eSource;
+        if (['number', 'number-null','text-null'].includes(eSource)){
+            console.dir(e)
+            console.log(key)
             itemToShowIndex>=0
-                ? handleSingleItemChange(newVal, itemToShowIndex)
-                : handleChangeNrOfItems(newVal) 
-        } else if(inputType ==='number-null'){
-                console.log('%cNumber null',"background-color:black; color:white")
-                const key = e.nativeEvent.target.name;
-                itemToShowIndex>=0
-                ? changeItemValuesHandler(itemToShowIndex, key, newVal)
-                : handleChangeNrOfItems(newVal)
+            ? changeItemValuesHandler(itemToShowIndex, key, newVal)
+            : handleChangeNrOfItems(newVal) 
+            return undefined;
         } else {
-            const key = e.nativeEvent.target.name;
             const containerStyleClone = {...containerStyle};
             containerStyleClone[key] = newVal==='undefined'?'':newVal;
-            console.log(e)
-            if(itemToShowIndex>=0){
+            console.log(containerStyleClone)
+            if (itemToShowIndex>=0){
                 handleSingleItemChange(newVal)
             } else {
-                handleContainerStyleChange(containerStyleClone)
+                    handleContainerStyleChange(containerStyleClone)
+                    handleChangeNrOfItems(newVal)
             }
         }
+            return undefined
     }
 
     return (

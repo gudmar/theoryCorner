@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import NumberNull from './numberNull';
+import TextNull from './textNull';
 
 
 
@@ -30,9 +31,6 @@ function GeneralMenu(props){
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
     const getInitialNumberValues = ()=>{
-        console.log(props)
-        console.log(descriptor)
-        console.log(currentValues)
         const out = new Array(Object.getOwnPropertyNames(descriptor).length-1).fill(0);
         
         Object.getOwnPropertyNames(descriptor).forEach((item, index)=>{
@@ -40,7 +38,6 @@ function GeneralMenu(props){
                 out[index] = currentValues[item]
             }
         })
-        console.log(out)
         return out;
     }
     const [numericValueStorage, setNumericValueStorage] = useState(getInitialNumberValues())
@@ -57,6 +54,14 @@ function GeneralMenu(props){
         }
     }
 
+    const changeValueInternalFactory = (elementType) => {
+        return (e) => {
+            let val = parseInt(e.nativeEvent.target.value);
+            let name = e.nativeEvent.target.name;
+            if (isNaN(val)) val = e.nativeEvent.target.value;
+            return changeHandler({dummy:true,key:name,newVal:val,eSource:elementType})    
+        }
+    }
     
     function getInputs(){
         return Object.getOwnPropertyNames(descriptor).map((key, index, arr)=>{
@@ -68,7 +73,8 @@ function GeneralMenu(props){
                         <label htmlFor ={key}><b>{key}</b></label>
                         <input type="number" data-type="number" id={key} key={key} 
                             onChange = {numericStateChangeFactory(index)}
-                            onBlur={(e)=>{changeHandler(e)}}
+                            // onBlur={(e)=>{changeHandler(e)}}
+                            onBlur={(e)=>{changeValueInternalFactory('number')(e)}}
                             value={numericValueStorage[index]}
                         >
                         </input>
@@ -87,15 +93,23 @@ function GeneralMenu(props){
                             name={key}
                             changeHandler = {changeHandler}
                             blurHandler= {changeHandler}
+                            
                         />
+                    : descriptor[key] === 'text-null' ? 
+                    <TextNull 
+                        name={key}
+                        changeHandler = {changeHandler}
+                        blurHandler= {changeHandler}
+                    />
                     :
                         <Select name={key} 
                         currentValues={currentValues} 
                         values={descriptor[key]} 
                         key={key}
-                        // changeHandler={numericStateChangeFactory(index)}
-                        changeHandler={changeHandler}
-                        // blurHandler = {changeHandler}
+                        
+                        // changeHandler={changeHandler}
+                        changeHandler = {changeValueInternalFactory('select')}
+                        
                     
                         >
                         </Select>
