@@ -48,7 +48,11 @@ function GeneralMenu(props){
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
     const getInitialNumberValues = ()=>{
+        console.log(props)
+        console.log(descriptor)
+        console.log(currentValues)
         const out = new Array(Object.getOwnPropertyNames(descriptor).length-1).fill(0);
+        
         Object.getOwnPropertyNames(descriptor).forEach((item, index)=>{
             if (descriptor[item] === 'number') {
                 out[index] = currentValues[item]
@@ -104,12 +108,20 @@ function GeneralMenu(props){
 
 function ItemMenu(props){
     const itemToShowIndex = props.itemToShowIndex;
-    const itemStyle = props.itemsStyle[itemToShowIndex];
+    const itemStyle = props.itemStyle[itemToShowIndex];
     const changeHandler = props.changeHandler;
     const currentValues = props.itemStyle;
+    console.dir(props)
+    console.log(itemToShowIndex)
+    console.log(itemStyle)
+
     return (
         <form>
-            <GeneralMenu changeHandler={props.changeHandler} descriptor={itemStyle[itemToShowIndex]} currentValues={currentValues}></GeneralMenu>
+            <GeneralMenu changeHandler={props.changeHandler} 
+                descriptor={getSingleDefaultStyle(itemToShowIndex)} currentValues={currentValues}
+                currentValues={itemStyle}
+            >
+            </GeneralMenu>
         </form>
     )
 }
@@ -132,7 +144,7 @@ function ContainerMenu(props){
 
 function FlexMenu(props){
     const containerStyle = props.containerStyle;
-    const itemsStyle = props.itemsStyle;
+    const itemStyle = props.itemStyle;
     const itemToShowIndex = props.itemToShowIndex;
     const containerStyleChangeHandler = props.containerStyleChangeHandle;
     const itemStyleChangeHandler = props.itemStyleChangeHandle;
@@ -140,10 +152,13 @@ function FlexMenu(props){
     function changeHandlerGeneric(e){
         console.log(e)
         console.log(e.nativeEvent.target.value)
+        console.log(itemToShowIndex)
+        console.log(nrOfItemsChangeHandler)
+        console.log(props)
         let newVal = e.nativeEvent.target.value;
         if (e.target.type === 'number'){
             itemToShowIndex>=0
-                ? itemToShowIndex(newVal)
+                ? itemStyleChangeHandler(newVal)
                 : nrOfItemsChangeHandler(newVal)
         } else {
             const key = e.nativeEvent.target.name;
@@ -157,22 +172,24 @@ function FlexMenu(props){
             }
         }
     }
+    console.log(itemToShowIndex)
     
 
     return (
         itemToShowIndex>=0
-            ? <ItemMenu changeHandler={changeHandlerGeneric} itemToShowIndex = {itemToShowIndex} itemStyle = {itemsStyle}></ItemMenu>
-            : <ContainerMenu changeHandler={changeHandlerGeneric} containerStyle = {containerStyle}></ContainerMenu>
+            ? <ItemMenu 
+                changeHandler={changeHandlerGeneric} 
+                itemToShowIndex = {itemToShowIndex} 
+                itemStyle = {itemStyle}
+            >
+            </ItemMenu>
+            : <ContainerMenu 
+                changeHandler={changeHandlerGeneric} 
+                containerStyle = {containerStyle}
+            >
+            </ContainerMenu>
     )    
 }
-/* <FlexMenu 
-containerStyle={containerStyle} 
-itemsStyle={itemsStyle}
-itemToShowIndex={itemToShowIndex}
-containerStyleChangeHandle = {handleContainerStyleChange}
-itemStyleChangeHandle = {handleSingleItemChange}
-nrItemsStyleChangeHandle = {handleChangeNrOfItems}
-> */
 
 
 
