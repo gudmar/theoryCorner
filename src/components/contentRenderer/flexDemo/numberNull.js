@@ -1,12 +1,22 @@
 import { useEffect, useState, useRef } from 'react';
 
 function NumberNull(props){
-    const [isActive, setIsActive] = useState(false);
-    const [value, setValue] = useState('');
+    const [isActive, setIsActive] = useState(props.isActive||false);
+    const [value, setValue] = useState(props.value||'');
     const name = props.name;
     const changeHandler = props.changeHandler;
     const blurHandler = props.blurHandler;
-    const valueField = useRef();
+    // const valueField = useRef();
+    const checkBox = useRef();
+    useEffect(()=>{
+        setValue(props.value);
+        // console.log(`%cCheckbox of ${props.name} is ${checkBox.current.checked} with state ${isActive}`, 'background-color: gray; color:white;')
+    },[props.value])
+    useEffect(()=>{
+        let shouldBeActive = typeof props.value==='number'?true:false;
+        setIsActive(shouldBeActive)
+        checkBox.current.checked = shouldBeActive;
+    },[props.value])
 
     const mutateValue = ()=>{
         return (e) => {
@@ -14,6 +24,7 @@ function NumberNull(props){
         }
     }
     const toggleActive = ()=>{
+        // console.log(`%cCheckbox is ${checkBox.current.checked} with state ${isActive}`, 'background-color: red; color:white;')
         if (isActive) {
             setValue('');
             changeHandler({dummy:true,key:name,newVal:'',eSource:'number-null'})
@@ -30,13 +41,11 @@ function NumberNull(props){
 
     return  (
     <>
-        <input type="checkbox" onChange={toggleActive}/>&nbsp;&nbsp;
-        <label htmlFor ={name}><b>{name}</b></label>
-        <input type="number" ref={valueField} name={name} data-type="number-null" id={name}
+        <input type="checkbox" ref={checkBox} onChange={toggleActive}/>&nbsp;&nbsp;
+        <label htmlFor ={name} className={isActive?'':'disabled'}><b>{name}</b></label>
+        <input type="number" name={name} data-type="number-null" id={name}
             onChange = {mutateValue()}
-            onBlur={(e)=>{
-                changeValueInternal(e)
-            }}
+            onBlur={(e)=>{changeValueInternal(e)}}
             value={value}
             disabled={!isActive}
         >

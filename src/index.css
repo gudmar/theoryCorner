@@ -119,3 +119,8 @@ code {
 .flexbox-ex-300px{
   width: 300px;
 }
+
+.disabled{
+  color: #777;
+  text-decoration: line-through;
+}

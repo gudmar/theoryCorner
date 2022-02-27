@@ -9,12 +9,21 @@
 }
 
 .flex-item-example{
+    border-radius: 5px;
     position: relative;
     width: 75px;
-    height: 75px;
-    border:solid thin black;
-    border-radius: 5px;
     background-color: cadetblue;
+    border:solid thin black;
+    height: auto;
+}
+
+.flex-item-example-content{
+    position: relative;
+    
+    height: 75px;
+    
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0.2);
     cursor: pointer;
 }
 
@@ -24,4 +33,12 @@
     height: 500px;
     background-color: blueviolet;
     border-radius: 5px;
+}
+
+.center-with-transform{
+    position: absolute;
+    display:inline-block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }

@@ -78,12 +78,22 @@ function FlexDemo(props){
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
 
+    const getCurrentValues = ()=>{
+        let v =itemToShowIndex < 0 
+        ? containerStyle
+        : {...itemsStyle[itemToShowIndex].styles} 
+
+        return itemToShowIndex < 0 
+            ? containerStyle
+            : {...itemsStyle[itemToShowIndex].styles}
+    }
+
+
+    const [currentMeunContent, setCurrentMenuContent] = useState(getCurrentValues())
+
     const itemToShowIndexHandler = (index) => {
         
         return (e)=>{
-            console.log(e)
-            console.log(index)
-            // setItemToShowIndex.bind(this, index)
             setItemToShowIndex(index)
         }
     }
@@ -93,14 +103,13 @@ function FlexDemo(props){
     },[itemToShowIndex])
 
     const handleContainerStyleChange = (newStyle)=>{
-        console.dir(newStyle)
         setContainerStyle(newStyle)
     }
 
-    const handleSingleItemChange = (newItemStyle, index)=>{
+    const handleSingleItemChange = (key, newItemStyle, index)=>{
         let newState = cloneItems(itemsStyle);
-        console.log('dsadfasdfsadfasdf')
-        newState.splice(index, 1, newItemStyle);
+        newState[index].styles[key] = newItemStyle;
+        setItemsStyle(newState)
     }
     const handleChangeNrOfItems = (newNumberOfItems)=>{
         let deltaNrOfItems = newNumberOfItems - itemsStyle.length;
@@ -129,8 +138,6 @@ function FlexDemo(props){
         }
     }
 
-    console.log(itemsStyle)
-
     function getWrapperMenuDescriptor(){
         return {
             // display: flex,
@@ -151,17 +158,11 @@ function FlexDemo(props){
             flexBasis: 'text-null',
             alignSelf: ['undefined','auto','flex-start','flex-end','center','baseline','stretch'],
         }
-    }
+    };
 
-    const getDescriptor = ()=>{
+    const getDescriptor = () => {
         return itemToShowIndex < 0 ? getWrapperMenuDescriptor() : getItemMenuDescriptor(itemToShowIndex);
-    }
-    const getCurrentValues = ()=>{
-        console.log(itemsStyle[itemToShowIndex])
-        return itemToShowIndex < 0 
-            ? containerStyle
-            : {...itemsStyle[itemToShowIndex].styles}
-    }
+    };
 
     const changeItemValuesHandler = (index, key, newValue)=>{
         let itemsStyleClone = {...itemsStyle[index].styles};
@@ -169,14 +170,9 @@ function FlexDemo(props){
         if (newValue === null) {
             delete itemsStyleClone[key]
         } else {
-            // console.log(itemsStyleClone[index].styles)
-            // console.dir(Object.getOwnPropertyDescriptor(itemsStyleClone[index], 'styles'))
             itemsStyleClone[key] = newValue;
         }
-        console.log(itemsStyleClone)
-        console.log(itemsStyle[index])
-        itemsStyle[index].styles = itemsStyleClone;
-        
+        itemsStyle[index].styles = itemsStyleClone;        
         setItemsStyle([...itemsStyle]);
     }
 
@@ -185,8 +181,6 @@ function FlexDemo(props){
         const newVal = e.newVal;
         const eSource = e.eSource;
         if (['number', 'number-null','text-null'].includes(eSource)){
-            console.dir(e)
-            console.log(key)
             itemToShowIndex>=0
             ? changeItemValuesHandler(itemToShowIndex, key, newVal)
             : handleChangeNrOfItems(newVal) 
@@ -194,9 +188,8 @@ function FlexDemo(props){
         } else {
             const containerStyleClone = {...containerStyle};
             containerStyleClone[key] = newVal==='undefined'?'':newVal;
-            console.log(containerStyleClone)
             if (itemToShowIndex>=0){
-                handleSingleItemChange(newVal)
+                handleSingleItemChange(key, newVal, itemToShowIndex)
             } else {
                     handleContainerStyleChange(containerStyleClone)
                     handleChangeNrOfItems(newVal)
@@ -205,13 +198,17 @@ function FlexDemo(props){
             return undefined
     }
 
+    function tempWrapper(){
+        return getCurrentValues()
+    }
+
     return (
         <>
             <div className="felx-demo-wrapper row">
                 <div className = "col-3">
                 <GeneralMenu
                     descriptor = {getDescriptor()}
-                    currentValues = {getCurrentValues()}
+                    currentValues = {tempWrapper()}
                     changeHandler = {changeHandlerGeneric}
                 />
 

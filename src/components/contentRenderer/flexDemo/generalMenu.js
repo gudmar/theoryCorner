@@ -30,11 +30,13 @@ function GeneralMenu(props){
     const descriptor = props.descriptor;
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
+    
     const getInitialNumberValues = ()=>{
         const out = new Array(Object.getOwnPropertyNames(descriptor).length-1).fill(0);
         
         Object.getOwnPropertyNames(descriptor).forEach((item, index)=>{
-            if (descriptor[item] === 'number') {
+            // if (descriptor[item] === 'number') {
+            if (['number', 'number-null', 'text-null'].includes(descriptor[item])){
                 out[index] = currentValues[item]
             }
         })
@@ -42,7 +44,7 @@ function GeneralMenu(props){
     }
     const [numericValueStorage, setNumericValueStorage] = useState(getInitialNumberValues())
     useEffect(()=>{
-        setNumericValueStorage(getInitialNumberValues());
+        setNumericValueStorage([...getInitialNumberValues()]);
     }, [currentValues])
     const numericStateChangeFactory = (index)=>{
         
@@ -79,20 +81,13 @@ function GeneralMenu(props){
                         >
                         </input>
                         </>)
-   
-   
-//    const [isActive, setIsActive] = useState(false);
-//    const [value, setValue] = useState(1);
-//    const name = props.name;
-//    const changeHandler = props.changeHandler;
-//    const blurHandler = props.blurHandler;
-
-
                     : descriptor[key] === 'number-null' ? 
                         <NumberNull 
                             name={key}
                             changeHandler = {changeHandler}
                             blurHandler= {changeHandler}
+                            isActive = {numericValueStorage[index]}
+                            value={numericValueStorage[index]||''}
                             
                         />
                     : descriptor[key] === 'text-null' ? 
@@ -100,6 +95,8 @@ function GeneralMenu(props){
                         name={key}
                         changeHandler = {changeHandler}
                         blurHandler= {changeHandler}
+                        isActive = {numericValueStorage[index]}
+                        value={numericValueStorage[index]||''}
                     />
                     :
                         <Select name={key} 

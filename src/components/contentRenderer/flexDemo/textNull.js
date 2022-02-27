@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 function TextNull(props){
     const [isActive, setIsActive] = useState(false);
@@ -6,17 +6,22 @@ function TextNull(props){
     const name = props.name;
     const changeHandler = props.changeHandler;
     const blurHandler = props.blurHandler;
+    const checkBox = useRef();
+    useEffect(()=>{
+        setValue(props.value);
+        console.log(`%cCheckbox of ${props.name} is ${checkBox.current.checked} with state ${isActive}`, 'background-color: gray; color:white;')
+    },[props.value])
+    useEffect(()=>{
+        let shouldBeActive = !isNaN(parseInt(props.value))?true:false;
+        setIsActive(shouldBeActive)
+        checkBox.current.checked = shouldBeActive;
+    },[props.value])
 
     const mutateValue = ()=>{
         return (e) => {
             setValue(e.nativeEvent.target.value)
         }
     }
-
-    // const toggleActive = ()=>{
-    //     if (isActive) setValue('');
-    //     return setIsActive(!isActive)
-    // }
 
     const toggleActive = ()=>{
         if (isActive) {
@@ -36,9 +41,9 @@ function TextNull(props){
 
     return  (
     <>
-        <input type="checkbox" onChange={toggleActive}/>&nbsp;&nbsp;
-        <label htmlFor ={name}><b>{name}</b></label>
-        <input type="text" name={name} data-type="text-null" id={name}
+        <input type="checkbox" ref={checkBox} onChange={toggleActive}/>&nbsp;&nbsp;
+        <label htmlFor ={name} className={isActive?'':'disabled'}><b>{name}</b></label>
+        <input type="text" name={name} data-type="text-null" id={name} placeholder="eg. 50px"
             onChange = {mutateValue()}
             onBlur={(e)=>{
                 changeValueInternal(e)
