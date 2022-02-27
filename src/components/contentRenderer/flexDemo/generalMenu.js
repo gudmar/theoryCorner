@@ -67,7 +67,6 @@ function GeneralMenu(props){
     
     function getInputs(){
         return Object.getOwnPropertyNames(descriptor).map((key, index, arr)=>{
-            console.log(numericValueStorage)
             return(
             <div key={key}>
                 {descriptor[key]==='number' ?

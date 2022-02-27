@@ -21,13 +21,16 @@ function FlexContainer(props){
             console.log(item.styles)
             return (
                 // <FlexItem click={itemToDisplayInMenuIndex(index)} style={item.style} key={item.key} />
-                <div
-                    className="flex-item-example center" 
+                <div className = "flex-item-example"
+                    // className="flex-item-example center" 
                     // onClick={itemToDisplayInMenuIndex(index)} 
                     onClick={displayItemMenu(index)}
                     style={item.styles} 
                     key={index}
-                >{index}
+                >
+                    <div className="flex-item-example-content ">
+                        <div className="center-with-transform text-white h3">{index}</div>
+                    </div>
                 </div>
             )
         })
