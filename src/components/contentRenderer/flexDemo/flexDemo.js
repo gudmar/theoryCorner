@@ -106,9 +106,10 @@ function FlexDemo(props){
         setContainerStyle(newStyle)
     }
 
-    const handleSingleItemChange = (newItemStyle, index)=>{
+    const handleSingleItemChange = (key, newItemStyle, index)=>{
         let newState = cloneItems(itemsStyle);
-        newState.splice(index, 1, newItemStyle);
+        newState[index].styles[key] = newItemStyle;
+        setItemsStyle(newState)
     }
     const handleChangeNrOfItems = (newNumberOfItems)=>{
         let deltaNrOfItems = newNumberOfItems - itemsStyle.length;
@@ -188,7 +189,7 @@ function FlexDemo(props){
             const containerStyleClone = {...containerStyle};
             containerStyleClone[key] = newVal==='undefined'?'':newVal;
             if (itemToShowIndex>=0){
-                handleSingleItemChange(newVal)
+                handleSingleItemChange(key, newVal, itemToShowIndex)
             } else {
                     handleContainerStyleChange(containerStyleClone)
                     handleChangeNrOfItems(newVal)
