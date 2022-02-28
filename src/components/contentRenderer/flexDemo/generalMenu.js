@@ -39,6 +39,9 @@ function GeneralMenu(props){
             if (['number', 'number-null', 'text-null'].includes(descriptor[item])){
                 out[index] = currentValues[item]
             }
+            if (descriptor[item].includes('range')) {
+                out[index] = currentValues[item]
+            }
         })
         return out;
     }
@@ -98,6 +101,19 @@ function GeneralMenu(props){
                         isActive = {numericValueStorage[index]}
                         value={numericValueStorage[index]||''}
                     />
+                    : descriptor[key].includes('range') ?
+                    <>
+                        <div><label htmlFor="descriptor[key]"><b>{key}</b></label></div>
+                        <input type="range" 
+                            min={descriptor[key].split(' ')[1]}
+                            max={descriptor[key].split(' ')[2]}
+                            name={key}
+                            value={numericValueStorage[index]}
+                            id={descriptor[key]}
+                            onChange = {changeValueInternalFactory('range')}
+                        >
+                        </input>
+                    </>
                     :
                         <Select name={key} 
                         currentValues={currentValues} 
