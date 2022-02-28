@@ -27,6 +27,7 @@ function singleItemDescriptor(settingObj){
 function getWrapperDefaultStyle(){
     return {
         nrOfItems: 4,
+        width: 500,
         // display: 'flex',
         // flexDirection: unset,
         // flexWrap: unset,
@@ -77,6 +78,7 @@ function FlexDemo(props){
     const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle(getWrapperDefaultStyle()));
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
+    const [containerWidth, setContainerWidth] = useState(getWrapperDefaultStyle['width']);
 
     const getCurrentValues = ()=>{
         let v =itemToShowIndex < 0 
@@ -141,6 +143,7 @@ function FlexDemo(props){
     function getWrapperMenuDescriptor(){
         return {
             // display: flex,
+            width: 'range 300 700 500', // min max value
             nrOfItems: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
             flexDirection: ['undefined', 'row','column'],
             flexWrap: ['undefined','wrap','no-wrap'],
@@ -185,6 +188,11 @@ function FlexDemo(props){
             ? changeItemValuesHandler(itemToShowIndex, key, newVal)
             : handleChangeNrOfItems(newVal) 
             return undefined;
+        } else if (eSource === 'range'){
+            const containerStyleClone = {...containerStyle};
+            setContainerWidth(newVal);
+            containerStyleClone[key] = containerWidth;
+            handleContainerStyleChange(containerStyleClone);
         } else {
             const containerStyleClone = {...containerStyle};
             containerStyleClone[key] = newVal==='undefined'?'':newVal;
@@ -205,7 +213,7 @@ function FlexDemo(props){
     return (
         <>
             <div className="felx-demo-wrapper row">
-                <div className = "col-3">
+                <div className = "flex-demo-menu col">
                 <GeneralMenu
                     descriptor = {getDescriptor()}
                     currentValues = {tempWrapper()}
@@ -213,7 +221,7 @@ function FlexDemo(props){
                 />
 
                 </div>
-                <div className = "col-9">
+                <div className = "col p-1">
                     <FlexContainer 
                         containerStyle={containerStyle} 
                         itemsStyle={itemsStyle}
