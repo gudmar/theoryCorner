@@ -1,78 +1,20 @@
 import FlexContainer from './flexContainer';
-// import FlexMenu from './flexMenu';
 import GeneralMenu from './generalMenu';
 import { useEffect, useState } from 'react';
+import {
+    cloneItems, 
+    getItemsDefaultStyles, 
+    getSingleDefaultStyle, 
+    styleContainer, 
+    getWrapperDefaultStyle, 
+    singleItemDescriptor,
+    getWrapperMenuDescriptor,
+    getItemMenuDescriptor,
+    deepClone
+}  from './flexDemoHelperFunctions'
 
-function styleContainer(settingObj){
-    let outlet = {};
-    if (settingObj.display !== undefined){outlet.display = settingObj.display};
-    if (settingObj.direction !== undefined){outlet.direction = settingObj.direction};
-    if (settingObj.wrap !== undefined){outlet.wrap = settingObj.wrap};
-    if (settingObj.justifyContent !== undefined){outlet.justifyContent = settingObj.justifyContent};
-    if (settingObj.alignItems !== undefined){outlet.alignItems = settingObj.alignItems};
-    if (settingObj.content !== undefined){outlet.content = settingObj.content};
-    return outlet;
-}
 
-function singleItemDescriptor(settingObj){
-    let outlet = {};
-    if (settingObj.order !== undefined){outlet.order = settingObj.order}
-    if (settingObj.grow !== undefined){outlet.grow = settingObj.grow}
-    if (settingObj.shrink !== undefined){outlet.shrink = settingObj.shrink}
-    if (settingObj.basis !== undefined){outlet.grow = settingObj.grow}
-    if (settingObj.self !== undefined){outlet.order = settingObj.self}
-    return outlet;
-}
-
-function getWrapperDefaultStyle(){
-    return {
-        nrOfItems: 4,
-        width: 500,
-        // display: 'flex',
-        // flexDirection: unset,
-        // flexWrap: unset,
-        // justifyContent: unset,
-        // justifyItems: unset, 
-        // alignItems: unset,
-        // alignContent:unset,
-    }
-}
-function getSingleDefaultStyle(index){
-    return {
-        styles: {
-            indexOfItem: index,
-            // order: unset,
-            // flexGrowth: unset,
-            // flexShrink: unset,
-            // flexBasis: unset,
-            // alignSelf: unset,
-        },
-        key: index
-    }
-}
-
-function getItemsDefaultStyles(nrOfItems){
-    let output = [];
-    for(let i = 0; i < nrOfItems; i++){
-        output.push(getSingleDefaultStyle(i))
-    }
-    return output;
-}
-
-function cloneItems(items){
-    let newState = [];
-    items.forEach((item, index, arr)=>{
-        let newItem = getSingleDefaultStyle(index);
-        newItem.key = item.key;
-        for(let key of Object.getOwnPropertyNames(item.styles)){
-            newItem.styles[key] = item.styles[key]
-        }
-        newState.push(newItem)
-    })
-        return newState;
-}
-
-function FlexDemo(props){
+function FlexDemo(){
     // props not needed
     const [nrOfElements, setNrOfElements] = useState(getWrapperDefaultStyle().nrOfItems);
     const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle(getWrapperDefaultStyle()));
@@ -80,29 +22,18 @@ function FlexDemo(props){
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
     const [containerWidth, setContainerWidth] = useState(getWrapperDefaultStyle['width']);
 
-    const getCurrentValues = ()=>{
-        let v =itemToShowIndex < 0 
-        ? containerStyle
-        : {...itemsStyle[itemToShowIndex].styles} 
-
+    const getValuesForCurrentMenuView = ()=>{
         return itemToShowIndex < 0 
             ? containerStyle
             : {...itemsStyle[itemToShowIndex].styles}
     }
 
+    const [currentMeunContent, setCurrentMenuContent] = useState(getValuesForCurrentMenuView())
 
-    const [currentMeunContent, setCurrentMenuContent] = useState(getCurrentValues())
 
-    const itemToShowIndexHandler = (index) => {
-        
-        return (e)=>{
-            setItemToShowIndex(index)
-        }
+    const handleChangeOfItemInMenu = (index) => {
+        return (e)=>{setItemToShowIndex(index)}
     }
-
-    useEffect(()=>{
-
-    },[itemToShowIndex])
 
     const handleContainerStyleChange = (newStyle)=>{
         setContainerStyle(newStyle)
@@ -113,106 +44,109 @@ function FlexDemo(props){
         newState[index].styles[key] = newItemStyle;
         setItemsStyle(newState)
     }
+
     const handleChangeNrOfItems = (newNumberOfItems)=>{
         let deltaNrOfItems = newNumberOfItems - itemsStyle.length;
-        let newState = cloneItems(itemsStyle);
+        let newItemsState = cloneItems(itemsStyle);
         let newContainerStyleState = {...containerStyle}
         const mutateBothStates = () => {
-            newContainerStyleState.nrOfItems = newState.length;
-            setItemsStyle(newState);
+            newContainerStyleState.nrOfItems = newItemsState.length;
+            setItemsStyle(newItemsState);
             setContainerStyle(newContainerStyleState)
         }
-        if(deltaNrOfItems > 0){ // added
+        const addItemsToState = () => {
             for(let i = 0; i < deltaNrOfItems; i++){
-                newState.push(getSingleDefaultStyle(itemsStyle.length + i))
+                newItemsState.push(getSingleDefaultStyle(itemsStyle.length + i))
             }
-            mutateBothStates()
-
         }
-        if (deltaNrOfItems < 0){
+        const dropItemsFromState = () => {
             for(let i = 0; i < Math.abs(deltaNrOfItems); i++){
-                newState.pop();
+                newItemsState.pop();
             }
-            mutateBothStates()
         }
-        if (deltaNrOfItems === 0){
-            console.warn('Something is wrong. deltaNrOfItems is 0 and handelChangeNrOfItems tirggered')
+        const throwErrorOnInvalidInput = ()=>{
+            if (isNaN(deltaNrOfItems)) {
+                throw new Error(`
+                    FlexDemo: handleChangeNrOfItems: newNumberOfItems is ${newNumberOfItems}, should be of a number type
+                `)
+            }
+            if (deltaNrOfItems === 0){
+                throw new Error(`
+                    Something is wrong. deltaNrOfItems is 0 and handelChangeNrOfItems tirggered
+                `)
+            }    
         }
-    }
 
-    function getWrapperMenuDescriptor(){
-        return {
-            // display: flex,
-            width: 'range 300 700 500', // min max value
-            nrOfItems: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
-            flexDirection: ['undefined', 'row','column'],
-            flexWrap: ['undefined','wrap','no-wrap'],
-            justifyContent: ['undefined','flex-start','flex-end','center','space-between','space-around','space-evenly'], 
-            alignItems: ['undefined','flex-start','flex-end','center','stretch','baseline'],
-            alignContent: ['undefined','flex-start','flex-end','center','stretch','space-between','space-around'],
+        throwErrorOnInvalidInput();
+
+        if (deltaNrOfItems !== 0) {
+            if(deltaNrOfItems > 0){ addItemsToState(); }
+            if (deltaNrOfItems < 0) { dropItemsFromState(); }
+            mutateBothStates();
         }
     }
-    function getItemMenuDescriptor(index){
-        return {
-            indexOfItem: 'read-only',
-            order: 'number-null',
-            flexGrow: 'number-null',
-            flexShrink: 'number-null',
-            flexBasis: 'text-null',
-            alignSelf: ['undefined','auto','flex-start','flex-end','center','baseline','stretch'],
-            'Go to container': 'button'
-        }
-    };
 
     const getDescriptor = () => {
         return itemToShowIndex < 0 ? getWrapperMenuDescriptor() : getItemMenuDescriptor(itemToShowIndex);
     };
 
-    const changeItemValuesHandler = (index, key, newValue)=>{
-        let itemsStyleClone = {...itemsStyle[index].styles};
-        
+    const handleSingleItemStyleChange = (index, key, newValue)=>{
+        let itemStyleClone = {...itemsStyle[index].styles};
+        let allItemsStyleClone = deepClone(itemsStyle)
         if (newValue === null) {
-            delete itemsStyleClone[key]
+            delete itemStyleClone[key]
         } else {
-            itemsStyleClone[key] = newValue;
+            itemStyleClone[key] = newValue;
         }
-        itemsStyle[index].styles = itemsStyleClone;        
-        setItemsStyle([...itemsStyle]);
+        allItemsStyleClone[index].styles = itemStyleClone;
+        setItemsStyle([...allItemsStyleClone]);
     }
 
     function changeHandlerGeneric(e){
         const key = e.key;
         const newVal = e.newVal;
         const eSource = e.eSource;
-        if (['number', 'number-null','text-null'].includes(eSource)){
+        const handleNumberLikeFieldChange = () => {
             itemToShowIndex>=0
-            ? changeItemValuesHandler(itemToShowIndex, key, newVal)
+            ? handleSingleItemStyleChange(itemToShowIndex, key, newVal)
             : handleChangeNrOfItems(newVal) 
             return undefined;
-        } else if (eSource === 'range'){
+        }
+        const handleRangeFieldChange = () => {
             const containerStyleClone = {...containerStyle};
             setContainerWidth(newVal);
             containerStyleClone[key] = containerWidth;
             handleContainerStyleChange(containerStyleClone);
-        } else if (eSource === 'button'){
+            return undefined;
+        }
+        const handleButtonsClick = () => {
             if(key === 'Go to container'){
                 setItemToShowIndex(-1);
             }
-        } else {
+            return undefined;
+        }
+        const handleSelectFieldChange = () => {
             const containerStyleClone = {...containerStyle};
             containerStyleClone[key] = newVal==='undefined'?'':newVal;
             if (itemToShowIndex>=0){
                 handleSingleItemChange(key, newVal, itemToShowIndex)
+            } else if(key === 'nrOfItems') {
+                handleChangeNrOfItems(newVal)
             } else {
-                    handleContainerStyleChange(containerStyleClone)
-                    handleChangeNrOfItems(newVal)
+                handleContainerStyleChange(containerStyleClone)
             }
         }
-            return undefined
-    }
 
-    function tempWrapper(){
-        return getCurrentValues()
+        if (['number', 'number-null','text-null'].includes(eSource)){
+            return handleNumberLikeFieldChange();
+        } else if (eSource === 'range'){
+            return handleRangeFieldChange();
+        } else if (eSource === 'button'){
+            return handleButtonsClick();
+        } else {
+            return handleSelectFieldChange();
+        }
+            return undefined
     }
 
     return (
@@ -221,7 +155,7 @@ function FlexDemo(props){
                 <div className = "flex-demo-menu col">
                 <GeneralMenu
                     descriptor = {getDescriptor()}
-                    currentValues = {tempWrapper()}
+                    currentValues = {getValuesForCurrentMenuView()}
                     changeHandler = {changeHandlerGeneric}
                 />
 
@@ -230,8 +164,7 @@ function FlexDemo(props){
                     <FlexContainer 
                         containerStyle={containerStyle} 
                         itemsStyle={itemsStyle}
-                        itemToDisplayInMenuIndex={itemToShowIndexHandler}
-                        // changeHandler={itemToShowIndexHandler}
+                        itemToDisplayInMenuIndex={handleChangeOfItemInMenu}
                     >
                     </FlexContainer>
                 </div>
