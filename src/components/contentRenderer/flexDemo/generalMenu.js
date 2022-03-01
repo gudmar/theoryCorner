@@ -36,12 +36,13 @@ function GeneralMenu(props){
         
         Object.getOwnPropertyNames(descriptor).forEach((item, index)=>{
             // if (descriptor[item] === 'number') {
-            if (['number', 'number-null', 'text-null'].includes(descriptor[item])){
+            if (['number', 'number-null', 'text-null', 'read-only'].includes(descriptor[item])){
                 out[index] = currentValues[item]
             }
             if (descriptor[item].includes('range')) {
                 out[index] = currentValues[item]
             }
+
         })
         return out;
     }
@@ -76,7 +77,7 @@ function GeneralMenu(props){
                         (
                             <>
                         <label htmlFor ={key}><b>{key}</b></label>
-                        <input type="number" data-type="number" id={key} key={key} 
+                        <input type="number" className="form-control" data-type="number" id={key} key={key} 
                             onChange = {numericStateChangeFactory(index)}
                             // onBlur={(e)=>{changeHandler(e)}}
                             onBlur={(e)=>{changeValueInternalFactory('number')(e)}}
@@ -93,6 +94,16 @@ function GeneralMenu(props){
                             value={numericValueStorage[index]||''}
                             
                         />
+                    : descriptor[key] === 'read-only' ?
+                    <>
+                        <div><b>{key}</b></div>
+                        <div>{numericValueStorage[index]||''}</div>
+                    </>
+                    : descriptor[key] === 'button' ? 
+                    <button className="form-control btn-success"
+                    onClick = {changeValueInternalFactory('button')}
+                    name={key}
+                    >{key}</button>
                     : descriptor[key] === 'text-null' ? 
                     <TextNull 
                         name={key}
@@ -132,9 +143,9 @@ function GeneralMenu(props){
         })
     }
     return(
-        <>
+        <div className="input-group-sm">
             {getInputs()}
-        </>
+        </div>
     )
 }
 

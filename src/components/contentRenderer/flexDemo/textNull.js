@@ -45,6 +45,7 @@ function TextNull(props){
         <label htmlFor ={name} className={isActive?'':'disabled'}><b>{name}</b></label>
         <input type="text" name={name} data-type="text-null" id={name} placeholder="eg. 50px"
             onChange = {mutateValue()}
+            className = "form-control"
             onBlur={(e)=>{
                 changeValueInternal(e)
             }}

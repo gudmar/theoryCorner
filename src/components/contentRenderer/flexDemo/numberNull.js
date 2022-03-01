@@ -48,6 +48,7 @@ function NumberNull(props){
             onBlur={(e)=>{changeValueInternal(e)}}
             value={value}
             disabled={!isActive}
+            className="form-control"
         >
         </input>
     </>)    
