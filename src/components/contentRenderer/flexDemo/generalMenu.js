@@ -1,29 +1,7 @@
 import { useEffect, useState } from 'react';
 import NumberNull from './numberNull';
 import TextNull from './textNull';
-
-
-
-function Select(props){
-    const name=props.name;
-    const values = props.values;
-    const currentValues = props.currentValues;
-    const changeHandler = props.changeHandler;
-    function getOptions(){
-        return values.map((item, index, arr)=>{
-            return (<option key={item} value={item}>{item}</option>)
-        })
-    }
-    return (
-        <div className="mb-3 mt-3">
-            <label htmlFor={name}><b>{name}: &nbsp;
-            </b></label>
-            <select name = {name} id={name} value={currentValues[name]} onChange={changeHandler}>
-                {getOptions()}
-            </select>
-        </div>
-    )
-}
+import Select from './selectMenuComponent';
 
 
 function GeneralMenu(props){
@@ -68,73 +46,75 @@ function GeneralMenu(props){
             return changeHandler({dummy:true,key:name,newVal:val,eSource:elementType})    
         }
     }
+
+    const renderIfNotNulish = (val) => {
+        if (val === undefined) return ''
+        if (val === null) return ''
+        return val
+    }
     
     function getInputs(){
+        
         return Object.getOwnPropertyNames(descriptor).map((key, index, arr)=>{
             return(
             <div key={key}>
                 {descriptor[key]==='number' ?
-                        (
-                            <>
-                        <label htmlFor ={key}><b>{key}</b></label>
-                        <input type="number" className="form-control" data-type="number" id={key} key={key} 
-                            onChange = {numericStateChangeFactory(index)}
-                            // onBlur={(e)=>{changeHandler(e)}}
-                            onBlur={(e)=>{changeValueInternalFactory('number')(e)}}
-                            value={numericValueStorage[index]}
-                        >
-                        </input>
-                        </>)
+                        <>
+                            <label htmlFor ={key}><b>{key}</b></label>
+                            <input type="number" className="form-control" data-type="number" id={key} key={key} 
+                                onChange = {numericStateChangeFactory(index)}
+                                onBlur={(e)=>{changeValueInternalFactory('number')(e)}}
+                                value={numericValueStorage[index]}
+                            >
+                            </input>
+                        </>
                     : descriptor[key] === 'number-null' ? 
                         <NumberNull 
                             name={key}
                             changeHandler = {changeHandler}
                             blurHandler= {changeHandler}
                             isActive = {numericValueStorage[index]}
-                            value={numericValueStorage[index]||''}
+                            value={renderIfNotNulish(numericValueStorage[index])}
                             
                         />
                     : descriptor[key] === 'read-only' ?
-                    <>
-                        <div><b>{key}</b></div>
-                        <div>{numericValueStorage[index]||''}</div>
-                    </>
+                        <>
+                            <div><b>{key}</b></div>
+                            <div>{renderIfNotNulish(numericValueStorage[index])}</div>
+                        </>
                     : descriptor[key] === 'button' ? 
-                    <button className="form-control btn-success"
-                    onClick = {changeValueInternalFactory('button')}
-                    name={key}
-                    >{key}</button>
-                    : descriptor[key] === 'text-null' ? 
-                    <TextNull 
-                        name={key}
-                        changeHandler = {changeHandler}
-                        blurHandler= {changeHandler}
-                        isActive = {numericValueStorage[index]}
-                        value={numericValueStorage[index]||''}
-                    />
-                    : descriptor[key].includes('range') ?
-                    <>
-                        <div><label htmlFor="descriptor[key]"><b>{key}</b></label></div>
-                        <input type="range" 
-                            min={descriptor[key].split(' ')[1]}
-                            max={descriptor[key].split(' ')[2]}
+                        <button className="form-control btn-success"
+                            onClick = {changeValueInternalFactory('button')}
                             name={key}
-                            value={numericValueStorage[index]}
-                            id={descriptor[key]}
-                            onChange = {changeValueInternalFactory('range')}
-                        >
-                        </input>
-                    </>
+                        >{key}</button>
+                    : descriptor[key] === 'text-null' ? 
+                        <TextNull 
+                            name={key}
+                            changeHandler = {changeHandler}
+                            blurHandler= {changeHandler}
+                            isActive = {numericValueStorage[index]}
+                            value={renderIfNotNulish(numericValueStorage[index])}
+                        />
+                    : descriptor[key].includes('range') ?
+                        <>
+                            <div><label htmlFor="descriptor[key]"><b>{key}</b></label></div>
+                            <input type="range" 
+                                min={descriptor[key].split(' ')[1]}
+                                max={descriptor[key].split(' ')[2]}
+                                name={key}
+                                value={numericValueStorage[index]}
+                                style={{width:renderIfNotNulish(descriptor[key].split(' ')[4])+'px'}}
+                                id={descriptor[key]}
+                                onChange = {changeValueInternalFactory('range')}
+                            >
+                            </input>
+                        </>
                     :
                         <Select name={key} 
-                        currentValues={currentValues} 
-                        values={descriptor[key]} 
-                        key={key}
-                        
-                        // changeHandler={changeHandler}
-                        changeHandler = {changeValueInternalFactory('select')}
-                        
-                    
+                            currentValues={currentValues} 
+                            values={descriptor[key]} 
+                            key={key}
+                            changeHandler = {changeValueInternalFactory('select')}
                         >
                         </Select>
                     }

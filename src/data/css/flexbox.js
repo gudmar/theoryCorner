@@ -93,6 +93,20 @@ let data =     {
                     ]
                 },
 
+                {
+                    elementType:'Headline-3',
+                    content: `<span id="flexbox-sandbox">Flexbox sandbox</span>`
+                },
+                {
+                    elementType:'Paragraph',
+                    content:'Flexbox behaviours may be tested here:'
+                },
+                {
+                    elementType:'FlexDemo',
+                    content:[
+                    ]
+                },
+
 
                 {
                     elementType:'Headline-3',
