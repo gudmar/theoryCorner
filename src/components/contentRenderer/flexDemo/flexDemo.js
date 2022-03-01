@@ -184,7 +184,6 @@ function FlexDemo(props){
         const key = e.key;
         const newVal = e.newVal;
         const eSource = e.eSource;
-        console.log(eSource)
         if (['number', 'number-null','text-null'].includes(eSource)){
             itemToShowIndex>=0
             ? changeItemValuesHandler(itemToShowIndex, key, newVal)

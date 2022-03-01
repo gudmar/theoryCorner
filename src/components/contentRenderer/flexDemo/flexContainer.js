@@ -1,6 +1,4 @@
-import FelxItem from './flexItem'
 import { useEffect, useState } from 'react';
-import FlexItem from './flexItem';
 
 
 

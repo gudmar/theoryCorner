@@ -9,7 +9,7 @@ function TextNull(props){
     const checkBox = useRef();
     useEffect(()=>{
         setValue(props.value);
-        console.log(`%cCheckbox of ${props.name} is ${checkBox.current.checked} with state ${isActive}`, 'background-color: gray; color:white;')
+        // console.log(`%cCheckbox of ${props.name} is ${checkBox.current.checked} with state ${isActive}`, 'background-color: gray; color:white;')
     },[props.value])
     useEffect(()=>{
         let shouldBeActive = !isNaN(parseInt(props.value))?true:false;
@@ -38,19 +38,16 @@ function TextNull(props){
     }
 
 
-
     return  (
     <>
         <input type="checkbox" ref={checkBox} onChange={toggleActive}/>&nbsp;&nbsp;
         <label htmlFor ={name} className={isActive?'':'disabled'}><b>{name}</b></label>
         <input type="text" name={name} data-type="text-null" id={name} placeholder="eg. 50px"
             onChange = {mutateValue()}
-            className = "form-control"
-            onBlur={(e)=>{
-                changeValueInternal(e)
-            }}
+            onBlur={(e)=>{changeValueInternal(e)}}
             value={value}
             disabled={!isActive}
+            className = "form-control"
         >
         </input>
     </>)    

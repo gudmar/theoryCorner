@@ -6,7 +6,6 @@ function NumberNull(props){
     const name = props.name;
     const changeHandler = props.changeHandler;
     const blurHandler = props.blurHandler;
-    // const valueField = useRef();
     const checkBox = useRef();
     useEffect(()=>{
         setValue(props.value);
