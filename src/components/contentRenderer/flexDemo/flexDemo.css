@@ -3,16 +3,12 @@
 .felx-demo-wrapper{
     position: relative;
     max-width: fit-content;
-    /* height: 500px; */
     border: solid thin black;
     border-radius: 5px;
-    /* padding: 5px!important; */
-    
 }
 .flex-demo-menu{
     width:170px!important;
 }
-
 
 .flex-item-example{
     border-radius: 5px;
@@ -21,6 +17,14 @@
     background-color: cadetblue;
     border:solid thin black;
     height: auto;
+    isolation: isolate;
+    z-index: 1;
+    transition:0.3s;
+}
+.flex-item-example:hover{
+    transition:0.3s;
+    opacity: 0.8;
+    cursor: pointer;
 }
 
 .flex-item-example-content{
@@ -40,6 +44,12 @@
     background-color: blueviolet;
     border-radius: 5px;
     overflow-y: auto;
+    transition: 0.3s;
+}
+.flex-container-example:hover{
+    transition: 0.3s;
+    background-color:#90b;
+    cursor: pointer;
 }
 
 .center-with-transform{

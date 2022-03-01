@@ -154,12 +154,13 @@ function FlexDemo(props){
     }
     function getItemMenuDescriptor(index){
         return {
-            indexOfItem: 'number',
+            indexOfItem: 'read-only',
             order: 'number-null',
             flexGrow: 'number-null',
             flexShrink: 'number-null',
             flexBasis: 'text-null',
             alignSelf: ['undefined','auto','flex-start','flex-end','center','baseline','stretch'],
+            'Go to container': 'button'
         }
     };
 
@@ -183,6 +184,7 @@ function FlexDemo(props){
         const key = e.key;
         const newVal = e.newVal;
         const eSource = e.eSource;
+        console.log(eSource)
         if (['number', 'number-null','text-null'].includes(eSource)){
             itemToShowIndex>=0
             ? changeItemValuesHandler(itemToShowIndex, key, newVal)
@@ -193,6 +195,10 @@ function FlexDemo(props){
             setContainerWidth(newVal);
             containerStyleClone[key] = containerWidth;
             handleContainerStyleChange(containerStyleClone);
+        } else if (eSource === 'button'){
+            if(key === 'Go to container'){
+                setItemToShowIndex(-1);
+            }
         } else {
             const containerStyleClone = {...containerStyle};
             containerStyleClone[key] = newVal==='undefined'?'':newVal;
