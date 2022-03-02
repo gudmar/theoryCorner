@@ -6,6 +6,8 @@ function styleContainer(settingObj){
     if (settingObj.justifyContent !== undefined){outlet.justifyContent = settingObj.justifyContent};
     if (settingObj.alignItems !== undefined){outlet.alignItems = settingObj.alignItems};
     if (settingObj.content !== undefined){outlet.content = settingObj.content};
+    if (settingObj.rowGap !== undefined){outlet.content = settingObj.rowGap};
+    if (settingObj.columnGap != undefined){outlet.content = settingObj.columnGap};
     return outlet;
 }
 
@@ -92,6 +94,8 @@ function getWrapperMenuDescriptor(){
         justifyContent: ['undefined','flex-start','flex-end','center','space-between','space-around','space-evenly'], 
         alignItems: ['undefined','flex-start','flex-end','center','stretch','baseline'],
         alignContent: ['undefined','flex-start','flex-end','center','stretch','space-between','space-around'],
+        rowGap: 'text-null',
+        columnGap: 'text-null',
     }
 }
 function getItemMenuDescriptor(index){
