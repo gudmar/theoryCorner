@@ -55,6 +55,32 @@ function cloneItems(items){
         return newState;
 }
 
+function componentWidthChangerOnResize(){
+    const subscribers = [];
+    const toRunOnResize = ()=>{
+        window.addEventListener('resize', (e)=>{
+            console.log(subscribers)
+            for (let subscriber of subscribers){
+                console.log(subscriber)
+                subscriber.cb(window.innerWidth);
+            }
+        })
+    }
+    toRunOnResize();
+    return {
+        subscribe: (cb, id) => {
+            subscribers.push({cb: cb, id: id});
+            console.log('subscribed')
+        },
+        unsubscribe: (id) => {
+            console.log('unsubscribed')
+            let index = subscribers.findIndex((item, index)=>{
+                return item.id === id
+            })
+            subscribers.splice(index, 1);
+        }
+    }
+}
 
 function getWrapperMenuDescriptor(){
     return {
@@ -93,5 +119,6 @@ export {
     singleItemDescriptor,
     getWrapperMenuDescriptor,
     getItemMenuDescriptor,
-    deepClone
+    deepClone,
+    componentWidthChangerOnResize
 }
