@@ -1,6 +1,6 @@
 import FlexContainer from './flexContainer';
 import GeneralMenu from './generalMenu';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import {
     cloneItems, 
     getItemsDefaultStyles, 
@@ -10,17 +10,23 @@ import {
     singleItemDescriptor,
     getWrapperMenuDescriptor,
     getItemMenuDescriptor,
-    deepClone
+    deepClone,
+    componentWidthChangerOnResize
 }  from './flexDemoHelperFunctions'
 
 
 function FlexDemo(){
     // props not needed
+    const id = 'flexDemoId'
     const [nrOfElements, setNrOfElements] = useState(getWrapperDefaultStyle().nrOfItems);
-    const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle(getWrapperDefaultStyle()));
+    const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle());
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
     const [containerWidth, setContainerWidth] = useState(getWrapperDefaultStyle['width']);
+
+    const [wrapperMenuDescriptor, setWrapperMenuDescriptor] = useState(getWrapperMenuDescriptor())
+
+    let subscribtionToResizeFunction = useRef(null);
 
     const getValuesForCurrentMenuView = ()=>{
         return itemToShowIndex < 0 
@@ -32,7 +38,13 @@ function FlexDemo(){
 
 
     const handleChangeOfItemInMenu = (index) => {
-        return (e)=>{setItemToShowIndex(index)}
+        return (e)=>{
+            setItemToShowIndex(index)
+        }
+    }
+
+    const getDescriptor = () => {
+        return itemToShowIndex < 0 ? wrapperMenuDescriptor : getItemMenuDescriptor(itemToShowIndex)
     }
 
     const handleContainerStyleChange = (newStyle)=>{
@@ -43,6 +55,28 @@ function FlexDemo(){
         let newState = cloneItems(itemsStyle);
         newState[index].styles[key] = newItemStyle;
         setItemsStyle(newState)
+    }
+
+    const resizeOnWindowResize = (newWidth)=>{
+        let defaultDescriptor = getWrapperMenuDescriptor();
+        let wrapperStyleClone = {...getWrapperDefaultStyle}
+        console.log(newWidth)
+        if (newWidth < 881) {
+            defaultDescriptor.width = 'range 150 300 200 150';
+            setContainerWidth(300);
+            wrapperStyleClone.width = 300;
+            setContainerStyle(wrapperStyleClone)
+        } else if (newWidth < 1205) {
+            defaultDescriptor.width = 'range 150 500 400 150';
+            setContainerWidth(400);
+            wrapperStyleClone.width = 400;
+            setContainerStyle(wrapperStyleClone)
+        } else if (newWidth >= 1205) {
+            wrapperStyleClone.width = 500;
+            setContainerStyle(wrapperStyleClone)
+        }
+        // if (newWidth < 1005) return 'range 150 300 2'
+        setWrapperMenuDescriptor(defaultDescriptor)
     }
 
     const handleChangeNrOfItems = (newNumberOfItems)=>{
@@ -86,9 +120,19 @@ function FlexDemo(){
         }
     }
 
-    const getDescriptor = () => {
-        return itemToShowIndex < 0 ? getWrapperMenuDescriptor() : getItemMenuDescriptor(itemToShowIndex);
-    };
+    useEffect(()=>{
+        const unsubscribe = () => {subscribtionToResizeFunction.current.unsubscribe(id)}
+        if (subscribtionToResizeFunction.current === null){
+            subscribtionToResizeFunction.current = componentWidthChangerOnResize();
+            subscribtionToResizeFunction.current.subscribe(resizeOnWindowResize, id)
+        }
+        return unsubscribe
+    }, [])
+
+    // const getDescriptor = () => {
+        // return itemToShowIndex < 0 ? getWrapperMenuDescriptor() : getItemMenuDescriptor(itemToShowIndex);
+    //     setWrapperMenuDescriptor
+    // };
 
     const handleSingleItemStyleChange = (index, key, newValue)=>{
         let itemStyleClone = {...itemsStyle[index].styles};
@@ -154,6 +198,7 @@ function FlexDemo(){
             <div className="felx-demo-wrapper row">
                 <div className = "flex-demo-menu col">
                 <GeneralMenu
+                    // descriptor = {getDescriptor()}
                     descriptor = {getDescriptor()}
                     currentValues = {getValuesForCurrentMenuView()}
                     changeHandler = {changeHandlerGeneric}

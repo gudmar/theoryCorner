@@ -36,6 +36,10 @@
     background-color: rgba(0,0,0,0.2);
     cursor: pointer;
 }
+@media only screen and (max-width: 1205px){
+    .flex-item-example{width: 35px;}
+    .flex-item-example-content{height: 50px};
+}
 
 .flex-container-example{
     position: relative;
