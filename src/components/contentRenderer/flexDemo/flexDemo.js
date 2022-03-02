@@ -150,10 +150,14 @@ function FlexDemo(){
         const key = e.key;
         const newVal = e.newVal;
         const eSource = e.eSource;
+        const nope = ()=>{}
         const handleNumberLikeFieldChange = () => {
+            let containerStyleClone = {...containerStyle}
+            containerStyleClone[key] = newVal==='undefined'?'':newVal;
             itemToShowIndex>=0
             ? handleSingleItemStyleChange(itemToShowIndex, key, newVal)
-            : handleChangeNrOfItems(newVal) 
+            : handleContainerStyleChange(containerStyleClone)
+            
             return undefined;
         }
         const handleRangeFieldChange = () => {
