@@ -16,12 +16,19 @@ let data =     {
                     elementType:'Headline',
                     content:'Flexbox'
                 },
-
                 {
-                    elementType: 'Paragraph',
-                    content: `
-                    Layouts in css can be based on:
-                    `
+                    elementType: 'ListOfContent',
+                    content: [
+                        {id: 'layouts', title: 'Layouts in web design'},
+                        {id: 'flexboxDirections', title: 'Flexbox directions'},
+                        {id: 'flexboxParentProperties', title: 'Flexbox parent properties'},
+                        {id: 'flexboxChildProperties', title: 'Flexbox child properties'},
+                        {id: 'useCases', title: 'Use cases'},
+                    ]
+                },
+                {
+                    elementType: 'Headline-3',
+                    content: `<span id="layouts">Layouts in web design</span>`
                 },
                 {
                     elementType: 'UnsignedList',
@@ -40,6 +47,66 @@ let data =     {
                         `Grid: a two-dimensional solution for the layouts`
                     ]
                 },
+                {
+                    elementType: 'Headline-3',
+                    content: `<span id="flexboxDirections">Flexbox directions</span>`
+                },
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Main-axis`
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `If <code>flex-direction: row;</code> then main axis is the row (x) direction and cross 
+                         axis is the column (y) direction`,
+                        `If <code>flex-direction: column;</code> then main axis is the column axis (y) and cross
+                        axis is the row (x) direction`
+                    ]
+                },
+                {
+                    elementType: 'SmallHeadline',
+                    content: `Cross-axis`
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `If <code>flex-direction: row;</code> then cross axis is the row (y) direction and main 
+                         axis is the row (x) direction`,
+                        `If <code>flex-direction: column;</code> then cross axis is the row axis (x) and main
+                        axis is the column (y) direction`
+                    ]
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                        Note that child components of the flex parent placement will change with the change of 
+                        the <code>flex-direction</code> property.
+                    `
+                },
+
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `<code>flex-grow</code>`, '<code>flex-shrink</code>',
+                        `<code>flex-basis</code>`
+                    ]
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                        are affected by the direction change.
+                    `
+                },
+
+
+                {
+                    elementType: 'Headline-3',
+                    content: `<span id="flexboxParentProperties">Flexbox parent properties</span>`
+                },
+
+
+
                 {
                     elementType: 'Paragraph',
                     content: `
