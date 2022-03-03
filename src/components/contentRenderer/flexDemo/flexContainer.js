@@ -59,7 +59,7 @@ function FlexContainer(props){
         
         return itemDescriptors.map((item, index, arr)=>{
             return (
-                <div className = "flex-item-example"
+                <div className = "flex-item-example on-top"
                     onClick={displayItemMenu(index)}
                     style={getChildItemStyles(item)} 
                     key={index}
