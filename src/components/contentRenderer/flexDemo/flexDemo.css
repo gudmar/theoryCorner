@@ -25,7 +25,12 @@
     transition:0.3s;
     opacity: 0.8;
     cursor: pointer;
+    
 }
+.on-top:hover{
+    z-index: 3;
+}
+
 
 .flex-item-example-content{
     position: relative;
@@ -68,17 +73,19 @@
 .style-explanation-label{
     position: absolute;
     display: none;
-    /* width: 100px; */
-    /* height: 100px; */
-    transform: translateZ(10px);
-    transform-style: preserve-3d;
     isolation: isolate;
     background-color:white;
-    /* opacity: 60%; */
     border-radius: 6px;
-    z-index: 3;
-    opacity: 1;
+    opacity: 0;
+    color:transparent;
 }
 .bold{
     font-weight: bold;
+}
+
+
+.show-explanation{
+    color: black;
+    opacity: 1;
+    transition-delay: 0.4s;
 }
