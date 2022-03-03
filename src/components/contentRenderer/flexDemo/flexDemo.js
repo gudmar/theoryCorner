@@ -23,6 +23,11 @@ function FlexDemo(){
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
     const [containerWidth, setContainerWidth] = useState(getWrapperDefaultStyle['width']);
+    const [itemDiffWidths, setItemDiffWidths] = useState(false);
+    const [itemDiffHeights, setItemDiffHeights] = useState(false);
+    const [unsetChildWidths, setUnsetChildWidths] = useState(false);
+    const [unsetChildHeights, setUnsetChildHeights] = useState(false);
+    
 
     const [wrapperMenuDescriptor, setWrapperMenuDescriptor] = useState(getWrapperMenuDescriptor())
 
@@ -60,7 +65,6 @@ function FlexDemo(){
     const resizeOnWindowResize = (newWidth)=>{
         let defaultDescriptor = getWrapperMenuDescriptor();
         let wrapperStyleClone = {...getWrapperDefaultStyle}
-        console.log(newWidth)
         if (newWidth < 881) {
             defaultDescriptor.width = 'range 150 300 200 150';
             setContainerWidth(300);
@@ -184,6 +188,17 @@ function FlexDemo(){
                 handleContainerStyleChange(containerStyleClone)
             }
         }
+        const handleCheckboxFieldChange = () => {
+            if (key === 'diffContentWidths') {
+                setItemDiffWidths(newVal);
+            } else if (key === 'diffContentHeights'){
+                setItemDiffHeights(newVal);
+            } else if (key === 'unsetChildWidths'){
+                setUnsetChildWidths(newVal);
+            } else if (key === 'unsetChildHeights'){
+                setUnsetChildHeights(newVal);
+            }
+        }
 
         if (['number', 'number-null','text-null'].includes(eSource)){
             return handleNumberLikeFieldChange();
@@ -191,6 +206,8 @@ function FlexDemo(){
             return handleRangeFieldChange();
         } else if (eSource === 'button'){
             return handleButtonsClick();
+        } else if (eSource === 'checkbox'){
+            return handleCheckboxFieldChange();
         } else {
             return handleSelectFieldChange();
         }
@@ -214,6 +231,10 @@ function FlexDemo(){
                         containerStyle={containerStyle} 
                         itemsStyle={itemsStyle}
                         itemToDisplayInMenuIndex={handleChangeOfItemInMenu}
+                        itemDiffWidths={itemDiffWidths}
+                        itemDiffHeights = {itemDiffHeights}
+                        unsetChildWidths = {unsetChildWidths}
+                        unsetChildHeights = {unsetChildHeights}
                     >
                     </FlexContainer>
                 </div>

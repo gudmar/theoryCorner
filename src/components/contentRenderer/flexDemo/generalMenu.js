@@ -43,6 +43,7 @@ function GeneralMenu(props){
             let val = parseInt(e.nativeEvent.target.value);
             let name = e.nativeEvent.target.name;
             if (isNaN(val)) val = e.nativeEvent.target.value;
+            if (elementType === 'checkbox') val = e.nativeEvent.target.checked;
             return changeHandler({dummy:true,key:name,newVal:val,eSource:elementType})    
         }
     }
@@ -97,7 +98,7 @@ function GeneralMenu(props){
                         />
                     : descriptor[key].includes('range') ?
                         <>
-                            <div><label htmlFor="descriptor[key]"><b>{key}</b></label></div>
+                            <div><label htmlFor={descriptor[key]}><b>{key}</b></label></div>
                             <input type="range" 
                                 min={descriptor[key].split(' ')[1]}
                                 max={descriptor[key].split(' ')[2]}
@@ -109,6 +110,16 @@ function GeneralMenu(props){
                             >
                             </input>
                         </>
+                    : descriptor[key].includes('checkbox') ?
+                        <>
+                            
+                            <input type="checkbox"
+                                name={key}
+                                onChange = {changeValueInternalFactory('checkbox')}
+                            >
+                            </input>&nbsp;&nbsp;
+                            <label htmlFor={descriptor[key]}><b>{key}</b></label>
+                        </>
                     :
                         <Select name={key} 
                             currentValues={currentValues} 
@@ -117,7 +128,7 @@ function GeneralMenu(props){
                             changeHandler = {changeValueInternalFactory('select')}
                         >
                         </Select>
-                    }
+                    } 
             </div>
             )
         })

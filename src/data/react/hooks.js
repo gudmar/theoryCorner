@@ -185,6 +185,9 @@ export default function useFetch(url){
                         `<code>useEffect(()=>{})</code> launches <strong>after every completed render</strong> by default`,
                         `<code>useEffect(()=>{}, [args])</code> now useEffect will trigger <strong>only</strong> when any of values in 
                         the <code>args</code> changes. Can be used for conditional rendering.`,
+                        `In case <code>useEffect(()=>{}, [])</code> is used with an empty array <code>[]</code> it will be executed
+                        <strong>only once</code>, on the initial component mount. Similar to the <code>componentDidMount</code>
+                        lifecycle method`,
                         `If the <code>useEffect</code> callback returns a function, this function will be treated as a <code>
                         componentDidUmount</code> hook, so will be run on umount of the component.`,
                         `<code>useEffect</code> is used after screen painting. If there is a need to run something before content is 
