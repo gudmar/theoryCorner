@@ -80,7 +80,7 @@ let data =     {
                 {
                     elementType: 'Paragraph',
                     content: `
-                        Note that child components of the flex parent placement will change with the change of 
+                        Note that child components placement will change with the change of 
                         the <code>flex-direction</code> property.
                     `
                 },
@@ -88,8 +88,9 @@ let data =     {
                 {
                     elementType: 'UnsignedList',
                     content: [
-                        `<code>flex-grow</code>`, '<code>flex-shrink</code>',
-                        `<code>flex-basis</code>`
+                        `<code>flex-grow</code>: will grow along main axis,`, 
+                        '<code>flex-shrink</code>: will shring along main axis',
+                        `<code>flex-basis</code>: will work along the main axis`
                     ]
                 },
                 {
@@ -112,15 +113,15 @@ let data =     {
                     content: `
                     <code>display: flex</code> is set to the parent of elements that will be displayed in the flex way. 
                     The child elements of the flex container have their size controlled by the flex algorithm by default.
-                    By default they do not wrap, and reduce their size to fit into the single line. However, setting some 
-                    properties may change the flexbox behaviour
+                    By default they do not wrap, and they do reduce their size to fit into the single line. However, 
+                    setting some properties may change the flexbox behaviour:
                     `
                 },
                 {
                     elementType: 'UnsignedList',
                     content: [
-                        `<code>display: flex</code>: turn on the felxbox algorithm for the container,`,
-                        `<code>flex-direction: row/column</code>: elements will appear horizontally or vertically,`,
+                        `<code>display: flex</code>: turn on the felxbox algorithm for the container, should be set on a parent element`,
+                        `<code>flex-direction: row/column</code>: change of the main-axis and cross-axis for the algorithm,`,
                         `<code>flex-wrap: no-wrap/wrap</code>: elements will not wrap by default, will shrink to fit 
                         into a single row/column,`,
                         `<code>flex-flow: column wrap/row wrap ...</code>: shortcut for the <code>flex-wrap</code>
@@ -143,19 +144,24 @@ let data =     {
                     elementType: 'UnsignedList',
                     content: [
                        `<code>order: 3;</code>: items in flex container may be displayed in the different order
-                       then listed. This property indicates, on what position the element should apppear,`,
+                       then listed. This property indicates, on what position the element should apppear. When an element has this 
+                       parameter not set, it behaves like it would be set to 0. So in case all elements are not set, and only one 
+                       has this value equal to 1 then this element is placed as the last. This value may be a negative number, to 
+                       set elements before all other,`,
                        `<code>flex-grow: 2</code>; each child of the flexbox container, by default, grows in the same 
-                       reate with the screen being resized. This growing ratio may be changed. The <code>order</code>
-                       property indicates, how many times the growing ratio needs to be multiplicated,`,
+                       reate with the screen being resized. This growing ratio may be changed. The <code>flex-grow</code>
+                       property indicates, how many times the growing ratio needs to be multiplicated. This property has effect 
+                       along the main axis,`,
                        `<code>flex-shrink: 2</code>: similar to the <code>flex-growth</code> but for the shrinking
-                       property,`,
+                       property. This property has effect along the main axis,`,
                        `<code>flex-basis: auto/200px...</code>: the default size of the element before the remaining
                        space in the parent container is distributed,`,
                        `<code>flex</code> is <code>flex-grow</code>, <code>flex-shrink</code>, <code>flex-basis</code>
                        combined,`,
                        `<code>align-self</code>: the element may be taken out of the default layout behaviour and set 
                        to the different position. For example all elements are aligned to the <code>flex-start</code>
-                       and one is taken out by the <code>align-self</code> and set to the <code>flex-end</code>`
+                       and one is taken out by the <code>align-self</code> and set to the <code>flex-end</code>. This 
+                       element has its effect along the cross axis`
 
                     ]
                 },
@@ -177,7 +183,7 @@ let data =     {
 
                 {
                     elementType:'Headline-3',
-                    content:'<span id="flex-wrap">flex-wrap</span>'
+                    content:'<span id="useCases">Use cases</span>'
                 },
                 
                 {
