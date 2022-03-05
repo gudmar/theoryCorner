@@ -9,6 +9,8 @@ import { getTheoryDataAngular } from './theoryDataAngular';
 import { getTheoryDataJasmine } from './theoryDataJasmine';
 import { getTheoryDataScss } from './theoryDataScss';
 import { getTheoryDataPython } from './theoryDataPython';
+import { getTheoryDataPeggy } from './theoryDataPeggy'
+
 
 
 export function getTheoryData(){
@@ -58,6 +60,10 @@ export function getTheoryData(){
         {
             category: 'Python',
             content: getTheoryDataPython()
+        },
+        {
+            category: 'Peggy',
+            content: getTheoryDataPeggy()
         }
     ]
     return allData;
