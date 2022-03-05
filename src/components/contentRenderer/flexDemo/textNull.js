@@ -58,7 +58,6 @@ function isValidAsConvertableToNumber(val){return !isNaN(parseInt(val))?true:fal
 // }
 
 function TextNull(props){
-    console.log(props.isActive)
     return(
         <DisactivatableComponent
             isActive = {props.isActive}

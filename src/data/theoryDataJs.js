@@ -21,6 +21,7 @@ import getWebWorkerData from './js/webWorker';
 import getCWCData from './js/customWebComponent';
 import getTDZData from './js/temporalDeadZone';
 import getConsoleData from './js/console';
+import getRegExpData from './js/regExp'
 
 
 let theoryDataJs = [
@@ -161,6 +162,7 @@ let theoryDataJs = [
     getCWCData(),
     getTDZData(),
     getConsoleData(),
+    getRegExpData(),
 ]
 
 export function getTheoryDataJs(){

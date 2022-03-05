@@ -23,8 +23,13 @@ function FlexDemo(){
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
     const [containerWidth, setContainerWidth] = useState(getWrapperDefaultStyle['width']);
+
     const [itemDiffWidths, setItemDiffWidths] = useState(false);
     const [itemDiffHeights, setItemDiffHeights] = useState(false);
+
+    const [contentWidths, setContentWidths] = useState(getWrapperMenuDescriptor().contentWidths[0]);
+    const [contentHeights, setContentHeights] = useState(getWrapperMenuDescriptor().contentHeights[0]);
+
     const [unsetChildWidths, setUnsetChildWidths] = useState(false);
     const [unsetChildHeights, setUnsetChildHeights] = useState(false);
     
@@ -34,8 +39,9 @@ function FlexDemo(){
     let subscribtionToResizeFunction = useRef(null);
 
     const getValuesForCurrentMenuView = ()=>{
+        console.log({...containerStyle, ...{contentHeight: contentWidths}, ...{contentWidths: contentHeights}})
         return itemToShowIndex < 0 
-            ? containerStyle
+            ? {...containerStyle, ...{contentHeight: contentWidths}, ...{contentWidths: contentHeights}}
             : {...itemsStyle[itemToShowIndex].styles}
     }
 
@@ -184,6 +190,10 @@ function FlexDemo(){
                 handleSingleItemChange(key, newVal, itemToShowIndex)
             } else if(key === 'nrOfItems') {
                 handleChangeNrOfItems(newVal)
+            } else if (key === 'contentWidth') {
+                handleContentSizes()
+            } else if (key === 'contentHeight') {
+                handleContentSizes()
             } else {
                 handleContainerStyleChange(containerStyleClone)
             }
@@ -197,6 +207,16 @@ function FlexDemo(){
                 setUnsetChildWidths(newVal);
             } else if (key === 'unsetChildHeights'){
                 setUnsetChildHeights(newVal);
+            }
+        }
+        const handleContentSizes = () => {
+            if (key === 'contentWidth'){
+                console.log(newVal)
+                setContentWidths(newVal);
+            }
+            if (key === 'contentHeight'){
+                console.log(newVal)
+                setContentHeights(newVal);
             }
         }
 
@@ -235,6 +255,9 @@ function FlexDemo(){
                         itemDiffHeights = {itemDiffHeights}
                         unsetChildWidths = {unsetChildWidths}
                         unsetChildHeights = {unsetChildHeights}
+
+                        contentWidths = {contentWidths}
+                        contentHeights = {contentHeights}
                     >
                     </FlexContainer>
                 </div>

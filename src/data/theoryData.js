@@ -10,6 +10,7 @@ import { getTheoryDataJasmine } from './theoryDataJasmine';
 import { getTheoryDataScss } from './theoryDataScss';
 import { getTheoryDataPython } from './theoryDataPython';
 
+
 export function getTheoryData(){
     // let allData = [].concat(getTheoryDataCss(), getTheoryDataHtml(), getTheoryDataJs(), getTheoryDataTs())
     let allData = [
