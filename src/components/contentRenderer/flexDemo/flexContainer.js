@@ -18,6 +18,9 @@ function FlexContainer(props){
     const setChildWidths = !props.unsetChildWidths;
     const setChildHeights = !props.unsetChildHeights;
     const [explanationVisibility, setExplanationVisibility] = useState(new Array(itemDescriptors.length - 1).fill(false))
+    const contentWidths = props.contentWidths;
+    const contentHeights = props.contentHeights;
+
     useEffect(()=>{
         console.log(itemDiffHeights)
         console.log(itemDiffWidths)
@@ -35,6 +38,26 @@ function FlexContainer(props){
         if (itemDiffHeights) obj.height = differentSizeGenerator(index)+'px';
         return obj;
     }
+
+    
+    function getContentSizes(index){
+        const getSizes = (contentProperty, widthOrHeight)=>{
+            let obj = {};
+            if (contentProperty === 'unset') {return obj}
+            if (contentProperty === 'different') {obj[widthOrHeight] = differentSizeGenerator(index)+'px'}
+            else {
+                obj[widthOrHeight] = contentProperty + 'px';
+            }
+            return obj
+        }
+        const widths = getSizes(contentWidths, 'width');
+        const heights = getSizes(contentHeights, 'height');
+        let obj = {...widths, ...heights}
+        console.log(obj)
+        return obj;
+    }
+
+
     function getChildItemStyles(item){
         let obj = {...item.styles}
         if (setChildHeights) obj.height = '75px';
@@ -71,7 +94,8 @@ function FlexContainer(props){
                         isVisible={explanationVisibility[index]}
                     />   
                     <div className="flex-item-example-content " 
-                        style = {getDiffSizes(index)}
+                        // style = {getDiffSizes(index)}
+                        style = {getContentSizes(index)}
                     >
                         <div className="center-with-transform text-white h3">{index}</div>
                     </div>

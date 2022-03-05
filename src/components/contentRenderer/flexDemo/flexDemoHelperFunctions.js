@@ -89,8 +89,10 @@ function getWrapperMenuDescriptor(){
         // display: flex,
         width: 'range 300 700 500 150', // min max value width
         nrOfItems: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
-        diffContentWidths: 'checkbox',
-        diffContentHeights: 'checkbox',
+        contentWidths: [50, 'unset', 20, 35, 75, 'different'],
+        contentHeights: [50, 'unset', 20, 35, 75, 'different'],
+        // diffContentWidths: 'checkbox',
+        // diffContentHeights: 'checkbox',
         unsetChildWidths: 'checkbox',
         unsetChildHeights:'checkbox',
         flexDirection: ['undefined', 'row','column'],
