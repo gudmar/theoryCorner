@@ -13,7 +13,6 @@
 .flex-item-example{
     border-radius: 5px;
     position: relative;
-    /* width: 75px; */
     background-color: cadetblue;
     border:solid thin black;
     height: auto;
@@ -35,17 +34,15 @@
 .flex-item-example-content{
     position: relative;
     
-    height: 75px;
-    /* width:100%; */
-    /* width: 75px; */
+    /* height: 75px; */
     
     border-radius: 5px;
     background-color: rgba(0,0,0,0.2);
     cursor: pointer;
 }
 @media only screen and (max-width: 1205px){
-    .flex-item-example{width: 35px;}
-    .flex-item-example-content{height: 50px};
+    /* .flex-item-example{width: 35px;}
+    .flex-item-example-content{height: 50px}; */
 }
 
 .flex-container-example{

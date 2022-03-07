@@ -17,6 +17,7 @@ function FlexContainer(props){
     const itemDiffHeights = props.itemDiffHeights;
     const setChildWidths = !props.unsetChildWidths;
     const setChildHeights = !props.unsetChildHeights;
+    console.log(itemDescriptors)
     const [explanationVisibility, setExplanationVisibility] = useState(new Array(itemDescriptors.length - 1).fill(false))
     const contentWidths = props.contentWidths;
     const contentHeights = props.contentHeights;
@@ -53,7 +54,6 @@ function FlexContainer(props){
         const widths = getSizes(contentWidths, 'width');
         const heights = getSizes(contentHeights, 'height');
         let obj = {...widths, ...heights}
-        console.log(obj)
         return obj;
     }
 
