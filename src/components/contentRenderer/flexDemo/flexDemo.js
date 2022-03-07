@@ -11,7 +11,8 @@ import {
     getWrapperMenuDescriptor,
     getItemMenuDescriptor,
     deepClone,
-    componentWidthChangerOnResize
+    componentWidthChangerOnResize,
+    changeStylingOfEachItem
 }  from './flexDemoHelperFunctions'
 
 
@@ -32,6 +33,7 @@ function FlexDemo(){
 
     const [unsetChildWidths, setUnsetChildWidths] = useState(false);
     const [unsetChildHeights, setUnsetChildHeights] = useState(false);
+    const [flexBasisAll, setFlexBasisAll] = useState('unset')
     
 
     const [wrapperMenuDescriptor, setWrapperMenuDescriptor] = useState(getWrapperMenuDescriptor())
@@ -39,9 +41,9 @@ function FlexDemo(){
     let subscribtionToResizeFunction = useRef(null);
 
     const getValuesForCurrentMenuView = ()=>{
-        console.log({...containerStyle, ...{contentHeight: contentWidths}, ...{contentWidths: contentHeights}})
+        console.log({...containerStyle, ...{contentHeights: contentHeights}, ...{contentWidths: contentWidths}})
         return itemToShowIndex < 0 
-            ? {...containerStyle, ...{contentHeight: contentWidths}, ...{contentWidths: contentHeights}}
+            ? {...containerStyle, ...{contentHeights: contentHeights}, ...{contentWidths: contentWidths}}
             : {...itemsStyle[itemToShowIndex].styles}
     }
 
@@ -160,6 +162,7 @@ function FlexDemo(){
         const key = e.key;
         const newVal = e.newVal;
         const eSource = e.eSource;
+        console.log(e)
         const nope = ()=>{}
         const handleNumberLikeFieldChange = () => {
             let containerStyleClone = {...containerStyle}
@@ -190,10 +193,17 @@ function FlexDemo(){
                 handleSingleItemChange(key, newVal, itemToShowIndex)
             } else if(key === 'nrOfItems') {
                 handleChangeNrOfItems(newVal)
-            } else if (key === 'contentWidth') {
+            } else if (key === 'contentWidths') {
                 handleContentSizes()
-            } else if (key === 'contentHeight') {
+            } else if (key === 'contentHeights') {
                 handleContentSizes()
+            } else if (key === 'flexBasisAll'){
+                if (newVal === 'unset') {
+                    setItemsStyle(changeStylingOfEachItem(itemsStyle, 'flexBasis', undefined));
+                } else {
+                    setItemsStyle(changeStylingOfEachItem(itemsStyle, 'flexBasis', newVal));
+                }
+                setFlexBasisAll(newVal);
             } else {
                 handleContainerStyleChange(containerStyleClone)
             }
@@ -207,14 +217,14 @@ function FlexDemo(){
                 setUnsetChildWidths(newVal);
             } else if (key === 'unsetChildHeights'){
                 setUnsetChildHeights(newVal);
-            }
+            } 
         }
         const handleContentSizes = () => {
-            if (key === 'contentWidth'){
+            if (key === 'contentWidths'){
                 console.log(newVal)
                 setContentWidths(newVal);
             }
-            if (key === 'contentHeight'){
+            if (key === 'contentHeights'){
                 console.log(newVal)
                 setContentHeights(newVal);
             }

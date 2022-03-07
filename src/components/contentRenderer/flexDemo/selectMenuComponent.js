@@ -3,8 +3,6 @@ function Select(props){
     const values = props.values;
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
-    console.log(currentValues)
-    console.log(name)
     function getOptions(){
         return values.map((item, index, arr)=>{
             return (<option key={item} value={item}>{item}</option>)

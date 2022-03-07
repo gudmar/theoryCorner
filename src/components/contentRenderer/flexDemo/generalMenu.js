@@ -8,7 +8,6 @@ function GeneralMenu(props){
     const descriptor = props.descriptor;
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
-    console.log(currentValues)
     
     const getInitialNumberValues = ()=>{
         const out = new Array(Object.getOwnPropertyNames(descriptor).length-1).fill(0);

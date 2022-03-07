@@ -1,3 +1,5 @@
+import { func } from "prop-types";
+
 function styleContainer(settingObj){
     let outlet = {};
     if (settingObj.display !== undefined){outlet.display = settingObj.display};
@@ -91,6 +93,7 @@ function getWrapperMenuDescriptor(){
         nrOfItems: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
         contentWidths: [50, 'unset', 20, 35, 75, 'different'],
         contentHeights: [50, 'unset', 20, 35, 75, 'different'],
+        flexBasisAll: ['unset', 20, 50, 75, 100, 200],
         // diffContentWidths: 'checkbox',
         // diffContentHeights: 'checkbox',
         unsetChildWidths: 'checkbox',
@@ -120,6 +123,18 @@ function deepClone(obj){
     return JSON.parse(JSON.stringify(obj))
 }
 
+function changeStylingOfEachItem(arrayOfObjects, key, value){
+    console.log(arrayOfObjects)
+    let newArray = [];
+    arrayOfObjects.forEach((item, index)=>{
+        let newObj = {...item}
+        newObj.styles[key]=value;
+        newArray.push(newObj)
+    })
+    console.log(newArray)
+    return newArray;
+}
+
 export {
     cloneItems, 
     getItemsDefaultStyles, 
@@ -130,5 +145,6 @@ export {
     getWrapperMenuDescriptor,
     getItemMenuDescriptor,
     deepClone,
-    componentWidthChangerOnResize
+    componentWidthChangerOnResize,
+    changeStylingOfEachItem
 }
