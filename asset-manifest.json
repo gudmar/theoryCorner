@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/theoryCorner/static/css/main.df56b1f6.chunk.css",
-    "main.js": "/theoryCorner/static/js/main.b2959b7c.chunk.js",
-    "main.js.map": "/theoryCorner/static/js/main.b2959b7c.chunk.js.map",
+    "main.css": "/theoryCorner/static/css/main.7b8ffc40.chunk.css",
+    "main.js": "/theoryCorner/static/js/main.b033edea.chunk.js",
+    "main.js.map": "/theoryCorner/static/js/main.b033edea.chunk.js.map",
     "runtime-main.js": "/theoryCorner/static/js/runtime-main.9c1e6f74.js",
     "runtime-main.js.map": "/theoryCorner/static/js/runtime-main.9c1e6f74.js.map",
     "static/css/2.383c0125.chunk.css": "/theoryCorner/static/css/2.383c0125.chunk.css",
@@ -12,14 +12,14 @@
     "static/js/3.1862d252.chunk.js.map": "/theoryCorner/static/js/3.1862d252.chunk.js.map",
     "index.html": "/theoryCorner/index.html",
     "static/css/2.383c0125.chunk.css.map": "/theoryCorner/static/css/2.383c0125.chunk.css.map",
-    "static/css/main.df56b1f6.chunk.css.map": "/theoryCorner/static/css/main.df56b1f6.chunk.css.map",
+    "static/css/main.7b8ffc40.chunk.css.map": "/theoryCorner/static/css/main.7b8ffc40.chunk.css.map",
     "static/js/2.f4907db6.chunk.js.LICENSE.txt": "/theoryCorner/static/js/2.f4907db6.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9c1e6f74.js",
     "static/css/2.383c0125.chunk.css",
     "static/js/2.f4907db6.chunk.js",
-    "static/css/main.df56b1f6.chunk.css",
-    "static/js/main.b2959b7c.chunk.js"
+    "static/css/main.7b8ffc40.chunk.css",
+    "static/js/main.b033edea.chunk.js"
   ]
 }
