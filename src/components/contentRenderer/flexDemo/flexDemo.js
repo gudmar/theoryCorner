@@ -2,9 +2,9 @@ import FlexContainer from './flexContainer';
 import GeneralMenu from './generalMenu';
 import { useEffect, useState, useRef } from 'react';
 import {
-    cloneItems, 
-    getItemsDefaultStyles, 
-    getSingleDefaultStyle, 
+    // cloneItems, 
+    // getItemsDefaultStyles, 
+    // getSingleDefaultStyle, 
     styleContainer, 
     getWrapperDefaultStyle, 
     singleItemDescriptor,
@@ -28,6 +28,40 @@ function FlexDemo(){
     const id = 'flexDemoId'
     const [nrOfElements, setNrOfElements] = useState(getWrapperDefaultStyle().nrOfItems);
     const [containerStyle, setContainerStyle] = useState(getWrapperDefaultStyle());
+    const [flexBasisAll, setFlexBasisAll] = useState('unset')
+
+    const getSingleDefaultStyle = (index) => {
+        let output = {
+                styles: {
+                    indexOfItem: index,
+                },
+                key: index
+            }
+        if (!isNaN(parseInt(flexBasisAll))){output.styles.flexBasis = flexBasisAll+'px'}
+        return output
+    }
+    
+    const getItemsDefaultStyles = (nrOfItems) => {
+        let output = [];
+        for(let i = 0; i < nrOfItems; i++){
+            output.push(getSingleDefaultStyle(i))
+        }
+        return output;
+    }
+
+    const cloneItems = (items) => {
+        let newState = [];
+        items.forEach((item, index, arr)=>{
+            let newItem = getSingleDefaultStyle(index);
+            newItem.key = item.key;
+            for(let key of Object.getOwnPropertyNames(item.styles)){
+                newItem.styles[key] = item.styles[key]
+            }
+            newState.push(newItem)
+        })
+            return newState;
+    }
+
     const [itemsStyle, setItemsStyle] = useState(getItemsDefaultStyles(nrOfElements));
     const [itemToShowIndex, setItemToShowIndex] = useState(-1);//-1 for container
     const [containerWidth, setContainerWidth] = useState(getWrapperDefaultStyle['width']);
@@ -44,25 +78,35 @@ function FlexDemo(){
 
     const [unsetChildWidths, setUnsetChildWidths] = useState(false);
     const [unsetChildHeights, setUnsetChildHeights] = useState(false);
-    const [flexBasisAll, setFlexBasisAll] = useState('unset')
+    
 
     const [currentWrapperMenuIndex, setCurrntWrapperMenuIndex] = useState(0);
 
     const getValuesForCurrentMenuView = ()=>{
         console.log({...containerStyle, ...{contentHeights: contentHeights}, ...{contentWidths: contentWidths}})
         return itemToShowIndex < 0 
-            ? {...containerStyle, ...{contentHeights: contentHeights}, ...{contentWidths: contentWidths}, ...{nav: currentWrapperMenuIndex}}
+            ? {...containerStyle, 
+               ...{contentHeights: contentHeights}, 
+               ...{contentWidths: contentWidths}, 
+               ...{nav: currentWrapperMenuIndex},
+               ...{flexBasisAll: flexBasisAll}
+            }
             : {...itemsStyle[itemToShowIndex].styles}
     }
 
     const [currentMenuContent, setCurrentMenuContent] = useState(getValuesForCurrentMenuView())
     const [wrapperMenuDescriptor, setWrapperMenuDescriptor] = useState(getWrapperMenuDescriptorDivided(currentMenuContent))
 
+    useEffect(()=>{
+        console.log(flexBasisAll)
+    }, [flexBasisAll])
 
     useEffect(()=>{
-        console.log(currentWrapperMenuIndex)
         setWrapperMenuDescriptor(getWrapperMenuDescriptorDivided(currentMenuContent));
     }, [currentWrapperMenuIndex])
+
+
+
 
 
 

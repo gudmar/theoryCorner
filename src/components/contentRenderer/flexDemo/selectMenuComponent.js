@@ -3,6 +3,7 @@ function Select(props){
     const values = props.values;
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
+    console.log(currentValues[name])
     function getOptions(){
         return values.map((item, index, arr)=>{
             return (<option key={item} value={item}>{item}</option>)
@@ -12,7 +13,7 @@ function Select(props){
         <div className="mb-3 mt-3">
             <label htmlFor={name}><b>{name}: &nbsp;
             </b></label>
-            <select name = {name} id={name} value={currentValues[name]} onChange={changeHandler}>
+            <select name = {name} id={name} value={currentValues[name] || values[0]} onChange={changeHandler}>
                 {getOptions()}
             </select>
         </div>

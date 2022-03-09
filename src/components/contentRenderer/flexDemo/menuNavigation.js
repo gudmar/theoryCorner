@@ -7,10 +7,6 @@ function MenuNavigation(props){
     const name = props.name
     const currentTab = props.currentTab;
 
-    console.log(availableTabs)
-    console.log(currentTab)
-    console.log(name)
-
     const getTabs = ()=>{
         return availableTabs.map((tab, index) => {
             const isActive = ()=>{return currentTab===index}
