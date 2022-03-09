@@ -91,3 +91,7 @@
     opacity: 1;
     transition-delay: 0.4s;
 }
+
+.nav-link:not(.active){
+    cursor: pointer;
+}
