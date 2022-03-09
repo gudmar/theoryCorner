@@ -12,9 +12,16 @@ import {
     getItemMenuDescriptor,
     deepClone,
     componentWidthChangerOnResize,
-    changeStylingOfEachItem
+    changeStylingOfEachItem,
+    getWrapperMenuDescriptorDivided
 }  from './flexDemoHelperFunctions'
 
+function getDividedMenuProperty(menuDescriptorArr, property){
+    for (let descriptor of menuDescriptorArr){
+        if (property in descriptor) return descriptor[property]
+    }
+    return undefined;
+}
 
 function FlexDemo(){
     // props not needed
@@ -28,26 +35,42 @@ function FlexDemo(){
     const [itemDiffWidths, setItemDiffWidths] = useState(false);
     const [itemDiffHeights, setItemDiffHeights] = useState(false);
 
-    const [contentWidths, setContentWidths] = useState(getWrapperMenuDescriptor().contentWidths[0]);
-    const [contentHeights, setContentHeights] = useState(getWrapperMenuDescriptor().contentHeights[0]);
+    // const [contentWidths, setContentWidths] = useState(getWrapperMenuDescriptor().contentWidths[0]);
+    // const [contentHeights, setContentHeights] = useState(getWrapperMenuDescriptor().contentHeights[0]);
+    const [contentWidths, setContentWidths] = useState(getDividedMenuProperty(getWrapperMenuDescriptorDivided(),'contentWidths')[0]);
+    const [contentHeights, setContentHeights] = useState(getDividedMenuProperty(getWrapperMenuDescriptorDivided(),'contentHeights')[0]);
+
+
 
     const [unsetChildWidths, setUnsetChildWidths] = useState(false);
     const [unsetChildHeights, setUnsetChildHeights] = useState(false);
     const [flexBasisAll, setFlexBasisAll] = useState('unset')
-    
 
-    const [wrapperMenuDescriptor, setWrapperMenuDescriptor] = useState(getWrapperMenuDescriptor())
-
-    let subscribtionToResizeFunction = useRef(null);
+    const [currentWrapperMenuIndex, setCurrntWrapperMenuIndex] = useState(0);
 
     const getValuesForCurrentMenuView = ()=>{
         console.log({...containerStyle, ...{contentHeights: contentHeights}, ...{contentWidths: contentWidths}})
         return itemToShowIndex < 0 
-            ? {...containerStyle, ...{contentHeights: contentHeights}, ...{contentWidths: contentWidths}}
+            ? {...containerStyle, ...{contentHeights: contentHeights}, ...{contentWidths: contentWidths}, ...{nav: currentWrapperMenuIndex}}
             : {...itemsStyle[itemToShowIndex].styles}
     }
 
-    const [currentMeunContent, setCurrentMenuContent] = useState(getValuesForCurrentMenuView())
+    const [currentMenuContent, setCurrentMenuContent] = useState(getValuesForCurrentMenuView())
+    const [wrapperMenuDescriptor, setWrapperMenuDescriptor] = useState(getWrapperMenuDescriptorDivided(currentMenuContent))
+
+
+    useEffect(()=>{
+        console.log(currentWrapperMenuIndex)
+        setWrapperMenuDescriptor(getWrapperMenuDescriptorDivided(currentMenuContent));
+    }, [currentWrapperMenuIndex])
+
+
+
+    let subscribtionToResizeFunction = useRef(null);
+
+
+
+    
 
 
     const handleChangeOfItemInMenu = (index) => {
@@ -57,7 +80,7 @@ function FlexDemo(){
     }
 
     const getDescriptor = () => {
-        return itemToShowIndex < 0 ? wrapperMenuDescriptor : getItemMenuDescriptor(itemToShowIndex)
+        return itemToShowIndex < 0 ? getWrapperMenuDescriptorDivided()[currentWrapperMenuIndex] : getItemMenuDescriptor(itemToShowIndex)
     }
 
     const handleContainerStyleChange = (newStyle)=>{
@@ -71,7 +94,7 @@ function FlexDemo(){
     }
 
     const resizeOnWindowResize = (newWidth)=>{
-        let defaultDescriptor = getWrapperMenuDescriptor();
+        let defaultDescriptor = getWrapperMenuDescriptorDivided(currentWrapperMenuIndex);
         let wrapperStyleClone = {...getWrapperDefaultStyle}
         if (newWidth < 881) {
             defaultDescriptor.width = 'range 150 300 200 150';
@@ -140,11 +163,6 @@ function FlexDemo(){
         }
         return unsubscribe
     }, [])
-
-    // const getDescriptor = () => {
-        // return itemToShowIndex < 0 ? getWrapperMenuDescriptor() : getItemMenuDescriptor(itemToShowIndex);
-    //     setWrapperMenuDescriptor
-    // };
 
     const handleSingleItemStyleChange = (index, key, newValue)=>{
         let itemStyleClone = {...itemsStyle[index].styles};
@@ -229,6 +247,9 @@ function FlexDemo(){
                 setContentHeights(newVal);
             }
         }
+        const switchMenuTab = () => {
+            setCurrntWrapperMenuIndex(newVal);
+        }
 
         if (['number', 'number-null','text-null'].includes(eSource)){
             return handleNumberLikeFieldChange();
@@ -238,11 +259,14 @@ function FlexDemo(){
             return handleButtonsClick();
         } else if (eSource === 'checkbox'){
             return handleCheckboxFieldChange();
+        } else if (eSource === 'nav'){
+            return switchMenuTab();
         } else {
             return handleSelectFieldChange();
         }
             return undefined
     }
+    console.log(getDescriptor())
 
     return (
         <>

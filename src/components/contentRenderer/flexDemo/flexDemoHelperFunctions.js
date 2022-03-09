@@ -86,6 +86,31 @@ function componentWidthChangerOnResize(){
     }
 }
 
+function getWrapperMenuDescriptorDivided(){
+    return [
+        {
+            nav: {available: [0,1], selected: 1},
+            width: 'range 300 700 500 150', // min max value width
+            nrOfItems: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20],
+            contentWidths: [50, 'unset', 20, 35, 75, 'different'],
+            contentHeights: [50, 'unset', 20, 35, 75, 'different'],
+            flexBasisAll: ['unset', 20, 50, 75, 100, 200],
+            unsetChildWidths: 'checkbox',
+            unsetChildHeights:'checkbox',
+        },
+        {
+            nav: {available: [1,2], selected: 2},
+            flexDirection: ['undefined', 'row','column'],
+            flexWrap: ['undefined','wrap','no-wrap'],
+            justifyContent: ['undefined','flex-start','flex-end','center','space-between','space-around','space-evenly'], 
+            alignItems: ['undefined','flex-start','flex-end','center','stretch','baseline'],
+            alignContent: ['undefined','flex-start','flex-end','center','stretch','space-between','space-around'],
+            rowGap: 'text-null',
+            columnGap: 'text-null',
+        }
+    ]
+}
+
 function getWrapperMenuDescriptor(){
     return {
         // display: flex,
@@ -94,8 +119,6 @@ function getWrapperMenuDescriptor(){
         contentWidths: [50, 'unset', 20, 35, 75, 'different'],
         contentHeights: [50, 'unset', 20, 35, 75, 'different'],
         flexBasisAll: ['unset', 20, 50, 75, 100, 200],
-        // diffContentWidths: 'checkbox',
-        // diffContentHeights: 'checkbox',
         unsetChildWidths: 'checkbox',
         unsetChildHeights:'checkbox',
         flexDirection: ['undefined', 'row','column'],
@@ -146,5 +169,6 @@ export {
     getItemMenuDescriptor,
     deepClone,
     componentWidthChangerOnResize,
-    changeStylingOfEachItem
+    changeStylingOfEachItem,
+    getWrapperMenuDescriptorDivided
 }

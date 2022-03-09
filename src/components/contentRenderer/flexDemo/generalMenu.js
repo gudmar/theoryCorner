@@ -2,13 +2,14 @@ import { useEffect, useState } from 'react';
 import NumberNull from './numberNull';
 import TextNull from './textNull';
 import Select from './selectMenuComponent';
+import MenuNavigation from './menuNavigation';
 
 
 function GeneralMenu(props){
     const descriptor = props.descriptor;
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
-    
+        console.log(descriptor)
     const getInitialNumberValues = ()=>{
         const out = new Array(Object.getOwnPropertyNames(descriptor).length-1).fill(0);
         
@@ -16,11 +17,11 @@ function GeneralMenu(props){
             // if (descriptor[item] === 'number') {
             if (['number', 'number-null', 'text-null', 'read-only'].includes(descriptor[item])){
                 out[index] = currentValues[item]
-            }
-            if (descriptor[item].includes('range')) {
+            } else if (item === 'nav') {
+                out[index] = currentValues[item]
+            } else if (descriptor[item].includes('range')) {
                 out[index] = currentValues[item]
             }
-
         })
         return out;
     }
@@ -42,6 +43,7 @@ function GeneralMenu(props){
         return (e) => {
             let val = parseInt(e.nativeEvent.target.value);
             let name = e.nativeEvent.target.name;
+            console.dir(e.nativeEvent.target)
             if (isNaN(val)) val = e.nativeEvent.target.value;
             if (elementType === 'checkbox') val = e.nativeEvent.target.checked;
             return changeHandler({dummy:true,key:name,newVal:val,eSource:elementType})    
@@ -57,6 +59,7 @@ function GeneralMenu(props){
     function getInputs(){
         
         return Object.getOwnPropertyNames(descriptor).map((key, index, arr)=>{
+            console.log(key)
             return(
             <div key={key}>
                 {descriptor[key]==='number' ?
@@ -88,6 +91,15 @@ function GeneralMenu(props){
                             onClick = {changeValueInternalFactory('button')}
                             name={key}
                         >{key}</button>
+                    : key === 'nav' ?
+                    <>
+                        <MenuNavigation
+                            changeHandler = {changeValueInternalFactory('nav')}
+                            name={key}
+                            descriptor={descriptor[key]}
+                            currentTab = {numericValueStorage[index]}
+                        />
+                    </>    
                     : descriptor[key] === 'text-null' ? 
                         <TextNull 
                             name={key}
@@ -96,6 +108,8 @@ function GeneralMenu(props){
                             isActive = {numericValueStorage[index]}
                             value={renderIfNotNulish(numericValueStorage[index])}
                         />
+
+
                     : descriptor[key].includes('range') ?
                         <>
                             <div><label htmlFor={descriptor[key]}><b>{key}</b></label></div>
