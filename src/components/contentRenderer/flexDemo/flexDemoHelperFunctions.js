@@ -29,35 +29,8 @@ function getWrapperDefaultStyle(){
         width: 500,
     }
 }
-function getSingleDefaultStyle(index){
-    return {
-        styles: {
-            indexOfItem: index,
-        },
-        key: index
-    }
-}
 
-function getItemsDefaultStyles(nrOfItems){
-    let output = [];
-    for(let i = 0; i < nrOfItems; i++){
-        output.push(getSingleDefaultStyle(i))
-    }
-    return output;
-}
 
-function cloneItems(items){
-    let newState = [];
-    items.forEach((item, index, arr)=>{
-        let newItem = getSingleDefaultStyle(index);
-        newItem.key = item.key;
-        for(let key of Object.getOwnPropertyNames(item.styles)){
-            newItem.styles[key] = item.styles[key]
-        }
-        newState.push(newItem)
-    })
-        return newState;
-}
 
 function componentWidthChangerOnResize(){
     const subscribers = [];
@@ -159,9 +132,9 @@ function changeStylingOfEachItem(arrayOfObjects, key, value){
 }
 
 export {
-    cloneItems, 
-    getItemsDefaultStyles, 
-    getSingleDefaultStyle, 
+    // cloneItems, 
+    // getItemsDefaultStyles, 
+    // getSingleDefaultStyle, 
     styleContainer, 
     getWrapperDefaultStyle, 
     singleItemDescriptor,
