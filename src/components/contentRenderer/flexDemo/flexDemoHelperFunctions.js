@@ -118,32 +118,35 @@ function getHelpContent(propName){
     const content = {
         width: 'The width of the flex-container.',
         nrOfItems: 'The number of direct children of the flex-container.',
-        contentWidths: 'The width in px of each direct child of the flex-container content (flex-container grand-children),',
-        contentHeights: 'The height in px of each direct child of the flex-container content (flex-container grand-children)',
-        flexBasisAll: 'The <code>flex-basis</code> parameter will be set for each direct child of the flex-container.',
+        contentWidths: `The width in px of each direct child of the flex-container content (flex-container grand-children),
+            If set to <code>unset</code>, all content widths will be not set. If set do <code>different</code> content
+            sizes will be not equal, to demonstrate <code>align-items</code>`,
+        contentHeights: `The height in px of each direct child of the flex-container content (flex-container grand-children)
+            If set to <code>unset</code>, all content heights will be not set. If set do <code>different</code> content
+            sizes will be not equal, to demonstrate <code>align-items</code>`,
+        flexBasisAll: `The <code>flex-basis</code> parameter will be set for each direct child of the flex-container.
+            If set to <code>unset</code>: all <code>flex-basis</code> properties will be removed.`,
         unsetChildWidths: `By default, each child of the flex-container width and height paramenters are set to 75px. 
                            Mark this to unset width of the flex-container direct children.`,
         unsetChildHeights: `By default, each child of the flex-container width and height paramenters are set to 75px. 
         Mark this to unset height of the flex-container direct children.`,
-        flexDirection: `The <code>flex-direction</code> css property of the felx-parent container.`,
-        flexWrap: `The <code>flex-wrap</code> css property of the felx-parent container.`,
-        justifyContent: `The <code>justify-content</code> css property of the felx-parent container.`,
-        alignItems: `The <code>align-items</code> css property of the felx-parent container.`,
-        alighContent: `The <code>align-content</code> css property of the felx-parent container.`,
-        rowGap: `The <code>row-gap</code> css property of the felx-parent container.`,
-        columnGap: `The <code>column-gap</code> css property of the felx-parent container.`,
+        flexDirection: `The <code>flex-direction</code> css property of the felx-parent container. 
+            If <code>undefined</code>, then the default <code>row</code> value is set by browser.`,
+        flexWrap: `The <code>flex-wrap</code> css property of the felx-parent container. 
+        If <code>undefined</code> then the default browser <code>no-wrap</code> value will be used.`,
+        justifyContent: `The <code>justify-content</code> css property of the felx-parent container.
+            If set to <code>undefined</code> then the defalut browser behaviour will be applied.`,
+        alignItems: `The <code>align-items</code> css property of the felx-parent container. 
+            If set to <code>undefined</code> then the defalut browser behaviour will be applied.`,
+        alighContent: `The <code>align-content</code> css property of the felx-parent container. 
+            If set to <code>undefined</code> then the defalut browser behaviour will be applied.`,
+        rowGap: `The <code>row-gap</code> css property of the felx-parent container. If not set then the defalut browser behaviour will be applied.`,
+        columnGap: `The <code>column-gap</code> css property of the felx-parent container.  If not set then the defalut browser behaviour will be applied.`,
         indexOfItem: `Read only, the direct child of the flex-container that was selected with a click,`,
         order: `The <code>order</code> property of the flex-container child. By default is 0, meaning that all 
         flex-container children appear in the order they are in the DOM. If <code>order</code> is set to any non 0 value,
         the affected element will be taken visualy from the DOM order, and will be placed according to the <code>order</code>
         value before all elements (order < 0) or after them (order > 0)`,
-        flexWrap: `The <code>flex-wrap</code> property of the flex-container,`,
-        justifyContent: `The <code>justify-content</code> property of the flex-container direct child. If set to undefined,
-        the the <code>justify-content</code> will not be set on the specific flex-container child.`,
-        alighItems: `The <code>align-items</code> property of the flex-container direct child. If set to undefined,
-        the the <code>align-items</code> will not be set on the specific flex-container child.`,
-        alignContent: `The <code>align-content</code> property of the flex-container direct child. If set to undefined,
-        the the <code>align-content</code> will not be set on the specific flex-container child.`,
         rowGap: `The <code>row-gap</code> property of the flex-container direct child. If set to undefined,
         the the <code>row-gap</code> will not be set on the specific flex-container child.`,
         columnGap: `The <code>column-gap</code> property of the flex-container direct child. If set to undefined,
@@ -176,6 +179,12 @@ function changeStylingOfEachItem(arrayOfObjects, key, value){
     return newArray;
 }
 
+function getDangerousHTML(content){
+    return {
+        __html: content
+    };
+}
+
 export {
     // cloneItems, 
     // getItemsDefaultStyles, 
@@ -189,5 +198,6 @@ export {
     componentWidthChangerOnResize,
     changeStylingOfEachItem,
     getWrapperMenuDescriptorDivided,
-    getHelpContent
+    getHelpContent,
+    getDangerousHTML
 }
