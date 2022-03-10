@@ -3,12 +3,15 @@ import NumberNull from './numberNull';
 import TextNull from './textNull';
 import Select from './selectMenuComponent';
 import MenuNavigation from './menuNavigation';
+import Label from './label';
 
 
 function GeneralMenu(props){
     const descriptor = props.descriptor;
     const currentValues = props.currentValues;
     const changeHandler = props.changeHandler;
+    const helpContentFunction = props.helpContentFunction;
+    const helpDisplayHandler = props.helpDisplayHandler;
         console.log(descriptor)
     const getInitialNumberValues = ()=>{
         const out = new Array(Object.getOwnPropertyNames(descriptor).length-1).fill(0);
@@ -50,6 +53,7 @@ function GeneralMenu(props){
         }
     }
 
+
     const renderIfNotNulish = (val) => {
         if (val === undefined) return ''
         if (val === null) return ''
@@ -57,6 +61,11 @@ function GeneralMenu(props){
     }
     
     function getInputs(){
+
+        // const helpContent = props.helpContent;
+        // const label = props.label;
+        // const labelFor = props.labelFor;
+        // const displayHelp = props.displayHelp;
         
         return Object.getOwnPropertyNames(descriptor).map((key, index, arr)=>{
             console.log(key)
@@ -64,7 +73,14 @@ function GeneralMenu(props){
             <div key={key}>
                 {descriptor[key]==='number' ?
                         <>
-                            <label htmlFor ={key}><b>{key}</b></label>
+                            {/* <label htmlFor ={key}><b>{key}</b></label> */}
+                            <Label 
+                                key = {key}
+                                label={key}
+                                labelFor={key}
+                                displayHelpHandler={helpDisplayHandler}
+                                helpContent={helpContentFunction(key)}
+                            />
                             <input type="number" className="form-control" data-type="number" id={key} key={key} 
                                 onChange = {numericStateChangeFactory(index)}
                                 onBlur={(e)=>{changeValueInternalFactory('number')(e)}}
@@ -79,6 +95,8 @@ function GeneralMenu(props){
                             blurHandler= {changeHandler}
                             isActive = {numericValueStorage[index]}
                             value={renderIfNotNulish(numericValueStorage[index])}
+                            helpDisplayHandler={helpDisplayHandler}
+                            helpContentFunction={helpContentFunction}
                             
                         />
                     : descriptor[key] === 'read-only' ?
@@ -107,12 +125,21 @@ function GeneralMenu(props){
                             blurHandler= {changeHandler}
                             isActive = {numericValueStorage[index]}
                             value={renderIfNotNulish(numericValueStorage[index])}
+                            helpDisplayHandler={helpDisplayHandler}
+                            helpContentFunction={helpContentFunction}
                         />
 
 
                     : descriptor[key].includes('range') ?
                         <>
-                            <div><label htmlFor={descriptor[key]}><b>{key}</b></label></div>
+                            {/* <div><label htmlFor={descriptor[key]}><b>{key}</b></label></div> */}
+                            <Label 
+                                key = {key}
+                                label={key}
+                                labelFor={key}
+                                displayHelpHandler={helpDisplayHandler}
+                                helpContent={helpContentFunction(key)}
+                            />
                             <input type="range" 
                                 min={descriptor[key].split(' ')[1]}
                                 max={descriptor[key].split(' ')[2]}
@@ -132,16 +159,26 @@ function GeneralMenu(props){
                                 onChange = {changeValueInternalFactory('checkbox')}
                             >
                             </input>&nbsp;&nbsp;
-                            <label htmlFor={descriptor[key]}><b>{key}</b></label>
+                            <Label 
+                                key = {key}
+                                label={key}
+                                labelFor={descriptor[key]}
+                                displayHelpHandler={helpDisplayHandler}
+                                helpContent={helpContentFunction(key)}
+                            />
+                            {/* <label htmlFor={descriptor[key]}><b>{key}</b></label> */}
                         </>
                     :
                         <Select name={key} 
                             currentValues={currentValues} 
                             values={descriptor[key]} 
                             key={key}
+                            displayHelpHandler={helpDisplayHandler}
+                            helpContentFunction={helpContentFunction}
                             changeHandler = {changeValueInternalFactory('select')}
                         >
                         </Select>
+
                     } 
             </div>
             )

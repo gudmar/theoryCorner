@@ -1,5 +1,6 @@
 import FlexContainer from './flexContainer';
 import GeneralMenu from './generalMenu';
+import Help from './help';
 import { useEffect, useState, useRef } from 'react';
 import {
     // cloneItems, 
@@ -13,7 +14,8 @@ import {
     deepClone,
     componentWidthChangerOnResize,
     changeStylingOfEachItem,
-    getWrapperMenuDescriptorDivided
+    getWrapperMenuDescriptorDivided,
+    getHelpContent
 }  from './flexDemoHelperFunctions'
 
 function getDividedMenuProperty(menuDescriptorArr, property){
@@ -96,6 +98,8 @@ function FlexDemo(){
 
     const [currentMenuContent, setCurrentMenuContent] = useState(getValuesForCurrentMenuView())
     const [wrapperMenuDescriptor, setWrapperMenuDescriptor] = useState(getWrapperMenuDescriptorDivided(currentMenuContent))
+
+    const [displayedHelpContent, setDisplayedHelpContent] = useState({});
 
     useEffect(()=>{
         console.log(flexBasisAll)
@@ -310,6 +314,21 @@ function FlexDemo(){
         }
             return undefined
     }
+
+    function shouldDisplayHelp(){
+        return displayedHelpContent.title === undefined ? false : true;
+    }
+
+    function changeDisplayedHelpContent(shouldDisplay, title, content){
+        console.log(title)
+        console.log(content)
+        if (shouldDisplay) {
+            return () => {setDisplayedHelpContent({title:title, content:content})}
+        } else {
+            return () => {setDisplayedHelpContent({})};
+        }
+    }
+
     console.log(getDescriptor())
 
     return (
@@ -321,10 +340,20 @@ function FlexDemo(){
                     descriptor = {getDescriptor()}
                     currentValues = {getValuesForCurrentMenuView()}
                     changeHandler = {changeHandlerGeneric}
+                    helpContentFunction = {getHelpContent}
+                    helpDisplayHandler = {changeDisplayedHelpContent}
                 />
 
                 </div>
                 <div className = "col p-1">
+                    {shouldDisplayHelp()
+                    ? <Help 
+                        content = {displayedHelpContent.content} 
+                        title = {displayedHelpContent.title}
+                        
+                      />
+                    : <></>
+                    }
                     <FlexContainer 
                         containerStyle={containerStyle} 
                         itemsStyle={itemsStyle}

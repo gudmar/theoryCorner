@@ -1,5 +1,7 @@
 
-
+*{
+    --flex-demo-menu-width: 170px;
+}
 .felx-demo-wrapper{
     position: relative;
     max-width: fit-content;
@@ -7,7 +9,7 @@
     border-radius: 5px;
 }
 .flex-demo-menu{
-    width:170px!important;
+    width:var(--flex-demo-menu-width)!important;
 }
 
 .flex-item-example{
@@ -28,6 +30,28 @@
 }
 .on-top:hover{
     z-index: 3;
+}
+
+.help-icon{
+    position: relative;
+    display: inline-block;
+    width: 0.8rem;
+    height: 0.8rem;
+    display:flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: green;
+    color:white;
+    font-weight: bold;
+    font-size: 0.9rem;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+.help-icon:hover{
+    cursor: pointer;
+    transform: scale(1.5);
+    transition: 0.3s;
 }
 
 
@@ -94,4 +118,40 @@
 
 .nav-link:not(.active){
     cursor: pointer;
+}
+
+
+.flex-help-modal-shutter{
+    position: absolute;
+    width: 100%;
+    /* width: auto; */
+    right:0;
+    width: calc(100% - var(--flex-demo-menu-width));
+    height: 100%;
+    background-color: rgba(255,255,255,0.6);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 5;
+    border: black solid thin;
+}
+.flex-help-modal{
+    max-width: 80%;
+    background-color:white;
+    border-radius: 7px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+    flex-direction: column;
+    padding:1rem;
+    overflow: auto;
+}
+.flex-help-modal-title{
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.flex-help-modal-content{
+    
 }

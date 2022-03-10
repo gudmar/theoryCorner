@@ -69,6 +69,8 @@ function TextNull(props){
             supportedInputName = 'text-null'
             inputType="text"
             placeholder="in px"
+            helpDisplayHandler={props.helpDisplayHandler}
+            helpContentFunction={props.helpContentFunction}
         />
     )
 }

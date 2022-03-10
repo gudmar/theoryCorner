@@ -15,6 +15,8 @@ function NumberNull(props){
             blurHandler = {props.blurHandler}
             const shouldSetInputToNullFunction = {isValidAsNumber}
             const supportedInputName = 'number-null'
+            helpDisplayHandler={props.helpDisplayHandler}
+            helpContentFunction={props.helpContentFunction}
         />
     )
 }
