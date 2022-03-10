@@ -1,3 +1,5 @@
+import {getDangerousHTML} from './flexDemoHelperFunctions'
+
 function Help(props){
     const title = props.title;
     const content = props.content;
@@ -7,7 +9,8 @@ function Help(props){
             <div className = "flex-help-modal">
                 <div className = 'flex-help-modal-title'>{title}</div>
                 <br/>
-                <div className = "flex-help-modal-content">{content}</div>
+                <div className = "flex-help-modal-content" 
+                    dangerouslySetInnerHTML={getDangerousHTML(content)}></div>
             </div>
         </div>
     )

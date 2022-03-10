@@ -37,10 +37,8 @@
     display: inline-block;
     width: 0.8rem;
     height: 0.8rem;
-    display:flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
+    text-align: center;
+    line-height: 0.8rem;
     background-color: green;
     color:white;
     font-weight: bold;
@@ -133,7 +131,6 @@
     justify-content: center;
     align-items: center;
     z-index: 5;
-    border: black solid thin;
 }
 .flex-help-modal{
     max-width: 80%;
