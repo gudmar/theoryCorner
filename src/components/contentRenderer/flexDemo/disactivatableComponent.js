@@ -1,5 +1,5 @@
 import { useEffect, useState, useRef } from 'react';
-
+import Label from './label'
 
 
 function DisactivatableComponent(props){
@@ -46,11 +46,21 @@ function DisactivatableComponent(props){
         changeHandler({dummy:true,key:name,newVal:val,eSource:supportedInputName})
     }
 
+    const helpDisplayHandler = props.helpDisplayHandler;
+    const helpContentFunction = props.helpContentFunction
 
     return  (
     <>
         <input type="checkbox" ref={checkBox} onChange={toggleActive}/>&nbsp;&nbsp;
-        <label htmlFor ={name} className={isActive?'':'disabled'}><b>{name}</b></label>
+        {/* <label htmlFor ={name} className={isActive?'':'disabled'}><b>{name}</b></label> */}
+        <Label 
+                key = {name}
+                label={name}
+                labelFor={name}
+                isActive = {isActive}
+                displayHelpHandler={helpDisplayHandler}
+                helpContent={helpContentFunction(name)}
+            />
         <input type={props.inputType || 'number'} name={name} data-type={supportedInputName} id={name}
             onChange = {mutateValue()}
             onBlur={(e)=>{changeValueInternal(e)}}
