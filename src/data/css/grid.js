@@ -1,3 +1,7 @@
+import elementGenerator from '../../services/elementGenerator'
+const eGenerator = new ElementGenerator();
+
+
 
 let data =     {
     summary: 'Grid',
@@ -48,8 +52,8 @@ let data =     {
                 {
                     elementType:'Link',
                     content:'Developer mozilla',
-                    href: ' ',
-                    description:'Tutorial'
+                    href: 'https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Grid_Layout',
+                    description:'Index of elements'
                 },
             ]
         }
@@ -57,5 +61,8 @@ let data =     {
 };
 
 export default function getGridData(){
+    // eGenerator.addTask(id, nrOfElem, classes)
+    // eGeneraotr.removeTask(id)
+    // eGenerator.addEListener
     return data;
 }

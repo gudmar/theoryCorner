@@ -1,41 +1,42 @@
-function elementGenerator(){
-    if (elementGenerator.instance !== undefined) return this;
-    if (elementGenerator.instance === undefined) {
-        elementGenerator.instance = this
+function ElementGenerator(){
+    if  (ElementGenerator.instance !== undefined) return this;
+    if  (ElementGenerator.instance === undefined) {
+         ElementGenerator.instance = this
     }
 
-    var tasks = [];
+    var tasks = {};
     var isEventListenerPlaced = false;
     const addTask = (id, nrOfItems, classes) => {
-        tasks.push({id:id,nrOfItems:nrOfItems, classes:classes})
+        tasks[id] = {nrOfItems:nrOfItems, classes:classes}
     }
-    const removeConcreteTask  = (id, nrOfItems, classes) => {
-        let index = tasks.findIndex((item)=>{
-            return (id === item.id && nrOfItems === item.nrOfItems && hasArraySameElements(classes, item.classes))
-        })
-        if (index >= 0) {tasks.splice(index,1)}
-        else {console.warn(`elementGenerator: {id:${id}, nrOfItems:${nrOfItems}, classes=${classes}} not found`)}
-    }
-    const removeAllTasksRelatedToId = (id) => {
-        let counter = 0;
-        for (let i = tasks.length - 1; i >= 0; i--){
-            if (tasks[i].id === id) {tasks.splice(i, 1); counter++}
-        }
-        console.log(`ElementGenerator: ${counter} items removed`)
-    }
-    const hasArraySameElements = (arr1, arr2) =>{
-        if (arr1.length !== arr2.length) return false;
-        let arrCp1 = [...arr1];
-        let arrCp2 = [...arr2];
-        let nrOfMatches = 0;
-        arr1.forEach((item, index) => {
-            let indexInArr2Cp = arrCp2.findIndex((element)=>{return item === element})
-            if (indexInArr2Cp < 0) return false;
-            arrCp2.splice(indexInArr2Cp, 1);
-            nrOfMatches++;
-        })
-        return nrOfMatches === arr1.length;
-    }
+    const removeTask = (id) => {if(tasks[id]) delete tasks.id}
+    // const removeConcreteTask  = (id, nrOfItems, classes) => {
+    //     let index = tasks.findIndex((item)=>{
+    //         return (id === item.id && nrOfItems === item.nrOfItems && hasArraySameElements(classes, item.classes))
+    //     })
+    //     if (index >= 0) {tasks.splice(index,1)}
+    //     else {console.warn(`elementGenerator: {id:${id}, nrOfItems:${nrOfItems}, classes=${classes}} not found`)}
+    // }
+    // const removeAllTasksRelatedToId = (id) => {
+    //     let counter = 0;
+    //     for (let i = tasks.length - 1; i >= 0; i--){
+    //         if (tasks[i].id === id) {tasks.splice(i, 1); counter++}
+    //     }
+    //     console.log(`ElementGenerator: ${counter} items removed`)
+    // }
+    // const hasArraySameElements = (arr1, arr2) =>{
+    //     if (arr1.length !== arr2.length) return false;
+    //     let arrCp1 = [...arr1];
+    //     let arrCp2 = [...arr2];
+    //     let nrOfMatches = 0;
+    //     arr1.forEach((item, index) => {
+    //         let indexInArr2Cp = arrCp2.findIndex((element)=>{return item === element})
+    //         if (indexInArr2Cp < 0) return false;
+    //         arrCp2.splice(indexInArr2Cp, 1);
+    //         nrOfMatches++;
+    //     })
+    //     return nrOfMatches === arr1.length;
+    // }
     const getItemElement = (label, classes) => {
         let item = document.createElement('div');
         item.innerText = label;
@@ -52,11 +53,11 @@ function elementGenerator(){
     }
     const insertItemsWhenReady = (isVerbose) => {
         window.onload((e)=>{
-            tasks.forEach((item)=>{
+            Object.getOwnPropertyNames(tasks).forEach((key)=>{
                 try{
-                    insertItemsToId(item.id, item.nrOfItems, item.classes);
+                    insertItemsToId(tasks[key].id, tasks[key].nrOfItems, tasks[key].classes);
                 } catch(err) {
-                    if (isVerbose) console.warn(`elementGenerator: ${item.id} not found`)
+                    if (isVerbose) console.warn(`elementGenerator: ${tasks[key].id} not found`)
                 }
             })
         })
@@ -66,12 +67,13 @@ function elementGenerator(){
     }
 
     return {
-        removeAllTasksRelatedToId:removeAllTasksRelatedToId,
-        removeConcreteTask:removeConcreteTask,
+        // removeAllTasksRelatedToId:removeAllTasksRelatedToId,
+        // removeConcreteTask:removeConcreteTask,
         addTask:addTask,
+        removeTask:removeTask,
         addEListener: addEListener
     }
 
 }
 
-export default elementGenerator;
+export default ElementGenerator;
