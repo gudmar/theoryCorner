@@ -61,7 +61,15 @@ function getSingleNonListElementType(type, content, otherProps){
     if (type === 'Image') return <Image name={otherProps.name} alt={otherProps.alt} />
     if (type === 'Code') return <Code content={content} />
     if (type === 'HiddenCode') return <HiddenCode content={content} />
-    if (type === 'HiddenDescription') return <HiddenDescription legend={content.legend} items={content.items}/>
+    if (type === 'HiddenDescription') {
+        return (
+            <HiddenDescription 
+                legend={content.legend} 
+                items={content.items}
+                maxHeight = {otherProps.maxHeight}
+            />
+        )
+    }
 
     if (type === 'GridPresent') return (
         <GridPresent parentWidth= {otherProps.parentWidth} 
@@ -133,6 +141,8 @@ function ContentRenderer(props){
         nrOfChildren: props.content.nrOfChildren,
         parentStyle: props.content.parentStyle,
         childStyle: props.content.childStyle,
+
+        maxHeight: props.content.maxHeight,
 
     }
     

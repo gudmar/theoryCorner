@@ -1,7 +1,11 @@
 
 import { getDangerousHTML, uuidProvider } from '../../services/toolbox'
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import ContentRenderer from './contentRenderer';
+
+/*
+     !!!!!  Give a maxHeight property to change defoult height of 60rem
+*/
 
 function LegendItem(props){
     const type = props.type;
@@ -29,20 +33,23 @@ function Legend(props){
 }
 
 function SingleItem(props){
-    console.dir()
     const classes = props.classes;
     const title = props.title;
+    let maxHeight = {maxHeight: props.maxHeight} || {maxHeight:'60rem'};
     const description = props.description;
     const [isExpanded, setIsExpanded] = useState(false);
     function toggleHiddenState(){
         setIsExpanded(!isExpanded);
+    }
+    const getMaxHeight  = () => {
+        return isExpanded ? maxHeight : {maxHeight:'0px'};
     }
 return(
         <div>
             <div className={classes} onClick={toggleHiddenState}>
                 {title}
             </div>
-            <div className={`alert alert-light ${isExpanded?'show-animate':'hide-animate'}`}>
+            <div className={`alert alert-light ${isExpanded?'show-animate':'hide-animate'}`} style={getMaxHeight()}>
             
                 <ContentRenderer content={description}/>
             </div>
@@ -78,6 +85,7 @@ function HiddenDescription(props){
                 console.log(classesMapping[item.type])
                 return <SingleItem classes={item.classes} 
                     title={item.title} 
+                    maxHeight = {item.maxHeight}
                     description={item.description} 
                     classes={classesMapping[item.type]}
                     key={uuidProv.getNextUuid()} />
