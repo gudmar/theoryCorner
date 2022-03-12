@@ -1,0 +1,17 @@
+.grid-presentation{
+    display: grid;
+    background-color: blueviolet;
+    color:white;
+    border-radius: 5px;
+}
+.grid-presentation-item{
+    position: relative;
+    display: inline-block;
+    text-align: center;
+    padding:10px;
+    font-size: 2rem;
+    background-color: cadetblue;
+    color:white;
+    border-radius: 5px;
+
+}

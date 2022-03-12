@@ -1,7 +1,5 @@
 import elementGenerator from '../../services/elementGenerator'
-const eGenerator = new ElementGenerator();
-
-
+import getGridTemplateColumnContent from './gridFiles/gridTemplateColumn'
 
 let data =     {
     summary: 'Grid',
@@ -24,6 +22,8 @@ let data =     {
                     content: `
                     `
                 },
+
+                {...getGridTemplateColumnContent()},
 
             ]
         },

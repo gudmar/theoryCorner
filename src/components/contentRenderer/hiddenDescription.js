@@ -88,7 +88,7 @@ function HiddenDescription(props){
                 <>
                     <Legend inputs={legend} />
                     <hr></hr>
-                    <i class="badge rounded-pill bg-secondary mb-2">Click an element to interact with it</i>
+                    <i className="badge rounded-pill bg-secondary mb-2">Click an element to interact with it</i>
                     {allItems()}
                 </>
             )        

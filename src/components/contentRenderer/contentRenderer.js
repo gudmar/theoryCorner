@@ -14,6 +14,8 @@ import HiddenList from './hiddenList';
 import ListOfContent from './listOfContent';
 import HiddenDescription from './hiddenDescription'
 import FlexDemo from './flexDemo/flexDemo'
+import GridPresent from './gridPresent/gridPresent';
+import {insertItemsToId} from '../../services/elementGenerator'
 
 
 function getSingleElement(type, content, otherProps){
@@ -61,6 +63,14 @@ function getSingleNonListElementType(type, content, otherProps){
     if (type === 'HiddenCode') return <HiddenCode content={content} />
     if (type === 'HiddenDescription') return <HiddenDescription legend={content.legend} items={content.items}/>
 
+    if (type === 'GridPresent') return (
+        <GridPresent parentWidth= {otherProps.parentWidth} 
+                     nrOfChildren={otherProps.nrOfChildren}
+                     parentStyle= {otherProps.parentStyle}
+                     childStyle=  {otherProps.childStyle}
+        />
+    )
+
     if (type === 'ConditionalArray') 
         return <ConditionalArray headlines={otherProps.headItems} contentItems={content} />
     if (type === 'exampleInIframe') {
@@ -85,6 +95,7 @@ function getSingleNonListElementType(type, content, otherProps){
     if (type === 'StopWatchReducer') return <StopWatchReducer />
     if (type === 'FlexDemo') return <FlexDemo />
     
+    
 }
 
 function isListElementType(elementType){
@@ -97,7 +108,7 @@ function isNonListElementType(elementType){
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
         'exampleInIframe', `HiddenList`, 'ListOfContent', 'HiddenCode','HiddenDescription',
-        `StopWatchState`, `StopWatchReducer`, `FlexDemo`
+        `StopWatchState`, `StopWatchReducer`, `FlexDemo`, `GridPresent`
     ];
     return nonListElementTypes.includes(elementType)
 }
@@ -116,7 +127,13 @@ function ContentRenderer(props){
         title: props.content.title,
         width: props.content.width,
         height: props.content.height,
-        label: props.content.label
+        label: props.content.label,
+
+        parentWidth: props.content.parentWidth,
+        nrOfChildren: props.content.nrOfChildren,
+        parentStyle: props.content.parentStyle,
+        childStyle: props.content.childStyle,
+
     }
     
     if (isInputArrayOfElements) {
