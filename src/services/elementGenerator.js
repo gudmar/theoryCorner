@@ -76,4 +76,19 @@ function ElementGenerator(){
 
 }
 
-export default ElementGenerator;
+const getItemElement = (label, classes) => {
+    let item = document.createElement('div');
+    item.innerText = label;
+    for (let c of classes){
+        item.classList.add(c);
+    }
+    return item;
+};
+const insertItemsToId = (id, nrOfItems, classes) => {
+    let outlet = document.getElementById(id);
+    for (let i = 0; i<nrOfItems; i++){
+        outlet.appendChild(getItemElement(i, classes))
+    }
+}
+
+export {ElementGenerator, getItemElement, insertItemsToId};

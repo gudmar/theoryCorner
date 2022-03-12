@@ -4,7 +4,8 @@ import getSelectorsData from "./css/selectors";
 import getPseudoClassesData from "./css/pseudoClasses";
 import getPseudoElementData from "./css/pseudoElements";
 import getFWPData from "./css/FrontendWebPerformance";
-import getFlexboxData from "./css/flexbox"
+import getFlexboxData from "./css/flexbox";
+import getGridData from "./css/grid";
 
 let theoryDataCss = [
 
@@ -13,6 +14,7 @@ let theoryDataCss = [
     getSelectorsData(),
     getFWPData(),
     getFlexboxData(),
+    getGridData(),
     {
         summary: 'position',
         title: 'position',
