@@ -1,4 +1,5 @@
 import { func } from "prop-types";
+import { start } from "@popperjs/core";
 
 
 const gridTemplateColumnContent =     {
@@ -214,6 +215,166 @@ const gridTemplateColumnContent =     {
                                     parentStyle: {gridTemplateColumns: 'minmax(100px, 1fr) minmax(100px, 1.5fr) minmax(100px, 1.85fr)'},
                                     childStyle:{},
                                 },    
+                            ]
+                        }
+                },
+
+
+
+                {
+                    type: 'Example',
+                    title: 'repeat',
+                    description: {
+                        elementType:'Section',
+                        content:[
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    <code>repeat(nr, pattern)</code> is a css function to be used with the 
+                                    grid layout, that repeats the <code>pattern</code> a <code>nr</code> times
+                                    so if there is the same column grid-track to be repeted, it does not have to be 
+                                    repeted in code.
+                                    `
+                                },
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    grid-template-columns: repeat(8, 50px);
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    parentStyle: {gridTemplateColumns: 'repeat(8, 50px)'},
+                                    childStyle:{},
+                                },  
+                            ]
+                        }
+                },
+
+
+                {
+                    type: 'Example',
+                    title: '%',
+                    description: {
+                        elementType:'Section',
+                        content:[
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    Percentage of the parent width.
+                                    `
+                                },
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    grid-template-columns: 10% 20% 30% 40%;
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    parentStyle: {gridTemplateColumns: '10% 20% 30% 40%'},
+                                    childStyle:{},
+                                },  
+                            ]
+                        }
+                },
+
+
+                {
+                    type: 'Example',
+                    title: 'names',
+                    maxHeight: '240rem',
+                    description: {
+                        elementType:'Section',
+                        content:[
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    Each grid line may be given a custom name, or even may be given different.
+                                    A grid line is a line between tracks.
+                                    names.
+                                    `
+                                },
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    gird-template-columns: [linename1] 100px [linename2 linename3] 150px, [linename4] 170px;
+}
+.grid-child{
+    grid-column-start:'linename1';
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    In this case all elements start in first column,
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    
+                                    parentStyle: {
+                                        gridTemplateColumns: '[linename1] 100px [linename2 linename3] 150px, [linename4] 170px'
+
+                                    },
+                                    childStyle:{gridColumnStart:'linename1'},
+                                },  
+
+
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    gird-template-columns: [linename1] 100px [linename2 linename3] 150px, [linename4] 170px;
+}
+.grid-child{
+    grid-column-start: linename1;
+    grid-row-start: linename2;
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    In this case all elements start in first column and first row. So they overlap.
+                                    One is on the top of another.
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    maxHeight: 240,
+                                    parentStyle: {
+                                        gridTemplateColumns: '[linename1] 100px [linename2 linename3] 150px, [linename4] 170px'
+
+                                    },
+                                    childStyle:{gridColumnStart:'linename1', gridRowStart:'linename1'},
+                                },
                             ]
                         }
                 },
