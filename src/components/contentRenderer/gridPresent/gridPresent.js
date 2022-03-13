@@ -11,16 +11,26 @@ function getChildren(nrOfChildren, childStyle) {
     })
 }
 
+function getOptions(nrOfChildrenArr){
+    return (
+        nrOfChildrenArr.map((item)=>{return <option key={item} value={item}>{item}</option>})
+    )
+}
+
 function GridPresent(props){
+    const uuidProv = new uuidProvider();
     const [parentWidth, setParentWidth] = useState(props.parentWidth || 300);
     const [parentHeight, setParentHeight] = useState(props.parentHeight || 400);
-    const nrOfChildren = props.nrOfChildren;
+    const [nrOfChildren, setNrOfChildren] = useState(props.nrOfChildren || 8);
+    // const nrOfChildren = props.nrOfChildren;
     const parentStyle = props.parentStyle || {};
     const childStyle = props.childStyle || {};
     const minWidth = 300;
     const maxWidth = 800;
     const minHeight = 400;
     const maxHeight = 800;
+    const nrOfChildrenOptions = [4, 8, 13, 17, 25]
+    const selectComponentId = uuidProv.getNextUuid();
     
     // const idPrefix = props.idPrefix || ''; // to make this unique on the page
 
@@ -33,6 +43,10 @@ function GridPresent(props){
     const changeHeight = (e) => {
         let targetHeight = e.nativeEvent.target.value;
         setParentHeight(targetHeight);
+    }
+    const changeNrOfChildren = (e) => {
+        let targetNrOfElements = parseInt(e.target.value);
+        setNrOfChildren(targetNrOfElements)
     }
 
 
@@ -62,6 +76,15 @@ function GridPresent(props){
                         onChange = {changeHeight}
                     >
                     </input>
+                </div>
+                <div>
+                    <select 
+                        name = 'Number of items' id="selectComponentId" 
+                        value={nrOfChildren} 
+                        onChange={changeNrOfChildren}
+                    >
+                        {getOptions(nrOfChildrenOptions)}
+                    </select>
                 </div>
             </div>
             <div className="grid-presentation" style = {{...parentStyle, width:parentWidth+'px', height:parentHeight+'px'}}>
