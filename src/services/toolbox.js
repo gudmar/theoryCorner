@@ -20,7 +20,7 @@ function uuidProvider(){
 uuidProvider.prototype.getNextUuid = function(){
     uuidProvider.lastId += 1;
     
-    return uuidProvider.lastId;
+    return uuidProvider.lastId.toString(36);
 }
 
 
