@@ -82,7 +82,6 @@ function HiddenDescription(props){
     function allItems(){
         return (
             items.map((item=>{
-                console.log(classesMapping[item.type])
                 return <SingleItem classes={item.classes} 
                     title={item.title} 
                     maxHeight = {item.maxHeight}
