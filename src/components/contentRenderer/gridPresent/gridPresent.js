@@ -1,12 +1,25 @@
 import { useEffect, useState } from 'react';
 import {uuidProvider} from '../../../services/toolbox';
 
-function getChildren(nrOfChildren, childStyle) {
+const getIndexInChildByIndexStyle = (childByIndexStyleObj, index) => {
+    let keys = Object.keys(childByIndexStyleObj).map((item)=>{return parseInt(item, 10)});
+    let isIndexPresent = keys.includes(index);
+    return isIndexPresent?childByIndexStyleObj[index]:{};
+}
+
+function getChildren(nrOfChildren, childStyle, childByIndexStyle) {
     const range = [...Array(nrOfChildren).keys()]
     const uuidProv = new uuidProvider();
-    return range.map((item)=>{
+    return range.map((item, index)=>{
         return (
-            <div key = {item} id = {uuidProv.getNextUuid()} style={childStyle} className="grid-presentation-item">{item}</div>
+            <div 
+                key = {item} 
+                id = {uuidProv.getNextUuid()} 
+                style={{...childStyle, ...getIndexInChildByIndexStyle(childByIndexStyle, index)}}
+                className="grid-presentation-item"
+            >
+                {item}
+            </div>
         )
     })
 }
@@ -17,14 +30,15 @@ function getOptions(nrOfChildrenArr){
     )
 }
 
+
 function GridPresent(props){
     const uuidProv = new uuidProvider();
     const [parentWidth, setParentWidth] = useState(props.parentWidth || 300);
     const [parentHeight, setParentHeight] = useState(props.parentHeight || 400);
     const [nrOfChildren, setNrOfChildren] = useState(props.nrOfChildren || 8);
-    // const nrOfChildren = props.nrOfChildren;
     const parentStyle = props.parentStyle || {};
     const childStyle = props.childStyle || {};
+    const childByIndexStyle = props.childByIndexStyle || {};
     const minWidth = 300;
     const maxWidth = 800;
     const minHeight = 400;
@@ -33,8 +47,6 @@ function GridPresent(props){
     const selectComponentId = uuidProv.getNextUuid();
     
     // const idPrefix = props.idPrefix || ''; // to make this unique on the page
-
-    console.log(parentStyle)
 
     const changeWidth = (e) => {
         let targetWidth = e.nativeEvent.target.value;
@@ -88,7 +100,7 @@ function GridPresent(props){
                 </div>
             </div>
             <div className="grid-presentation" style = {{...parentStyle, width:parentWidth+'px', height:parentHeight+'px'}}>
-                {getChildren(nrOfChildren, childStyle)}
+                {getChildren(nrOfChildren, childStyle, childByIndexStyle)}
             </div>
         </>
     )

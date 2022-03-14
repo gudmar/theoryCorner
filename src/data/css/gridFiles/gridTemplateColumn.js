@@ -294,6 +294,49 @@ const gridTemplateColumnContent =     {
                 },
 
 
+
+                {
+                    type: 'Example',
+                    title: 'column-start, column-end (child property)',
+                    description: {
+                        elementType:'Section',
+                        content:[
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    <code>column-start</code>, <code>column-end</code>: child property
+                                    `
+                                },
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    grid-template-columns: 10% auto 1fr 40%;
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    parentStyle: {gridTemplateColumns: '10% auto 1fr 40%'},
+                                    childStyle:{},
+                                    childByIndexStyle:{
+                                        2: {gridColumnStart: 1},
+                                        8: {gridColumnStart: 1, gridColumnEnd: 3}
+                                    }
+                                },  
+                            ]
+                        }
+                },
+
+
+
+
+
                 {
                     type: 'Example',
                     title: 'names',
