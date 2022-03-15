@@ -334,6 +334,7 @@ const gridTemplateColumnContent =     {
                                     elementType:'GridPresent',
                                     parentWidth: undefined,
                                     nrOfChildren: 17,
+                                    parentHeight: 500,
                                     parentStyle: {gridTemplateColumns: '10% auto 1fr 40%'},
                                     childStyle:{},
                                     childByIndexStyle:{
@@ -341,7 +342,69 @@ const gridTemplateColumnContent =     {
                                         8: {gridColumnStart: 1, gridColumnEnd: 4},
                                         14: {gridColumnEnd: 5}
                                     }
-                                },  
+                                }, 
+                                
+                                {
+                                    elementType:'Separate',
+                                    content:'A negative number'
+                                },
+                                {
+                                    elementType:'Paragraph',
+                                    content: `
+                                    Grid start may be a negative number, then it starts from the 
+                                    <code>nrOfChildren.lenght - gridColumnStart</code>
+                                    `
+                                },
+
+
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    grid-template-columns: repeat(auto, 4);
+}
+.grid-child:nth-child(2){grid-column-start: -1;};
+
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 7,
+                                    parentStyle: {gridTemplateColumns: '10% auto 1fr 40%'},
+                                    childStyle:{},
+                                    childByIndexStyle:{
+                                        0: {gridColumnStart: -1},
+                                    }
+                                }, 
+
+                                {
+                                    elementType:'Separate',
+                                    content:'The same start and end position'
+                                },
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    In below case all elements start in first column and first row. So they overlap.
+                                    One is on the top of another.
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    maxHeight: 240,
+                                    parentStyle: {
+                                        gridTemplateColumns: '[linename1] 100px [linename2 linename3] 150px, [linename4] 170px'
+
+                                    },
+                                    childStyle:{gridColumnStart:'linename1', gridRowStart:'linename1'},
+                                },
+
+
                             ]
                         }
                 },
@@ -424,27 +487,6 @@ const gridTemplateColumnContent =     {
 }
 </pre>                                    
                                     `
-                                },
-                                {
-                                    elementType:'Separate'
-                                },
-                                {
-                                    elementType:'Paragraph',
-                                    content:`
-                                    In below case all elements start in first column and first row. So they overlap.
-                                    One is on the top of another.
-                                    `
-                                },
-                                {
-                                    elementType:'GridPresent',
-                                    parentWidth: undefined,
-                                    nrOfChildren: 17,
-                                    maxHeight: 240,
-                                    parentStyle: {
-                                        gridTemplateColumns: '[linename1] 100px [linename2 linename3] 150px, [linename4] 170px'
-
-                                    },
-                                    childStyle:{gridColumnStart:'linename1', gridRowStart:'linename1'},
                                 },
                             ]
                         }

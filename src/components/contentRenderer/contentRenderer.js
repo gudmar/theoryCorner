@@ -74,6 +74,7 @@ function getSingleNonListElementType(type, content, otherProps){
 
     if (type === 'GridPresent') return (
         <GridPresent parentWidth= {otherProps.parentWidth} 
+                     parentHeight= {otherProps.parentHeight}
                      nrOfChildren={otherProps.nrOfChildren}
                      parentStyle= {otherProps.parentStyle}
                      childStyle=  {otherProps.childStyle}
@@ -102,7 +103,7 @@ function getSingleNonListElementType(type, content, otherProps){
     }
     if (type === 'Separate'){
         return (
-            <Separate />
+            <Separate content={content}/>
         )
     }
 
@@ -145,6 +146,7 @@ function ContentRenderer(props){
         label: props.content.label,
 
         parentWidth: props.content.parentWidth,
+        parentHeight: props.content.parentHeight,
         nrOfChildren: props.content.nrOfChildren,
         parentStyle: props.content.parentStyle,
         childStyle: props.content.childStyle,
