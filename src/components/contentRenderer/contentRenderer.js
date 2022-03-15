@@ -16,6 +16,7 @@ import HiddenDescription from './hiddenDescription'
 import FlexDemo from './flexDemo/flexDemo'
 import GridPresent from './gridPresent/gridPresent';
 import {insertItemsToId} from '../../services/elementGenerator'
+import Separate from './separate';
 
 
 function getSingleElement(type, content, otherProps){
@@ -99,6 +100,11 @@ function getSingleNonListElementType(type, content, otherProps){
             <ListOfContent content={content}/>
         )
     }
+    if (type === 'Separate'){
+        return (
+            <Separate />
+        )
+    }
 
     if (type === 'StopWatchState') return <StopWatchState />
     if (type === 'StopWatchReducer') return <StopWatchReducer />
@@ -117,7 +123,7 @@ function isNonListElementType(elementType){
         'Paragraph', 'Headline','UnsignedList', 'Headline-2','Headline-3', 
         'Title', 'ListItem', 'Link', 'NoteWarning', 'Image', 'Code', 'SmallHeadline', 'ConditionalArray',
         'exampleInIframe', `HiddenList`, 'ListOfContent', 'HiddenCode','HiddenDescription',
-        `StopWatchState`, `StopWatchReducer`, `FlexDemo`, `GridPresent`
+        `StopWatchState`, `StopWatchReducer`, `FlexDemo`, `GridPresent`, `Separate`
     ];
     return nonListElementTypes.includes(elementType)
 }

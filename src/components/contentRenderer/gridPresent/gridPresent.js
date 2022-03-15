@@ -90,8 +90,10 @@ function GridPresent(props){
                     </input>
                 </div>
                 <div>
+                    <label htmlFor={selectComponentId}>Number of children:</label>
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                     <select 
-                        name = 'Number of items' id="selectComponentId" 
+                        name = 'Number of items' id={selectComponentId}
                         value={nrOfChildren} 
                         onChange={changeNrOfChildren}
                     >
@@ -99,7 +101,7 @@ function GridPresent(props){
                     </select>
                 </div>
             </div>
-            <div className="grid-presentation" style = {{...parentStyle, width:parentWidth+'px', height:parentHeight+'px'}}>
+            <div className="grid-presentation m-4" style = {{...parentStyle, width:parentWidth+'px', height:parentHeight+'px'}}>
                 {getChildren(nrOfChildren, childStyle, childByIndexStyle)}
             </div>
         </>
