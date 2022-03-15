@@ -14,16 +14,17 @@ const gridTemplateRowContent =     {
             items:[
                 {
                     type: 'Example',
-                    title: 'No template-columns defined',
-                    maxHeight: '200rem',
+                    title: 'grid-template-rows: three rows defined',
+
+                    maxHeight: '220rem',
                     description: {
                         elementType:'Section',
                         content:[
                                 {
                                     elementType:'UnsignedList',
                                     content:[
-                                    `In case no template for columns is defined, all elements will be placed in the 
-                                    first column,`,
+                                    `In case no template for columns is defined, <b>all elements will be placed in the 
+                                    first column</b>,`,
                                     `
                                         Areas having their height set to 80px are:
                                         <ul>
@@ -54,6 +55,7 @@ const gridTemplateRowContent =     {
                                 {
                                     elementType:'GridPresent',
                                     parentWidth: undefined,
+                                    parentHeight: 500,
                                     nrOfChildren: 7,
                                     parentStyle: {
                                         gridTemplateRows: '80px 80px 80px',
