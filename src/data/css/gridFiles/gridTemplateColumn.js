@@ -298,14 +298,23 @@ const gridTemplateColumnContent =     {
                 {
                     type: 'Example',
                     title: 'column-start, column-end (child property)',
+                    maxHeight: '200rem',
                     description: {
                         elementType:'Section',
                         content:[
                                 {
-                                    elementType:'Paragraph',
-                                    content:`
-                                    <code>column-start</code>, <code>column-end</code>: child property
-                                    `
+                                    elementType:'UnsignedList',
+                                    content:[
+                                    `<code>grid-column-start</code> the grid-line where the child will start`, 
+                                    `<code>column-end</code>: the grid-<b>line</b> where the element will end,`,
+                                    `If <code>grid-column-start</code> and <code>grid-column-end</code> indicate 
+                                    more then just a single column, the element will expand,`,
+                                    `Elements after the <code>grid-column-start</code> are placed after the adjacent
+                                    sibling, and are not taken out of the flow,`,
+                                    `Elements after the <code>grid-column-end</code> are placed after the adjacent sibling,
+                                    and are not taken out of the flow,`,
+                                    `Lines are numerated from 1, not from 0.`
+                                    ]
                                 },
                                 {
                                     elementType:'Code',
@@ -315,6 +324,9 @@ const gridTemplateColumnContent =     {
     display: grid;
     grid-template-columns: 10% auto 1fr 40%;
 }
+.grid-child:nth-child(2){grid-column-start: 1;};
+.grid-child:nth-child(8){grid-column-start: 1; grid-column-end: 3};
+.grid-child:nth-child(14){grid-column-end: 5};
 </pre>                                    
                                     `
                                 },
@@ -326,7 +338,8 @@ const gridTemplateColumnContent =     {
                                     childStyle:{},
                                     childByIndexStyle:{
                                         2: {gridColumnStart: 1},
-                                        8: {gridColumnStart: 1, gridColumnEnd: 3}
+                                        8: {gridColumnStart: 1, gridColumnEnd: 4},
+                                        14: {gridColumnEnd: 5}
                                     }
                                 },  
                             ]
