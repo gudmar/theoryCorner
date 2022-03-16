@@ -1,25 +1,25 @@
 {
   "files": {
     "main.css": "/theoryCorner/static/css/main.f1126b5e.chunk.css",
-    "main.js": "/theoryCorner/static/js/main.29ca7f1d.chunk.js",
-    "main.js.map": "/theoryCorner/static/js/main.29ca7f1d.chunk.js.map",
+    "main.js": "/theoryCorner/static/js/main.a178ba25.chunk.js",
+    "main.js.map": "/theoryCorner/static/js/main.a178ba25.chunk.js.map",
     "runtime-main.js": "/theoryCorner/static/js/runtime-main.9c1e6f74.js",
     "runtime-main.js.map": "/theoryCorner/static/js/runtime-main.9c1e6f74.js.map",
     "static/css/2.383c0125.chunk.css": "/theoryCorner/static/css/2.383c0125.chunk.css",
-    "static/js/2.f4907db6.chunk.js": "/theoryCorner/static/js/2.f4907db6.chunk.js",
-    "static/js/2.f4907db6.chunk.js.map": "/theoryCorner/static/js/2.f4907db6.chunk.js.map",
+    "static/js/2.6e70cc6f.chunk.js": "/theoryCorner/static/js/2.6e70cc6f.chunk.js",
+    "static/js/2.6e70cc6f.chunk.js.map": "/theoryCorner/static/js/2.6e70cc6f.chunk.js.map",
     "static/js/3.1862d252.chunk.js": "/theoryCorner/static/js/3.1862d252.chunk.js",
     "static/js/3.1862d252.chunk.js.map": "/theoryCorner/static/js/3.1862d252.chunk.js.map",
     "index.html": "/theoryCorner/index.html",
     "static/css/2.383c0125.chunk.css.map": "/theoryCorner/static/css/2.383c0125.chunk.css.map",
     "static/css/main.f1126b5e.chunk.css.map": "/theoryCorner/static/css/main.f1126b5e.chunk.css.map",
-    "static/js/2.f4907db6.chunk.js.LICENSE.txt": "/theoryCorner/static/js/2.f4907db6.chunk.js.LICENSE.txt"
+    "static/js/2.6e70cc6f.chunk.js.LICENSE.txt": "/theoryCorner/static/js/2.6e70cc6f.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.9c1e6f74.js",
     "static/css/2.383c0125.chunk.css",
-    "static/js/2.f4907db6.chunk.js",
+    "static/js/2.6e70cc6f.chunk.js",
     "static/css/main.f1126b5e.chunk.css",
-    "static/js/main.29ca7f1d.chunk.js"
+    "static/js/main.a178ba25.chunk.js"
   ]
 }
