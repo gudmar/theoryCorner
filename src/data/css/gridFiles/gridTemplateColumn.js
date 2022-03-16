@@ -304,7 +304,10 @@ const gridTemplateColumnContent =     {
                                 {
                                     elementType:'Paragraph',
                                     content:`
-                                    Percentage of the parent width.
+                                    Direction in which grid children will be placed. <b>Default is row</b>.
+                                    By default elements are placed in rows, untill no slots are available. Then
+                                    next row is taken. If there is no row template available, there will be 
+                                    new columns added.
                                     `
                                 },
                                 {
@@ -322,12 +325,16 @@ const gridTemplateColumnContent =     {
                                 {
                                     elementType:'GridPresent',
                                     parentWidth: undefined,
-                                    nrOfChildren: 17,
+                                    nrOfChildren: 8,
                                     parentStyle: {
-                                        gridTemplateColumns: '10% 20% 30% 40%',gridAutoFlow: 'column',
-                                        gridTemplateRows: '1fr 2fr 3fr 4fr'
+                                        gridTemplateColumns: 'repeat(5, 1fr)',gridAutoFlow: 'column',
+                                        // gridTemplateRows: '1fr 2fr 3fr 4fr'
                                     },
                                     childStyle:{},
+                                    childByIndexStyle:{
+                                        0: {gridColumnStart: 1, gridColumnEnd: 4},
+                                        1: {gridColumnStart: 1, gridColumnEnd: 4},
+                                    },
                                 },  
                             ]
                         }

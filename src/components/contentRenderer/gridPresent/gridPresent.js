@@ -33,10 +33,27 @@ function getOptions(nrOfChildrenArr){
 
 function GridPresent(props){
     const uuidProv = new uuidProvider();
+
+    const [parentProperties, setParentProperties] = useState({
+        gridAutoFlow: {
+            current: 'row',
+            values: ['row', 'column', 'dense', 'row dense', 'column dense', 'revert', 'unset'],
+            id: uuidProv.getNextUuid(),
+        }
+    })
+
+    const getStartingParentStyle = (e) => {
+        let output = {};
+        for (let key of Object.keys(parentProperties)){
+            output[key] = parentProperties[key].current;
+        }
+        return output;
+    }
+
     const [parentWidth, setParentWidth] = useState(props.parentWidth || 300);
     const [parentHeight, setParentHeight] = useState(props.parentHeight || 400);
     const [nrOfChildren, setNrOfChildren] = useState(props.nrOfChildren || 8);
-    const [parentStyle, setParentStyle] = useState(props.parentStyle || {});
+    const [parentStyle, setParentStyle] = useState({...props.parentStyle, ...getStartingParentStyle()} || {});
     const childStyle = props.childStyle || {};
     const childByIndexStyle = props.childByIndexStyle || {};
     const minWidth = 300;
@@ -46,13 +63,6 @@ function GridPresent(props){
     const nrOfChildrenOptions = [4, 8, 13, 17, 25]
     const selectComponentId = uuidProv.getNextUuid();
 
-    const [parentProperties, setParentProperties] = useState({
-        gridAutoFlow: {
-            current: 'unset',
-            values: ['row', 'column', 'dense', 'row dense', 'column dense', 'revert', 'unset'],
-            id: uuidProv.getNextUuid(),
-        }
-    })
     
     // const idPrefix = props.idPrefix || ''; // to make this unique on the page
 
@@ -68,6 +78,8 @@ function GridPresent(props){
         let targetNrOfElements = parseInt(e.target.value);
         setNrOfChildren(targetNrOfElements)
     }
+
+
 
     const changeParentStyle = (e) => {
         let newValue = e.target.value;
