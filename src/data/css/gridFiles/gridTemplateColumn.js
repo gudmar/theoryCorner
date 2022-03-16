@@ -120,6 +120,27 @@ const gridTemplateColumnContent =     {
                         elementType:'Section',
                         content:[
                                 {
+                                    elementType: 'Paragraph',
+                                    content:`
+                                    Once the only chance to set a column as a part of the parent widths, was a 
+                                    <code>%</code> unit. Back then it was difficult to handle situations with 
+                                    gaps, a constant width column and the rest columns proportional to the parents 
+                                    width (eg. <code>grid-template-column: 50px 20% 30% 50%; gap: 10px;</code>.
+                                    In this example content would overflow the parent element due to the fact, that
+                                percentages are counted from the parent total width, not the width that is left after
+                                elements with concrete width are placed and gaps distributed.)
+                                    `
+                                },
+                                {
+                                    elementType: 'Paragraph',
+                                    content:`
+                                    Finally a fraction <code>fr</code> unit come with salvation. Fractions are 
+                                    distributed after all concrete-width elements are placed, and after all gaps 
+                                    are distributed, so above example could look like: 
+                                    <code>grid-template-column: 50px 2fr 3fr 5fr; gap: 10px;</code>.
+                                    `
+                                },
+                                {
                                     elementType:'Code',
                                     content:`
 <pre>
@@ -268,7 +289,8 @@ const gridTemplateColumnContent =     {
                                 {
                                     elementType:'Paragraph',
                                     content:`
-                                    Percentage of the parent width.
+                                    Percentage of the parent <b>total</b> width, so gaps and concrete-width elements 
+                                    are not substracted from the grid parent widht before dividing the parent area.
                                     `
                                 },
                                 {
@@ -311,13 +333,28 @@ const gridTemplateColumnContent =     {
                                     `
                                 },
                                 {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    Normally after changing <code>grid-auto-flow</code> to the <code>column</code>
+                                    value, if there is no <code>grid-template-row</code> defined, the elements 
+                                    would stick to a single row overflowing the parent element. In below case 
+                                    elements 0 and 1 start in line 0 and finish in the 4-th line, so this setting 
+                                    determines elements being moved to next lines in case of the <code>column</code>
+                                    value.
+                                    `
+                                },
+                                {
                                     elementType:'Code',
                                     content:`
 <pre>
 .grid-parent{
     display: grid;
-    grid-template-columns: 10% 20% 30% 40% revert;
+    grid-template-columns: 10% 20% 30% 40%;
     grid-auto-flow: row;
+}
+.grid-child:nth-child(1), .grid-child:nth-child(2){
+    grid-column-start: 1;
+    grid-column-end: 4;
 }
 </pre>                                    
                                     `
@@ -352,14 +389,21 @@ const gridTemplateColumnContent =     {
                                 {
                                     elementType:'UnsignedList',
                                     content:[
-                                    `<code>grid-column-start</code> the grid-line where the child will start`, 
+                                    `<code>grid-column-start</code> the grid-<b>line</b> where the child will start`, 
                                     `<code>column-end</code>: the grid-<b>line</b> where the element will end,`,
                                     `If <code>grid-column-start</code> and <code>grid-column-end</code> indicate 
                                     more then just a single column, the element will expand,`,
-                                    `Elements after the <code>grid-column-start</code> are placed after the adjacent
-                                    sibling, and are not taken out of the flow,`,
-                                    `Elements after the <code>grid-column-end</code> are placed after the adjacent sibling,
-                                    and are not taken out of the flow,`,
+                                    `The way the elements that are not placed with the <code>grid-column-start</code>
+                                    and <code>grid-column-end</code> properties are placed, depends on the <code>
+                                    grid-auto-flow</code>,`,
+                                    `In case <code>grid-auto-flow</code> is <code>row</code> elements adjacend to the 
+                                    elements placed with <code>grid-column-start</code> and <code>grid-column-end</code>
+                                    properties, are not take out of the flow, and do not fill gaps. They are placed 
+                                    after the elements influenced by the <code>grid-column-start</code>/<code>end</code>
+                                    properties,`,
+                                    `In case of <code>grid-auto-flow</code> equal to <code>column</code> or having a 
+                                    <code>dense</code> value siblings of the elements affected with <code>grid-column-start</code>
+                                    and <code>grid-column-end</code> properties will be placed in gaps,`,
                                     `Lines are numerated from 1, not from 0.`
                                     ]
                                 },
@@ -435,7 +479,7 @@ const gridTemplateColumnContent =     {
                                 {
                                     elementType:'Paragraph',
                                     content:`
-                                    In below case all elements start in first column and first row. So they overlap.
+                                    In below case all elements start in first column-line and the first row-line. So they overlap.
                                     One is on the top of another.
                                     `
                                 },
@@ -445,10 +489,11 @@ const gridTemplateColumnContent =     {
                                     nrOfChildren: 17,
                                     maxHeight: 240,
                                     parentStyle: {
-                                        gridTemplateColumns: '[linename1] 100px [linename2 linename3] 150px, [linename4] 170px'
+                                        gridTemplateColumns: '[linename1] 100px [linename2 linename3] 150px [linename4] 170px',
+                                        gridTemplateRows: '[ylinename1] 50px 60px 60px'
 
                                     },
-                                    childStyle:{gridColumnStart:'linename1', gridRowStart:'linename1'},
+                                    childStyle:{gridColumnStart:'linename1', gridRowStart:'ylinename1'},
                                 },
 
 
@@ -470,8 +515,8 @@ const gridTemplateColumnContent =     {
                                 {
                                     elementType:'UnsignedList',
                                     content:[
-                                    `Each grid line may be given a custom name, or even may be given different.
-                                    A grid line is a line between tracks.`,
+                                    `Each grid <b>line</b> may be given a custom name, or even a few names.`,
+                                    `Grid-lines, not grid-trackes are named.`,
                                     `Lines may be referred in <code>grid-column-start</code> and <code>grid-column-end</code>
                                     with the name instead of the number:`
                                     
@@ -520,21 +565,6 @@ const gridTemplateColumnContent =     {
                                 },  
 
 
-                                {
-                                    elementType:'Code',
-                                    content:`
-<pre>
-.grid-parent{
-    display: grid;
-    gird-template-columns: [linename1] 100px [linename2 linename3] 150px, [linename4] 170px;
-}
-.grid-child{
-    grid-column-start: linename1;
-    grid-row-start: linename2;
-}
-</pre>                                    
-                                    `
-                                },
                             ]
                         }
                 },
