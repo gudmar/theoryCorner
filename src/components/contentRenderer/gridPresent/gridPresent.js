@@ -36,7 +36,7 @@ function GridPresent(props){
     const [parentWidth, setParentWidth] = useState(props.parentWidth || 300);
     const [parentHeight, setParentHeight] = useState(props.parentHeight || 400);
     const [nrOfChildren, setNrOfChildren] = useState(props.nrOfChildren || 8);
-    const parentStyle = props.parentStyle || {};
+    const [parentStyle, setParentStyle] = useState(props.parentStyle || {});
     const childStyle = props.childStyle || {};
     const childByIndexStyle = props.childByIndexStyle || {};
     const minWidth = 300;
@@ -45,6 +45,14 @@ function GridPresent(props){
     const maxHeight = 800;
     const nrOfChildrenOptions = [4, 8, 13, 17, 25]
     const selectComponentId = uuidProv.getNextUuid();
+
+    const [parentProperties, setParentProperties] = useState({
+        gridAutoFlow: {
+            current: 'unset',
+            values: ['row', 'column', 'dense', 'row dense', 'column dense', 'revert', 'unset'],
+            id: uuidProv.getNextUuid(),
+        }
+    })
     
     // const idPrefix = props.idPrefix || ''; // to make this unique on the page
 
@@ -59,6 +67,35 @@ function GridPresent(props){
     const changeNrOfChildren = (e) => {
         let targetNrOfElements = parseInt(e.target.value);
         setNrOfChildren(targetNrOfElements)
+    }
+
+    const changeParentStyle = (e) => {
+        let newValue = e.target.value;
+        let property = e.target.name;
+        const newProperty = {...parentProperties[property], current: newValue}
+        setParentProperties({...parentProperties, [property]: newProperty});
+        setParentStyle({...parentStyle, [property]: newValue});
+    }
+
+    const parentPropertiesInputs = () => {
+        return (
+            Object.keys(parentProperties).map((item, index) => {
+                return (
+                    <div key={item}>
+                        <label htmlFor={parentProperties[item].id}>grid-auto-flow:</label>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        <select 
+                            name = {item} 
+                            id={parentProperties[item].id}
+                            value={parentProperties[item].current}
+                            onChange={changeParentStyle}
+                        >
+                            {getOptions(parentProperties[item].values)}
+                        </select>
+                    </div>
+                )
+            })
+        )
     }
 
 
@@ -89,12 +126,13 @@ function GridPresent(props){
                     >
                     </input>
                 </div>
+                {parentPropertiesInputs()}
                 <div>
                     <label htmlFor={selectComponentId}>Number of children:</label>
                     &nbsp;&nbsp;&nbsp;&nbsp;
                     <select 
                         name = 'Number of items' id={selectComponentId}
-                        value={nrOfChildren} 
+                        value={nrOfChildren}
                         onChange={changeNrOfChildren}
                     >
                         {getOptions(nrOfChildrenOptions)}
