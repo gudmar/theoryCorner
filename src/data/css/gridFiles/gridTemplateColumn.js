@@ -297,6 +297,46 @@ const gridTemplateColumnContent =     {
 
                 {
                     type: 'Example',
+                    title: 'grid-auto-flow',
+                    description: {
+                        elementType:'Section',
+                        content:[
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    Percentage of the parent width.
+                                    `
+                                },
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    grid-template-columns: 10% 20% 30% 40% revert;
+    grid-auto-flow: row;
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    parentStyle: {
+                                        gridTemplateColumns: '10% 20% 30% 40%',gridAutoFlow: 'column',
+                                        gridTemplateRows: '1fr 2fr 3fr 4fr'
+                                    },
+                                    childStyle:{},
+                                },  
+                            ]
+                        }
+                },
+
+
+
+                {
+                    type: 'Example',
                     title: 'column-start, column-end (child property)',
                     maxHeight: '200rem',
                     description: {

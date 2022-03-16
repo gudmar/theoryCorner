@@ -176,7 +176,7 @@ let data =     {
                         <tr>
                             <th>number:</th>
                             <th>0.1 (2<sup>-1</sup>) 0.5</th>
-                            <th>0.01 (2<sup>-2</sup>) 0.25(</th>
+                            <th>0.01 (2<sup>-2</sup>) 0.25</th>
                             <th>0.001 (2<sup>-3</sup>) 0.125</th>
                             <th>0.0001 (2<sup>-4</sup>) 0.0625</th>
                             <th>Equals 0.0625</th>
@@ -324,7 +324,7 @@ mantissa * 10<sup>exponent</sup>
                         <tbody>
                             <tr><td>0.234</td><td>234 * 10<sup>-3</sup></td></tr>
                             <tr><td>234000</td><td>234 * 10<sup>3</sup></td></tr>
-                            <tr><td>234.567</td><td>234567 * 10<sup>3</sup></td></tr>
+                            <tr><td>234.567</td><td>234567 * 10<sup>-3</sup></td></tr>
                         </tbody>
                     </table>
                     `
@@ -451,7 +451,7 @@ mantissa * base<sup>exponent</sup>
                 {
                     elementType:'Paragraph',
                     content:`The number is represented with 64 bits, but only 52 of them are used for the <code>
-                    fraction</code>part:`
+                    fraction</code> part:`
                 },
                 {
                     elementType:'UnsignedList',

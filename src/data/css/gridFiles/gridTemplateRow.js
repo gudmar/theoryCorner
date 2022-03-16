@@ -14,7 +14,7 @@ const gridTemplateRowContent =     {
             items:[
                 {
                     type: 'Example',
-                    title: 'grid-template-rows: three rows defined',
+                    title: '<span id="grid-template-rows">grid-template-rows: three rows defined</span>',
 
                     maxHeight: '220rem',
                     description: {
@@ -99,7 +99,7 @@ const gridTemplateRowContent =     {
                                     parentWidth: undefined,
                                     nrOfChildren: 4,
                                     parentStyle: {gridTemplateRows: 'auto auto auto auto'},
-                                    childStyle:{height:'unset'},
+                                    childStyle:{},
                                 },  
                             ]
                         }
@@ -108,9 +108,29 @@ const gridTemplateRowContent =     {
                 {
                     type: 'Example',
                     title: 'Fractions',
+                    maxHeight: '120rem',
                     description: {
                         elementType:'Section',
                         content:[
+                            {
+                                elementType:'UnsignedList',
+                                content:[
+                                    `Takes the <b>remaining</b> space, after substraction of all gaps and already 
+                                    fixed row sizes, and divides this space among units with <code>fr</code> unit,`,
+                                    `This is more comfortable to use then the <code>%</code> unit, as on does not 
+                                    have to worry about the (for exapmle) gaps.`,
+                                    `<a target="_blank" href="https://css-tricks.com/introduction-fr-css-unit/">
+                                    Here</a> one may read about the example with a full screen width element 
+                                    divided to four 25% elements, and a 10px gap, in this case there is an 
+                                    overflow problem, so the gap should be substracted manualy,
+                                    `,
+                                    `Note, that in case of more elements, and no space left for division, all
+                                    elements will stay the same size, so this property may be compared with the 
+                                    <code>flex-growth</code>`,
+                                    `<code>fr</code> may be fractions themselves, so <code>1.85fr</code> is a correct 
+                                    value and will work.`
+                                ]
+                            },                            
                                 {
                                     elementType:'Code',
                                     content:`
@@ -118,6 +138,7 @@ const gridTemplateRowContent =     {
 .grid-parent{
     display: grid;
     grid-template-rows: 50px, 1fr, 2fr, 3fr;
+    gap: 10px;
 }
 </pre>                                    
                                     `
@@ -125,10 +146,48 @@ const gridTemplateRowContent =     {
                                 {
                                     elementType:'GridPresent',
                                     parentWidth: undefined,
-                                    nrOfChildren: 17,
-                                    parentStyle: {gridTemplateRows: '50px 1fr 2fr 3fr'},
+                                    nrOfChildren: 4,
+                                    parentStyle: {gridTemplateRows: '50px 1fr 2fr 3fr', gap: '10px',padding:'5px'},
                                     childStyle:{},
                                 },  
+                                {
+                                    elementType:'Separate',
+                                    content:'The same example with % instead of <code>fr</code>'
+                                },
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    Here the 50px first elements width, padding and 10px gap should be taken into account
+                                    for the same effect that with fractions. This is not easy with css, and desires not 
+                                    readable calculations. If those calculations are not considered, we will have a below 
+                                    effect, where items overflow the parent,
+                                    `
+                                },
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    grid-template-rows: 50px 16.67% 33.33% 50%;
+    gap: 10px;
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 4,
+                                    parentStyle: {
+                                        gridTemplateRows: ` 50px 16.67% 33.33% 50%`, 
+                                        gap: '10px',padding:'5px'
+                                    },
+                                    childStyle:{},
+                                },  
+
+
+
                             ]
                         }
                 },
@@ -136,7 +195,6 @@ const gridTemplateRowContent =     {
                 {
                     type: 'Example',
                     title: 'minmax',
-                    maxHeight: '120rem',
                     description: {
                         elementType:'Section',
                         
@@ -144,69 +202,13 @@ const gridTemplateRowContent =     {
                                 {
                                     elementType:'Paragraph',
                                     content:`
-                                    <code>minmax(a, b)</code> creates a range of sizes, not smaller then <code>a</code>,
-                                    and not greater then <code>b</code>. For useage height <code>grid</code>. Will
-                                    adjust automatically, in case of content greater then the parent container, 
-                                    content will overflow. 
+                                    <code>minmax(a, b)</code> works exect the same way as in the <code>grid-tempate-column</code>
+                                    case: so creates a range, where the minimum element size is a, and maximum is b.
+                                    Works with grids. Please refer to the <code>grid-template-column</code> section for more
                                     `
                                 },
-                                {
-                                    elementType:'Code',
-                                    content:`
-<pre>
-.grid-parent{
-    display: grid;
-    grid-template-rows: minmax(120px, 200px) minmax(120px, 200px) minmax(120px, 200px);
-}
-</pre>                                    
-                                    `
-                                },
-                                {
-                                    elementType:'GridPresent',
-                                    parentWidth: undefined,
-                                    nrOfChildren: 17,
-                                    parentStyle: {gridTemplateRows: 'minmax(120px, 200px) minmax(120px, 200px) minmax(120px, 200px'},
-                                    childStyle:{},
-                                },
-                                {
-                                    elementType:'SmallHeadline',
-                                    content:'Fractions'
-                                },
-                                // {
-                                //     elementType:'Code',
-                                //     content:`
-                                //     <code>fr</code> is a fraction unit, so the parent is divided to the number of 
-                                //     elements equal to the number of fractions, and columns will resize keeping the 
-                                //     fraction order defined in the template. In below case the minimum size of 
-                                //     the column will be 100px, and there is no maximum size. Important is to keep 
-                                //     the defined division.
-                                //     `
-                                // },
-                                // {
-                                //     elementType:'NoteWarning',
-                                //     content:`
-                                //     This example shows, that the fraction may be a <i>fraction</i>: <code>1.85fr</code>
-                                //     works fine
-                                //     `
-                                // },
-                                {
-                                    elementType:'Code',
-                                    content:`
-<pre>
-.grid-parent{
-    display: grid;
-    grid-template-rows: minmax(100px, 1fr) minmax(100px, 1.5fr) minmax(100px, 2fr);
-}
-</pre>                                    
-                                    `
-                                },
-                                {
-                                    elementType:'GridPresent',
-                                    parentWidth: undefined,
-                                    nrOfChildren: 17,
-                                    parentStyle: {gridTemplateRows: 'minmax(100px, 1fr) minmax(100px, 1.5fr) minmax(100px, 1.85fr)'},
-                                    childStyle:{},
-                                },    
+
+
                             ]
                         }
                 },
@@ -219,33 +221,22 @@ const gridTemplateRowContent =     {
                     description: {
                         elementType:'Section',
                         content:[
-                                // {
-                                //     elementType:'Paragraph',
-                                //     content:`
-                                //     <code>repeat(nr, pattern)</code> is a css function to be used with the 
-                                //     grid layout, that repeats the <code>pattern</code> a <code>nr</code> times
-                                //     so if there is the same column grid-track to be repeted, it does not have to be 
-                                //     repeted in code.
-                                //     `
-                                // },
                                 {
-                                    elementType:'Code',
+                                    elementType:'Paragraph',
                                     content:`
-<pre>
-.grid-parent{
-    display: grid;
-    grid-template-rows: repeat(8, 50px);
-}
-</pre>                                    
+                                    <code>repeat(nr, pattern)</code> works the exect same way as in the 
+                                    <code>grid-template-column</code> example, so please refer to this section.
+                                    It takes the <code>pattern</code> and repeteats it <code>nr</code> of times.
                                     `
                                 },
-                                {
-                                    elementType:'GridPresent',
-                                    parentWidth: undefined,
-                                    nrOfChildren: 17,
-                                    parentStyle: {gridTemplateRows: 'repeat(8, 50px)'},
-                                    childStyle:{},
-                                },  
+
+
+
+
+
+
+
+
                             ]
                         }
                 },
@@ -260,7 +251,11 @@ const gridTemplateRowContent =     {
                                 {
                                     elementType:'Paragraph',
                                     content:`
-                                    Percentage of the parent height.
+                                    Percentage of the parent height. Does not take the paddings, 
+                                    gaps and elements having concrete height values (like 50px), 
+                                    so <code>fr</code> units should be considerated.
+                                    <code>%<code> made more sense in times, when <code>fr</code> did not have 
+                                    a wide support in most browsers.
                                     `
                                 },
                                 {
