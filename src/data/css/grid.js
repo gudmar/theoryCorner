@@ -34,6 +34,100 @@ let data =     {
                     content: `
                     `
                 },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `<code>grid-line</code> is between grid columns or between grid rows. Lines are palces where
+                        gaps are places,`,
+                        `<code>grid-track</code> are where elements are placed. These are the columns and rows of the 
+                        grids.`
+                    ]
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <style>
+                        .trackExample-grid-parent{
+                            display:grid;
+                            width: 350px;
+                            background-color:gray;
+                            color: black;
+                            border-radius: 7px;
+                            grid-template-columns: 1.4rem 1fr 1.4rem 1fr 1.4rem;
+                            grid-template-rows: 1.4rem 1fr 1.4rem 1fr 1.4rem;
+                            font-family:arial;
+                            
+                        }
+                        .trackExample-grid-line-column{
+                            width: 1.4rem;
+                            writing-mode: vertical-rl;
+                            text-align:center;
+                            text-orientation: mixed;
+                            transform:rotate(180deg);
+                            line-height: 1.4rem;
+                            color:white;
+                            background-color:black;
+                            opacity:0.5;
+                        }
+                        .trackExample-grid-child{
+                            background-color: white;
+                            border-radius: 7px;
+                            color:black;
+                            position: relative;
+                            display:flex;
+                            align-items:center;
+                            justify-content:center;
+                            font-size: 1.5rem;
+                            height: 100%
+                            margin:3px;
+                        }
+                        .trackExample-grid-line-row{
+                            height: 1.4rem;
+                            color:white;
+                            line-height: 1.4rem;
+                            text-align: center;
+                            background-color:black;
+                            opacity:0.5;
+                        }
+                        .trackExample-grid-line-row-space{
+                            background-color:black;
+                            opacity:0.5;
+                        }
+                    </style>
+                    <div class="trackExample-grid-parent">
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">Line-1-row</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">Line-1-row</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+
+                        <div class="trackExample-grid-line-column">Line-1</div>
+                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-line-column">Line-2</div>
+                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-line-column">Line-3</div>
+
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">Line-2</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">Line-2</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+
+                        <div class="trackExample-grid-line-column">Line-1</div>
+                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-line-column">Line-2</div>
+                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-line-column">Line-3</div>
+
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">Line-3</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">Line-3</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+
+                    </div>
+                    `
+                },
 
                 {
                     elementType:'Headline-3',
