@@ -1,6 +1,7 @@
 import elementGenerator from '../../services/elementGenerator'
 import getGridTemplateColumnContent from './gridFiles/gridTemplateColumn'
 import getGridTemplateRowContent from './gridFiles/gridTemplateRow'
+import getGridTemplateRowColumnContent from './gridFiles/girdTemplateRowAndColumn'
 
 let data =     {
     summary: 'Grid',
@@ -23,6 +24,7 @@ let data =     {
                     content: [
                         {id: 'template-columns', title: 'grid-template-columns'},
                         {id: 'template-rows', title: 'grid-template-rows'},
+                        {id: 'template-rows-columns', title: 'grid-template-rows with grid-template-columns'},
                         {id: 'template-areas', title: 'grid-template-areas'},
                         {id: 'template', title: 'grid-template'},
                         {id: 'await', title: 'Async with <code>await</code>'},
@@ -40,7 +42,17 @@ let data =     {
                         `<code>grid-line</code> is between grid columns or between grid rows. Lines are palces where
                         gaps are places,`,
                         `<code>grid-track</code> are where elements are placed. These are the columns and rows of the 
-                        grids.`
+                        grids.`,
+                        `<code>grid-cell</code> is a single slot surrounded by neighbouring grid-lines`,
+                        `<code>grid-area</code> is a set of grid-cells surrounded by two grid-row-lines and two
+                        grid-column-lines,`,
+                        `<code>gutters</code> are spacings between adjacent grid-tracks. Gutters or <code>alleys</code>
+                        are gaps,`,
+                        `<code>block-axis</code> or column axis: grid layout is 2-dimansional. If content is placed 
+                        in <code>grid-auto-flow</code> column, elements will be placed along this axis: in top to 
+                        bottom direction,`,
+                        `<code>inline-axis</code> or row axis: if content is placed in <code>grid-auto-flow</code> row
+                        direction, elements are placed along the inline-axis.`
                     ]
                 },
                 {
@@ -49,7 +61,7 @@ let data =     {
                     <style>
                         .trackExample-grid-parent{
                             display:grid;
-                            width: 350px;
+                            width: 370px;
                             background-color:gray;
                             color: black;
                             border-radius: 7px;
@@ -77,7 +89,7 @@ let data =     {
                             display:flex;
                             align-items:center;
                             justify-content:center;
-                            font-size: 1.5rem;
+                            font-size: 1.4rem;
                             height: 100%
                             margin:3px;
                         }
@@ -93,6 +105,11 @@ let data =     {
                             background-color:black;
                             opacity:0.5;
                         }
+                        .trackExample-spacing{
+                            position:relative;
+                            height:1rem;
+                        }
+                        .column{flex-direction:column;}
                     </style>
                     <div class="trackExample-grid-parent">
                         <div class="trackExample-grid-line-row-space"></div>
@@ -102,9 +119,9 @@ let data =     {
                         <div class="trackExample-grid-line-row-space"></div>
 
                         <div class="trackExample-grid-line-column">Line-1</div>
-                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-child">&larr;Grid track&rarr;</div>
                         <div class="trackExample-grid-line-column">Line-2</div>
-                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-child">&larr;Grid track&rarr;</div>
                         <div class="trackExample-grid-line-column">Line-3</div>
 
                         <div class="trackExample-grid-line-row-space"></div>
@@ -114,15 +131,54 @@ let data =     {
                         <div class="trackExample-grid-line-row-space"></div>
 
                         <div class="trackExample-grid-line-column">Line-1</div>
-                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-child column">
+                            <div class="block">&uarr;</div>
+                            <div class="block">&larr;Grid track&rarr;</div>
+                            <div class="block">&darr;</div>
+                        </div>
                         <div class="trackExample-grid-line-column">Line-2</div>
-                        <div class="trackExample-grid-child">Grid track</div>
+                        <div class="trackExample-grid-child">&larr;Grid track&rarr;</div>
                         <div class="trackExample-grid-line-column">Line-3</div>
 
                         <div class="trackExample-grid-line-row-space"></div>
                         <div class="trackExample-grid-line-row">Line-3</div>
                         <div class="trackExample-grid-line-row-space"></div>
                         <div class="trackExample-grid-line-row">Line-3</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+
+                    </div>
+
+                    <div class="trackExample-spacing"></div>
+
+                    <div class="trackExample-grid-parent">
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">inline-axis-row</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">inline-axis-row</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+
+                        <div class="trackExample-grid-line-column">block-axis</div>
+                        <div class="trackExample-grid-child">Grid cell</div>
+                        <div class="trackExample-grid-line-column">gutter / alley</div>
+                        <div class="trackExample-grid-child">Grid cell</div>
+                        <div class="trackExample-grid-line-column">gutter / alley</div>
+
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">gutter / alley</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">gutter / alley</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+
+                        <div class="trackExample-grid-line-column">block-axis</div>
+                        <div class="trackExample-grid-child">Grid cell</div>
+                        <div class="trackExample-grid-line-column">gutter / alley</div>
+                        <div class="trackExample-grid-child">Grid cell</div>
+                        <div class="trackExample-grid-line-column">gutter / alley</div>
+
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">gutter / alley</div>
+                        <div class="trackExample-grid-line-row-space"></div>
+                        <div class="trackExample-grid-line-row">gutter / alley</div>
                         <div class="trackExample-grid-line-row-space"></div>
 
                     </div>
@@ -150,7 +206,8 @@ let data =     {
 
                 {
                     elementType:'Headline-3',
-                    content:'<span="template-rows">grid-template-rows</span>'
+                    content:'<span id="template-rows">grid-template-rows</span>'
+                    
                 },
                 {
                     elementType: 'UnsignedList',
@@ -165,6 +222,13 @@ let data =     {
                 },
 
                 {...getGridTemplateRowContent()},
+
+
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="template-rows-columns">grid-template-rows with grid-tempate-columns</span>'
+                },
+                {...getGridTemplateRowColumnContent()},
 
             ]
         },

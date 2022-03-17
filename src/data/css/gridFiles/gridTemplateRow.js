@@ -14,7 +14,7 @@ const gridTemplateRowContent =     {
             items:[
                 {
                     type: 'Example',
-                    title: '<span id="grid-template-rows">grid-template-rows: three rows defined</span>',
+                    title: 'grid-template-rows: three rows defined',
 
                     maxHeight: '220rem',
                     description: {
@@ -229,20 +229,50 @@ const gridTemplateRowContent =     {
                                     It takes the <code>pattern</code> and repeteats it <code>nr</code> of times.
                                     `
                                 },
-
-
-
-
-
-
-
-
                             ]
                         }
                 },
 
 
                 {
+                    type: 'Example',
+                    title: '%',
+                    description: {
+                        elementType:'Section',
+                        content:[
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    Percentage of the parent height. Does not take the paddings, 
+                                    gaps and elements having concrete height values (like 50px), 
+                                    so <code>fr</code> units should be considerated.
+                                    <code>%<code> made more sense in times, when <code>fr</code> did not have 
+                                    a wide support in most browsers.
+                                    `
+                                },
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    grid-template-rows: 10% 20% 30% 40%;
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 17,
+                                    parentStyle: {gridTemplateRows: '10% 20% 30% 40%'},
+                                    childStyle:{},
+                                },  
+                            ]
+                        }
+                },
+
+                                {
                     type: 'Example',
                     title: '%',
                     description: {
