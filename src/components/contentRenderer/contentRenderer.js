@@ -78,6 +78,7 @@ function getSingleNonListElementType(type, content, otherProps){
                      nrOfChildren={otherProps.nrOfChildren}
                      parentStyle= {otherProps.parentStyle}
                      childStyle=  {otherProps.childStyle}
+                     grandChildStyle = {otherProps.grandChildStyle}
                      childByIndexStyle= {otherProps.childByIndexStyle}
         />
     )
@@ -150,6 +151,7 @@ function ContentRenderer(props){
         nrOfChildren: props.content.nrOfChildren,
         parentStyle: props.content.parentStyle,
         childStyle: props.content.childStyle,
+        grandChildStyle: props.content.grandChildStyle,
         childByIndexStyle: props.content.childByIndexStyle,
 
         maxHeight: props.content.maxHeight,

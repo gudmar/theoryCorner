@@ -7,7 +7,7 @@ const getIndexInChildByIndexStyle = (childByIndexStyleObj, index) => {
     return isIndexPresent?childByIndexStyleObj[index]:{};
 }
 
-function getChildren(nrOfChildren, childStyle, childByIndexStyle) {
+function getChildren(nrOfChildren, childStyle, childByIndexStyle, grandChildStyle) {
     const range = [...Array(nrOfChildren).keys()]
     const uuidProv = new uuidProvider();
     return range.map((item, index)=>{
@@ -18,7 +18,7 @@ function getChildren(nrOfChildren, childStyle, childByIndexStyle) {
                 style={{...childStyle, ...getIndexInChildByIndexStyle(childByIndexStyle, index)}}
                 className="grid-presentation-item"
             >
-                {item}
+                <span style = {{...grandChildStyle}}>{item}</span>
             </div>
         )
     })
@@ -55,12 +55,13 @@ function GridPresent(props){
     const [nrOfChildren, setNrOfChildren] = useState(props.nrOfChildren || 8);
     const [parentStyle, setParentStyle] = useState({...props.parentStyle, ...getStartingParentStyle()} || {});
     const childStyle = props.childStyle || {};
+    const grandChildStyle = props.grandChildStyle || {};
     const childByIndexStyle = props.childByIndexStyle || {};
     const minWidth = 300;
     const maxWidth = 800;
     const minHeight = 400;
     const maxHeight = 800;
-    const nrOfChildrenOptions = [4, 8, 13, 17, 25]
+    const nrOfChildrenOptions = [4, 8, 10, 13, 17, 25]
     const selectComponentId = uuidProv.getNextUuid();
 
     
@@ -152,7 +153,7 @@ function GridPresent(props){
                 </div>
             </div>
             <div className="grid-presentation m-4" style = {{...parentStyle, width:parentWidth+'px', height:parentHeight+'px'}}>
-                {getChildren(nrOfChildren, childStyle, childByIndexStyle)}
+                {getChildren(nrOfChildren, childStyle, childByIndexStyle, grandChildStyle)}
             </div>
         </>
     )

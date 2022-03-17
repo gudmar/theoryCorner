@@ -569,6 +569,63 @@ const gridTemplateColumnContent =     {
                         }
                 },
 
+                {
+                    type: 'Example',
+                    title: 'grid-column',
+                    maxHeight: '60rem',
+                    description: {
+                        elementType:'Section',
+                        content:[
+                                {
+                                    elementType:'UnsignedList',
+                                    content:[
+                                    ]
+                                },
+                                {
+                                    elementType:'Paragraph',
+                                    content:`
+                                    An abbreviation for 
+                                    <code>grid-column-start</code> / <code>grid-column-end</code>
+                                    `
+                                },
+
+                                {
+                                    elementType:'Code',
+                                    content:`
+<pre>
+.grid-parent{
+    display: grid;
+    gird-template-columns: repeat(5, 1fr);
+}
+.grid-child:nth-child(1){
+    grid-column: 2 / 5;
+}
+.grid-child:nth-child(1){
+    grid-column: 1 / 3;
+}
+</pre>                                    
+                                    `
+                                },
+                                {
+                                    elementType:'GridPresent',
+                                    parentWidth: undefined,
+                                    nrOfChildren: 7,
+                                    
+                                    parentStyle: {
+                                        gridTemplateColumns: 'repeat(5, 1fr)'
+
+                                    },
+                                    childByIndexStyle:{
+                                        0:{gridColumn: '2 / 5'},
+                                        4:{gridColumn: '1 / 3'},
+                                    },
+                                    childStyle:{},
+                                },  
+
+
+                            ]
+                        }
+                },
 
 
 
