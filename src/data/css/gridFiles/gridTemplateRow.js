@@ -274,18 +274,15 @@ const gridTemplateRowContent =     {
 
                                 {
                     type: 'Example',
-                    title: '%',
+                    title: 'grid-row',
                     description: {
                         elementType:'Section',
                         content:[
                                 {
                                     elementType:'Paragraph',
                                     content:`
-                                    Percentage of the parent height. Does not take the paddings, 
-                                    gaps and elements having concrete height values (like 50px), 
-                                    so <code>fr</code> units should be considerated.
-                                    <code>%<code> made more sense in times, when <code>fr</code> did not have 
-                                    a wide support in most browsers.
+                                    An abbreviation for <code>grid-row-start</code> / <code>grid-row-end</code>
+                                    properties.
                                     `
                                 },
                                 {
@@ -294,7 +291,13 @@ const gridTemplateRowContent =     {
 <pre>
 .grid-parent{
     display: grid;
-    grid-template-rows: 10% 20% 30% 40%;
+    grid-template-rows: repeat(5, 1fr);
+}
+.grid-child:nth-child(1){
+    grid-row: 2 / 5;
+}
+.grid-child:nth-child(4){
+    grid-row: 1 / 3;
 }
 </pre>                                    
                                     `
@@ -302,9 +305,13 @@ const gridTemplateRowContent =     {
                                 {
                                     elementType:'GridPresent',
                                     parentWidth: undefined,
-                                    nrOfChildren: 17,
-                                    parentStyle: {gridTemplateRows: '10% 20% 30% 40%'},
+                                    nrOfChildren: 8,
+                                    parentStyle: {gridTemplateRows: 'repeat(5, 1fr)'},
                                     childStyle:{},
+                                    childByIndexStyle:{
+                                        0:{gridRow: '2 / 5'},
+                                        4:{gridRow: '1 / 3'},
+                                    },
                                 },  
                             ]
                         }
