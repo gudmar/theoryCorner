@@ -57,19 +57,10 @@ return(
     )
 }
 
-// {
-//     elementType: 'HiddenDescription',
-//     content: {
-
-//         items:[
-//             {
-//                 type: 'One Time',
-//                 title: 'constructor',
-//                 description: [
-
 function HiddenDescription(props){
     const legend = props.legend;
     const items = props.items;
+    const showLegend = props.showLegend===undefined ? true : props.showLegend;
     const uuidProv = new uuidProvider();
     const classesMapping = extractClassesFromLegendDescriptor();
     function extractClassesFromLegendDescriptor(){
@@ -93,7 +84,7 @@ function HiddenDescription(props){
     }
     return (
                 <>
-                    <Legend inputs={legend} />
+                    {showLegend ? <Legend inputs={legend} /> : null}
                     <hr></hr>
                     <i className="badge rounded-pill bg-secondary mb-2">Click an element to interact with it</i>
                     {allItems()}

@@ -5,11 +5,12 @@ import { start } from "@popperjs/core";
 const gridTemplateColumnContent =     {
         elementType: 'HiddenDescription',
         content: {
+            showLegend: false,
             legend: [
                 {
                     type: 'Example',
-                    styleClasses: 'btn btn-secondary text-white m-4 mb-1 mt-1 hidden',
-                    description: 'Example of grid usage'
+                    styleClasses: 'btn btn-secondary text-white m-4 mb-1 mt-1',
+                    description: 'Example of grid usage',
                 },
             ],
             items:[

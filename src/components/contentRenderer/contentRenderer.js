@@ -67,6 +67,7 @@ function getSingleNonListElementType(type, content, otherProps){
             <HiddenDescription 
                 legend={content.legend} 
                 items={content.items}
+                showLegend = {content.showLegend}
                 maxHeight = {otherProps.maxHeight}
             />
         )
