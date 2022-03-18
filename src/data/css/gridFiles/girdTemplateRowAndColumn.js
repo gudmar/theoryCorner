@@ -4,6 +4,7 @@
 const gridTemplateRowColumnContent =     {
     elementType: 'HiddenDescription',
     content: {
+        showLegend: false,
         legend: [
             {
                 type: 'Example',

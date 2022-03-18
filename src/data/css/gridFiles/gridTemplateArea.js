@@ -4,6 +4,7 @@
 const gridTemplateAreaContent =     {
     elementType: 'HiddenDescription',
     content: {
+        showLegend: false,
         legend: [
             {
                 type: 'Example',
