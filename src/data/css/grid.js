@@ -3,6 +3,7 @@ import getGridTemplateColumnContent from './gridFiles/gridTemplateColumn'
 import getGridTemplateRowContent from './gridFiles/gridTemplateRow'
 import getGridTemplateRowColumnContent from './gridFiles/girdTemplateRowAndColumn'
 import getGridTemplateAreaContent from './gridFiles/gridTemplateArea'
+import getGridTemplateContent from './gridFiles/gridTemplate'
 
 let data =     {
     summary: 'Grid',
@@ -28,7 +29,7 @@ let data =     {
                         {id: 'template-rows-columns', title: 'grid-template-rows with grid-template-columns'},
                         {id: 'template-areas', title: 'grid-template-areas'},
                         {id: 'grid-area', title: 'grid-area'},
-                        {id: 'template', title: 'grid-template'},
+                        {id: 'grid-template', title: 'grid-template'},
                         {id: 'await', title: 'Async with <code>await</code>'},
                     ]
                 },
@@ -406,6 +407,19 @@ body{
 
                     `
                 },
+
+
+                {
+                    elementType: 'Headline-3',
+                    content: '<span id="grid-template">grid-template</span>'
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `A shorthand property for defining <code>grid-columns</code>, 
+                    <code>grid-rows</code>, <code>grid-areas</code>`
+                },
+
+                getGridTemplateContent(),
 
 
             ]

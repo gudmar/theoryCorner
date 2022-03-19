@@ -61,7 +61,7 @@ function GridPresent(props){
     const maxWidth = 800;
     const minHeight = 400;
     const maxHeight = 800;
-    const nrOfChildrenOptions = [4, 8, 10, 13, 17, 25]
+    const nrOfChildrenOptions = [4, 5, 8, 10, 13, 17, 25]
     const selectComponentId = uuidProv.getNextUuid();
 
     
