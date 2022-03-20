@@ -42,7 +42,7 @@ function SingleItem(props){
         setIsExpanded(!isExpanded);
     }
     const getMaxHeight  = () => {
-        return isExpanded ? maxHeight : {maxHeight:'0px'};
+        return isExpanded ? {...maxHeight, overflow:'auto'} : {maxHeight:'0px', overflow:'auto'};
     }
 return(
         <div>

@@ -39,7 +39,31 @@ function GridPresent(props){
             current: 'row',
             values: ['row', 'column', 'dense', 'row dense', 'column dense', 'revert', 'unset'],
             id: uuidProv.getNextUuid(),
-        }
+        },
+        alignItems: {
+            current: 'normal',
+            values: ['normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch'],
+            id: uuidProv.getNextUuid(),
+        },
+        alignContent: {
+            current: 'normal',
+            values: ['normal', 'start', 'center', 'end', 'space-around', 'space-between' ,'space-evenly'],
+            id: uuidProv.getNextUuid(),
+        },
+        justifyItems: {
+            current: 'normal',
+            values: [
+                'normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch', 
+                'left', 'right', 'baseline', 'first baseline', 'last baseline'
+            ],
+            id: uuidProv.getNextUuid(),
+        },
+        justifyContent: {
+            current: 'normal',
+            values: ['normal', 'start', 'center', 'end'],
+            id: uuidProv.getNextUuid(),
+        },
+        
     })
 
     const getStartingParentStyle = (e) => {
@@ -61,6 +85,7 @@ function GridPresent(props){
     const maxWidth = 800;
     const minHeight = 400;
     const maxHeight = 800;
+
     const nrOfChildrenOptions = [4, 5, 8, 10, 13, 17, 25]
     const selectComponentId = uuidProv.getNextUuid();
 
@@ -95,7 +120,7 @@ function GridPresent(props){
             Object.keys(parentProperties).map((item, index) => {
                 return (
                     <div key={item}>
-                        <label htmlFor={parentProperties[item].id}>grid-auto-flow:</label>
+                        <label htmlFor={parentProperties[item].id}>{item}:</label>
                         &nbsp;&nbsp;&nbsp;&nbsp;
                         <select 
                             name = {item} 

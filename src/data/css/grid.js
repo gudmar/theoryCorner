@@ -4,6 +4,7 @@ import getGridTemplateRowContent from './gridFiles/gridTemplateRow'
 import getGridTemplateRowColumnContent from './gridFiles/girdTemplateRowAndColumn'
 import getGridTemplateAreaContent from './gridFiles/gridTemplateArea'
 import getGridTemplateContent from './gridFiles/gridTemplate'
+import getGridPlaceContent from './gridFiles/gridPlace'
 
 let data =     {
     summary: 'Grid',
@@ -30,7 +31,7 @@ let data =     {
                         {id: 'template-areas', title: 'grid-template-areas'},
                         {id: 'grid-area', title: 'grid-area'},
                         {id: 'grid-template', title: 'grid-template'},
-                        {id: 'await', title: 'Async with <code>await</code>'},
+                        {id: 'place-items', title: 'place-items, align-self, justify-items'},
                     ]
                 },
 
@@ -215,9 +216,12 @@ let data =     {
                 {
                     elementType: 'UnsignedList',
                     content: [
-                        `<code>grid-auto-rows</code>`,
-                        `<code>grid-row-start</code>`,
-                        `<code>grid-row-end</code>`,
+                        `<code>grid-auto-rows</code>: specifies the size of a newly created row. Put on parent element.
+                        Instead of specifying the size of each row separatly, this may be used,`,
+                        `<code>grid-row-start</code>: on child element, the number or name of the grid-line where 
+                        the child will start`,
+                        `<code>grid-row-end</code>: on child element, the number or name of the grid-line where the child 
+                        will end`,
                         `<code>gap</code>`,`<code>row-gap</code>`,
                         `<code>span</code>`,`Line names`
                     ]
@@ -250,8 +254,7 @@ let data =     {
                         single row of the temlate`,
                         `A grid area is a part of the grid layout surrounded by 2 grid block lines and 2 grid row lines,
                         so it will always be a rectangle of some sort`,
-                    ]
-                    
+                    ] 
                 },
 
                 {...getGridTemplateAreaContent()},
@@ -421,7 +424,41 @@ body{
 
                 getGridTemplateContent(),
 
+                {
+                    elementType: 'Headline-3',
+                    content: '<span id="place-items">place-items, align-items, justify-items, place-content, align-content, justify-content</span>'
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `Works with <code>grid</code> and <code>flexbox</code>, property of the <code>grid</code>
+                    or <code>flex</code> container. Alows to align items along the <code>block</code> and <code>inline</code>
+                    directions. If the item placed in the grid-cell is smaller then the grid-cell, it may be adjusted/aligned
+                    with this properties inside the container. If the item does not have any size, it will be stratched, or 
+                    located with this properties.`
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `<code>align-items</code>: places items in the <b>block</b> direction.
+                        `,
+                        `<code>justify-items</code>: places items in the row direction in relation to the 
+                        track,`,
+                        `<code>place-items</code>: shorthand for the <code>align-items</code> and <code>justify-items</code>`,
+                        `<code>align-content</code>: places items in the <b>block</b> direction, however places them in 
+                        the relation to the parent container, not the track (so not the single item, but the whole content)`,
+                        `<code>justify-content</code>: places items in the <b>row</b> direction, however places them in the
+                        relation to the parent container, not the track (so not the single item, but the whole content)`,
+                        `<code>place-content</code>: a shorthand property for the <code>align-content</code> and <code>
+                        justify-content</code>,`,
+                        `<code>align-self</code>: overwrites the <code>align-items</code> property for the 
+                        specific child of a grid container it was set on. It should be applied to a grid-container 
+                        child,`,
+                        `<code>justify-self</code>: overwrittes the <code>justify-items</code> and sets the child of a 
+                        grid parent in the row-direction. Is ignored on tables and in flex.`
+                    ] 
+                },
 
+                getGridPlaceContent(),
             ]
         },
         {
