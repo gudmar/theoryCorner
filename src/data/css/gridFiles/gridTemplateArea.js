@@ -69,10 +69,78 @@ const gridTemplateAreaContent =     {
 
                                 `
                             },
+                        ]
+                    }
+            },
 
 
 
+            {
+                type: 'Example',
+                title: 'Layout 1',
 
+                maxHeight: '60rem',
+                description: {
+                    elementType:'Section',
+                    content:[
+                            {
+                                elementType:'UnsignedList',
+                                content:[
+
+                                ]
+                            },
+                            {
+                                elementType:'Code',
+                                content:`
+<pre>
+.grid-parent{
+    display: grid
+    grid-template-area: 
+        "nav nav nav"
+        "side content menu"
+        "footer footer footer";
+    grid-template-column: 1fr 7fr 2fr;
+    grid-template-row: 50px auto 50px
+}
+.nav {gird-area: nav;}
+.side {grid-area: side;}
+.content {grid-area: content;}
+.menu {grid-area: menu;}
+.footer {grid-area: footer;}
+</pre>                               
+                                `
+                            },
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 700,
+                                nrOfChildren: 5,
+                                parentStyle: {
+                                    gridTemplateAreas: `
+                                    "nav nav nav"
+                                    "side content menu"
+                                    "footer footer footer"
+                                    `,
+                                    gridTemplateColumns: '1fr 7fr 2fr',
+                                    gridTemplateRows: '50px auto 50px'
+                                },
+                                childStyle:{
+                                    color: "white"
+                                },
+                                childByIndexStyle:{
+                                    0: {gridArea:'nav', backgroundColor: "black"},
+                                    1: {gridArea: 'side', backgroundColor: "gray"},
+                                    2: {gridArea:'content', backgroundColor: "#090"},
+                                    3: {gridArea:'menu', backgroundColor: "#900"},
+                                    4: {gridArea:'footer', backgroundColor: "#009"},
+                                }
+                            }, 
+                            {
+                                elementType:'Paragraph',
+                                content:`
+
+                                `
+                            },
                         ]
                     }
             },
@@ -82,7 +150,7 @@ const gridTemplateAreaContent =     {
 
             {
                 type: 'Example',
-                title: 'Layouts: same children, different template',
+                title: 'Layout 2',
 
                 maxHeight: '200rem',
                 description: {

@@ -59,12 +59,26 @@ function GridPresent(props){
             id: uuidProv.getNextUuid(),
         },
         justifyContent: {
-            current: 'normal',
-            values: ['normal', 'start', 'center', 'end'],
+            current: '-',
+            values: ['-', 'start', 'center', 'end'],
             id: uuidProv.getNextUuid(),
         },
         
     })
+
+    useEffect(()=>{
+        if (props.startingPoints != undefined){
+            let parentPropsCopy = {...parentProperties}
+            let parentStyleCopy = {...parentStyle}
+            Object.keys(props.startingPoints).forEach((item, index)=>{
+                if (parentPropsCopy[item]) {
+                    parentPropsCopy[item].current = props.startingPoints[item]
+                    parentStyleCopy[item] = props.startingPoints[item];
+                }
+            })
+            setParentStyle(parentStyleCopy)
+        }
+    }, [])
 
     const getStartingParentStyle = (e) => {
         let output = {};

@@ -245,8 +245,8 @@ let data =     {
                 {
                     elementType: 'UnsignedList',
                     content: [
-                        `<code>grid-template-area</code>: defines areas in a grid parent. Does position elements, but
-                        this template may be referred to from the child elements,`,
+                        `<code>grid-template-area</code>: defines areas in a grid parent. Does not position elements itself, 
+                        but areas defined here  may be referred to from the child elements,`,
                         `<code>grid-area</code>: a property of a child element, that defines to what part of the 
                         <code>grid-template-area</code> element will belong,`,
                         `Layout of the page may be changed by just change of the <code>grid-template-area</code>,`,
@@ -254,7 +254,36 @@ let data =     {
                         single row of the temlate`,
                         `A grid area is a part of the grid layout surrounded by 2 grid block lines and 2 grid row lines,
                         so it will always be a rectangle of some sort`,
+                        `A dot <code>.</code. in the template indicates an area the should not be occupied by 
+                        any element. Such space cannot be referred in a <code>grid-area</code>, however it may be 
+                        taken by an element that uses <code>grid-column-start</code>, <code>grid-column-end</code>,
+                        <code>grid-row-start</code>, <code>grid-row-end</code>.`
                     ] 
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'An example of <code>grid-template-area</code>'
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+.grid-parent{
+    display: grid
+    grid-template-area: 
+        "nav nav nav"
+        "side content menu"
+        "footer footer footer";
+    grid-template-column: 1fr 7fr 2fr;
+    grid-template-row: 50px auto 50px
+}
+.nav {gird-area: nav;}
+.side {grid-area: side;}
+.content {grid-area: content;}
+.menu {grid-area: menu;}
+.footer {grid-area: footer;}
+</pre>                    
+                    `
                 },
 
                 {...getGridTemplateAreaContent()},
@@ -441,11 +470,11 @@ body{
                     content: [
                         `<code>align-items</code>: places items in the <b>block</b> direction.
                         `,
-                        `<code>justify-items</code>: places items in the row direction in relation to the 
+                        `<code>justify-items</code>: places items in the <b>row</b> direction in relation to the 
                         track,`,
                         `<code>place-items</code>: shorthand for the <code>align-items</code> and <code>justify-items</code>`,
-                        `<code>align-content</code>: places items in the <b>block</b> direction, however places them in 
-                        the relation to the parent container, not the track (so not the single item, but the whole content)`,
+                        `<code>align-content</code>: places content (all items) in the <b>block</b> direction, 
+                        in the relation to the parent container, not the track,`,
                         `<code>justify-content</code>: places items in the <b>row</b> direction, however places them in the
                         relation to the parent container, not the track (so not the single item, but the whole content)`,
                         `<code>place-content</code>: a shorthand property for the <code>align-content</code> and <code>
