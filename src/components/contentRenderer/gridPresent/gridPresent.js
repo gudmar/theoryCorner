@@ -45,12 +45,22 @@ function GridPresent(props){
             values: ['normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch'],
             id: uuidProv.getNextUuid(),
         },
+        alignContent: {
+            current: 'normal',
+            values: ['normal', 'start', 'center', 'end', 'space-around', 'space-between' ,'space-evenly'],
+            id: uuidProv.getNextUuid(),
+        },
         justifyItems: {
             current: 'normal',
             values: [
                 'normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch', 
                 'left', 'right', 'baseline', 'first baseline', 'last baseline'
             ],
+            id: uuidProv.getNextUuid(),
+        },
+        justifyContent: {
+            current: 'normal',
+            values: ['normal', 'start', 'center', 'end'],
             id: uuidProv.getNextUuid(),
         },
         
