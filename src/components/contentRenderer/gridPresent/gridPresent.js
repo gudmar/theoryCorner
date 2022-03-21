@@ -41,26 +41,26 @@ function GridPresent(props){
             id: uuidProv.getNextUuid(),
         },
         alignItems: {
-            current: 'normal',
-            values: ['normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch'],
+            current: '-',
+            values: ['-','normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch'],
             id: uuidProv.getNextUuid(),
         },
         alignContent: {
-            current: 'normal',
-            values: ['normal', 'start', 'center', 'end', 'space-around', 'space-between' ,'space-evenly'],
+            current: '-',
+            values: ['-','normal', 'start', 'center', 'end', 'space-around', 'space-between' ,'space-evenly', 'stretch'],
             id: uuidProv.getNextUuid(),
         },
         justifyItems: {
-            current: 'normal',
+            current: '-',
             values: [
-                'normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch', 
+                '-', 'normal', 'flex-start', 'center', 'flex-end', 'start' ,'end', 'self-start', 'self-end' ,'stretch', 
                 'left', 'right', 'baseline', 'first baseline', 'last baseline'
             ],
             id: uuidProv.getNextUuid(),
         },
         justifyContent: {
             current: '-',
-            values: ['-', 'start', 'center', 'end'],
+            values: ['-', 'normal', 'start', 'center', 'end', 'space-around', 'space-between', 'space-evenly', 'stretch'],
             id: uuidProv.getNextUuid(),
         },
         
