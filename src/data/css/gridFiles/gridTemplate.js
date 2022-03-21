@@ -6,7 +6,7 @@ const gridTemplateContent =     {
         legend: [
             {
                 type: 'Example',
-                styleClasses: 'btn btn-secondary text-white m-4 mb-1 mt-1 hidden',
+                styleClasses: 'btn btn-secondary text-white m-4 mb-1 mt-1',
                 description: ''
             },
         ],
