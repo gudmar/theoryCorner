@@ -184,8 +184,6 @@ grid-template:
                                 }
                             }, 
     
-
-
                         ]
                     }
             },
@@ -230,14 +228,307 @@ grid-template:
                                     spacing between the last row and the container end are equal to the spacings applied to
                                     any other row,`,
                                     `<code>space-evenly</code>: spacings between rows and between the first row and the
-                                    container start and between the last row and the container end are exectly the same,`
+                                    container start and between the last row and the container end are exectly the same,`,
                                     `<code>stretch</code>: all elements are stretched in the block direction,`,
-                                    `<code>safe</code>: makes sure the content is always available with the scrolling, 
+                                    `<code>safe</code>: makes sure the content is always available with the scrolling,
                                     may not be supported by some browsers,`,
                                     `<code>unsafe</code>: content may be not available with scrolling,`
                                 ]
                             },
+                            {
+                                elementType:'SmallHeadline',
+                                content: 'align-content: end'
+                            },
+                            {
+                                elementType: 'Code',
+                                content:`
+<pre>
+.grid-parent{
+    display:grid;
+    grid-template: 
+        "a b c" auto
+        ". b ." auto
+        "d e f" auto / auto auto auto;
+}
+</pre>                                
+                                `
+                            },
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 400,
+                                nrOfChildren: 9,
+                                parentStyle: {
+                                    gridTemplate: `
+                                        "a b c" auto
+                                        ". b ." auto
+                                        "d e f" auto / auto auto auto
+                                    `,
+                                    gap: '10px'
+                                },
+                                childStyle:{
+                                },
+                                childByIndexStyle:{
+                                },
+                                startingPoints: {
+                                    alignContent: 'end'
+                                }
+                            }, 
 
+
+
+
+                            {
+                                elementType:'SmallHeadline',
+                                content: 'align-content: end <b>not working</b>'
+                            },
+                            {
+                                elementType:'NoteWarning',
+                                content: `Below example does not work, because each row has a defined concrete 
+                                height of 1fr. If it was auto, example would work.`
+                            },
+
+                            {
+                                elementType: 'Code',
+                                content:`
+<pre>
+.grid-parent{
+    display:grid;
+    grid-template: 
+        "a b c" 1fr
+        ". b ." 1fr
+        "d e f" 1fr / auto auto auto;
+}
+</pre>                                
+                                `
+                            },
+
+
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 400,
+                                nrOfChildren: 9,
+                                parentStyle: {
+                                    gridTemplate: `
+                                        "a b c" 1fr
+                                        ". b ." 1fr
+                                        "d e f" 1fr / auto auto auto
+                                    `,
+                                    gap: '10px'
+                                },
+                                childStyle:{
+                                },
+                                childByIndexStyle:{
+                                },
+                                startingPoints: {
+                                    justifyItems: 'end'
+                                }
+                            }, 
+
+                        ]
+                    }
+            },
+
+
+
+
+
+            {
+                type: 'Example',
+                title: 'justify-content',
+
+                maxHeight: '60rem',
+                description: {
+                    elementType:'Section',
+                    content:[
+                            {
+                                elementType: 'Paragraph',
+                                content: `
+                                Adjusts whole content in the row direction (all grid children as the group, not just
+                                each of them individually)
+                                `
+                            },
+
+                            {
+                                elementType: 'UnsignedList',
+                                content: [
+                                    `<code>normal</code>: default value, like it was not set at all. 
+                                    Elements will stretch to fill the whole row width,</code>
+                                    `,
+                                    `<s><code>flex-start</code>: treated as <code>start</code> if not a flex-container,</s>`,
+                                    `<code>center</code>: place all items in the middle of the grid-container in the 
+                                    row direction,`,
+                                    `<s><code>flex-end</code>: possible, but use <code>end</code> instead,</s>`,
+                                    `<code>start</code>: place whole content (all children of the grid parent as a group)
+                                    in the row direction,`,
+                                    `<code>end</code>: place whole content (all children of the grid parent as a group) in the 
+                                    row direction,`,
+                                    `<s><code>self-start</code>: possible, but better to use <code>start</code>,</s>`,
+                                    `<s><code>self-end</code>: possible, but better to use <code>end</code></s>`,
+                                    `<code>stretch</code>: stretch all items in the row direction,`,
+                                    `<code>space-evenly</code>: spaces between first column and the parent container edge, the 
+                                    last column and the parent container edge, and between adjacend columns are equal,`,
+                                    `<code>space-around</code>: each column gets equal spacing (let it be 'x') (like a margin) from the left and 
+                                    right sides. This indicates spacings between adjacend columns is 2x, and between first 
+                                    column and the parent container start and the last column and the container end is x,`,
+                                    `<code>space-between</code>: elements are distributed with even spacings in the row direction.
+                                    First and last columns are adjucend to the parent container edges,`,
+                                    `<code>safe</code>: makes sure that the content is never unreachable (may not be supppreted by
+                                        some browsers</code>,`,
+                                    `<code>unsafe</code>: data may not be available, outside the overflow,`
+                                ]
+                            },
+                            // {
+                            //     elementType: 'NoteWarning',
+                            //     content: `Below example does not show how align-content `
+                            // },
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 400,
+                                nrOfChildren: 9,
+                                parentStyle: {
+                                    gridTemplateRows: 'auto auto auto',
+                                    gridTemplateColumns: 'auto auto auto',
+                                    gap: '10px'
+                                },
+                                childStyle:{
+                                },
+                                childByIndexStyle:{
+                                },
+                                startingPoints: {
+                                    justifyContent: 'stretch'
+                                }
+                            }, 
+    
+                        ]
+                    }
+
+
+            },
+
+
+
+
+
+            {
+                type: 'Example',
+                title: 'place-items',
+
+                maxHeight: '60rem',
+                description: {
+                    elementType:'Section',
+                    content:[
+                            {
+                                elementType: 'Paragraph',
+                                content: `
+                                A shorthand property for the <code>grid-align-items</code> and 
+                                <code>grid-justify-items</code>
+                                `
+                            },
+
+                            {
+                                elementType: 'UnsignedList',
+                                content: [
+                                    `First argument is the <code>align-items</code>: block direction,`,
+                                    `Second argument is the <code>justify-items</code>: row dircetion,`
+                                ]
+                            },
+                            {
+                                elementType: 'Code',
+                                content: `
+<pre>
+.parent-container{
+    grid-template-rows: auto auto auto;
+    grid template-columns: auto auto auto;
+    display: grid;
+    palce-items: start end;
+}
+</pre>                                
+                                `
+                            },
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 400,
+                                nrOfChildren: 9,
+                                parentStyle: {
+                                    gridTemplateRows:"auto auto auto",
+                                    gridTemplateColumns:"auto auto auto",
+                                    gap: '10px',
+                                    placeItems: `start end`
+                                },
+                                childStyle:{
+                                },
+                                childByIndexStyle:{
+                                },
+                                startingPoints: {
+                                    
+                                }
+                            }, 
+    
+                        ]
+                    }
+            },
+
+
+            {
+                type: 'Example',
+                title: 'place-content',
+
+                maxHeight: '60rem',
+                description: {
+                    elementType:'Section',
+                    content:[
+                            {
+                                elementType: 'Paragraph',
+                                content: `
+                                A shorthand property for the <code>grid-align-content</code> and 
+                                <code>grid-justify-content</code>
+                                `
+                            },
+
+                            {
+                                elementType: 'UnsignedList',
+                                content: [
+                                    `First argument is the <code>align-content</code>: block direction,`,
+                                    `Second argument is the <code>justify-content</code>: row dircetion,`
+                                ]
+                            },
+                            {
+                                elementType: 'Code',
+                                content: `
+<pre>
+.parent-container{
+    grid-template-rows: auto auto auto;
+    grid template-columns: auto auto auto;
+    display: grid;
+    palce-content: start end;
+}
+</pre>                                
+                                `
+                            },
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 400,
+                                nrOfChildren: 9,
+                                parentStyle: {
+                                    gridTemplateRows:"auto auto auto",
+                                    gridTemplateColumns:"auto auto auto",
+                                    gap: '10px',
+                                    placeContent: `start end`
+                                },
+                                childStyle:{
+                                },
+                                childByIndexStyle:{
+                                },
+                                startingPoints: {
+                                    
+                                }
+                            }, 
+    
                         ]
                     }
             },
