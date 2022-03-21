@@ -534,6 +534,144 @@ grid-template:
             },
 
 
+
+
+
+            {
+                type: 'Example',
+                title: 'align-self',
+
+                maxHeight: '60rem',
+                description: {
+                    elementType:'Section',
+                    content:[
+                            {
+                                elementType: 'Paragraph',
+                                content: `
+                                Overrides the <code>align-items</code> property for the one item that this 
+                                property is set on
+                                `
+                            },
+
+                            {
+                                elementType: 'Paragraph',
+                                content: `
+                                Please refer to the <code>align-items</code> section to lear what values this 
+                                property may take,
+                                `
+                            },
+                            {
+                                elementType: 'Code',
+                                content: `
+<pre>
+.parent-container{
+    grid-template-rows: auto auto auto;
+    grid template-columns: auto auto auto;
+    display: grid;
+    align-items: start;
+}
+.grid-child:nth-child(2){
+    align-self: end;
+}
+</pre>                                
+                                `
+                            },
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 400,
+                                nrOfChildren: 9,
+                                parentStyle: {
+                                    gridTemplateRows:"auto auto auto",
+                                    gridTemplateColumns:"auto auto auto",
+                                    gap: '10px',
+                                },
+                                childStyle:{
+                                },
+                                childByIndexStyle:{
+                                    1: {
+                                        alignSelf: 'end',
+                                        backgroundColor: 'red',
+                                    }
+                                },
+                                startingPoints: {
+                                    alignItems: 'start'
+                                }
+                            }, 
+    
+                        ]
+                    }
+            },
+
+
+
+            {
+                type: 'Example',
+                title: 'justify-self',
+
+                maxHeight: '60rem',
+                description: {
+                    elementType:'Section',
+                    content:[
+                            {
+                                elementType: 'Paragraph',
+                                content: `
+                                Overrides the <code>justify-items</code> property for the one item that this 
+                                property is set on
+                                `
+                            },
+
+                            {
+                                elementType: 'Paragraph',
+                                content: `
+                                Please refer to the <code>justify-items</code> section to lear what values this 
+                                property may take,
+                                `
+                            },
+                            {
+                                elementType: 'Code',
+                                content: `
+<pre>
+.parent-container{
+    grid-template-rows: auto auto auto;
+    grid template-columns: auto auto auto;
+    display: grid;
+    justify-items: start;
+}
+.grid-child:nth-child(2){
+    justify-self: end;
+}
+</pre>                                
+                                `
+                            },
+                            {
+                                elementType:'GridPresent',
+                                parentWidth: undefined,
+                                parentHeight: 400,
+                                nrOfChildren: 9,
+                                parentStyle: {
+                                    gridTemplateRows:"auto auto auto",
+                                    gridTemplateColumns:"auto auto auto",
+                                    gap: '10px',
+                                },
+                                childStyle:{
+                                },
+                                childByIndexStyle:{
+                                    1: {
+                                        justifySelf: 'end',
+                                        backgroundColor: 'red',
+                                    }
+                                },
+                                startingPoints: {
+                                    justifyItems: 'start'
+                                }
+                            }, 
+    
+                        ]
+                    }
+            },
+
+
  
 
 
