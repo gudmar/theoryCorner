@@ -15,10 +15,22 @@ let data =     {
                     content:'Components in angular'
                 },
 
+
+
                 {
                     elementType: 'Paragraph',
                     content: `
                     `
+                },
+
+
+                {
+                    elementType: 'ListOfContent',
+                    content: [
+                        {id: 'x', title: 'a'},
+                        {id: 'y', title: 'b'},
+
+                    ]
                 },
 
             ]
