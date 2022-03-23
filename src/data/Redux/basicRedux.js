@@ -130,6 +130,10 @@ state.someProp = someProp + 1;
                     content:'<span id="settingState">Setting state</span>'
                 },
                 {
+                    elementType:'SmallHeadline',
+                    content:'Store configuration. Store slices'
+                },
+                {
                     elementType: 'Paragraph',
                     content: `
                     Before state may be set, the store (the global state object) has to be created:
@@ -141,19 +145,114 @@ state.someProp = someProp + 1;
 <pre>
 // in app/store.js
 import { configureStore } from '@redux/toolkit';
-import { myReducer } from '...';
-import { someOptionalReducer } from '...';
+import { counterReducer } from '...';
+import { addCommentReducer } from '...';
 
 export default configureStore({
     reducer: {
-        firstReducer: myReducer,
-        nextReducer:  someOptionalReducer
+        counter: counterReducer,
+        comment:  commentReducer
     }
 })
 </pre>                    
                     `
                 },
 
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    In above case there are two functions responsible for states realted to two different features.
+                    To modify the state of application one must refer to the concrete reducer, and then to 
+                    the action:
+                    `
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+//changing state of counter:
+store.dispatch("counter/increment");
+store.dispatch("counter/decrement");
+store.dispatch("counter/reset");
+</pre>                    
+                    `
+                },        
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    Now to change comment state:
+                    `
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+//changing state of counter:
+store.dispatch("comment/add");
+store.dispatch("comment/remove");
+store.dispatch("comment/edit");
+</pre>                    
+                    `
+                }, 
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    In general the first part of the dispatch string is the reducer that action refers to, and the second 
+                    argument is the action type that needs to be performed on storage. This way redux knows what function 
+                    needs to be called with the action type.
+                    `
+                },          
+                {
+                    elementType:'SmallHeadline',
+                    content:'Root reducer'
+                },
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    Above little/part reducers are called <b>slice reducers</b>. They apply only actions related to some feature.
+                    In general <code>configureStore</code> demands a single root. In such case PROBABLY the prefix indicating the 
+                    reducer is not needed. However action types may not repete. Combining slice reducers to a root reducer may 
+                    be acomplished in two ways:
+                    `
+                },   
+                {
+                    elementType: 'Code',
+                    content: `
+
+<pre>
+function rootReducer(state = {}, action) {
+    return {
+        counter: counterReducer(state.counter, action),
+        comment: commentReducer(state.comment, action)
+    }
+}
+
+excport default configureStore({
+    reducer: {
+        rootReducer: rootReducer
+    }
+})
+</pre>                    
+                    `
+                }, 
+                {
+                    elementType: 'Paragraph',
+                    content: `
+                    Or with a <code>combineReducers</code> function:
+                    `
+                },   
+                {
+                    elementType: 'Code',
+                    content: `
+
+<pre>
+const rootReducer = combineReducers({
+    counter: counterReducer,
+    comment: commentReducer
+})
+</pre>                    
+                    `
+                },                 
 
 
                 
