@@ -1,11 +1,11 @@
 
 let data =     {
-    summary: 'angular components',
-    title: 'Angular components',
+    summary: 'redux basics',
+    title: 'redux basics',
     searchKeywords:`
 
     `,
-    cathegory: 'angular',
+    cathegory: 'redux',
     content: [
         {
             elementType:'Article',
@@ -27,8 +27,10 @@ let data =     {
                 {
                     elementType: 'ListOfContent',
                     content: [
-                        {id: 'x', title: 'a'},
-                        {id: 'y', title: 'b'},
+                        {id: 'installation', title: 'Installation'},
+                        {id: 'concept', title: 'Concept'},
+                        {id: 'settingState', title: 'settingState'},
+                        {id: 'gettingState', title: 'gettingState'},
 
                     ]
                 },
@@ -59,8 +61,8 @@ let data =     {
                 },
                 {
                     elementType:'Link',
-                    content:'Developer mozilla',
-                    href: ' ',
+                    content:'redux.js',
+                    href: 'https://redux.js.org/introduction/ecosystem',
                     description:'Tutorial'
                 },
             ]
@@ -68,6 +70,6 @@ let data =     {
     ]
 };
 
-export default function getTemplateData(){
+export default function getBasicReduxData(){
     return data;
 }

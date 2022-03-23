@@ -1,18 +1,18 @@
 
 let data =     {
-    summary: 'angular components',
-    title: 'Angular components',
+    summary: 'redux side effects',
+    title: 'redux side effects',
     searchKeywords:`
 
     `,
-    cathegory: 'angular',
+    cathegory: 'redux',
     content: [
         {
             elementType:'Article',
             content:[
                 {
                     elementType:'Headline',
-                    content:'Components in angular'
+                    content:'Side effects and async'
                 },
 
 
@@ -27,8 +27,10 @@ let data =     {
                 {
                     elementType: 'ListOfContent',
                     content: [
-                        {id: 'x', title: 'a'},
-                        {id: 'y', title: 'b'},
+                        {id: 'sideEffects', title: 'sideEffects'},
+                        {id: 'middleware', title: 'Middleware'},
+                        {id: 'AsyncAndPromises', title: 'Async and promises'},
+                        {id: 'gettingState', title: 'gettingState'},
 
                     ]
                 },
@@ -59,8 +61,8 @@ let data =     {
                 },
                 {
                     elementType:'Link',
-                    content:'Developer mozilla',
-                    href: ' ',
+                    content:'redux.js',
+                    href: 'https://redux.js.org/introduction/ecosystem',
                     description:'Tutorial'
                 },
             ]
@@ -68,6 +70,6 @@ let data =     {
     ]
 };
 
-export default function getTemplateData(){
+export default function getSideEffectsReduxData(){
     return data;
 }
