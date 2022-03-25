@@ -29,8 +29,11 @@ let data =     {
                     content: [
                         {id: 'installation', title: 'Installation'},
                         {id: 'concept', title: 'Concept'},
-                        {id: 'settingState', title: 'settingState'},
-                        {id: 'gettingState', title: 'gettingState'},
+                        {id: 'mostSimple', title: 'Most simple counter app'},
+                        {id: 'storageConfiguration', title: 'Storage configuration'},
+                        {id: 'settingState', title: 'Setting state'},
+                        {id: 'gettingState', title: 'Getting state'},
+                        {id: 'reducerSlices', title: 'Reducer slices'},
 
                     ]
                 },
@@ -73,16 +76,16 @@ let data =     {
                         not be visible, only in memory. Every mouse move, hoover may change the application state. State is often represented by an 
                         object or many objects. State does not have to be global,`,
                         `<code>reducer</code>: a pure function taking an action and the current state, and returning new state calculated on basis of 
-                        the current state and the action object. The <i>new</i> state means, that the object returned by the reducer has to be a 
+                        the current state and the object returned by the action. The <i>new</i> state means, that the object returned by the reducer has to be a 
                         copy of the current state, not just a mutation. Only different state objects are distinguished in react, and only different 
                         state objects will make content rerender. In redux this is the same. Only different object states will make subscribers 
                         informed about the state change,`,
-                        `<code>action</code> is a object with two fields: <code>type</code> and <code>payload</code>. Type informs the reducer
+                        `<code>action</code> is an js object with two fields: <code>type</code> and <code>payload</code>. Type informs the reducer
                         how the current state should change, and <code>payload</code> is data related to the change,`,
                         `<code>dispatch</code> a method that may be called on the <code>store</code> object, to change current state. Takes an 
                         action as an argument,`,
                         `<code>store</code> an object holding the global application state,`,
-                        `<code>store.getState()</code>: a method that may be called on the store object to get current state.`
+                        // `<code>store.getState()</code>: a method that may be called on the store object to get current state.`
                     ]
                 },
                 {
@@ -127,11 +130,120 @@ state.someProp = someProp + 1;
 
                 {
                     elementType:'Headline-3',
-                    content:'<span id="settingState">Setting state</span>'
-                },
+                    content:'<span id="mostSimple">Most simple counter app</span>'
+                },                
+
                 {
                     elementType:'SmallHeadline',
-                    content:'Store configuration. Store slices'
+                    content:'A provider'
+                },                
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    There needs to be a provider for the global context in the whole applicaton:
+                    `
+                },    
+                {
+                    elementType:'Code',
+                    content:`
+                    src/index.js
+<pre>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import myReducer from './features/myCounter/MyCounterReducer';
+const store = createStore(myReducer, {counter: 1});
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+</pre>                    
+                    `
+                },    
+
+
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Now for the <code>App</code> component:
+                    `
+                },    
+                {
+                    elementType:'Code',
+                    content:`
+                    src/index.js
+<pre>
+import React from 'react';;
+import { Counter } from './....';
+import MyCounter from './....';
+
+function App() {
+  return (
+    <div>
+      <h2>My counter</h2>
+      <MyCounter />
+    </div>
+  );
+}
+
+export default App;
+</pre>                    
+                    `
+                },   
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    Now for the <code>MyCounter</code> component:
+                    `
+                }, 
+
+                {
+                    elementType:'Code',
+                    content:`
+                    src/index.js
+<pre>
+import React, { useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { decrement, increment, setValue} from './actions';
+import styles from './MyCounter.module.css';
+
+const MyCounter = () => {
+    const currentVal = useSelector(state => state.counter)
+    const dispatch = useDispatch();
+    const inc = () => {dispatch(increment())}
+    const dec = () => {dispatch(decrement())}
+    const change = (e) => {dispatch(setValue(parseInt(e.target.value)))}
+    const log = () => {console.log(currentVal)}
+
+    return (
+        <div className="wrapper">
+            <button onClick={dec}>-</button>
+            <input type="number" value = {currentVal} onChange={change}></input>
+            <button onClick={inc}>+</button>
+            <button onClick={log}>log</button>
+        </div>
+          )
+}
+
+export default MyCounter;
+</pre>                    
+                    `
+                },   
+
+
+                            
+
+
+
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="storageConfiguration">Store configuration</span>'
                 },
                 {
                     elementType: 'Paragraph',
@@ -252,7 +364,110 @@ const rootReducer = combineReducers({
 })
 </pre>                    
                     `
-                },                 
+                },   
+                
+                
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="settingState">Setting state</span>'
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`Store configuration in <code>app/store.js</code> is ready:`
+                },
+
+
+
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+// in app/store.js
+import { configureStore } from '@redux/toolkit';
+import { counterReducer } from '...';
+
+export default configureStore({
+    reducer: {
+        counter: counterReducer,
+        comment:  commentReducer
+    }
+})
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`The reducer is needed:`
+                },
+
+                {
+                    elementType: 'Code',
+                    content: `
+                    counterReducer.js
+<pre>
+function(state, action){
+    switch (action.type) {
+        case 'increment':
+            return {...state, counter: state.counter + 1}
+            break;
+        case 'decrement':
+            return {...state, counter: state.counter - 1}
+            break;
+        case 'reset':
+            return {...state, counter: 0}
+            break;
+        case 'incrementStep':
+            return {...state, counter: state.counter + action.payload}
+            break;
+        case 'decrementStep':
+            return {...state, counter: state.counter - action.payload}
+            break;
+        case 'setValue':
+            return {...state, counter: action.payload}
+            break;
+
+        default:
+            return state;
+    }
+}
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`Actions are needed`
+                },
+
+
+                {
+                    elementType: 'Code',
+                    content: `
+                    counterActions.js
+<pre>
+const increment = () => {type:'counter/increment'};
+const decrement = () => {type:'counter/decrement'};
+const incrementStep = step => {type:'counter/incrementStep', payload: step};
+const decrementStep = step => {type:'counter/decrementStep', payload: step};
+const setValue = value => {type:'counter/setValue', payload: value};
+
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="settingState">Setting state</span>'
+                },
+
+
+                
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="gettingState">Getting state</span>'
+                },
 
 
                 

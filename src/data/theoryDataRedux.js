@@ -1,5 +1,11 @@
 import getBasicReduxData from './Redux/basicRedux.js';
 import getSideEffectsReduxData from './Redux/sideEffectsAsync.js'
+console.error('Start HERE:')
+// useSelector: is a huck mapping state to 'props': https://levelup.gitconnected.com/react-redux-hooks-useselector-and-usedispatch-f7d8c7f75cdd
+// const currentUser = useSelector(state => state.currentUser 
+// useDispatch: returns a function that acts as a dispatch:
+// dispatch: useDisaptch(),
+// useEffeoct(() => {dispatch(allActions...)}))  https://levelup.gitconnected.com/react-redux-hooks-useselector-and-usedispatch-f7d8c7f75cdd
 let theoryDataRedux = [
 
     {
