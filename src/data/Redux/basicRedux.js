@@ -165,7 +165,15 @@ ReactDOM.render(
 );
 </pre>                    
                     `
-                },    
+                },   
+               
+                {
+                    elementType:'Paragraph',
+                    content:`
+                    <code>createStore(reducer, [preloadedState], [enhancer])</code> alows to add middleware and enhancers. Please 
+                    see in the next chapter about redux.
+                    `
+                },      
 
 
                 {
@@ -186,7 +194,7 @@ import MyCounter from './....';
 function App() {
   return (
     <div>
-      <h2>My counter</h2>
+      &lt;h2>My counter&lt;/h2>
       <MyCounter />
     </div>
   );
@@ -222,12 +230,12 @@ const MyCounter = () => {
     const log = () => {console.log(currentVal)}
 
     return (
-        <div className="wrapper">
-            <button onClick={dec}>-</button>
-            <input type="number" value = {currentVal} onChange={change}></input>
-            <button onClick={inc}>+</button>
-            <button onClick={log}>log</button>
-        </div>
+        &lt;div className="wrapper">
+            &lt;button onClick={dec}>-&lt;/button>
+            &lt;input type="number" value = {currentVal} onChange={change}>&lt;/input>
+            &lt;button onClick={inc}>+&lt;/button>
+            &lt;button onClick={log}>log&lt;/button>
+        &lt;/div>
           )
 }
 
@@ -369,12 +377,182 @@ const rootReducer = combineReducers({
                 
                 {
                     elementType:'Headline-3',
-                    content:'<span id="settingState">Setting state</span>'
+                    content:'<span id="storeConfiguration">Store configuration</span>'
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:'Simple store setup'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`Starting from the main application file: <code>main.js</code>. There is the state provider needed:`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+<div class="note">Lets import reducer</div>
+import myReducer from './features/myCounter/MyCounterReducer';
+<div class="note">and create the store</div>
+const store = createStore(myReducer, {counter: 1});
+
+ReactDOM.render(
+  <React.StrictMode>
+  <div class="note">Providing the global state in whole application.</div>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`Now nested <code>App</code> component`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+
+import React from 'react';
+import MyCounter from './features/myCounter/MyCounter';
+
+function App() {
+  return (
+    &lt;>
+    &lt;div>
+    &lt;h2>My counter&lt;/h2>
+    &lt;Center>
+        &lt;MyCounter />
+    &lt;/div>
+
+    &lt;/>
+    );
+}
+</pre>                    
+                    `
                 },
 
                 {
                     elementType:'Paragraph',
-                    content:`Store configuration in <code>app/store.js</code> is ready:`
+                    content:`And the <code>MyCounter</code> component`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  decrement,
+  increment,
+  incrementStep,
+  decrementStep,
+  setValue
+} from './actions';
+
+const MyCounter = () => {
+    const currentVal = useSelector(state => state.counter)
+    const dispatch = useDispatch();
+    const inc = () => {dispatch(increment())}
+    const dec = () => {dispatch(decrement())}
+    const change = (e) => {dispatch(setValue(parseInt(e.target.value)))}
+    const log = () => {console.log(currentVal)}
+
+    return (
+        &lt;div className="wrapper">
+            &lt;button onClick={dec}>-&lt;/button>
+            &lt;input type="number" value = {currentVal} onChange={change}>&lt;/input>
+            &lt;button onClick={inc}>+&lt;/button>
+            &lt;button onClick={log}>log&lt;/button>
+        &lt;/div>
+          )
+}
+export default MyCounter;
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`File with actions is needed:`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+                    actions.js
+<pre>
+const increment = () => {console.log('inc'); return {type:'increment'}};
+const decrement = () => {console.log('dec'); return {type:'decrement'}};
+const incrementStep = (step) => {return {type:'counter/incrementStep', payload: step};}
+const decrementStep = (step) => {return {type:'counter/decrementStep', payload: step};}
+const setValue = (value) => {console.log('set'); return {type:'setValue', payload: value};}
+
+export {increment, decrement, incrementStep, decrementStep, setValue}
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`And the file with the reducer`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+                    MyCounterReducer.js
+<pre>
+const myReducer = (state, action) => {
+    console.log(action.type)
+    switch (action.type) {
+        case 'increment':
+            return {...state, counter: state.counter + 1}
+            break;
+        case 'decrement':
+            return {...state, counter: state.counter - 1}
+            break;
+        case 'reset':
+            return {...state, counter: 0}
+            break;
+        case 'setValue':
+            return {...state, counter: action.payload}
+            break;
+
+        default:
+            return state;
+    }
+}
+export default myReducer;
+</pre>                    
+                    `
+                },
+
+                {
+                    elementType:'Paragraph',
+                    content:`Above example works quite fine, however in more complex situations it may be a good idea to
+                    divide the reducer into reducer-slices`
+                },
+
+
+                {
+                    elementType:'SmallHeadline',
+                    content:`A reducer with slices`
+                },
+
+
+                {
+                    elementType:'Paragraph',
+                    content:`<code>createStore</code> function may not be enough. There may be more then just one reducer, moreover there is a possiblity
+                    to apply middleware, that may be processed each time a value is updated in the store or to add some enhancers. There is a better 
+                    way of configurating the store: <code>configureStore(reducer, [preloadedState], [enhancer])</code> function that should be kept in 
+                    <code>App/store.js</code> file:`
                 },
 
 
@@ -390,7 +568,7 @@ import { counterReducer } from '...';
 export default configureStore({
     reducer: {
         counter: counterReducer,
-        comment:  commentReducer
+        tasks:  taskReducer
     }
 })
 </pre>                    
@@ -485,6 +663,12 @@ const setValue = value => {type:'counter/setValue', payload: value};
                     content:'redux.js',
                     href: 'https://redux.js.org/introduction/ecosystem',
                     description:'Tutorial'
+                },
+                {
+                    elementType:'Link',
+                    content:'redux.js',
+                    href: 'https://redux-toolkit.js.org/api/configureStore',
+                    description:'configureStore from @reduxjs/toolkit'
                 },
             ]
         }
