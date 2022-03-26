@@ -12,7 +12,7 @@ let data =     {
     searchKeywords:`
     grid grid-template grid-templatel-rows grid-template-columns grid-area grid-template-area 
     justify-items justify-content align-items align-content align-self justify-self start end
-    center space-around space-evenly space-between safe unsafe auto fr % area columns rows template
+    center space-around space-evenly space-between safe unsafe auto fr % area columns rows templateart
     `,
     cathegory: 'css',
     content: [

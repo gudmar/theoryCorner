@@ -15,6 +15,8 @@ let data =     {
                     content:'Side effects and async'
                 },
 
+                // https://redux.js.org/usage/configuring-your-store#the-solution-configurestore   apply middleware and enhancers to the 
+                // createStore
 
 
                 {
@@ -62,7 +64,7 @@ let data =     {
                 {
                     elementType:'Link',
                     content:'redux.js',
-                    href: 'https://redux.js.org/introduction/ecosystem',
+                    href: 'https://redux.js.org/usage/configuring-your-store#the-solution-configurestore',
                     description:'Tutorial'
                 },
             ]
