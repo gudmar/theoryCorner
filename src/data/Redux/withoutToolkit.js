@@ -53,6 +53,108 @@ let data =     {
                     content:'<span id="connect">connect()</span>'
                 },
                 {
+                    elementType:'UnsignedList',
+                    content:[
+                        `<code>connect(mapStateToProps?, mapDispatchToProps?, mergeProps?, options?)(MyComponent)</code>,`,
+                        `Wraps the given component and returns the component that is connected to the redux store, and has
+                        properties like <code>props.dispatch</code>, or props that are mapped to some properties in the sore with
+                        <code>mapStateToProps</code> and <code>mapDispatchToProps</code> functions,`,
+                        `Is a wrapper,`,
+                        `If none argument given, <code>export default connect()(MyComponent)</code>, then returns a component having access to the
+                        <code>props.dispatch()</code> function and no subscriptions. This object does not listen to the store at all.`
+                    ]
+                },
+                {
+                    elementType:'SmallHeadline',
+                    content:`
+                    Arguments are:
+                    `
+                },
+
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Argument','Type','Takes', 'Returns', 'Description'
+                    ],
+                    content: [
+                        {
+                            [Symbol('title')]:'mapStateToProps',
+                            [Symbol('code')]:`                       
+                            <code>mapStateToProps?(state, ownProps): function => Object</code>
+<pre>
+//Example:
+const mapStateToProps = (state) => (
+        { 
+            counter: state.counterA,
+            toDos: state.toDosList,
+        }
+    )
+// Now wrapped component has 
+// props.counter pointing to the store.counterA
+// props.toDosList pointing to the store.toDosList
+</pre>
+                            `,
+                            Argument: '<code>mapStateToProps</code>',
+                            Type: `function`,
+                            Takes: `
+                            <ul>
+                                <li><code>state</code></li>
+                                <li><code>ownProps?</code></li>
+                            </ul>
+                            `,
+                            Returns: 'Object',
+                            Description: `
+                            Maps state (store) properties to the given component properties,
+                            `
+                        },
+
+
+                        {
+                            [Symbol('title')]:'mapDispatchToProps',
+                            [Symbol('code')]:`               
+                            <ul>
+                                <li>If this function is not passed to the <code>connect</code>, then the wrapped component will not be subscribed to
+                                the store and will not render when the store changes</li>
+                                <li>May be passed as <code>(function mapState(state)})</code> or <code>(const mapState = (state) =>{})</code></li>
+                                <li><code>state</code> is the whole store object, that the function is given,</li>
+                                <li><code>ownProps</code> all the properties given to the wrapper component</li>
+                                <li>Returns a plain object that contains store properties mapped to properties used in the component</li>
+                                <li>Should not create new objects, as this will cause re-render</li>
+                                <li>Should be fast</li>
+                            </ul>        
+                            <code>mapStateToProps?(state, ownProps): function => Object</code>
+<pre>
+//Example:
+const mapStateToProps = (state) => (
+        { 
+            counter: state.counterA,
+            toDos: state.toDosList
+        }
+    )
+</pre>                            
+                            `,
+                            Argument: '<code>mapStateToProps</code>',
+                            Type: `function`,
+                            Takes: `
+                            <ul>
+                                <li><code>state</code></li>
+                                <li><code>ownProps?</code></li>
+                            </ul>
+                            `,
+                            Returns: 'Object',
+                            Description: `
+                            Maps state (store) properties to the given component properties.
+                            Called every time the store changes (if called with only one parameter), or every time 
+                            the store or parameters given to the component change (based on shallow comparition, if two 
+                            arguments are given)
+                            `
+                        },
+
+
+
+                    ]
+                },
+                {
                     elementType: 'Code',
                     content: `
 <pre>
@@ -156,6 +258,33 @@ const mapDispatchToProps = (dispatch, ownProps) => {
     }
 }
 </pre>
+<div class="note">More than just one reducer mapped:</code></div>
+<pre>
+const increase = () => {return {type: 'ADD', payload: 1}};
+const decrease = () => {return {type: 'ADD', payload: -1}};
+const addToCounter = (payload) => {return {typa: 'ADD', payload: payload}}
+const reset = () => {return {type: 'SET', payload: 0}}
+
+cosnt mapDispatchToProps = dispatch => {
+    return {
+        increaseCounter: dispatch(increase()),
+        decreaseCounter: dispatch(decrease()),
+        addToCounter: dispatch(addToCounter(value)),
+        reset: dispatch(reset())
+    }
+}
+</pre>
+<div class="note">And in Counter component:</code></div>
+<pre>
+const Counter = (props) => {
+    return (
+        &lt;div>
+            &lt;span>&lt;/span>
+        &lt;/div>
+    )
+}
+</pre>
+
                     `
                     
                 },
@@ -172,7 +301,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 },
                 {
                     elementType:'Headline-3',
-                    content:'<span id="indexjs">Passing sotre in main js</span>'
+                    content:'<span id="indexjs">Passing store in main js</span>'
                 },
 
 
@@ -191,6 +320,12 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 {
                     elementType:'Headline-2',
                     content:'References'
+                },
+                {
+                    elementType:'Link',
+                    content:'react-redux.js',
+                    href: 'https://react-redux.js.org/using-react-redux/connect-mapstate',
+                    description:'mapStateToProps function'
                 },
                 {
                     elementType:'Link',
