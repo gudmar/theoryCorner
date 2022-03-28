@@ -670,6 +670,21 @@ const setValue = value => {type:'counter/setValue', payload: value};
                     href: 'https://redux-toolkit.js.org/api/configureStore',
                     description:'configureStore from @reduxjs/toolkit'
                 },
+
+
+                {
+                    elementType:'Link',
+                    content:'react-redux.js-org',
+                    href: 'https://react-redux.js.org/api/connect',
+                    description:'connect function explained with an example'
+                },
+
+                {
+                    elementType:'Link',
+                    content:'dev.to/bangash1996',
+                    href: 'https://dev.to/bangash1996/introduction-react-redux-using-hooks-useselector-usedispatch-26ch',
+                    description:'Introduction React-Redux using Hooks'
+                },
             ]
         }
     ]
