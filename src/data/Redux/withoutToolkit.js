@@ -36,10 +36,10 @@ let data =     {
                         {id: 'connect', title: 'connect()'},
                         {id: 'mapStateToProps', title: 'mapStateToProps(state, ownProps?) => Object'},
                         {id: 'mapDispatchToProps', title: 'mapDispatchToProps?: Object | (dispatch, ownProps?) => Object'},
+                        {id: 'storeConnection', title: 'Connecting a component to the store'},
                         {id: 'settingStore', title: 'Setting the store'},
                         {id: 'storeInComponent', title: 'Using store in the component'},
                         {id: 'indexjs', title: 'Passing store in main js file'},
-
                     ]
                 },
 
@@ -80,7 +80,7 @@ let data =     {
                         {
                             [Symbol('title')]:'mapStateToProps',
                             [Symbol('code')]:`   
-                            <ul>
+                        <ul>
                             <li>If this function is not passed to the <code>connect</code>, then the wrapped component will not be subscribed to
                             the store and will not render when the store changes</li>
                             <li>May be passed as <code>(function mapState(state)})</code> or <code>(const mapState = (state) =>{})</code></li>
@@ -123,7 +123,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(MyComponent)
 </pre>
 The rest use cases are <a href="https://react-redux.js.org/api/connect" target:"_blank">here</a>.
                             `,
-                            Argument: '<span id="mapDispatchToProps">mapDispatchToProps?: Object | (dispatch, ownProps?) => Object</span>',
+                            Argument: '<span id="mapStateToProps"><code>mapStateToProps?: Object | (dispatch, ownProps?) => Object</code></span>',
                             Type: `function`,
                             Takes: `
                             <ul>
@@ -169,7 +169,7 @@ const MyComponent = (props) => {
 <div class="note">And a redux-unaware component</div>
 <pre>
 render() {
-    return <button onClick = {() => this.props.toggleTodoItem(this.props.todoItemsId)}
+    return &lt;button onClick = {() => this.props.toggleTodoItem(this.props.todoItemsId)}
 }
 
 const toggleTodo = payload => {return {type: 'TOGGLE', payload: payload}}
@@ -184,7 +184,7 @@ const mapDispatchToProps = dispatch => {
 <div class="note">Without passing <code>ownProps</code></div>
 <pre>
 render() {
-    return <button onClick = {() => this.props.toggleTodoItem(this.props.todoItemsId)}
+    return &lt;button onClick = {() => this.props.toggleTodoItem(this.props.todoItemsId)}
 }
 
 const toggleTodo = payload => {return {type: 'TOGGLE', payload: payload}}
@@ -199,7 +199,7 @@ const mapDispatchToProps = dispatch => {
 <div class="note">Passing <code>ownProps</code></div>
 <pre>
 render() {
-    return <button onClick = {() => this.props.toggleTodoItem()}
+    return &lt;button onClick = {() => this.props.toggleTodoItem()}
 }
 
 const toggleTodo = payload => {return {type: 'TOGGLE', payload: payload}}
@@ -318,7 +318,78 @@ is required, this function should return desired object</div>
  
 
 
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="storeConnection">Connecting a component to the store</span>'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`This is done in the component, that needs to be connected, file.`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+import React from 'react';
+import { connect } from 'react-redux';
 
+function ToDos(props) {
+    const list = props.list; //thanks to mapStateToProps !
+    
+    return (
+        &lt;ul>
+            {list.map((item, index) => {return &lt;li key={index}>{item}&lt;/li>})}
+        &lt;/ul>
+    )
+}
+
+function mapStateToProps(state, ownProps) {
+ return {
+     state.list: list
+ }
+}
+
+export default connect(mapStateToProps)(ToDos)
+</pre>                    
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`There should be a store specified to which the component will be connected, as redux is capable of 
+                    handling a few storages. However the best practice is to have only a single storage per application.`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+                    <div class="note">Specifying to which store the component will be connected, method 1:</div>
+<pre>
+// In component file:
+function ToDos(props) ....
+.
+.
+.
+
+export default connect(mapStateToProps)(ToDos)
+//
+// And now in the file where the store is applied:
+
+&lt;ToDos store={store} />
+
+</pre>                 
+<div class="note">Second method of defining which store will be provided:</div>
+<pre>
+import { Provider } from 'react-redux'
+
+const SomeComponent = (props) => {
+    return (
+        &lt;Provider store={store}>
+            &lt;ToDos />
+        &lt;/Provider>
+    )
+}
+</pre>
+                    `
+                },
 
 
 
@@ -326,6 +397,37 @@ is required, this function should return desired object</div>
                     elementType:'Headline-3',
                     content:'<span id="settingStore">Setting the store</span>'
                 },
+                {
+                    elementType:'Paragraph',
+                    content:`May happen in an external file with just a <code>createStore</code> function:`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+import { createStore } from 'redux';
+import oldCounterReducer from '../features/oldCounter/oldCounterReducer';
+import oldTaskReducer from '../features/oldTasks/oldTasksReducer';
+import defaultState from './defaultState';
+
+const rootReducer = (state = {counter: 2, tasks: 'someTask'}, action) => {
+    return {
+        counter: oldCounterReducer(state.counter, action),
+        tasks: oldTaskReducer(state.tasks, action)
+    }
+}
+
+const oldStore = createStore(rootReducer, defaultState)
+export {rootReducer, oldStore} 
+</pre>
+                    `
+                },
+                {
+                    elementType:'Paragraph',
+                    content:``
+                },
+
+
                 {
                     elementType:'Headline-3',
                     content:'<span id="storeInComponent">Using store in the component</span>'
@@ -363,6 +465,12 @@ is required, this function should return desired object</div>
                     content:'react-redux.js',
                     href: 'https://react-redux.js.org/using-react-redux/connect-mapdispatch',
                     description:'mapDispatchToProps function'
+                },
+                {
+                    elementType:'Link',
+                    content:'blog.logrocket.com',
+                    href: 'https://blog.logrocket.com/react-redux-connect-when-and-how-to-use-it-f2a1edab2013/',
+                    description:'Proper usage of connect function. Examples.'
                 },
             ]
         }
