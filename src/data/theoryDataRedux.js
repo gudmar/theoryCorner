@@ -1,5 +1,6 @@
 import getBasicReduxData from './Redux/basicRedux.js';
-import getSideEffectsReduxData from './Redux/sideEffectsAsync.js'
+import getSideEffectsReduxData from './Redux/sideEffectsAsync.js';
+import getWithoutToolkitData from './Redux/withoutToolkit.js';
 console.error('Start HERE:')
 // useSelector: is a huck mapping state to 'props': https://levelup.gitconnected.com/react-redux-hooks-useselector-and-usedispatch-f7d8c7f75cdd
 // const currentUser = useSelector(state => state.currentUser 
@@ -34,6 +35,7 @@ let theoryDataRedux = [
     },
     getBasicReduxData(),
     getSideEffectsReduxData(),
+    getWithoutToolkitData(),
     {
         summary: 'tables',
         title: 'tables',
