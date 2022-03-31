@@ -203,6 +203,13 @@ class Button extends Component {
                 },
 
                 {
+                    elementType: 'NoteWarninig',
+                    content: `
+                    It is important to write class names in modules with camelCase, not a kebab-case
+                    `
+                },
+
+                {
                     elementType: 'Code',
                     content: `
                     A plane file MyButton.css definition
@@ -213,6 +220,10 @@ class Button extends Component {
 .fg {
     color: red;
 }
+.correctClassName{
+    
+}
+.not-correct-class-name
 </pre>                    
                     `
                 },

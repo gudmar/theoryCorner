@@ -37,6 +37,7 @@ let data =     {
                         {id: 'mapStateToProps', title: 'mapStateToProps(state, ownProps?) => Object'},
                         {id: 'mapDispatchToProps', title: 'mapDispatchToProps?: Object | (dispatch, ownProps?) => Object'},
                         {id: 'storeConnection', title: 'Connecting a component to the store'},
+                        {id: 'subscribe', title: '<code>subscribe</code> instead of <code>connect</code>'},
                         {id: 'settingStore', title: 'Setting the store'},
                         {id: 'storeInComponent', title: 'Using store in the component'},
                         {id: 'indexjs', title: 'Passing store in main js file'},
@@ -63,6 +64,13 @@ let data =     {
                         `If none argument given, <code>export default connect()(MyComponent)</code>, then returns a component having access to the
                         <code>props.dispatch()</code> function and no subscriptions. This object does not listen to the store at all.`
                     ]
+                },
+                {
+                    elementType:'NoteWarning',
+                    content:`
+                    Do not connect all components that are children of the component that is created to the storage. The parent that is connected on many cases 
+                    is enough, and sotre props and dispatch may be passed with props.
+                    `
                 },
                 {
                     elementType:'SmallHeadline',
