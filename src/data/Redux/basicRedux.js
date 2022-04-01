@@ -127,6 +127,16 @@ state.someProp = someProp + 1;
                     content:`No asynchronous logic in reducers,`,
                 },
 
+                {
+                    elementType:'NoteWarning',
+                    content:`Reducers should <b>never</b> return undefined.
+                    <ul>
+                        <li>In case no state is passed to the reducer, it should return an <b>initial state</b></li>
+                        <li>In case passed action does not match, reducer should return the passed state</li>
+                    </ul>
+                    ,`,
+                },
+
 
                 {
                     elementType:'Headline-3',
