@@ -46,7 +46,7 @@ let data =     {
                 {
                     elementType: 'ConditionalArray',
                     headItems: [
-                        'Argument','Type','Takes', 'Returns', 'Description'
+                        'Function','Arguments', 'Returns', 'Description'
                     ],
                     content: [
                         {
@@ -54,14 +54,20 @@ let data =     {
                             [Symbol('code')]:`   
 
                             `,
-                            Argument: '<span id="mapStateToProps"><code>mapStateToProps?: Object | (dispatch, ownProps?) => Object</code></span>',
-                            Type: `function`,
-                            Takes: `
-
+                            Function: '<span id="configureStore>configureStore</span>',
+                            Arguments: `
+                            <ul>
+                                <li><code>reducer</code>: a single one, or an object of reducers,
+                                <li><code>middleware</code>: an array of middleware functions,
+                                <li><code>devTools</code> a boolean indicating that support for dev tools should be added</li>
+                                <li><code>preloadedState</code>: an initial state,</li>
+                                <li><code>enhancers</code>: array of enhancers. An enhancer is a function taking a <code>createStore</code> function,
+                                wraps it, and adds extra functionality to it
+                            </ul>
                             `,
-                            Returns: 'Object',
+                            Returns: 'Object: store',
                             Description: `
-                            Maps state (store) properties to the given component properties,
+                            Extended <code>createStore</code> function, capable of adding enhancers, middlware, devTools, more than one reducers to it.
                             `
                         },           
                     ]
