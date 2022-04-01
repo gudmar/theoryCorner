@@ -52,7 +52,82 @@ let data =     {
                         {
                             [Symbol('title')]:'mapStateToProps',
                             [Symbol('code')]:`   
+                            <div class="note">Simplest usage</div>
+<pre>
+import  { configureStore } from '@reduxjs/toolkit';
+import rootReducer from './reducers';
 
+const store = configureStore({reducer: rootReducer});
+export default store;
+</pre>               
+                            <div class="note">Adding more reducers as an object</div>
+<pre>
+import { configureStore } from '@reduxjs/toolkit';
+import { counterReducer, toDosReducer } from './reducers';
+
+const store = configureStore({
+    reducer: {
+        counter: counterReducer, 
+        toDos: toDosReducer
+    }
+})
+// Now <code>combineReducers</code> will be invoked on both reducers to form a root reducer
+</pre>                            
+                        <div class="note">More reducers as a function</div>
+<pre>
+import { configureStore } from '@reduxjs/toolkit';
+import { counter, toDos } from './reducers';
+import { combineReducers } from 'redux';
+
+const store = configureReducer({
+    reducer: combineReducers({counter, toDos})
+})
+</pre>
+                        <div class="note">And a bigger example</div>
+<pre>
+<div class="note">counterReducer.js</div>
+import { Reducer } from '@reduxjs/toolkit'
+declare const reducer: Reducer<{}>
+export default reducer
+
+<div class="note">toDosReducer.js</div>
+import { Reducer } from '@reduxjs/toolkit'
+declare const reducer: Reducer<{}>
+export default reducer
+
+<div class="note">store.js</div>
+import { configureStore } from '@reduxjs/toolkit'
+
+// example middleware
+import logger from 'redux-logger'
+
+// example enhancer
+import { reduxBatch } from '@manaflair/redux-batch'
+
+import todosReducer from './todos/todosReducer'
+import counter from './counter/counterReducer'
+
+
+const reducer = {
+    counter: counterReducer,
+    toDos: toDosReducer
+}
+
+const initialState = {
+    counter: 4,
+    toDos: [
+        'Eat', 'Code', 'Sleep', 'Repete'
+    ]
+}
+
+const store = configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
+    devTools: process.env.NODE_ENV !== 'production',
+    preloadedState: initialState,
+    enhancers: [reduxBatch],
+})
+</pre>                        
                             `,
                             Function: '<span id="configureStore>configureStore</span>',
                             Arguments: `
@@ -99,8 +174,8 @@ let data =     {
                 },
                 {
                     elementType:'Link',
-                    content:'Developer mozilla',
-                    href: ' ',
+                    content:'redux-toolkit.js.org',
+                    href: 'https://redux-toolkit.js.org/api/configureStore',
                     description:'Tutorial'
                 },
             ]
