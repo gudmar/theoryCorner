@@ -40,6 +40,7 @@ let theoryDataRedux = [
     getWithoutToolkitData(),
     getStoreSubscribeData(),
     getReduxToolkitData(),
+
     {
         summary: 'tables',
         title: 'tables',

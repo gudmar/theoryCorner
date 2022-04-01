@@ -50,7 +50,7 @@ let data =     {
                     ],
                     content: [
                         {
-                            [Symbol('title')]:'mapStateToProps',
+                            [Symbol('title')]:'configureStore',
                             [Symbol('code')]:`   
                             <div class="note">Simplest usage</div>
 <pre>
@@ -129,7 +129,7 @@ const store = configureStore({
 })
 </pre>                        
                             `,
-                            Function: '<span id="configureStore>configureStore</span>',
+                            Function: '<span id="configureStore">configureStore</span>',
                             Arguments: `
                             <ul>
                                 <li><code>reducer</code>: a single one, or an object of reducers,
@@ -165,7 +165,7 @@ rootReducer = combineReducers({counter: counterReducer, toDos: toDosRecurcer})
 // Actions will be referred as: 'counter/add' or 'toDos/add'
 </pre>                        
                             `,
-                            Function: '<span id="combineReducers>combineReducers</span>',
+                            Function: '<span id="combineReducers">combineReducers</span>',
                             Arguments: `
                             <code>reducers</code>: an object having slice-names as keys, and reducer names as values,
                             `,
@@ -178,115 +178,6 @@ rootReducer = combineReducers({counter: counterReducer, toDos: toDosRecurcer})
                             and all give states will be merged,
                             `
                         },     
-
-
-                    ]
-                },
-
-
-                {
-                    elementType: 'ConditionalArray',
-                    headItems: [
-                        'Function','Arguments', 'Returns', 'Description'
-                    ],
-                    content: [
-                        {
-                            [Symbol('title')]:'mapStateToProps',
-                            [Symbol('code')]:`   
-                            <div class="note">Simplest usage</div>
-<pre>
-import  { configureStore } from '@reduxjs/toolkit';
-import rootReducer from './reducers';
-
-const store = configureStore({reducer: rootReducer});
-export default store;
-</pre>               
-                            <div class="note">Adding more reducers as an object</div>
-<pre>
-import { configureStore } from '@reduxjs/toolkit';
-import { counterReducer, toDosReducer } from './reducers';
-
-const store = configureStore({
-    reducer: {
-        counter: counterReducer, 
-        toDos: toDosReducer
-    }
-})
-// Now <code>combineReducers</code> will be invoked on both reducers to form a root reducer
-</pre>                            
-                        <div class="note">More reducers as a function</div>
-<pre>
-import { configureStore } from '@reduxjs/toolkit';
-import { counter, toDos } from './reducers';
-import { combineReducers } from 'redux';
-
-const store = configureReducer({
-    reducer: combineReducers({counter, toDos})
-})
-</pre>
-                        <div class="note">And a bigger example</div>
-<pre>
-<div class="note">counterReducer.js</div>
-import { Reducer } from '@reduxjs/toolkit'
-declare const reducer: Reducer<{}>
-export default reducer
-
-<div class="note">toDosReducer.js</div>
-import { Reducer } from '@reduxjs/toolkit'
-declare const reducer: Reducer<{}>
-export default reducer
-
-<div class="note">store.js</div>
-import { configureStore } from '@reduxjs/toolkit'
-
-// example middleware
-import logger from 'redux-logger'
-
-// example enhancer
-import { reduxBatch } from '@manaflair/redux-batch'
-
-import todosReducer from './todos/todosReducer'
-import counter from './counter/counterReducer'
-
-
-const reducer = {
-    counter: counterReducer,
-    toDos: toDosReducer
-}
-
-const initialState = {
-    counter: 4,
-    toDos: [
-        'Eat', 'Code', 'Sleep', 'Repete'
-    ]
-}
-
-const store = configureStore({
-    reducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger),
-    devTools: process.env.NODE_ENV !== 'production',
-    preloadedState: initialState,
-    enhancers: [reduxBatch],
-})
-</pre>                        
-                            `,
-                            Function: '<span id="configureStore>configureStore</span>',
-                            Arguments: `
-                            <ul>
-                                <li><code>reducer</code>: a single one, or an object of reducers,
-                                <li><code>middleware</code>: an array of middleware functions,
-                                <li><code>devTools</code> a boolean indicating that support for dev tools should be added</li>
-                                <li><code>preloadedState</code>: an initial state,</li>
-                                <li><code>enhancers</code>: array of enhancers. An enhancer is a function taking a <code>createStore</code> function,
-                                wraps it, and adds extra functionality to it
-                            </ul>
-                            `,
-                            Returns: 'Object: store',
-                            Description: `
-                            Extended <code>createStore</code> function, capable of adding enhancers, middlware, devTools, more than one reducers to it.
-                            `
-                        },     
-                        
                         
 
 
@@ -339,7 +230,7 @@ const store = configureStore({
 </pre>
 
                             `,
-                            Function: '<span id="createSlice>createSlice</span>',
+                            Function: '<span id="createSlice">createSlice</span>',
                             Arguments: `
                             <code>descriptor</code>: an object having:
                             <ul>
@@ -359,7 +250,57 @@ const store = configureStore({
 
 
                     ]
-                }     
+                },
+
+
+                {
+                    elementType: 'Headline-3',
+                    content: '<span id="provider">Providing the store</span>'
+                },
+
+                {
+                    elementType: 'Paragraph',
+                    content: `To provide the storage in an application tree (a component with all descendants), just wrap it in the <code>Provider</code>
+                    `
+                },
+                {
+                    elementType: 'SmallHeadline',
+                    content: 'Props'
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `<code>store</code>: the store instance that will be available in wrapped components,`,
+                        `<code>children</code>: ReactElements wrapped by the <code>Provider</code>, where the store will be available,`,
+                        `<code>context</code>: additionaly to the store, context can be provided by the <code>Provider</code>, but this context must be provided 
+                        to each connected component,`,
+                    ]
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+
+import { App } from './App';
+import store from './store.js';
+
+ReactDOM.render(
+    &lt;Provider store={store}>
+        &lt;App />
+    &lt;/Provider
+    document.getElementById('root')
+})
+</pre>                        
+                    `
+                }
+
+
+
+
+
 
 
 
