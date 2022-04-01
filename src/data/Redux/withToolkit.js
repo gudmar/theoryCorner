@@ -50,7 +50,7 @@ let data =     {
                     ],
                     content: [
                         {
-                            [Symbol('title')]:'mapStateToProps',
+                            [Symbol('title')]:'configureStore',
                             [Symbol('code')]:`   
                             <div class="note">Simplest usage</div>
 <pre>
@@ -129,7 +129,7 @@ const store = configureStore({
 })
 </pre>                        
                             `,
-                            Function: '<span id="configureStore>configureStore</span>',
+                            Function: '<span id="configureStore">configureStore</span>',
                             Arguments: `
                             <ul>
                                 <li><code>reducer</code>: a single one, or an object of reducers,
@@ -144,9 +144,168 @@ const store = configureStore({
                             Description: `
                             Extended <code>createStore</code> function, capable of adding enhancers, middlware, devTools, more than one reducers to it.
                             `
-                        },           
+                        },     
+                        
+                        
+
+
+                        {
+                            [Symbol('title')]:'combineReducers',
+                            [Symbol('code')]:`   
+                            The <code>combineReducers</code> function checks if all reducers are valid, so a reducer to be valid has to:
+                            <ul>
+                                <li>Always return a state object</li>
+                                <li>Never return <code>undefined</code></li>
+                                <li>In case it does not handle a specific action type, has to return the same state (in this case not a new one)</li>
+                                <li>In all other cases the reducer has to return a new store object (a copy)</li>
+                            </ul>
+<pre>
+rootReducer = combineReducers({counter: counterReducer, toDos: toDosRecurcer})
+// now slaces will be named: counter and toDos,
+// Actions will be referred as: 'counter/add' or 'toDos/add'
+</pre>                        
+                            `,
+                            Function: '<span id="combineReducers">combineReducers</span>',
+                            Arguments: `
+                            <code>reducers</code>: an object having slice-names as keys, and reducer names as values,
+                            `,
+                            Returns: 'A root reducer',
+                            Description: `
+                            Checks if reducers can be merged to a single root reducer, and if so returns this root reducer. 
+                            Each fraction-reducer is a slice: a reducer for handling a single functionality in the application.
+                            It is easier to deal with slices than with a single huge instance.
+                            In case the returned root reducer is called, each fraction-reducer will be called with given set of arguments,
+                            and all give states will be merged,
+                            `
+                        },     
+                        
+
+
+                        {
+                            [Symbol('title')]:'createSlice',
+                            [Symbol('code')]:`
+                            <div class="note">counterSlice.js</div>
+<pre>
+import { createSlice } from '@reduxjs/toolkit'
+
+export const counterSlice = createSlice({
+    name: 'counter',
+    initialState: {value: 0},
+    reducers: {
+<div class="note note-warning warning">No need to worry about state copying, as Immer library takes care of everything</div>
+        increment: state => state.value += 1;
+        decrement: state => state.value -= 1;
+        setValue: (state, action) => state.value = action.payload;
+
+    }
+})
+
+export const { increment, decrement, setValue } = counterSLice.actions;
+export default counterSlice.reducer;
+</pre>                            
+                            <div class="note">toDosSlice.js</div>
+<pre>
+import { createSlice } from '@reduxjs/toolkit'
+
+export const toDosSlice = createSlice({
+    name: 'toDosSlice',
+    initialState: {list: []},
+    reducers: {
+        add: (state, action) => state.push(action.payload),
+        pop: (state, action) => state.pop(action.payload),
+        remove: (state, action) => state.splice(action.payload, 1),
+        edit: (state, action) => state = action.payload,
+    }
+})
+
+export const { add, pop, remove, edit } = toDosSlice.actions;
+export default toDosSlice.reducer;
+</pre>
+<div class="note">Now configure store</div>
+<pre>
+const store = configureStore({
+    counter,
+    toDos,
+})
+</pre>
+
+                            `,
+                            Function: '<span id="createSlice">createSlice</span>',
+                            Arguments: `
+                            <code>descriptor</code>: an object having:
+                            <ul>
+                                <li><code>name</code>: a slice name that is going to be a prefix in the action name,</li>
+                                <li><code>initialState</code>: the initial state that the slice has,</li>
+                                <li><code>reducers</code>: an object with keys being names of actions that may be pefrormed on the store/slice, and 
+                                values being <b>functions that modify original state</b>. No copying states here, as the <b>Immer library</b> 
+                                based on proxies takes care of returning the copy of original state</li>
+                            </ul>
+                            `,
+                            Returns: `<code>{ actions, reducer }</code> object, where <code>actions</code> is an object having keys that are names of 
+                            actions, and values actions themselves`,
+                            Description: `
+                            Creates a slice reducer and actions needed to modify state related to this reducer,
+                            `
+                        },     
+
+
                     ]
-                }     
+                },
+
+
+                {
+                    elementType: 'Headline-3',
+                    content: '<span id="provider">Providing the store</span>'
+                },
+
+                {
+                    elementType: 'Paragraph',
+                    content: `To provide the storage in an application tree (a component with all descendants), just wrap it in the <code>Provider</code>
+                    `
+                },
+                {
+                    elementType: 'SmallHeadline',
+                    content: 'Props'
+                },
+                {
+                    elementType: 'UnsignedList',
+                    content: [
+                        `<code>store</code>: the store instance that will be available in wrapped components,`,
+                        `<code>children</code>: ReactElements wrapped by the <code>Provider</code>, where the store will be available,`,
+                        `<code>context</code>: additionaly to the store, context can be provided by the <code>Provider</code>, but this context must be provided 
+                        to each connected component,`,
+                    ]
+                },
+                {
+                    elementType: 'Code',
+                    content: `
+<pre>
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+
+import { App } from './App';
+import store from './store.js';
+
+ReactDOM.render(
+    &lt;Provider store={store}>
+        &lt;App />
+    &lt;/Provider
+    document.getElementById('root')
+})
+</pre>                        
+                    `
+                }
+
+
+
+
+
+
+
+
+
+
 
             ]
         },
@@ -176,8 +335,27 @@ const store = configureStore({
                     elementType:'Link',
                     content:'redux-toolkit.js.org',
                     href: 'https://redux-toolkit.js.org/api/configureStore',
-                    description:'Tutorial'
+                    description:'Tutorial: configureStore'
                 },
+                {
+                    elementType:'Link',
+                    content:'redux-toolkit.js.org',
+                    href: 'https://redux.js.org/api/combinereducers',
+                    description:'Tutorial: combineReducers'
+                },
+                {
+                    elementType:'Link',
+                    content:'redux-toolkit.js.org',
+                    href: 'https://react-redux.js.org/tutorials/quick-start#what-youve-learned',
+                    description:'Tutorial: createSlice'
+                },
+                {
+                    elementType:'Link',
+                    content:'medium.com',
+                    href: 'https://medium.com/geekculture/understanding-createslice-in-redux-toolkit-reactjs-eca8d20f45d7',
+                    description:'createSlice'
+                },
+                
             ]
         }
     ]
