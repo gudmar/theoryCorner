@@ -144,7 +144,42 @@ const store = configureStore({
                             Description: `
                             Extended <code>createStore</code> function, capable of adding enhancers, middlware, devTools, more than one reducers to it.
                             `
-                        },           
+                        },     
+                        
+                        
+
+
+                        {
+                            [Symbol('title')]:'combineReducers',
+                            [Symbol('code')]:`   
+                            The <code>combineReducers</code> function checks if all reducers are valid, so a reducer to be valid has to:
+                            <ul>
+                                <li>Always return a state object</li>
+                                <li>Never return <code>undefined</code></li>
+                                <li>In case it does not handle a specific action type, has to return the same state (in this case not a new one)</li>
+                                <li>In all other cases the reducer has to return a new store object (a copy)</li>
+                            </ul>
+<pre>
+rootReducer = combineReducers({counter: counterReducer, toDos: toDosRecurcer})
+// now slaces will be named: counter and toDos,
+// Actions will be referred as: 'counter/add' or 'toDos/add'
+</pre>                        
+                            `,
+                            Function: '<span id="combineReducers>combineReducers</span>',
+                            Arguments: `
+                            <code>reducers</code>: an object having slice-names as keys, and reducer names as values,
+                            `,
+                            Returns: 'A root reducer',
+                            Description: `
+                            Checks if reducers can be merged to a single root reducer, and if so returns this root reducer. 
+                            Each fraction-reducer is a slice: a reducer for handling a single functionality in the application.
+                            It is easier to deal with slices than with a single huge instance.
+                            In case the returned root reducer is called, each fraction-reducer will be called with given set of arguments,
+                            and all give states will be merged,
+                            `
+                        },     
+
+
                     ]
                 }     
 
@@ -176,7 +211,13 @@ const store = configureStore({
                     elementType:'Link',
                     content:'redux-toolkit.js.org',
                     href: 'https://redux-toolkit.js.org/api/configureStore',
-                    description:'Tutorial'
+                    description:'Tutorial: configureStore'
+                },
+                {
+                    elementType:'Link',
+                    content:'redux-toolkit.js.org',
+                    href: 'https://redux.js.org/api/combinereducers',
+                    description:'Tutorial: combineReducers'
                 },
             ]
         }
