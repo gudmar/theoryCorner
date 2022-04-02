@@ -246,7 +246,43 @@ const store = configureStore({
                             Description: `
                             Creates a slice reducer and actions needed to modify state related to this reducer,
                             `
-                        },     
+                        },    
+                        
+                        
+
+                        {
+                            [Symbol('title')]:'bindActionCreators',
+                            [Symbol('code')]:`
+<pre>
+<div class="note">Instead of </div>
+const mapDispatchToProps = dispatch => {
+    return {
+        increase: () => {dispatch(counter.increase())},
+        decrease: () => {dispatch(counter.decrease())},
+        set: (value) => {dispatch(counter.set(action.payload))}
+    }
+}
+
+<div class="note">this may be done</div>
+const mapDispatchToProps = dispatch => (
+    {...bindActionCreeators(counterActions, dispatch)}
+)
+</pre>
+                            `,
+                            Function: '<span id="bindActionCreators">bindActionCreators</span>',
+                            Arguments: `
+                                <ul>
+                                    <li><code>actionCreators</code>
+                                    <li><code>dispatch</code>: the dispatch function that will be binded to the actionCreators</li>
+                                </ul>
+                            `,
+                            Returns: ``,
+                            Description: `
+                            Binds dispatch method with actions, so they may be used under props in a component that is unaware of redux. 
+                            This method may be used with <code>mapDispatchToProps</code>, but instead of manual construction of the whole 
+                            object, just action creators and dispatch function are passed,
+                            `
+                        },    
 
 
                     ]
@@ -295,12 +331,118 @@ ReactDOM.render(
 })
 </pre>                        
                     `
-                }
+                },
+
+
+                {
+                    elementType:'Headline-3',
+                    content: 'Hooks'
+                },
 
 
 
 
 
+                {
+                    elementType: 'ConditionalArray',
+                    headItems: [
+                        'Hook', 'Arguments', 'Returns', 'Description'
+                    ],
+                    content: [
+                        {
+                            [Symbol('title')]:'useSelector',
+                            [Symbol('code')]:`   
+<pre>
+import { useSelector } from 'react-redux';
+
+const SomeComponent = (props) => {
+    const someValue = useSelector(state => state.someValue);
+
+    return (
+        &lt;span>{someValue}&lt;/span>
+    )
+    // now every time someValue property of the store changes,
+    // the component will be updated,
+}
+</pre>
+                            `,
+                            Hook: '<span id="useSelector">useSelector</span>',
+                            Arguments: `
+                            <ul>
+                            <li><code>store => store[selector]</code>: a callback function taking the store object and returning the part of the 
+                            store,</li>
+                            <li><code>equalityFn</code></li>: optional, 
+                            `,
+                            Returns: 'Selected part of the store',
+                            Description: `
+                            Subscribes to the store, and if there is a change to the store, the returned value is updated,
+                            `
+                        },    
+                        
+                        
+
+
+
+                        {
+                            [Symbol('title')]:'useDispatch',
+                            [Symbol('code')]:`   
+<pre>
+import { useDispatch } from 'react-redux';
+
+const SomeComponent = (props) => {
+    const dispatch = useDispatch();
+
+    return (
+        &lt;button onClick={() => dispatch({type: 'buttonClicked})}>someButton&lt;button>
+    )
+    // now every time the button is clicked, the action is dispatched,
+    // The component has to be wrapped with the Provider for this to work
+}
+</pre>
+                            `,
+                            Hook: '<span id="useDispatch">useDispatch</span>',
+                            Arguments: ` - 
+                            `,
+                            Returns: 'The <code>dispatch</code> function,',
+                            Description: `
+                            Returns the <code>dispatch</code> function
+                            `
+                        }, 
+
+
+                        {
+                            [Symbol('title')]:'useStore',
+                            [Symbol('code')]:`   
+<pre>
+import { useStore } from 'react-redux';
+
+const SomeComponent = (props) => {
+    const store = useStore();
+
+    return (
+        &lt;div>{store.getState()}&lt;/div>
+    )
+<div class='note note-error error'>Do not use like this, there is the
+reference to the store, so value {store.getState()} will not update.
+Use <code>useSelector</code> instead</div>
+}
+</pre>
+                            `,
+                            Hook: '<span id="useStore">useStore</span>',
+                            Arguments: ` - 
+                            `,
+                            Returns: 'The reference to the original store',
+                            Description: `
+                            Returns the reference to the oryginal store. Returned value will not cause update,
+                            may be used to for example swap reducer,
+                            `
+                        }, 
+                        
+                        
+
+  
+                    ]
+                },
 
 
 
@@ -354,6 +496,26 @@ ReactDOM.render(
                     content:'medium.com',
                     href: 'https://medium.com/geekculture/understanding-createslice-in-redux-toolkit-reactjs-eca8d20f45d7',
                     description:'createSlice'
+                },
+                {
+                    elementType:'Link',
+                    content:'redux.js.org',
+                    href: 'https://redux.js.org/api/bindactioncreators',
+                    description:'bindActionCreators'
+                },
+
+                {
+                    elementType:'Link',
+                    content:'medium.com',
+                    href: 'https://medium.com/@kristenleach24/how-and-when-to-use-bindactioncreators-afe1f2d5f819',
+                    description:'bindActionCreators'
+                },
+
+                {
+                    elementType:'Link',
+                    content:'react-redux.js.org: hooks',
+                    href: 'https://react-redux.js.org/api/hooks',
+                    description:'React redux hooks'
                 },
                 
             ]
