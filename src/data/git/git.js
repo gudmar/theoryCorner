@@ -156,6 +156,7 @@ let data =     {
                         `<code>git pull</code>: update local master with remote repo,`,
                         `<code>checkout branchName</code>: back to work-branch,`,
                         `<code>git rebase master</code>`,
+                        `This approach keeps the source (master) history. All commits from master will be moved to our branch`,
                     ]
                 },
                 {
@@ -169,7 +170,57 @@ let data =     {
                         `<code>git pull</code>: update local master with remote repo,`,
                         `<code>checkout branchName</code>: back to work-branch,`,
                         `<code>git merge master</code>`,
+                        `Does not keep history from target branch`
                     ]
+                },
+                {
+                    elementType:'Code',
+                    content: `
+<pre>
+<div class="note">Starting point:</div>
+1. There is a master branch as a starting point with 2 commits:
+master:        A---B
+
+2. After <code>git checkout -b featureBranch</code> from master:
+master:        A---B
+featureBranch: A---B
+
+3. After the feature is implemented there are new commits to the master and featureBranch:
+master:        A---B---C---D---E---F---G
+featureBranch: A---B---c---d---e
+
+<div class="note">A. Merge approach:</div>
+1. <code>git checkout master</code>
+2. <code>git pull</code>
+3. <code>git checkout featureBranch</code>
+4. <code>git merge master</code>
+
+master:        A---B---C---D---E---F---G
+featureBranch: A---B---c---d---e---M*
+where M* is a merged version of G and e commits, so commits D, E, F are lost.
+Now there may be a situation that branches c, d, e and G work fine, but after merging G and e together,
+branch M has some bugs, thats source may lay in the D, E, F lost commits.
+
+
+<div class="note">A. Merge approach:</div>
+1. <code>git checkout master</code>
+2. <code>git pull</code>
+3. <code>git checkout featureBranch</code>
+4. <code>git rebase master</code>
+
+master:        A---B---C---D---E---F---G
+featureBranch: A---B---C---D---E---F---G---c'---d'---e'---M*
+
+featureBranch is being build on the top of current master branch. At the G (current master commit),
+there all conflicts need resolving, that is why commits c, d, e become c', d', e'.
+Now all commits are in the history of the current featureBranch, and in case something breaks it is easier 
+to track errors.
+
+
+
+
+</pre>                    
+                    `
                 },
                 {
                     elementType: 'Paragraph',
@@ -242,7 +293,7 @@ let data =     {
                     elementType: 'UnsignedList',
                     content: [
                         `<code>git remote add origin https://github.com/gudmar/somerepo.git</code>`,
-                        `<code>git remote -b</code>: check if I have push rights,`
+                        `<code>git remote -b</code>: check if I have push rights,`,
                         `<code>git remote set-url origin https://github.com/gudmar/somerepo.git</code>`,
                         `now <code>git push -u orign someBranch</code> can be used to push a repo to github. No remote ropository name has to be given.`
                     ]
