@@ -409,6 +409,34 @@ console.trace(obj)
                         },
 
 
+
+                        {
+                            [Symbol('title')]:'console.log()',
+                            [Symbol('code')]:`
+<pre>
+const obj = {a: 'a', b: 'b'};
+
+console.log('Some object' + obj);
+// Some object [object: Object] -> the obj is converted to the string with the 
+// toString method
+
+console.log('Some object', obj);
+// This will console log both: the string and the expandable object in one line
+</pre>                            
+                            `,
+                            Usage:`
+console.log(a[, b[, c[,...]]])
+                            `,
+                            Arguments:`
+                            Each argument may be an object, a primitive or a string.
+                            `,
+                            Description:`
+                            Will log argments to the console. May be used for a string and object logging in one line 
+                            (see examples)
+                            `,
+                        },
+
+
                         
                     ]
                 },
