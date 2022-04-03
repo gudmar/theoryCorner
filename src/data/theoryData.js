@@ -11,6 +11,7 @@ import { getTheoryDataScss } from './theoryDataScss';
 import { getTheoryDataPython } from './theoryDataPython';
 import { getTheoryDataPeggy } from './theoryDataPeggy';
 import {  getTheoryDataRedux } from './theoryDataRedux';
+import { getTheoryDataGit } from './theoryDataGit';
 
 
 
@@ -70,6 +71,10 @@ export function getTheoryData(){
             category: 'Peggy',
             content: getTheoryDataPeggy()
         },
+        {
+            category: 'Git',
+            content: getTheoryDataGit()
+        }
     ]
     return allData;
 }
