@@ -222,15 +222,15 @@ const logger = store => next => action => {
                 },
                 {
                     elementType:'Link',
-                    content:'Developer mozilla',
-                    href: ' ',
-                    description:'Tutorial'
+                    content:'redux.js.org',
+                    href: 'https://redux.js.org/usage/configuring-your-store#the-solution-configurestore',
+                    description:'Applying middleware and enhancers with createStore'
                 },
             ]
         }
     ]
 };
 
-export default function getTemplateData(){
+export default function getMiddlewareData(){
     return data;
 }
