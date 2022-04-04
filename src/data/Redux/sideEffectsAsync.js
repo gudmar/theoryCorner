@@ -29,22 +29,28 @@ let data =     {
                 {
                     elementType: 'ListOfContent',
                     content: [
-                        {id: 'sideEffects', title: 'sideEffects'},
-                        {id: 'middleware', title: 'Middleware'},
-                        {id: 'enhancers', title: 'Enhancers'},
-                        {id: 'AsyncAndPromises', title: 'Async and promises'},
-                        {id: 'gettingState', title: 'gettingState'},
+                        {id: 'thunkUnderHood', title: 'Thunks under hood'},
+                        {id: 'examplePosts', title: 'Example: getting posts from the server'},
+                        // a thunk function for getting, 
+                        // a reducer
+                        // a component
+                        // saving a post
+                        
                         // Middleware adds extra functionality to the Redux dispatch, 
                         // Enhancser adds extra functionality to the redux store
                         // https://stackoverflow.com/questions/67118933/redux-enhancer-example !!
 
                     ]
                 },
+                {
+                    elementType: 'NoteWarning',
+                    content: `A <code>thunk</code> &#127785; is a piece of code that is run with some delay.`
+                },
 
 
                 {
                     elementType: 'Headline-3',
-                    content: `<span id="middleware">Middleware</span>`
+                    content: `<span id="thunkUnderHood">Thunks under hood</span>`
                 },
                 {
                     elementType: 'UnsignedList',
@@ -53,53 +59,106 @@ let data =     {
                     ]
                 },
                 {
-                    elementType: 'Code',
-                    content: `
-<pre>
-const loggerMiddleware = storeAPI => next => action => {
-    console.log('dispatching', action)
-    let result = next(action)
-    console.log('next state', storeAPI.getState())
-    return result
-  }
-</pre>                    
-                    `
+                    elementType: 'HiddenCode',
+                    content: [
+                        {
+                            info: ``,
+                            code: ``
+                        }
+                    ]
+                    
                 },
-
-
 
 
                 {
                     elementType: 'Headline-3',
-                    content: `<span id="enhancers">Enhancers</span>`
+                    content: `<span id="examplePosts">Example: getting posts from the server</span>`
                 },
                 {
                     elementType: 'UnsignedList',
                     content: [
-                        `Enhancer takes a <code>createStore</code> function, and returns a new function that creates the store and does something more.
-                        In other words it works similar to the decorator pattern, where <code>createStore</code> is wrapped in a function,`,
-                        `Enhancers extend store, state logic,`,
-                        `In particular there is the <code>applyMiddleware</code> enhancer, that is capable of adding extre functionalities to the 
-                        <code>dispatch</code> method, and is used to apply middleware in the <code>createStore</code> function.`
+                        `Middleware extend <code>dispatch</code> functionality.`
                     ]
                 },
-                
                 {
-                    elementType: 'Code',
-                    content: `
+                    elementType: 'HiddenCode',
+                    content: [
+                        {
+                            info: `A middleware that accepts a function as a payload, runs that function, and dispatches action based on this function
+                            returned value:`,
+                            code: `
+If action is a function run this function passing <code>dispatch</code> and <code>getState</code> funcitons. Otherwise return the modified 
+dispatch (<code>next</code>) function
 <pre>
-const ourAwesomeEnhancer = createStore => (reducer, initialState, enhancer) => {
-    const store = createStore(monitoredReducer, initialState, enhancer);
-    //  enhancer logic
-  
-    return {
-      ...store
-      //   override the some store properties or add new ones
-    };
-  };
-</pre>                    
-                    `
+const asyncFunctionMiddleware = store => next => action => {
+    if (typeof action === 'function') {
+        return action(store.dispatch, store.getState)
+    }
+    return next(action)
+}
+</pre>                        
+                            `
+                        },
+
+                        {
+                            info: `The function that will be passed to the dispatch function. An async function fetching something from the server`,
+                            code: `
+<pre>
+const fetchSomeData = (dispatch, getState) => {
+    client.get('someEndpoint').then(result => {
+        dispatch({type:"sliceName/action", payload: result})
+    })
+}
+
+const reducer = (store, action) => {
+    //.... reducers body
+}
+</pre>
+                            `
+                        },
+
+                        {
+                            info: `The component using the function`,
+                            code: `
+<pre>
+import {fetchSomeData, reducer} from './reducers.js'
+
+const SomeComponent = (props) => {
+    const [data, setData] = useState({});
+    const dispatch = useDispatch();
+    const store = useStore();
+    useEffect(() => {setData(fetchSomeData())}, [])
+    return (
+        &lt;>&lt;/>
+    )
+}
+</pre>
+                            `
+                        },
+
+                        {
+                            info: `Sending some data to the server:`,
+                            code: `
+<pre>
+
+const sendData = (data, endpoint) => (dispatch, getState) => {
+    return sendData = async (dispatch, getState) => {
+        const response = await client.post(endpoint, data)
+        dispatch({type: 'serverRequests/send', payload: response.someResult})
+    }
+}
+
+</pre>
+                            `
+                        },
+                    ]
+                    
                 },
+
+
+
+
+
 
 
 
@@ -129,14 +188,8 @@ const ourAwesomeEnhancer = createStore => (reducer, initialState, enhancer) => {
                 },
                 {
                     elementType:'Link',
-                    content:'stackoverflow',
-                    href: 'https://stackoverflow.com/questions/67118933/redux-enhancer-example',
-                    description:'Example of an enhancer'
-                },
-                {
-                    elementType:'Link',
                     content:'redux.js',
-                    href: 'https://redux.js.org/usage/configuring-your-store#the-solution-configurestore',
+                    href: 'https://redux.js.org/tutorials/fundamentals/part-6-async-logic#redux-middleware-and-side-effects',
                     description:'Tutorial'
                 },
             ]

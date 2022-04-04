@@ -88,6 +88,13 @@ const ourAwesomeEnhancer = createStore => (reducer, initialState, enhancer) => {
                     description:'Applying middleware and enhancers with createStore'
                 },
 
+                {
+                    elementType:'Link',
+                    content:'stackoverflow',
+                    href: 'https://stackoverflow.com/questions/67118933/redux-enhancer-example',
+                    description:'Example of an enhancer'
+                },
+
             ]
         }
     ]
