@@ -157,6 +157,8 @@ let data =     {
                         `<code>checkout branchName</code>: back to work-branch,`,
                         `<code>git rebase master</code>`,
                         `This approach keeps the source (master) history. All commits from master will be moved to our branch`,
+                        `<code>git push -f</code>: <b>note</b>, as history changed, it will not be possible to push changes to the remote repo without the 
+                        <code>-f</code> flag.`,
                     ]
                 },
                 {
@@ -250,7 +252,9 @@ to track errors.
                         `<code>git push origin myBranch</code> will work only if the remote repo is configured (see adding remote repo)`,
                         `<code>git push origin myBranch nameOfRemoteRepo</code>`,
                         `<code>git push --set-upstream origin master</code> === <code>git push -u origin master</code> - 
-                        thanks to this this upstream or u origin master will not have to be written, and later only <code>git push branch</code> will do`    
+                        thanks to this this upstream or u origin master will not have to be written, and later only <code>git push branch</code> will do`,
+                        `<code>git push -f</code>: should do, without branch name or remote repo. This should work for the current branch and currently set
+                        remote repo.`
                     ]
                 },
 

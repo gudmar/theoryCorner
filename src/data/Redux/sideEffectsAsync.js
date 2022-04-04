@@ -55,36 +55,14 @@ let data =     {
                 {
                     elementType: 'UnsignedList',
                     content: [
-                        `Middleware extend <code>dispatch</code> functionality.`
+                        `Middleware extends <code>dispatch</code> functionality.`
                     ]
                 },
                 {
                     elementType: 'HiddenCode',
                     content: [
                         {
-                            info: ``,
-                            code: ``
-                        }
-                    ]
-                    
-                },
-
-
-                {
-                    elementType: 'Headline-3',
-                    content: `<span id="examplePosts">Example: getting posts from the server</span>`
-                },
-                {
-                    elementType: 'UnsignedList',
-                    content: [
-                        `Middleware extend <code>dispatch</code> functionality.`
-                    ]
-                },
-                {
-                    elementType: 'HiddenCode',
-                    content: [
-                        {
-                            info: `A middleware that accepts a function as a payload, runs that function, and dispatches action based on this function
+                            info: `A middleware that accepts a function as an action, runs that function, and dispatches the real action, based on this function
                             returned value:`,
                             code: `
 If action is a function run this function passing <code>dispatch</code> and <code>getState</code> funcitons. Otherwise return the modified 
@@ -154,6 +132,29 @@ const sendData = (data, endpoint) => (dispatch, getState) => {
                     ]
                     
                 },
+
+
+
+                {
+                    elementType: 'Headline-3',
+                    content: `<span id="examplePosts">Example: getting posts from the server</span>`
+                },
+
+                {
+                    elementType: 'HiddenCode',
+                    content: [
+                        {
+                            info: `File structure:`,
+                            code: `
+<pre>
+
+</pre>                            
+                            `
+                        }
+                    ]
+                    
+                },
+
 
 
 
