@@ -226,6 +226,13 @@ const logger = store => next => action => {
                     href: 'https://redux.js.org/usage/configuring-your-store#the-solution-configurestore',
                     description:'Applying middleware and enhancers with createStore'
                 },
+                {
+                    elementType:'Link',
+                    content:'redux.js.org',
+                    href: 'https://redux.js.org/understanding/history-and-design/middleware',
+                    description:`About middleware: very good explanation of where chain approach with nested functions took from. My article is 
+                    a dygested version of this one.`
+                },
             ]
         }
     ]
