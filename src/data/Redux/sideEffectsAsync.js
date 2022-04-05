@@ -332,7 +332,59 @@ export default App;
                     elementType: 'HiddenCode',
                     content: [
                         {
-                            info: `File structure:`,
+                            info: `Including <code>thunkMiddleware</code> in the project`,
+                            code: `
+                            <ul>
+                                <li><code>npm install redux-thunk</li>
+                                <li><code>include thunkMiddleware from 'redux-thunk'</code></li>
+                                <li><code>const store = createStore(reducer, initialState, applyMiddleware(thunkMiddleware))</li>
+                            </ul>`
+                        },
+                        {
+                            info: `A thunk is a function, that makes it possible to separate logic from view layer. They are functions that take 
+                            <code>dispatch</code> and <code>getState</code> functions, and that may dispatch an action, make async actions, and may (or may not)
+                            return something. Thunk-functions are dispatched in components code, and then handled by the <code>thunkMiddleware</code>.
+                            Using thunks makes it easier to test logic, as only a function needs testing,`,
+                            code: `                        
+<pre>
+const thunkFunction = async (dispatch, getStore) => {
+    const store = getStore(); //accessing the store,
+    const data = await fetch('/api/endpoint).then(
+        res => dispatch({ type: 'action/type', payload: res.json() }),
+        rej => dispatch({ type: 'action/dataFailed', payload: rej})
+    )
+}
+</pre>`
+                        },
+                        {
+                            info: `Thunk creators: a thunk-function from previous example may be written in a more generic way:`,
+                            code: `
+<pre>
+const getData = (endpoint, actionTypeSuccess, actionTypeFail) => async (dispatch, getStore) => {
+    const data = await fetch(endpoint).then(
+        res => dispatch({ type: actionTypeSuccess, payload: res.json()}),
+        rej => dispatch({ type: actionTypeFail, payload: rej })
+    )
+}
+
+<div class="note">And usage:</div>
+const MyComponent = (props) => {
+    const dispatch = useDispatch();
+    const storeSlice = useSelector(store => store.slice)
+    useEffect(() => getData(URL + 'dataLocation', 'addDataToComponent', 'displayError'))
+    return (
+        &lt;ul>{data.map(item => &lt;li>{item}&lt;/li>)}&lt;/ul>
+    )
+}
+</pre>
+                            `
+                        },
+
+                        
+
+
+                        {
+                            info: `<code>createAsyncThunk</code>`,
                             code: `
 <pre>
 </pre>`
@@ -341,8 +393,6 @@ export default App;
 
 
 
-
-                        
                     ]
                 }
 
@@ -377,6 +427,12 @@ export default App;
                     content:'redux.js',
                     href: 'https://redux.js.org/tutorials/fundamentals/part-6-async-logic#redux-middleware-and-side-effects',
                     description:'Tutorial'
+                },
+                {
+                    elementType:'Link',
+                    content:'redux.js',
+                    href: 'https://redux.js.org/usage/writing-logic-thunks',
+                    description:'Logic with thunks'
                 },
             ]
         }

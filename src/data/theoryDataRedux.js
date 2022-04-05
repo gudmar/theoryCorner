@@ -5,6 +5,7 @@ import getStoreSubscribeData from './Redux/storeSubscribe.js';
 import getReduxToolkitData from './Redux/withToolkit';
 import getMiddlewareData from './Redux/middleware';
 import getEnhancersData from './Redux/enhancers.js';
+import getReduxDevToolsData from './Redux/devTools.js';
 console.error('Start HERE:')
 // useSelector: is a huck mapping state to 'props': https://levelup.gitconnected.com/react-redux-hooks-useselector-and-usedispatch-f7d8c7f75cdd
 // const currentUser = useSelector(state => state.currentUser 
@@ -44,6 +45,7 @@ let theoryDataRedux = [
     getReduxToolkitData(),
     getMiddlewareData(),
     getEnhancersData(),
+    getReduxDevToolsData(),
 
 
 ]
