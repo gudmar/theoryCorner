@@ -159,6 +159,10 @@ let data =     {
                         `This approach keeps the source (master) history. All commits from master will be moved to our branch`,
                         `<code>git push -f</code>: <b>note</b>, as history changed, it will not be possible to push changes to the remote repo without the 
                         <code>-f</code> flag.`,
+                        `<code>git rebase</code> goes with conflict resolving through all branches from the earliest where conflicts occure. If there are 
+                        30 branches difference between target and current branch, conflicts in all 30 branches have to be resolved,`,
+                        `In case rebase is executed, the project is not at any explicid branch. Instead it is between branches, and if needed, has to be 
+                        aborted with <code>git rebase --abort</code>`
                     ]
                 },
                 {
@@ -172,7 +176,9 @@ let data =     {
                         `<code>git pull</code>: update local master with remote repo,`,
                         `<code>checkout branchName</code>: back to work-branch,`,
                         `<code>git merge master</code>`,
-                        `Does not keep history from target branch`
+                        `Does not keep history from target branch`,
+                        `When conflicts are resolved, and there is need to bo back to the branch with unresolved conflicts, <code>git merge --abort</code>
+                        or <code>git reset --merge</code> may be used,`,
                     ]
                 },
                 {
