@@ -3,7 +3,7 @@ let data =     {
     summary: 'redux side effects',
     title: 'redux side effects',
     searchKeywords:`
-
+    thunk async redux await promise fetch middleware
     `,
     cathegory: 'redux',
     content: [
@@ -31,6 +31,7 @@ let data =     {
                     content: [
                         {id: 'thunkUnderHood', title: 'Thunks under hood'},
                         {id: 'examplePosts', title: 'Example: getting posts from the server'},
+                        {id: 'thunks', title: 'Build in thunks'},
                         // a thunk function for getting, 
                         // a reducer
                         // a component
@@ -208,8 +209,8 @@ const postDataToServer = (data, endpoint) => (dispatch, getState) => {
         body: JSON.stringify(data)
     } ).then(response => {
         dispatch(showMessage('Data send successfully', 1000));
-        dispatch({type: 'posts/sendSuccess', payload: response})
     }).catch(err => {
+        dispatch(showMessage('Post was not saved on the server', 1500));
         throw new Error(err)
     })
 }
@@ -245,11 +246,11 @@ const reducer = (state, action) => {
     switch (action.payload) {
         case 'posts/placeAllContent':
             return { ...state, posts: action.payload }
-        case 'posts/postContent':
-            const postFunction = postDataToServer(action.payload, 'post/content');
-            return state;
         case 'posts/inform':
             return { ...state, info: action.payload }
+        case 'posts/addLocal':
+            const newContent = [ ...state.content, action.payload ];
+            return { ...state, content: newContent};
         case 'posts/cancelMessage':
             return { ...state, info: null }
         default: return state;
@@ -269,11 +270,12 @@ export { reducer, initialState }
                             code: `
 <pre>                            
 import { thunkHandler, getDataFromServer, putDataToServer } from './middleware.js';
+import { useRef, useEffect } from "react";
 
 const Posts = props => {
     const dispatch = useDispatch();
-    const posts = useSlice(store => store.posts.content);
-    const message = useSlice(store => store.posts.info);
+    const posts = useSelector(store => store.posts.content);
+    const message = useSelector(store => store.posts.info);
     cosnt ref = useRef();
     useEffect(() => {
         cosnt fetchFunction = getDataFromServer('/get/posts', 'posts/placeAllContent');
@@ -283,6 +285,7 @@ const Posts = props => {
     const postPost = () => {
         const sendToServer = postDataToServer(ref.current.value, '/post/info')
         dispatch(sendToServer);
+        dispatch({type: 'posts/addLocal', payload: ref.current.value})
     }
 
     const allPosts = postList => &lt;ul>
@@ -303,13 +306,13 @@ export default Posts;
                             `
                         },
                         {
-                            info: `index.js`,
+                            info: `App.js`,
                             code: `
 <pre>
 import Posts from './components/posts/posts.js'
-import { App } from './App';
 
 const App = () => &lt;Posts/>
+export default App;
 
 </pre>                            
                             `
@@ -320,10 +323,28 @@ const App = () => &lt;Posts/>
                 },
 
 
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="thunks">Build in thunks</span>'
+                },
+
+                {
+                    elementType: 'HiddenCode',
+                    content: [
+                        {
+                            info: `File structure:`,
+                            code: `
+<pre>
+</pre>`
+                        },
 
 
 
 
+
+                        
+                    ]
+                }
 
 
 
