@@ -36,6 +36,7 @@ let data =     {
                         {id: 'connect', title: 'connect()'},
                         {id: 'mapStateToProps', title: 'mapStateToProps(state, ownProps?) => Object'},
                         {id: 'mapDispatchToProps', title: 'mapDispatchToProps?: Object | (dispatch, ownProps?) => Object'},
+                        {id: 'bindActionCreators', title: 'bindActionCreators'},
                         {id: 'storeConnection', title: 'Connecting a component to the store'},
                         {id: 'subscribe', title: '<code>subscribe</code> instead of <code>connect</code>'},
                         {id: 'settingStore', title: 'Setting the store'},
@@ -323,7 +324,51 @@ is required, this function should return desired object</div>
 
                     ]
                 },
- 
+
+                
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="bindActionCreators"><code>bindActionCreators</code></span>'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`Used together with <code>mapDispatchToProps</code>, an easier and faster way to bind action functions with dispatch method:`
+                },
+                {
+                    elementType:'Code',
+                    content:`
+<pre>
+
+const counterActions = {
+    increment: = () => ({type: 'counter/add', payload: 1}),
+    decrement: = () => ({type: 'counter/add', payload: -1}),
+    incrementByValue = (value) = ({type: 'counter/add, payload: value}),
+    decrementByValue = (value) = ({type: 'counter/add, payload: -value}),
+    reset = () => ({type: 'counter/set', payload: 0}),
+    set = (value) => ({type: 'counter/set', payload: value})
+}
+</pre>
+
+<div class="note">Without <code>bindActionCreators</code></div>
+const mapDispatchToProps = (dispatch) => {
+    return {
+        increment: () => dispatch(increment),
+        decrement: () => dispatch(decrement),
+        incrementByValue: value => dispatch(incrementByValue(value)),
+        decrementByValue: value => dispatch(decrementByValue(value)),
+        reset: value => dispatch(reset()),
+        set: value => dispatch(set()),
+    }
+}
+
+<div class="note">With <code>bindActionCreators</code></div>
+
+const mapDispatchToProps = (dispatch) => mapActionCreators(counterActions, dispatch)
+
+</pre>                    
+                    `
+                },
+
 
 
                 {
@@ -397,6 +442,17 @@ const SomeComponent = (props) => {
 }
 </pre>
                     `
+                },
+
+
+                {
+                    elementType:'Headline-3',
+                    content:'<span id="subscribe"><code>subscribe</code> instead for <code>connect</code></span>'
+                },
+                {
+                    elementType:'Paragraph',
+                    content:`<code>connect</code> is better, because of handling some performance issues, however there is an option to 
+                    use a <code>subscribe</code> function`
                 },
 
 
