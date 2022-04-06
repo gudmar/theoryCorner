@@ -536,6 +536,12 @@ export {rootReducer, oldStore}
                     href: 'https://blog.logrocket.com/react-redux-connect-when-and-how-to-use-it-f2a1edab2013/',
                     description:'Proper usage of connect function. Examples.'
                 },
+                {
+                    elementType:'Link',
+                    content:'medium.com',
+                    href: 'https://medium.com/@kristenleach24/how-and-when-to-use-bindactioncreators-afe1f2d5f819',
+                    description:'bindActionCreators description and usage'
+                },
             ]
         }
     ]
