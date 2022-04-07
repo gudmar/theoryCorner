@@ -277,7 +277,8 @@ to track errors.
                         `<code>git reset file</code> will remove all stagged changes from certain file,`,
                         `<code>git reset HEAD~1</code> will remove wll changes made after commit -1, so 1 after head,`,
                         '<code>git log</code> lists all commits from latest to first',
-                        `<code>git reset d65f7s65df876s5df76as</code> will drop all chagnes made to repository after commit wiht certain hash number`
+                        `<code>git reset d65f7s65df876s5df76as</code> will drop all chagnes made to repository after commit wiht certain hash number`,
+                        `Just removing an unwanted branch after merge: <code>git branch -d branchName</code>,`,
                     ]
                 },
 
