@@ -184,6 +184,12 @@ rootReducer = combineReducers({counter: counterReducer, toDos: toDosRecurcer})
                         {
                             [Symbol('title')]:'createSlice',
                             [Symbol('code')]:`
+                            <ul>
+                            <li><code>createSlice</code> uses Immer library, that detects changes to the state and makes the state change without mutating it, 
+                            so not need to worry about immutability</li>
+                            <li>The function in the <code>reducers</code> section of the <code>createSlice</code> should either <b>return a new state</b>
+                            or <b>mutate existing one</b>, but <b>never both</b> at the same time, as this will cause an error</li>
+                            </ul>
                             <div class="note">counterSlice.js</div>
 <pre>
 import { createSlice } from '@reduxjs/toolkit'
@@ -516,6 +522,13 @@ Use <code>useSelector</code> instead</div>
                     content:'react-redux.js.org: hooks',
                     href: 'https://react-redux.js.org/api/hooks',
                     description:'React redux hooks'
+                },
+
+                {
+                    elementType:'Link',
+                    content:'redux-toolkit',
+                    href: 'https://redux-toolkit.js.org/usage/immer-reducers',
+                    description:'Immer library usage'
                 },
                 
             ]
