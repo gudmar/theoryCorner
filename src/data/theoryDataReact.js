@@ -1,6 +1,7 @@
 import getReactLifecycleData from "./react/lifecycleMethods";
 import getHooksData from "./react/hooks";
 import getStylingReactData from "./react/stylingInReact";
+import getReactInstallationData from "./react/installation";
 
 // Component communication - pulling states, redux, mediator, useContext
 // Routes
@@ -18,6 +19,7 @@ let theoryDataReact = [
     getHooksData(),
     getReactLifecycleData(),
     getStylingReactData(),
+    getReactInstallationData(),
     {
         summary: 'position',
         title: 'position',
